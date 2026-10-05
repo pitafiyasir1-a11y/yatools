@@ -126,7 +126,7 @@ export default function ImageToTextClient() {
   const wordCount = result.trim() ? result.trim().split(/\s+/).length : 0;
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -144,9 +144,9 @@ export default function ImageToTextClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -174,7 +174,7 @@ export default function ImageToTextClient() {
 
       <div
         className="notice"
-        style={{ marginTop: 16, borderColor: "var(--ink)" }}
+        style={{ marginTop: 16, borderColor: "var(--line)" }}
         role="note"
       >
         <strong>How this works:</strong> the first run downloads the OCR engine (about 10&nbsp;MB)
@@ -193,14 +193,14 @@ export default function ImageToTextClient() {
             }}
           >
             <div>
-              <span className="neu-label">Your image</span>
+              <span className="field-label">Your image</span>
               <img
                 src={imgUrl}
                 alt="Uploaded preview"
                 style={{
                   maxWidth: "100%",
                   maxHeight: 260,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                   background: "var(--surface)",
@@ -214,7 +214,7 @@ export default function ImageToTextClient() {
               </p>
             </div>
             <div>
-              <span className="neu-label">Extracted text</span>
+              <span className="field-label">Extracted text</span>
               {phase === "working" ? (
                 <div className="result-box" style={{ padding: 20 }}>
                   <p style={{ fontWeight: 700, marginBottom: 10 }}>{status}</p>
@@ -224,7 +224,7 @@ export default function ImageToTextClient() {
                     aria-valuemax={100}
                     aria-valuenow={Math.round(progress * 100)}
                     style={{
-                      border: "2.5px solid var(--ink)",
+                      border: "1px solid var(--line)",
                       borderRadius: 999,
                       height: 22,
                       overflow: "hidden",
@@ -250,7 +250,7 @@ export default function ImageToTextClient() {
               ) : result ? (
                 <>
                   <textarea
-                    className="neu-textarea neu-input-mono"
+                    className="textarea input input-mono"
                     style={{ minHeight: 220 }}
                     value={result}
                     onChange={(e) => setResult(e.target.value)}
@@ -288,7 +288,7 @@ export default function ImageToTextClient() {
               >
                 <button
                   type="button"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                   onClick={extract}
                   disabled={phase === "working"}
                 >
@@ -300,12 +300,12 @@ export default function ImageToTextClient() {
                 </button>
                 {result && phase !== "working" && (
                   <>
-                    <button type="button" className="neu-btn neu-btn-sm" onClick={copyResult}>
+                    <button type="button" className="btn btn-sm" onClick={copyResult}>
                       {copied ? "Copied!" : "Copy text"}
                     </button>
                     <button
                       type="button"
-                      className="neu-btn neu-btn-sm"
+                      className="btn btn-sm"
                       onClick={() => {
                         setResult("");
                         setPhase("idle");

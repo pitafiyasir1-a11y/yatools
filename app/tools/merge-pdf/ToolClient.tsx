@@ -105,7 +105,7 @@ export default function MergePdfClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -119,7 +119,7 @@ export default function MergePdfClient() {
       />
       <button
         type="button"
-        className="neu-btn neu-btn-primary"
+        className="btn btn-primary"
         onClick={() => inputRef.current?.click()}
         style={{ width: "100%" }}
       >
@@ -138,7 +138,7 @@ export default function MergePdfClient() {
               onDragStart={() => (dragIdx.current = i)}
               onDragOver={(e) => e.preventDefault()}
               onDrop={onDrop(i)}
-              className="neu-card"
+              className="card"
               style={{
                 padding: "10px 12px",
                 marginBottom: 10,
@@ -162,7 +162,7 @@ export default function MergePdfClient() {
                   borderRadius: 8,
                   background: "var(--red)",
                   color: "#fff",
-                  border: "2px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   fontSize: "1.05rem",
                 }}
               >
@@ -187,7 +187,7 @@ export default function MergePdfClient() {
               <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => move(i, -1)}
                   disabled={i === 0}
                   aria-label={`Move ${item.name} up`}
@@ -196,7 +196,7 @@ export default function MergePdfClient() {
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => move(i, 1)}
                   disabled={i === items.length - 1}
                   aria-label={`Move ${item.name} down`}
@@ -205,7 +205,7 @@ export default function MergePdfClient() {
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => setItems((prev) => prev.filter((p) => p.id !== item.id))}
                   aria-label={`Remove ${item.name}`}
                 >
@@ -220,7 +220,7 @@ export default function MergePdfClient() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", marginTop: 18 }}>
         <button
           type="button"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={merge}
           disabled={merging || items.length < 2}
         >
@@ -237,7 +237,7 @@ export default function MergePdfClient() {
         <div className="notice notice-ok" style={{ marginTop: 16 }}>
           <strong>Merged successfully.</strong> {result.pages} page{result.pages === 1 ? "" : "s"} combined into{" "}
           <code className="font-mono2" style={{ fontSize: "0.85em" }}>{result.name}</code>.{" "}
-          <a href={result.url} download={result.name} className="neu-btn neu-btn-sm" style={{ marginLeft: 8 }}>
+          <a href={result.url} download={result.name} className="btn btn-sm" style={{ marginLeft: 8 }}>
             Download merged PDF
           </a>
         </div>

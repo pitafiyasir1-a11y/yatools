@@ -162,7 +162,7 @@ export default function ImageToPdfClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -176,7 +176,7 @@ export default function ImageToPdfClient() {
       />
       <button
         type="button"
-        className="neu-btn neu-btn-primary"
+        className="btn btn-primary"
         onClick={() => inputRef.current?.click()}
         style={{ width: "100%" }}
       >
@@ -196,7 +196,7 @@ export default function ImageToPdfClient() {
           }}
         >
           {items.map((item, i) => (
-            <div key={item.id} className="neu-card" style={{ padding: 8, background: "var(--surface)" }}>
+            <div key={item.id} className="card" style={{ padding: 8, background: "var(--surface)" }}>
               <img
                 src={item.dataUrl}
                 alt={item.name}
@@ -225,7 +225,7 @@ export default function ImageToPdfClient() {
               <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => move(i, -1)}
                   disabled={i === 0}
                   aria-label="Move earlier"
@@ -234,7 +234,7 @@ export default function ImageToPdfClient() {
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => move(i, 1)}
                   disabled={i === items.length - 1}
                   aria-label="Move later"
@@ -243,7 +243,7 @@ export default function ImageToPdfClient() {
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => setItems((prev) => prev.filter((p) => p.id !== item.id))}
                   aria-label={`Remove ${item.name}`}
                   style={{ marginLeft: "auto" }}
@@ -265,10 +265,10 @@ export default function ImageToPdfClient() {
         }}
       >
         <div>
-          <label className="neu-label" htmlFor="ip-size">Page size</label>
+          <label className="field-label" htmlFor="ip-size">Page size</label>
           <select
             id="ip-size"
-            className="neu-select"
+            className="select"
             value={pageSize}
             onChange={(e) => setPageSize(e.target.value as PageSize)}
           >
@@ -278,10 +278,10 @@ export default function ImageToPdfClient() {
           </select>
         </div>
         <div>
-          <label className="neu-label" htmlFor="ip-orient">Orientation</label>
+          <label className="field-label" htmlFor="ip-orient">Orientation</label>
           <select
             id="ip-orient"
-            className="neu-select"
+            className="select"
             value={orientation}
             onChange={(e) => setOrientation(e.target.value as Orientation)}
             disabled={pageSize === "fit"}
@@ -292,10 +292,10 @@ export default function ImageToPdfClient() {
           </select>
         </div>
         <div>
-          <label className="neu-label" htmlFor="ip-margin">Margin</label>
+          <label className="field-label" htmlFor="ip-margin">Margin</label>
           <select
             id="ip-margin"
-            className="neu-select"
+            className="select"
             value={margin}
             onChange={(e) => setMargin(e.target.value as Margin)}
             disabled={pageSize === "fit"}
@@ -311,7 +311,7 @@ export default function ImageToPdfClient() {
 
       <button
         type="button"
-        className="neu-btn neu-btn-primary"
+        className="btn btn-primary"
         onClick={build}
         disabled={building || items.length === 0}
         style={{ marginTop: 18 }}

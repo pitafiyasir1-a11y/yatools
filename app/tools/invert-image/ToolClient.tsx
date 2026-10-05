@@ -115,7 +115,7 @@ export default function InvertImageClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -133,9 +133,9 @@ export default function InvertImageClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -172,14 +172,14 @@ export default function InvertImageClient() {
             }}
           >
             <div>
-              <span className="neu-label">Before</span>
+              <span className="field-label">Before</span>
               <img
                 src={imgUrl}
                 alt="Original preview"
                 style={{
                   maxWidth: "100%",
                   maxHeight: 240,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                   background: "var(--surface)",
@@ -193,7 +193,7 @@ export default function InvertImageClient() {
               </p>
             </div>
             <div>
-              <span className="neu-label">After — inverted</span>
+              <span className="field-label">After — inverted</span>
               {result ? (
                 <img
                   src={result.url}
@@ -201,7 +201,7 @@ export default function InvertImageClient() {
                   style={{
                     maxWidth: "100%",
                     maxHeight: 240,
-                    border: "2.5px solid var(--ink)",
+                    border: "1px solid var(--line)",
                     borderRadius: 12,
                     display: "block",
                     background: "var(--surface)",
@@ -242,7 +242,7 @@ export default function InvertImageClient() {
           )}
 
           <div style={{ marginTop: 18 }}>
-            <span className="neu-label">Download format</span>
+            <span className="field-label">Download format</span>
             <div
               style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
               role="group"
@@ -252,7 +252,7 @@ export default function InvertImageClient() {
                 <button
                   key={f.id}
                   type="button"
-                  className={`neu-btn neu-btn-sm${format === f.id ? " neu-btn-primary" : ""}`}
+                  className={`btn btn-sm${format === f.id ? " btn-primary" : ""}`}
                   aria-pressed={format === f.id}
                   onClick={() => {
                     setFormat(f.id);
@@ -276,14 +276,14 @@ export default function InvertImageClient() {
           >
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={invert}
               disabled={working || !orig}
             >
               {working ? "Inverting…" : "Invert colors"}
             </button>
             {result && (
-              <a href={result.url} download={result.name} className="neu-btn">
+              <a href={result.url} download={result.name} className="btn">
                 Download {result.name}
               </a>
             )}

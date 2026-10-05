@@ -83,23 +83,23 @@ export default function JsonFormatterClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
-        <button type="button" className="neu-btn neu-btn-primary neu-btn-sm" onClick={() => run("format")}>
+        <button type="button" className="btn btn-primary btn-sm" onClick={() => run("format")}>
           Format
         </button>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => run("minify")}>
+        <button type="button" className="btn btn-sm" onClick={() => run("minify")}>
           Minify
         </button>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => run("validate")}>
+        <button type="button" className="btn btn-sm" onClick={() => run("validate")}>
           Validate
         </button>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => setInput(SAMPLE)}>
+        <button type="button" className="btn btn-sm" onClick={() => setInput(SAMPLE)}>
           Load sample
         </button>
         <button
           type="button"
-          className="neu-btn neu-btn-sm"
+          className="btn btn-sm"
           onClick={() => {
             setInput("");
             setOutput("");
@@ -112,12 +112,12 @@ export default function JsonFormatterClient() {
         </button>
       </div>
 
-      <label className="neu-label" htmlFor="json-input">
+      <label className="field-label" htmlFor="json-input">
         JSON input
       </label>
       <textarea
         id="json-input"
-        className="neu-textarea neu-input-mono"
+        className="textarea input input-mono"
         style={{ minHeight: 190 }}
         placeholder='Paste JSON here, e.g. {"hello": "world"}'
         value={input}
@@ -168,10 +168,10 @@ export default function JsonFormatterClient() {
               marginBottom: 10,
             }}
           >
-            <p className="neu-label" style={{ margin: 0 }}>
+            <p className="field-label" style={{ margin: 0 }}>
               Result ({output.length.toLocaleString()} characters)
             </p>
-            <button type="button" className="neu-btn neu-btn-sm" onClick={copy}>
+            <button type="button" className="btn btn-sm" onClick={copy}>
               {copied ? "Copied!" : "Copy result"}
             </button>
           </div>
