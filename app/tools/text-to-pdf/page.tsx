@@ -23,7 +23,7 @@ const tool = toolBySlug("text-to-pdf")!;
 export const metadata = pageMeta({
   title: "Free Text to PDF — Convert Text to PDF Online",
   description:
-    "Convert text to PDF free in your browser. Headings, font sizes, and alignment — no uploads, no watermarks, no sign-up. Download instantly.",
+    "Convert text to PDF free in your browser. Formatting toolbar with headings, bold, italic, alignment, bullet lists, and a live preview — no uploads, no watermarks, no sign-up.",
   path: "/tools/text-to-pdf",
   keywords: [
     "text to pdf converter free",
@@ -31,25 +31,30 @@ export const metadata = pageMeta({
     "text to pdf no watermark",
     "make pdf from text",
     "online pdf maker free",
+    "text to pdf with formatting",
   ],
 });
 
 const faqs = [
   {
     q: "How do I turn text into a PDF here?",
-    a: "Paste or type your text, optionally mark headings with # and ##, pick a font size and alignment, then press Download PDF. The file is generated on your device and saved straight to your downloads folder.",
+    a: "Type or paste your text into the editor — each chunk is a block you can style with the toolbar: H1/H2/H3 headings, bold, italic, alignment, font size, and bullet lists. The live preview shows exactly how it will look. Set a filename and page size (A4 or Letter), then press Download PDF.",
   },
   {
-    q: "How do headings work?",
-    a: "With heading detection on, any line starting with “# ” becomes a large bold heading and “## ” becomes a sub-heading. Turn detection off if your text legitimately starts lines with the # character.",
+    q: "How do headings and formatting work?",
+    a: "Click any block to select it, then use the toolbar: H1/H2/H3 turn it into a heading, B and I toggle bold and italic, and you can change alignment and font size per block. Press Enter inside a paragraph to split it into two blocks; empty a block and hit Backspace to remove it.",
   },
   {
     q: "Can I control the page layout?",
-    a: "Documents are laid out on A4 pages with 1-inch margins. You control the title, body font size (10–16pt), and left, center, or justified alignment. Multi-page documents paginate automatically.",
+    a: "Yes. Choose A4 or Letter page size, set the document title and filename, and style each block with its own font size (10–16pt) and alignment — left, center, or justified. Documents use 1-inch margins and paginate automatically across multiple pages.",
   },
   {
     q: "Is the PDF watermarked or limited?",
     a: "No watermark, no page limit, no account. Other “free” converters gate you after a few pages or stamp their logo — this one just hands you the file.",
+  },
+  {
+    q: "Does the preview match the downloaded PDF?",
+    a: "Very closely. Both are generated from the same block model — headings, bold/italic, alignment, bullet lists, and font sizes carry over. Minor differences can appear because the PDF uses the Helvetica font while the preview uses your system font stack.",
   },
   {
     q: "Is my text private?",
@@ -60,23 +65,23 @@ const faqs = [
 const useCases = [
   {
     t: "Cover letters & resumes",
-    d: "Draft in any editor, paste here, mark section headings with #, and export a clean A4 PDF ready to attach to a job application — no word processor needed.",
+    d: "Draft in any editor, paste here, turn section titles into H1/H2 headings with the toolbar, and export a clean PDF ready to attach to a job application — no word processor needed.",
   },
   {
     t: "Homework & study notes",
-    d: "Students paste revision notes, split topics with ## sub-headings, and download a printable PDF that's far easier to read than a wall of plain text.",
+    d: "Students paste revision notes, split topics into headed blocks, bold the key terms, and download a printable PDF that's far easier to read than a wall of plain text.",
   },
   {
     t: "Minutes of meetings",
-    d: "Turn a running meeting log into a shareable PDF in one click. Headings separate agenda items; the title field becomes the document header.",
+    d: "Turn a running meeting log into a shareable PDF in one click. Headings separate agenda items, bullet lists hold the action points, and the title field becomes the document header.",
   },
   {
     t: "Scripts & manuscripts",
-    d: "Writers and video creators convert drafts to PDF for sharing with editors or collaborators — justified alignment gives it a typeset feel.",
+    d: "Writers and video creators convert drafts to PDF for sharing with editors or collaborators — justified alignment and real headings give it a typeset feel.",
   },
   {
     t: "Quick receipts & notices",
-    d: "Need a simple printable notice, packing list, or receipt text as a PDF? Type it, download, print. Faster than opening a word processor.",
+    d: "Need a simple printable notice, packing list, or receipt text as a PDF? Type it as bullet blocks, download, print. Faster than opening a word processor.",
   },
 ];
 
@@ -102,7 +107,7 @@ export default function TextToPdfPage() {
               Text to <em>PDF</em>
             </>
           }
-          tagline="Write or paste text, style it with headings, font sizes, and alignment, then download a clean, watermark-free PDF — generated right in your browser."
+          tagline="Write or paste text, style it with a real formatting toolbar — headings, bold, italic, alignment, bullet lists — watch it update in the live preview, then download a clean, watermark-free PDF in your browser."
         />
 
         <TextToPdfClient />
@@ -117,15 +122,15 @@ export default function TextToPdfPage() {
           steps={[
             {
               title: "Write or paste",
-              text: "Drop your text into the box. Start lines with # or ## to create headings and sub-headings automatically.",
+              text: "Drop your text into the editor. Press Enter inside a paragraph to split it into blocks, and hit Load sample if you want to explore the formatting first.",
             },
             {
               title: "Style it",
-              text: "Set the document title, pick a font size from 10 to 16pt, and choose left, center, or justified alignment. The live page estimate updates as you type.",
+              text: "Click any block, then use the toolbar: H1/H2/H3 headings, bold, italic, left/center/justify alignment, font size, and bullet lists. The preview on the right updates on every keystroke.",
             },
             {
               title: "Download",
-              text: "Hit Download PDF and the file is built instantly on your device — A4 pages, 1-inch margins, no watermark, no sign-up.",
+              text: "Set a filename, pick A4 or Letter, and hit Download PDF — 1-inch margins, automatic pagination, no watermark, no sign-up.",
             },
           ]}
         />
