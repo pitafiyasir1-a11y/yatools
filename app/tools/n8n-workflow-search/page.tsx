@@ -12,16 +12,16 @@ import ToolClient from "./ToolClient";
 const tool = toolBySlug("n8n-workflow-search")!;
 
 export const metadata = pageMeta({
-  title: "n8n Workflow Search — Free Online | YATools",
+  title: "n8n Workflow Search - Find Automation Templates Free",
   description:
-    "Search free n8n workflow templates by keyword, category, complexity, and trigger type. Import ready-made automations instead of building from zero.",
+    "Search free n8n workflow templates online — find automation workflows by keyword, preview complexity, and import the JSON into n8n in one click. Try now!",
   path: "/tools/n8n-workflow-search",
   keywords: [
-    "n8n workflow templates",
     "n8n workflows",
-    "n8n automation templates",
-    "n8n template search",
-    "free n8n workflows",
+    "n8n templates",
+    "n8n automation",
+    "workflow search",
+    "n8n examples",
   ],
 });
 
@@ -50,6 +50,15 @@ const FAQS = [
     q: "Why can't I find a workflow for my exact use case?",
     a: "Try broader keywords — \u201cslack\u201d instead of \u201cnotify my team channel when a form is submitted\u201d. Most automations are combinations of common patterns, and a close template is faster to adapt than building from zero.",
   },
+  {
+    q: "Where can I find free n8n workflow templates?",
+    a: "Right here — search by keyword, preview what each workflow does and how complex it is, then copy the JSON and import it into your n8n instance.",
+  },
+  {
+    q: "What does the snapshot badge mean?",
+    a: "It marks templates served from a curated offline snapshot rather than a live search. They import into n8n identically — the badge just tells you where the data came from.",
+  },
+
 ];
 
 const STEPS = [
@@ -103,6 +112,12 @@ const PARAMS = [
     type: "number",
     required: "No",
     desc: "Items per page, default 20.",
+  },
+  {
+    name: "q",
+    type: "string",
+    required: "No",
+    desc: "Keyword search over the weekly snapshot (name, description, tags, category). The upstream API has no keyword filter, so q is always served from the snapshot with fallbackUsed set.",
   },
   {
     name: "provider",
@@ -235,8 +250,10 @@ function RelatedGrid({ related }: { related: ToolDef[] }) {
   );
 }
 
+const RELATED_SLUGS: string[] = ["json-formatter", "base64-encoder-decoder", "qr-code-generator"];
+
 export default function N8nWorkflowSearchPage() {
-  const related = tool.related
+  const related = RELATED_SLUGS
     .map((s) => toolBySlug(s))
     .filter((t): t is ToolDef => Boolean(t));
 
@@ -281,12 +298,9 @@ export default function N8nWorkflowSearchPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-5">
-          n8nSter — n8n Workflow <em>Templates</em>
+          Free n8n Workflow <em>Search</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">
-          {tool.tagline} Jump-start your next automation instead of building
-          from zero.
-        </p>
+        <p className="sec-sub mx-auto mt-4">Search free n8n workflows and automation templates by keyword — check complexity and import the JSON into n8n.</p>
       </header>
 
       <section aria-label="n8n workflow search tool">
@@ -300,7 +314,22 @@ export default function N8nWorkflowSearchPage() {
         </p>
       </section>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>n8n Workflow Search</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            n8n workflow search is how automation builders stop starting from a blank canvas. Instead of wiring nodes by hand, type what you want to automate — say, syncing form responses to a spreadsheet or posting RSS items to Slack — and this free search tool surfaces ready-made n8n workflow templates you can import as JSON in one click. Each result shows a complexity rating so beginners can start with simple two-node flows while advanced users jump straight into multi-branch automations with webhooks, code nodes, and error handling.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            The template library is maintained as a curated snapshot that is refreshed regularly, and entries marked with a snapshot badge come from that offline dataset rather than a live query — they still import into n8n exactly the same way. Freelancers reuse proven patterns across client projects, teams standardize their automations on tested templates, and learners study real workflows to understand how nodes connect. Every template is free to inspect and adapt, and importing is just a matter of copying the JSON into your n8n canvas.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">How it works</p>
         <h2 className="sec-title">
           Three steps to <em>done</em>

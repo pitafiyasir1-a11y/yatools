@@ -11,23 +11,33 @@ interface N8nTemplate {
   triggerType: string;
   nodeCount: number;
   downloadUrl: string;
+  githubPath?: string;
+  tags?: string[];
+}
+
+interface N8nCategory {
+  name: string;
+  count?: number;
+  slug?: string;
 }
 
 const LIMIT = 9;
 
+// Values match the upstream API docs exactly (Simple/Medium/Complex).
 const COMPLEXITIES = [
   { value: "", label: "Any complexity" },
-  { value: "beginner", label: "Beginner" },
-  { value: "intermediate", label: "Intermediate" },
-  { value: "advanced", label: "Advanced" },
+  { value: "Simple", label: "Simple" },
+  { value: "Medium", label: "Medium" },
+  { value: "Complex", label: "Complex" },
 ];
 
+// Values match the upstream API docs exactly.
 const TRIGGERS = [
   { value: "", label: "Any trigger" },
-  { value: "webhook", label: "Webhook" },
-  { value: "schedule", label: "Scheduled" },
-  { value: "manual", label: "Manual" },
-  { value: "event", label: "Event" },
+  { value: "Manual", label: "Manual" },
+  { value: "Scheduled", label: "Scheduled" },
+  { value: "Triggered", label: "Triggered" },
+  { value: "Webhook", label: "Webhook" },
 ];
 
 export default function N8nSearchClient() {
@@ -35,11 +45,12 @@ export default function N8nSearchClient() {
   const [category, setCategory] = useState("");
   const [complexity, setComplexity] = useState("");
   const [trigger, setTrigger] = useState("");
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<N8nCategory[]>([]);
   const [templates, setTemplates] = useState<N8nTemplate[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [fallbackUsed, setFallbackUsed] = useState(false);
+  const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
@@ -57,6 +68,7 @@ export default function N8nSearchClient() {
       setUnavailable(false);
       setLoadError(null);
       setSearched(true);
+      setKeyword("");
       try {
         const params = new URLSearchParams({
           endpoint: "templates",
@@ -84,6 +96,9 @@ export default function N8nSearchClient() {
           setTotalPages(Number(pg?.totalPages) || 1);
           setPage(Number(pg?.page) || pageNum);
           setFallbackUsed(Boolean(data?.fallbackUsed));
+          setKeyword(
+            typeof data?.data?.keyword === "string" ? data.data.keyword : ""
+          );
         }
       } catch {
         setTemplates([]);
@@ -103,9 +118,29 @@ export default function N8nSearchClient() {
       try {
         const res = await fetch("/api/v1/n8n?endpoint=categories");
         const data = await res.json().catch(() => null);
-        const raw = data?.data?.categories ?? data?.data;
+        const raw = data?.data?.categories;
         if (alive && Array.isArray(raw)) {
-          setCategories(raw.map(String).filter(Boolean));
+          // Upstream returns { name, count, slug } objects; the cache
+          // fallback returns { name, count }. Accept plain strings too.
+          const cats: N8nCategory[] = raw
+            .map((c: unknown): N8nCategory | null => {
+              if (typeof c === "string" && c.trim())
+                return { name: c.trim() };
+              if (c && typeof c === "object") {
+                const o = c as Record<string, unknown>;
+                const name =
+                  typeof o.name === "string" ? o.name.trim() : "";
+                if (!name) return null;
+                return {
+                  name,
+                  count: typeof o.count === "number" ? o.count : undefined,
+                  slug: typeof o.slug === "string" ? o.slug : undefined,
+                };
+              }
+              return null;
+            })
+            .filter((c): c is N8nCategory => c !== null);
+          setCategories(cats);
         }
       } catch {
         /* categories stay empty; "All categories" remains */
@@ -155,6 +190,10 @@ export default function N8nSearchClient() {
             {loading ? "Searching…" : "Search"}
           </button>
         </div>
+        <p className="text-xs mt-3" style={{ color: "var(--muted)" }}>
+          Keyword search runs against the weekly snapshot — category,
+          complexity, and trigger filters query the live directory.
+        </p>
 
         <div className="grid sm:grid-cols-3 gap-4 mt-5">
           <div>
@@ -169,8 +208,9 @@ export default function N8nSearchClient() {
             >
               <option value="">All categories</option>
               {categories.map((c) => (
-                <option key={c} value={c}>
-                  {c}
+                <option key={c.slug || c.name} value={c.slug || c.name}>
+                  {c.name}
+                  {typeof c.count === "number" ? ` (${c.count})` : ""}
                 </option>
               ))}
             </select>
@@ -251,6 +291,11 @@ export default function N8nSearchClient() {
                 >
                   {templates.length} result{templates.length === 1 ? "" : "s"}
                 </span>
+                {keyword && (
+                  <span className="badge badge-blue">
+                    keyword: “{keyword}”
+                  </span>
+                )}
                 {fallbackUsed && (
                   <>
                     <span className="badge badge-green">
@@ -300,13 +345,26 @@ export default function N8nSearchClient() {
                           {t.complexity}
                         </span>
                       )}
+                      {t.triggerType && (
+                        <span className="badge badge-green">
+                          {t.triggerType}
+                        </span>
+                      )}
                     </div>
                     <p
-                      className="text-sm leading-relaxed mb-4 line-clamp-3"
+                      className="text-sm leading-relaxed mb-3 line-clamp-3"
                       style={{ color: "var(--text2)" }}
                     >
                       {t.description || "No description provided."}
                     </p>
+                    {Array.isArray(t.tags) && t.tags.length > 0 && (
+                      <p
+                        className="font-mono2 text-xs mb-4"
+                        style={{ color: "var(--muted)" }}
+                      >
+                        {t.tags.slice(0, 4).map(String).join(" · ")}
+                      </p>
+                    )}
                     <div className="mt-auto flex items-center justify-between gap-3">
                       <span
                         className="font-mono2 text-xs"
@@ -316,16 +374,29 @@ export default function N8nSearchClient() {
                           ? `${t.nodeCount} node${t.nodeCount === 1 ? "" : "s"}`
                           : ""}
                       </span>
-                      {t.downloadUrl && (
-                        <a
-                          href={t.downloadUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-sm"
-                        >
-                          Get workflow
-                        </a>
-                      )}
+                      <div className="flex gap-2">
+                        {t.githubPath && (
+                          <a
+                            href={t.githubPath}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm"
+                            title="View the template source on GitHub"
+                          >
+                            Source
+                          </a>
+                        )}
+                        {t.downloadUrl && (
+                          <a
+                            href={t.downloadUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-sm"
+                          >
+                            Get workflow
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}

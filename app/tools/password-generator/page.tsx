@@ -16,20 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("password-generator")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Password Generator — YATools",
+    url: `${SITE.url}/tools/password-generator`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Generate strong random passwords free online with crypto-grade randomness. Custom length, symbols, and memorable options. Nothing stored, ever. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Strong Password Generator — Free & Private",
+  title: "Password Generator - Create Strong Passwords Free Online",
   description:
-    "Generate strong, random passwords with crypto-grade randomness — right in your browser. Choose length and character sets. Never sent anywhere.",
+    "Generate strong random passwords free online with crypto-grade randomness. Custom length, symbols, and memorable options. Nothing stored, ever. Try now!",
   path: "/tools/password-generator",
   keywords: [
-    "strong password generator",
-    "random password generator",
-    "secure password maker",
-    "generate password online",
+    "password generator",
+    "random password",
+    "password maker",
+    "secure password",
+    "create password",
   ],
 });
 
@@ -54,6 +69,11 @@ const faqs = [
     q: "Should I use the symbols option?",
     a: "Yes when the site allows it — symbols expand the character pool from 62 to 88+ characters, adding roughly 8 bits of entropy at the same length. Some older systems reject certain symbols; if a site complains, regenerate without symbols.",
   },
+  {
+    q: "How do I create a strong random password for free?",
+    a: "Set the length to 16 or more characters, enable all character types, and generate — then save it in a password manager instead of reusing it anywhere.",
+  },
+
 ];
 
 export default function PasswordGeneratorPage() {
@@ -61,6 +81,7 @@ export default function PasswordGeneratorPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -75,10 +96,10 @@ export default function PasswordGeneratorPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Password <em>Generator</em>
+              Free Password <em>Generator</em> Online
             </>
           }
-          tagline="Create strong, random passwords with crypto-grade randomness — generated locally, never sent anywhere."
+          tagline="A free password generator: create strong, random passwords with crypto-grade randomness — nothing stored, ever."
         />
 
         <PasswordGeneratorClient />
@@ -87,6 +108,17 @@ export default function PasswordGeneratorPage() {
           uploaded, stored, or transmitted. For important accounts, store them in a password manager
           and enable two-factor authentication.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Password Generator</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A password generator creates truly random passwords that no human would ever invent — and that is exactly the point. This free online tool uses your browser's cryptographic random number generator, the same grade of randomness operating systems use for security keys, to build passwords of any length with uppercase, lowercase, numbers, and symbols. Use a unique 16-plus-character password for every account and a password manager to remember them; that single habit defeats the vast majority of account-takeover attacks.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The strength meter labels each password so you can see the difference length makes — every extra character multiplies the guessing effort enormously. Prefer something typable? The memorable mode builds pronounceable passwords that are easier to dictate over the phone. Generation happens entirely on your device: your passwords are never sent anywhere, never logged, and never stored, which is precisely how a password tool should behave.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>strong password</em></>} />
@@ -189,7 +221,7 @@ temporary access codes.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["qr-code", "word-counter", "color-picker"]} />
+        <RelatedTools slugs={["qr-code-generator", "base64-encoder-decoder", "word-counter"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["image-to-pdf", "image-compressor", "image-converter"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "PDF to JPG — YATools",
+    url: `${SITE.url}/tools/pdf-to-jpg`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert PDF pages to JPG free online — preview every page, download individually or all at once. High quality, private, no sign-up needed. Try it free now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "PDF to JPG Online Free — Convert PDF Pages to Images",
+  title: "PDF to JPG Converter - Turn PDF Pages into JPG Free",
   description:
-    "Convert each PDF page to a high-quality JPG image for free. Preview pages, pick quality, download individually or all — in your browser.",
+    "Convert PDF pages to JPG free online — preview every page, download individually or all at once. High quality, private, no sign-up needed. Try it free now!",
   path: "/tools/pdf-to-jpg",
   keywords: [
     "pdf to jpg online",
-    "convert pdf pages to images",
-    "pdf to image free",
-    "extract pages as jpg",
+    "PDF to JPG",
+    "convert PDF to JPG",
+    "PDF to image",
+    "PDF pages to JPG",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "My PDF has 200 pages. Will this work?",
     a: "It will, but expect it to take a while — pages render one by one on your device's main thread. For very long documents, try the 1× quality setting first; you can always re-render at higher quality.",
   },
+  {
+    q: "How do I turn PDF pages into images?",
+    a: "Upload your PDF, preview the rendered pages, and download the ones you need as high-quality JPGs — individually or all together.",
+  },
+
 ];
 
 export default function PdfToJpgPage() {
@@ -77,6 +97,7 @@ export default function PdfToJpgPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function PdfToJpgPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              PDF to <em>JPG</em>
+              Free PDF to <em>JPG</em> Online
             </>
           }
-          tagline="Turn each PDF page into a high-quality JPG image — preview, pick quality, download pages individually or all at once."
+          tagline="A free PDF to JPG converter: turn each PDF page into a high-quality JPG — preview, download individually or all at once."
         />
 
         <PdfToJpgClient />
         <PrivacyNote>
           Pages are rendered on your device with pdf.js. Your PDF is never uploaded or stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>PDF to JPG</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Converting PDF to JPG turns every page of a document into a shareable image. Upload your PDF to this free online tool and each page renders as a high-quality JPG you can preview, download individually, or grab all at once. Designers extract pages for mockups, sellers turn catalog pages into listing images, students share single pages in chat apps, and anyone who needs a document page inside a presentation gets it without screenshots.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Text stays sharp because pages render at high resolution rather than thumbnail quality, and you choose which pages to export instead of converting a 200-page document you do not need. The conversion runs entirely in your browser, so contracts, statements, and personal documents are never uploaded to a server. JPGs are ideal for sharing and embedding; if you need transparency or lossless quality, convert to PNG-flavored output through the image converter instead.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function PdfToJpgPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["image-compressor", "image-converter", "image-resizer"]} />
+        <RelatedTools slugs={["image-to-pdf", "image-compressor", "image-converter"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
