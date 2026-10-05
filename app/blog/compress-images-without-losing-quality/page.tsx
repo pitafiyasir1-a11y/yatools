@@ -247,7 +247,7 @@ export default function CompressImagesPost() {
         </article>
 
         <div
-          className="neu-card"
+          className="card"
           style={{
             marginTop: 36,
             padding: "clamp(20px, 4vw, 32px)",
@@ -268,7 +268,7 @@ export default function CompressImagesPost() {
               Free compressor with a live quality slider and before/after sizes — 100% in your browser.
             </p>
           </div>
-          <Link href="/tools/image-compressor" className="neu-btn neu-btn-primary">
+          <Link href="/tools/image-compressor" className="btn btn-primary">
             Open Image Compressor →
           </Link>
         </div>
@@ -290,7 +290,7 @@ export default function CompressImagesPost() {
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="neu-card neu-card-hover"
+              className="card card-hover"
               style={{ padding: 22, display: "block", textDecoration: "none", color: "inherit" }}
             >
               <div className="font-display" style={{ fontSize: "1.3rem", marginBottom: 8 }}>

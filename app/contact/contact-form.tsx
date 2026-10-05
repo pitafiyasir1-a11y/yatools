@@ -20,7 +20,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <div>
-        <label htmlFor="cf-name" className="neu-label">
+        <label htmlFor="cf-name" className="field-label">
           Your name
         </label>
         <input
@@ -30,12 +30,12 @@ export default function ContactForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Jane Doe"
-          className="neu-input"
+          className="input"
           autoComplete="name"
         />
       </div>
       <div>
-        <label htmlFor="cf-email" className="neu-label">
+        <label htmlFor="cf-email" className="field-label">
           Your email
         </label>
         <input
@@ -45,12 +45,12 @@ export default function ContactForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="jane@example.com"
-          className="neu-input"
+          className="input"
           autoComplete="email"
         />
       </div>
       <div>
-        <label htmlFor="cf-message" className="neu-label">
+        <label htmlFor="cf-message" className="field-label">
           Message
         </label>
         <textarea
@@ -59,11 +59,11 @@ export default function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="What would you like to tell us?"
-          className="neu-textarea"
+          className="textarea"
           rows={6}
         />
       </div>
-      <button type="submit" className="neu-btn neu-btn-primary">
+      <button type="submit" className="btn btn-primary">
         Open mail app
       </button>
       <p className="notice text-sm">

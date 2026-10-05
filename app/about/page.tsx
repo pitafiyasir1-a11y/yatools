@@ -82,8 +82,8 @@ export default function Page() {
           <p>
             YATools is a collection of free online tools for everyday work:
             website screenshots, audio transcription, text to speech, Urdu
-            handwriting, Wikipedia to PDF, and more — 14 tools in total. Six
-            run entirely in your browser; eight are powered through our API
+            handwriting, Wikipedia to PDF, and more — 36 tools in total. 24
+            run entirely in your browser; 12 are powered through our API
             proxy by the{" "}
             <a
               href="https://ahm7xmakki.com"

@@ -228,7 +228,7 @@ export default function MergePdfPost() {
         </article>
 
         <div
-          className="neu-card"
+          className="card"
           style={{
             marginTop: 36,
             padding: "clamp(20px, 4vw, 32px)",
@@ -249,7 +249,7 @@ export default function MergePdfPost() {
               Free online merger — drop your files, arrange the order, download one PDF.
             </p>
           </div>
-          <Link href="/tools/merge-pdf" className="neu-btn neu-btn-primary">
+          <Link href="/tools/merge-pdf" className="btn btn-primary">
             Open Merge PDF →
           </Link>
         </div>
@@ -271,7 +271,7 @@ export default function MergePdfPost() {
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="neu-card neu-card-hover"
+              className="card card-hover"
               style={{ padding: 22, display: "block", textDecoration: "none", color: "inherit" }}
             >
               <div className="font-display" style={{ fontSize: "1.3rem", marginBottom: 8 }}>

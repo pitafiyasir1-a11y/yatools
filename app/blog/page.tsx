@@ -54,7 +54,7 @@ export default function BlogIndex() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="neu-card neu-card-hover"
+              className="card card-hover"
               style={{
                 padding: 24,
                 display: "flex",
@@ -65,7 +65,7 @@ export default function BlogIndex() {
             >
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
                 {post.tags.map((tag) => (
-                  <span key={tag} className="neu-badge neu-badge-green">
+                  <span key={tag} className="badge badge-green">
                     {tag}
                   </span>
                 ))}
@@ -109,7 +109,7 @@ export default function BlogIndex() {
         </div>
 
         <div
-          className="neu-card"
+          className="card"
           style={{
             marginTop: 40,
             padding: "clamp(20px, 4vw, 32px)",
@@ -126,11 +126,11 @@ export default function BlogIndex() {
               Want to skip the <em>reading?</em>
             </h2>
             <p className="sec-sub">
-              {SITE.name} has 22 free tools — screenshots, PDFs, audio, images, QR codes
+              {SITE.name} has 36 free tools — screenshots, PDFs, audio, images, QR codes
               and more. No sign-up, no watermarks.
             </p>
           </div>
-          <Link href="/" className="neu-btn neu-btn-primary">
+          <Link href="/" className="btn btn-primary">
             Browse all tools →
           </Link>
         </div>

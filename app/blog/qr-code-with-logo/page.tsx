@@ -249,7 +249,7 @@ export default function QrCodeLogoPost() {
         </article>
 
         <div
-          className="neu-card"
+          className="card"
           style={{
             marginTop: 36,
             padding: "clamp(20px, 4vw, 32px)",
@@ -270,7 +270,7 @@ export default function QrCodeLogoPost() {
               Links, text, Wi-Fi, email & more — with High error correction for logo overlays.
             </p>
           </div>
-          <Link href="/tools/qr-code-generator" className="neu-btn neu-btn-primary">
+          <Link href="/tools/qr-code-generator" className="btn btn-primary">
             Open QR Generator →
           </Link>
         </div>
@@ -292,7 +292,7 @@ export default function QrCodeLogoPost() {
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="neu-card neu-card-hover"
+              className="card card-hover"
               style={{ padding: 22, display: "block", textDecoration: "none", color: "inherit" }}
             >
               <div className="font-display" style={{ fontSize: "1.3rem", marginBottom: 8 }}>

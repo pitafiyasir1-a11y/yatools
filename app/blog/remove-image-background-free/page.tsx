@@ -235,7 +235,7 @@ export default function RemoveBackgroundPost() {
         </article>
 
         <div
-          className="neu-card"
+          className="card"
           style={{
             marginTop: 36,
             padding: "clamp(20px, 4vw, 32px)",
@@ -256,7 +256,7 @@ export default function RemoveBackgroundPost() {
               On-device AI — your photo never leaves your browser. No sign-up, no watermark.
             </p>
           </div>
-          <Link href="/tools/background-remover" className="neu-btn neu-btn-primary">
+          <Link href="/tools/background-remover" className="btn btn-primary">
             Open Background Remover →
           </Link>
         </div>
@@ -278,7 +278,7 @@ export default function RemoveBackgroundPost() {
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="neu-card neu-card-hover"
+              className="card card-hover"
               style={{ padding: 22, display: "block", textDecoration: "none", color: "inherit" }}
             >
               <div className="font-display" style={{ fontSize: "1.3rem", marginBottom: 8 }}>
