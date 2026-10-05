@@ -203,7 +203,7 @@ export default function HomePage() {
             Free tools for <em>screenshots</em>, audio, documents &amp; everyday work.
           </h1>
           <p className="mb-8 max-w-xl text-lg leading-relaxed" style={{ color: "var(--text2)" }}>
-            36 genuinely free tools — capture pages, convert audio, generate images,
+            74 genuinely free tools — capture pages, convert audio, generate images,
             format JSON, and more. No signup, no card, and twelve of them come with a
             free API you can call from your own apps.
           </p>
