@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("image-compressor")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Image Compressor — YATools",
+    url: `${SITE.url}/tools/image-compressor`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Compress images free online — shrink JPG, PNG, and WebP with a live quality slider. Faster websites, smaller uploads, fully private. No sign-up. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Image Compressor — Shrink JPG, PNG, WebP",
+  title: "Image Compressor - Shrink JPG, PNG & WebP Free Online",
   description:
-    "Compress JPG, PNG, and WebP images in your browser with a live quality slider and before/after size preview. Free, private, no uploads.",
+    "Compress images free online — shrink JPG, PNG, and WebP with a live quality slider. Faster websites, smaller uploads, fully private. No sign-up. Try now!",
   path: "/tools/image-compressor",
   keywords: [
-    "compress image online free",
-    "reduce image file size",
-    "image compressor online",
-    "compress jpg png",
-    "shrink photo size",
+    "image compressor",
+    "compress image",
+    "image size reducer",
+    "photo compressor",
+    "shrink image",
   ],
 });
 
@@ -55,6 +69,11 @@ const faqs = [
     q: "Is there a file size limit?",
     a: "No hard limit — everything runs locally, so a 50MP photo compresses just as well as a thumbnail. Very large images may take a few seconds to re-encode on slower devices.",
   },
+  {
+    q: "How do I compress a JPG without losing quality?",
+    a: "Upload your JPG, set the quality slider around 80, and compare the preview — you typically cut the file size by more than half with no visible difference.",
+  },
+
 ];
 
 const useCases = [
@@ -85,6 +104,7 @@ export default function ImageCompressorPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -99,10 +119,10 @@ export default function ImageCompressorPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Image <em>Compressor</em>
+              Free Image <em>Compressor</em> Online
             </>
           }
-          tagline="Shrink JPG, PNG, and WebP images with a live quality slider and before/after size preview — all on your device, no uploads, no watermarks."
+          tagline="A free image compressor: shrink JPG, PNG, and WebP images with a live quality slider — right in your browser."
         />
 
         <ImageCompressorClient />
@@ -110,6 +130,17 @@ export default function ImageCompressorPage() {
           Everything runs 100% in your browser — your images are never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Image Compressor</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            An image compressor shrinks your photo files so they load faster and upload easier — without visibly hurting quality. Drop JPG, PNG, or WebP images into this free online tool, drag the quality slider, and watch the file size update live before you download. Bloggers compress post images so pages load in a blink, sellers shrink product photos for marketplaces with upload limits, and anyone emailing photos avoids the attachment-too-large bounce.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Photos in JPG and WebP compress dramatically — a quality setting around 80 typically cuts the size by more than half with no visible difference. PNGs, which use lossless compression, shrink less; screenshots and graphics with flat colors still benefit. Be honest with yourself about already-optimized files: a tiny, heavily compressed image cannot shrink much further, and that is true of every compressor. All processing happens on your device, so your photos are never uploaded or stored.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>smaller file</em></>} />

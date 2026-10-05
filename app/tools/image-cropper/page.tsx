@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["image-resizer", "invert-image", "mirror-image"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Image Cropper — YATools",
+    url: `${SITE.url}/tools/image-cropper`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Crop images free online with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Crop Image Online — Free Drag-to-Select Image Cropper",
+  title: "Image Cropper - Crop Photos to Any Size Free Online",
   description:
-    "Crop images online for free. Drag to select any area with mouse or touch, lock 1:1, 4:3 or 16:9 aspect ratios, and download the full-resolution crop. No sign-up.",
+    "Crop images free online with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. Try it now!",
   path: "/tools/image-cropper",
   keywords: [
     "crop image online",
-    "free image cropper",
-    "crop photo online",
-    "crop image to 1:1 online",
+    "image cropper",
+    "crop photo",
+    "free image crop",
+    "crop picture",
   ],
 });
 
@@ -66,6 +81,15 @@ const faqs = [
     q: "Is my image uploaded anywhere?",
     a: "No. Cropping happens entirely in your browser with the canvas engine — your image never leaves your device and nothing is stored.",
   },
+  {
+    q: "How do I crop an image to 1:1 for Instagram?",
+    a: "Upload your photo, enable the 1:1 aspect-ratio lock, drag the box over your subject, and download — the crop stays perfectly square at full resolution.",
+  },
+  {
+    q: "Can I crop a photo into a circle?",
+    a: "Crops here are rectangular, which is what every platform expects for uploads. For a circular profile picture, crop a square 1:1 first — most apps mask it into a circle automatically.",
+  },
+
 ];
 
 export default function ImageCropperPage() {
@@ -73,6 +97,7 @@ export default function ImageCropperPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -87,10 +112,10 @@ export default function ImageCropperPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Image <em>Cropper</em>
+              Free Image <em>Cropper</em> Online
             </>
           }
-          tagline="Drag to select exactly what to keep. Free, full-resolution crops with aspect presets — mouse or touch."
+          tagline="A free image cropper: drag to select exactly what to keep — aspect-ratio locks, live preview, full-resolution download."
         />
 
         <ImageCropperClient />
@@ -98,6 +123,17 @@ export default function ImageCropperPage() {
           Everything runs 100% in your browser — your image is never uploaded, processed, or
           stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Image Cropper</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            An image cropper lets you cut away everything you do not want and keep exactly the frame you do. Upload a photo to this free online tool and drag a selection box over the area to keep — lock the aspect ratio to 1:1 for Instagram, 16:9 for video thumbnails, or 4:3 for classic prints, then download the crop at full resolution. Photographers reframe shots, sellers isolate products from messy backgrounds, and social creators fit one photo to every platform's dimensions.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The live preview shows precisely what the download will contain, so there is no guesswork about edges. Because cropping here simply selects pixels from your original, the kept area loses no quality — the output is as sharp as the source. It works smoothly on phones and tablets too, with touch-friendly handles for the selection box. Your images never leave your device: the entire crop happens in the browser.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>clean crop</em></>} />
@@ -162,7 +198,7 @@ export default function ImageCropperPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["image-resizer", "image-compressor", "mirror-image"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
