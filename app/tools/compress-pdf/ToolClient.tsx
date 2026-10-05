@@ -78,7 +78,7 @@ export default function CompressPdfClient() {
       : null;
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -93,14 +93,14 @@ export default function CompressPdfClient() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "center" }}>
         <button
           type="button"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={() => inputRef.current?.click()}
           style={{ flex: 1, minWidth: 200 }}
         >
           {file ? "Choose a different PDF" : "Choose a PDF"}
         </button>
         {file && (
-          <button type="button" className="neu-btn" onClick={compress} disabled={working}>
+          <button type="button" className="btn" onClick={compress} disabled={working}>
             {working ? "Compressing…" : "Compress PDF"}
           </button>
         )}
@@ -111,7 +111,7 @@ export default function CompressPdfClient() {
 
       {file && originalSize !== null && (
         <div
-          className="neu-card"
+          className="card"
           style={{ marginTop: 18, padding: 18, background: "var(--surface)" }}
         >
           <div style={{ fontWeight: 800, marginBottom: 6 }}>{file.name}</div>
@@ -140,7 +140,7 @@ export default function CompressPdfClient() {
             <a
               href={downloadUrl}
               download={file.name.replace(/\.pdf$/i, "") + "-compressed.pdf"}
-              className="neu-btn neu-btn-primary neu-btn-sm"
+              className="btn btn-primary btn-sm"
               style={{ marginTop: 10 }}
             >
               Download compressed PDF

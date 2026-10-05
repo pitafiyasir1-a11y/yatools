@@ -133,7 +133,7 @@ export default function CompressPdfPage() {
               d: "Scans are mostly compressed image data. This tool never recompresses images, so scans come out essentially the same size — quality fully preserved.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>
@@ -190,7 +190,7 @@ export default function CompressPdfPage() {
               d: "Removing author names and creation dates is also a privacy win when you're sharing a document beyond its original audience.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>

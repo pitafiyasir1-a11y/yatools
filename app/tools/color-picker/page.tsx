@@ -138,7 +138,7 @@ export default function ColorPickerPage() {
               d: "A beautiful color that nobody can read is a bug. The readable-text hint uses relative luminance — keep body text at strong contrast, especially on colored buttons.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>

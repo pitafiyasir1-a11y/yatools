@@ -220,7 +220,7 @@ export default function ImageResizerClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -238,9 +238,9 @@ export default function ImageResizerClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -322,10 +322,10 @@ export default function ImageResizerClient() {
             }}
           >
             <div>
-              <span className="neu-label">Original</span>
+              <span className="field-label">Original</span>
               <div
                 style={{
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   background: "var(--surface)",
                   display: "flex",
@@ -346,12 +346,12 @@ export default function ImageResizerClient() {
               </p>
             </div>
             <div>
-              <span className="neu-label">
+              <span className="field-label">
                 Resized {rendering && <span style={{ color: "var(--red-dark)" }}>· rendering…</span>}
               </span>
               <div
                 style={{
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   background: "var(--surface)",
                   display: "flex",
@@ -395,16 +395,16 @@ export default function ImageResizerClient() {
             }}
           >
             <div>
-              <span className="neu-label">New dimensions</span>
+              <span className="field-label">New dimensions</span>
               <div style={{ display: "flex", gap: 10, alignItems: "end", flexWrap: "wrap" }}>
                 <div style={{ flex: "1 1 110px" }}>
-                  <label className="neu-label" htmlFor="ir-w">Width (px)</label>
+                  <label className="field-label" htmlFor="ir-w">Width (px)</label>
                   <input
                     id="ir-w"
                     type="number"
                     min={1}
                     max={MAX_SIDE}
-                    className="neu-input neu-input-mono"
+                    className="input input-mono"
                     value={width}
                     onChange={(e) => setWidthKeepRatio(e.target.value)}
                     inputMode="numeric"
@@ -412,13 +412,13 @@ export default function ImageResizerClient() {
                 </div>
                 <div style={{ paddingBottom: 14, fontWeight: 800 }} aria-hidden="true">×</div>
                 <div style={{ flex: "1 1 110px" }}>
-                  <label className="neu-label" htmlFor="ir-h">Height (px)</label>
+                  <label className="field-label" htmlFor="ir-h">Height (px)</label>
                   <input
                     id="ir-h"
                     type="number"
                     min={1}
                     max={MAX_SIDE}
-                    className="neu-input neu-input-mono"
+                    className="input input-mono"
                     value={height}
                     onChange={(e) => setHeightKeepRatio(e.target.value)}
                     inputMode="numeric"
@@ -426,7 +426,7 @@ export default function ImageResizerClient() {
                 </div>
                 <button
                   type="button"
-                  className={`neu-btn neu-btn-sm${locked ? " neu-btn-primary" : ""}`}
+                  className={`btn btn-sm${locked ? " btn-primary" : ""}`}
                   aria-pressed={locked}
                   onClick={() => setLocked((l) => !l)}
                   title="Lock aspect ratio"
@@ -437,13 +437,13 @@ export default function ImageResizerClient() {
             </div>
 
             <div>
-              <span className="neu-label">Download format</span>
+              <span className="field-label">Download format</span>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }} role="group" aria-label="Output format">
                 {FORMATS.map((f) => (
                   <button
                     key={f.id}
                     type="button"
-                    className={`neu-btn neu-btn-sm${format === f.id ? " neu-btn-primary" : ""}`}
+                    className={`btn btn-sm${format === f.id ? " btn-primary" : ""}`}
                     aria-pressed={format === f.id}
                     onClick={() => setFormat(f.id)}
                   >
@@ -453,7 +453,7 @@ export default function ImageResizerClient() {
               </div>
               {format !== "png" && (
                 <div style={{ marginTop: 12 }}>
-                  <label className="neu-label" htmlFor="ir-quality">
+                  <label className="field-label" htmlFor="ir-quality">
                     Quality — {Math.round(quality * 100)}%
                   </label>
                   <input
@@ -471,7 +471,7 @@ export default function ImageResizerClient() {
           </div>
 
           <div style={{ marginTop: 16 }}>
-            <span className="neu-label">Presets</span>
+            <span className="field-label">Presets</span>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {PRESET_GROUPS.map((g) => (
                 <div key={g.name} style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
@@ -482,7 +482,7 @@ export default function ImageResizerClient() {
                     <button
                       key={p.label}
                       type="button"
-                      className="neu-btn neu-btn-sm"
+                      className="btn btn-sm"
                       onClick={() => applyPreset(p.w, p.h)}
                     >
                       {p.label}
@@ -520,7 +520,7 @@ export default function ImageResizerClient() {
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18, alignItems: "center" }}>
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={download}
               disabled={downloading || !validDims || overCap}
             >

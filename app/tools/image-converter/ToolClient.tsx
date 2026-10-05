@@ -101,7 +101,7 @@ export default function ImageConverterClient() {
       : null;
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -119,9 +119,9 @@ export default function ImageConverterClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -158,14 +158,14 @@ export default function ImageConverterClient() {
             }}
           >
             <div>
-              <span className="neu-label">Original</span>
+              <span className="field-label">Original</span>
               <img
                 src={imgUrl}
                 alt="Uploaded preview"
                 style={{
                   maxWidth: "100%",
                   maxHeight: 240,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                 }}
@@ -178,13 +178,13 @@ export default function ImageConverterClient() {
             </div>
 
             <div>
-              <span className="neu-label">Convert to</span>
+              <span className="field-label">Convert to</span>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }} role="group" aria-label="Target format">
                 {FORMATS.map((f) => (
                   <button
                     key={f.id}
                     type="button"
-                    className={`neu-btn neu-btn-sm${format === f.id ? " neu-btn-primary" : ""}`}
+                    className={`btn btn-sm${format === f.id ? " btn-primary" : ""}`}
                     aria-pressed={format === f.id}
                     onClick={() => {
                       setFormat(f.id);
@@ -197,7 +197,7 @@ export default function ImageConverterClient() {
               </div>
 
               <div style={{ marginTop: 18 }}>
-                <label className="neu-label" htmlFor="ic-quality">
+                <label className="field-label" htmlFor="ic-quality">
                   Quality — {format === "png" ? "not applicable (lossless)" : `${Math.round(quality * 100)}%`}
                 </label>
                 <input
@@ -231,14 +231,14 @@ export default function ImageConverterClient() {
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 18, alignItems: "center" }}>
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={convert}
               disabled={converting}
             >
               {converting ? "Converting…" : "Convert & download"}
             </button>
             {result && (
-              <a href={result.url} download={result.name} className="neu-btn">
+              <a href={result.url} download={result.name} className="btn">
                 Download {result.name}
               </a>
             )}

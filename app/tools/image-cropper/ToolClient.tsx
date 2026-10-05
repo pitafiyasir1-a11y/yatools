@@ -255,7 +255,7 @@ export default function ImageCropperClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -273,9 +273,9 @@ export default function ImageCropperClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -312,7 +312,7 @@ export default function ImageCropperClient() {
             }}
           >
             <div>
-              <span className="neu-label">Drag to select the crop area</span>
+              <span className="field-label">Drag to select the crop area</span>
               <canvas
                 ref={canvasRef}
                 onPointerDown={onPointerDown}
@@ -321,7 +321,7 @@ export default function ImageCropperClient() {
                 onPointerCancel={endDrag}
                 style={{
                   maxWidth: "100%",
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                   touchAction: "none",
@@ -338,7 +338,7 @@ export default function ImageCropperClient() {
               </p>
             </div>
             <div>
-              <span className="neu-label">Live preview</span>
+              <span className="field-label">Live preview</span>
               <div
                 className="result-box"
                 style={{
@@ -354,7 +354,7 @@ export default function ImageCropperClient() {
                   aria-label="Crop preview"
                   style={{
                     maxWidth: "100%",
-                    border: "2.5px solid var(--ink)",
+                    border: "1px solid var(--line)",
                     borderRadius: 10,
                     display: sel ? "block" : "none",
                     background: "var(--surface)",
@@ -368,7 +368,7 @@ export default function ImageCropperClient() {
               </div>
 
               <div style={{ marginTop: 16 }}>
-                <span className="neu-label">Aspect ratio</span>
+                <span className="field-label">Aspect ratio</span>
                 <div
                   style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
                   role="group"
@@ -378,7 +378,7 @@ export default function ImageCropperClient() {
                     <button
                       key={a.id}
                       type="button"
-                      className={`neu-btn neu-btn-sm${aspect === a.id ? " neu-btn-primary" : ""}`}
+                      className={`btn btn-sm${aspect === a.id ? " btn-primary" : ""}`}
                       aria-pressed={aspect === a.id}
                       onClick={() => changeAspect(a.id)}
                     >
@@ -389,7 +389,7 @@ export default function ImageCropperClient() {
               </div>
 
               <div style={{ marginTop: 16 }}>
-                <span className="neu-label">Download format</span>
+                <span className="field-label">Download format</span>
                 <div
                   style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
                   role="group"
@@ -399,7 +399,7 @@ export default function ImageCropperClient() {
                     <button
                       key={f.id}
                       type="button"
-                      className={`neu-btn neu-btn-sm${format === f.id ? " neu-btn-primary" : ""}`}
+                      className={`btn btn-sm${format === f.id ? " btn-primary" : ""}`}
                       aria-pressed={format === f.id}
                       onClick={() => setFormat(f.id)}
                     >
@@ -414,7 +414,7 @@ export default function ImageCropperClient() {
               >
                 <button
                   type="button"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                   onClick={download}
                   disabled={downloading || !sel}
                 >
@@ -422,7 +422,7 @@ export default function ImageCropperClient() {
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() =>
                     orig && setSel({ x: 0, y: 0, w: orig.w, h: orig.h })
                   }

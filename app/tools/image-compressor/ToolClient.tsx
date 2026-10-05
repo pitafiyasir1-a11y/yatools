@@ -145,7 +145,7 @@ export default function ImageCompressorClient() {
       : null;
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -154,7 +154,7 @@ export default function ImageCompressorClient() {
         onChange={(e) => pickFile(e.target.files?.[0] ?? null)}
       />
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => inputRef.current?.click()}>
+        <button type="button" className="btn btn-sm" onClick={() => inputRef.current?.click()}>
           {file ? "Choose a different image" : "Choose image"}
         </button>
       </div>
@@ -165,7 +165,7 @@ export default function ImageCompressorClient() {
           tabIndex={0}
           onClick={() => inputRef.current?.click()}
           onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
-          className="neu-card"
+          className="card"
           style={{
             padding: "48px 24px",
             textAlign: "center",
@@ -194,7 +194,7 @@ export default function ImageCompressorClient() {
             }}
           >
             <div>
-              <label className="neu-label" htmlFor="ic-quality">
+              <label className="field-label" htmlFor="ic-quality">
                 Quality · {quality}%
                 {!qualityApplies && (
                   <span style={{ color: "var(--muted)", fontWeight: 400 }}>
@@ -220,12 +220,12 @@ export default function ImageCompressorClient() {
               )}
             </div>
             <div>
-              <label className="neu-label" htmlFor="ic-format">
+              <label className="field-label" htmlFor="ic-format">
                 Output format
               </label>
               <select
                 id="ic-format"
-                className="neu-select"
+                className="select"
                 value={format}
                 onChange={(e) => setFormat(e.target.value as FormatChoice)}
               >
@@ -257,9 +257,9 @@ export default function ImageCompressorClient() {
               }}
             >
               <div>
-                <p className="neu-label">Original</p>
+                <p className="field-label">Original</p>
                 <div
-                  className="neu-card"
+                  className="card"
                   style={{ padding: 10, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 200 }}
                 >
                   <img
@@ -274,9 +274,9 @@ export default function ImageCompressorClient() {
                 </p>
               </div>
               <div>
-                <p className="neu-label">Compressed</p>
+                <p className="field-label">Compressed</p>
                 <div
-                  className="neu-card"
+                  className="card"
                   style={{ padding: 10, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 200 }}
                 >
                   {compressedUrl ? (
@@ -320,7 +320,7 @@ export default function ImageCompressorClient() {
 
           {compressedUrl && (
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 16, alignItems: "center" }}>
-              <a href={compressedUrl} download={downloadName} className="neu-btn neu-btn-primary neu-btn-sm">
+              <a href={compressedUrl} download={downloadName} className="btn btn-primary btn-sm">
                 Download
               </a>
               <span className="font-mono2" style={{ fontSize: "0.74rem", color: "var(--text2)" }}>
