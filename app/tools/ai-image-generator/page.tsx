@@ -12,16 +12,16 @@ import ToolClient from "./ToolClient";
 const tool = toolBySlug("ai-image-generator")!;
 
 export const metadata = pageMeta({
-  title: "AI Image Generator — Free Online | YATools",
+  title: "Free AI Image Generator - Create Stunning Art Online",
   description:
-    "Generate AI images from text prompts — free, no signup. Eleven aspect ratios for thumbnails, reels, posts, and slides. Download your creations.",
+    "Generate AI images free online — describe anything in words and get high-quality art with no watermark and no sign-up. Powered by free AI models. Try now!",
   path: "/tools/ai-image-generator",
   keywords: [
-    "free ai image generator",
-    "text to image ai",
-    "ai image generator no signup",
-    "generate images online free",
-    "pixelster",
+    "AI image generator",
+    "text to image AI",
+    "AI art generator",
+    "image creation AI",
+    "AI picture maker",
   ],
 });
 
@@ -50,6 +50,15 @@ const FAQS = [
     q: "Can I generate real people or brand logos?",
     a: "You can try, but likenesses of real people and trademarked logos usually come out inaccurate — that is a general limit of AI image generation, not just this tool.",
   },
+  {
+    q: "Is there a free AI image generator with no watermark?",
+    a: "Yes. Images generated here download clean with no watermark and no attribution requirement, free for personal projects.",
+  },
+  {
+    q: "How do I write a good AI image prompt?",
+    a: "Be specific: describe the subject, setting, lighting, mood, and art style. 'A cozy cabin in snow at dusk, warm window light, digital painting' beats 'cabin' every time.",
+  },
+
 ];
 
 const STEPS = [
@@ -228,8 +237,10 @@ function RelatedGrid({ related }: { related: ToolDef[] }) {
   );
 }
 
+const RELATED_SLUGS: string[] = ["image-to-text", "background-remover", "image-upscaler"];
+
 export default function AiImageGeneratorPage() {
-  const related = tool.related
+  const related = RELATED_SLUGS
     .map((s) => toolBySlug(s))
     .filter((t): t is ToolDef => Boolean(t));
 
@@ -274,12 +285,9 @@ export default function AiImageGeneratorPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-5">
-          PixelSter — AI Image <em>Generator</em>
+          Free AI Image <em>Generator</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">
-          {tool.tagline} Eleven aspect ratios for thumbnails, reels, posts,
-          and presentations — no signup.
-        </p>
+        <p className="sec-sub mx-auto mt-4">A free AI image generator: describe anything in words and get high-quality AI art in seconds — no sign-up, no watermark.</p>
       </header>
 
       <section aria-label="AI image generator tool">
@@ -293,7 +301,22 @@ export default function AiImageGeneratorPage() {
         </p>
       </section>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>AI Image Generator</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            An AI image generator turns a plain-English description into original artwork in seconds. Type a prompt like a misty mountain lake at sunrise, and this free online tool renders a high-quality image you can download immediately — no account, no credits, no watermark stamped across your art. Bloggers illustrate posts without stock-photo subscriptions, indie makers prototype game art and product mockups, and social creators produce scroll-stopping visuals for every post.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            The generator runs on free AI image models with an automatic fallback provider, so if the primary engine is busy your prompt still gets rendered. Generation usually takes under half a minute. For best results, be specific: name the subject, the setting, the lighting, and the style rather than a single vague word. The images are AI-generated originals, but avoid prompting for real people's likenesses or brand logos — those requests are blocked, and you should check licensing if you plan commercial use.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">How it works</p>
         <h2 className="sec-title">
           Three steps to <em>done</em>

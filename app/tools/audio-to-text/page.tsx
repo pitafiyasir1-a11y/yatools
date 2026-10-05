@@ -6,6 +6,7 @@ import {
   webAppJsonLd,
   faqJsonLd,
   breadcrumbJsonLd,
+  type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
 
@@ -16,27 +17,41 @@ function getTool() {
 }
 const tool = getTool();
 
+function softwareAppJsonLd(t: ToolDef) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${t.name} — ${SITE.name}`,
+    url: `${SITE.url}/tools/${t.slug}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: t.description,
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Audio to Text — Free Online | YATools",
+  title: "Audio to Text Converter - Transcribe Audio Free Online",
   description:
-    "Transcribe MP3, WAV, M4A and more into editable text online. Free AI audio-to-text with timestamps and SRT export — no sign-up.",
+    "Transcribe audio to text free online — upload MP3, WAV, or M4A, paste a YouTube link, or dictate with your mic. Fast, private, no sign-up. Try it now!",
   path: "/tools/audio-to-text",
   keywords: [
-    "audio to text online",
-    "mp3 to text",
-    "transcribe audio free",
-    "voice note to text",
+    "audio to text",
+    "transcribe audio",
+    "speech to text",
+    "MP3 to text",
+    "audio transcription",
   ],
 });
 
 const STEPS = [
   {
     title: "Upload your audio",
-    text: "Choose an MP3, WAV, M4A, OGG or FLAC file up to 25 MB — or dictate with your microphone instead.",
+    text: "Choose an MP3, WAV, M4A, OGG or FLAC file up to 25 MB — paste a YouTube link instead, or dictate with your microphone.",
   },
   {
     title: "Pick language & model",
-    text: "Leave language on auto-detect, or set it yourself. Turbo is fastest; Accurate is more careful.",
+    text: "Leave language on auto-detect, or set it yourself. Turbo is fastest, Accurate is more careful, English is tuned for English audio. You can also translate any transcript to English.",
   },
   {
     title: "Get your transcript",
@@ -46,10 +61,12 @@ const STEPS = [
 
 const LIMITS: [string, string][] = [
   ["Accepted files", "MP3, WAV, M4A, OGG, FLAC (audio/*)"],
+  ["YouTube", "Paste a youtube.com or youtu.be link — the audio is fetched and transcribed"],
   ["Max file size", "25 MB per upload"],
-  ["Models", "Turbo (fast) · Accurate (more careful)"],
+  ["Models", "Turbo (fast) · Accurate (more careful) · English (tuned for English)"],
   ["Languages", "Auto-detect, English, Urdu, Arabic, Hindi, Spanish, French"],
   ["Timestamps", "Optional SRT subtitle file"],
+  ["Translate", "Optional one-step translation of any transcript to English"],
   [
     "Processing",
     "Synchronous — about a minute max. Very long audio can time out; split it into shorter clips",
@@ -89,8 +106,8 @@ const FAQS = [
     a: "Auto-detect plus English, Urdu, Arabic, Hindi, Spanish and French. Pick a language for better accuracy, or leave it on auto-detect.",
   },
   {
-    q: "What is the difference between Turbo and Accurate?",
-    a: "Turbo returns your transcript faster. Accurate spends more time for a more careful result, which helps with difficult or noisy audio.",
+    q: "What is the difference between Turbo, Accurate, and English?",
+    a: "Turbo returns your transcript faster. Accurate spends more time for a more careful result, which helps with difficult or noisy audio. English is tuned specifically for English-language audio.",
   },
   {
     q: "My file timed out — what now?",
@@ -102,13 +119,24 @@ const FAQS = [
   },
   {
     q: "Can I transcribe a YouTube video?",
-    a: "No — this tool works with audio files you upload directly, and can't fetch YouTube links. If your audio is inside a video you own, extract the audio track first with any free converter app, then upload the file.",
+    a: "Yes — switch to the YouTube link tab and paste the video URL. The video's audio is fetched and transcribed automatically. Only transcribe videos you have the right to use.",
   },
   {
     q: "Do you keep my audio?",
     a: "No. Files are processed in real time and never stored on our servers.",
   },
+  {
+    q: "Can I transcribe a YouTube video to text for free?",
+    a: "Yes. Paste the YouTube link and the tool pulls the video's audio and transcribes it — handy for lectures, interviews, and podcasts published as video.",
+  },
+  {
+    q: "What audio file formats can I transcribe?",
+    a: "MP3, WAV, and M4A are all supported. If your recording is in another format, convert it first or use the microphone dictation mode to speak the content directly.",
+  },
+
 ];
+
+const RELATED_SLUGS: string[] = ["text-to-speech", "text-to-pdf", "image-to-text"];
 
 export default function AudioToTextPage() {
   return (
@@ -117,6 +145,11 @@ export default function AudioToTextPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd(tool)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd(tool)) }}
+      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
@@ -152,9 +185,9 @@ export default function AudioToTextPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-4">
-          Audio to <em>Text</em>
+          Free Audio to <em>Text</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">{tool.tagline}</p>
+        <p className="sec-sub mx-auto mt-4">A free audio to text converter: upload a recording, paste a YouTube link, or dictate live — get accurate transcripts in minutes.</p>
       </header>
 
       <section className="card p-5 sm:p-8 md:p-10" aria-label="Transcription tool">
@@ -168,7 +201,22 @@ export default function AudioToTextPage() {
         stored.
       </p>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Audio to Text</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            An audio to text converter turns spoken words into written text you can edit, search, and share. Upload an MP3, WAV, or M4A recording and this free online transcription tool converts it to text automatically — or skip the file entirely and paste a YouTube link to transcribe a video's audio straight from the page. Students transcribe lectures, journalists turn interviews into quotable copy, podcasters generate show notes, and creators make captions from voice notes, all without installing software or creating an account.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            Choose between Turbo, Accurate, and English transcription modes depending on whether you need speed or precision, and if the cloud transcription service is ever temporarily unavailable, a built-in microphone dictation mode keeps you working right in the browser. Long files can take several minutes and very large uploads may time out — splitting a two-hour recording into parts is the reliable workaround. Your audio is processed for transcription and never kept or shared.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">Supported formats &amp; limits</p>
         <h2 className="sec-title">
           What it <em>handles</em>
@@ -255,7 +303,7 @@ export default function AudioToTextPage() {
           Keep <em>going</em>
         </h2>
         <div className="tool-grid mt-6">
-          {tool.related.map((slug) => {
+          {RELATED_SLUGS.map((slug) => {
             const t = toolBySlug(slug);
             if (!t) return null;
             return (

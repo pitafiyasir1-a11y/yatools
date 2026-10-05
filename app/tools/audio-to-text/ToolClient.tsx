@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 type Status = "idle" | "loading" | "done" | "error";
-type Mode = "upload" | "dictate";
+type Mode = "upload" | "youtube" | "dictate";
 
 const MAX_BYTES = 25 * 1024 * 1024;
 
@@ -98,14 +98,29 @@ export default function ToolClient() {
   /* ---- upload mode ---- */
   const [file, setFile] = useState<File | null>(null);
   const [language, setLanguage] = useState("auto");
-  const [model, setModel] = useState<"turbo" | "accurate">("turbo");
+  const [model, setModel] = useState<"turbo" | "accurate" | "english">("turbo");
   const [timestamps, setTimestamps] = useState(false);
+  const [translate, setTranslate] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
-  const [result, setResult] = useState<{ text: string; srt?: string } | null>(
-    null
-  );
+  const [result, setResult] = useState<{
+    text: string;
+    srt?: string;
+    language?: string;
+    model?: string;
+  } | null>(null);
   const [copied, setCopied] = useState(false);
+
+  /* ---- youtube mode ---- */
+  const [ytUrl, setYtUrl] = useState("");
+  const [ytTranslate, setYtTranslate] = useState(false);
+  const [ytStatus, setYtStatus] = useState<Status>("idle");
+  const [ytError, setYtError] = useState("");
+  const [ytResult, setYtResult] = useState<{
+    text: string;
+    srt?: string;
+    language?: string;
+  } | null>(null);
 
   /* ---- dictate mode ---- */
   const [srSupported, setSrSupported] = useState(false);
@@ -162,6 +177,7 @@ export default function ToolClient() {
       };
       if (language !== "auto") payload.language = language;
       if (timestamps) payload.timestamps = "1";
+      if (translate) payload.translate = "1";
       const res = await fetch("/api/v1/transcribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -177,7 +193,12 @@ export default function ToolClient() {
         }
         throw new Error(data.error?.message || "Transcription failed.");
       }
-      setResult({ text: data.data.text, srt: data.data.srt });
+      setResult({
+        text: data.data.text,
+        srt: data.data.srt,
+        language: data.data.language,
+        model: data.data.model,
+      });
       setStatus("done");
     } catch (e) {
       setError(
@@ -187,10 +208,53 @@ export default function ToolClient() {
     }
   }
 
-  async function copyText() {
-    if (!result?.text) return;
+  async function transcribeYouTube() {
+    const url = ytUrl.trim();
+    if (!url) {
+      setYtError("Paste a YouTube link first.");
+      setYtStatus("error");
+      return;
+    }
+    setYtStatus("loading");
+    setYtError("");
+    setYtResult(null);
     try {
-      await navigator.clipboard.writeText(result.text);
+      const payload: Record<string, string> = { youtube: url };
+      if (ytTranslate) payload.translate = "1";
+      const res = await fetch("/api/v1/transcribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await res.json()) as TranscribeOk | TranscribeErr;
+      if (!data.ok) {
+        const code = data.error?.code;
+        if (code === "TRANSCRIBE_TIMEOUT") {
+          throw new Error(
+            "The video took too long to process. Try a shorter video."
+          );
+        }
+        throw new Error(data.error?.message || "Transcription failed.");
+      }
+      setYtResult({
+        text: data.data.text,
+        srt: data.data.srt,
+        language: data.data.language,
+      });
+      setYtStatus("done");
+    } catch (e) {
+      setYtError(
+        e instanceof Error ? e.message : "Something went wrong. Please try again."
+      );
+      setYtStatus("error");
+    }
+  }
+
+  async function copyText(text?: string) {
+    const t = text ?? result?.text;
+    if (!t) return;
+    try {
+      await navigator.clipboard.writeText(t);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -249,7 +313,8 @@ export default function ToolClient() {
     <div>
       <h2 className="font-display text-3xl mb-1">Transcribe audio</h2>
       <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
-        Upload a recording, or dictate straight into your microphone.
+        Upload a recording, paste a YouTube link, or dictate straight into
+        your microphone.
       </p>
 
       <div className="flex flex-wrap gap-3 mb-6">
@@ -259,6 +324,13 @@ export default function ToolClient() {
           onClick={() => setMode("upload")}
         >
           Upload file
+        </button>
+        <button
+          type="button"
+          className={`tab ${mode === "youtube" ? "tab-active" : ""}`}
+          onClick={() => setMode("youtube")}
+        >
+          YouTube link
         </button>
         {srSupported && (
           <button
@@ -322,11 +394,12 @@ export default function ToolClient() {
                 className="select"
                 value={model}
                 onChange={(e) =>
-                  setModel(e.target.value as "turbo" | "accurate")
+                  setModel(e.target.value as "turbo" | "accurate" | "english")
                 }
               >
                 <option value="turbo">Turbo — fast</option>
                 <option value="accurate">Accurate — slower</option>
+                <option value="english">English — tuned for English</option>
               </select>
             </div>
             <div className="flex items-end pb-1">
@@ -342,6 +415,23 @@ export default function ToolClient() {
                 </span>
               </label>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={translate}
+                onChange={(e) => setTranslate(e.target.checked)}
+                className="w-5 h-5 accent-[#e0263c]"
+              />
+              <span className="text-sm font-semibold">
+                Translate to English
+              </span>
+              <span className="text-xs" style={{ color: "var(--muted)" }}>
+                Get the transcript in English no matter what language is spoken.
+              </span>
+            </label>
           </div>
 
           <button
@@ -370,13 +460,28 @@ export default function ToolClient() {
 
           {status === "done" && result && (
             <div className="mt-6">
+              <div className="flex flex-wrap gap-2 mb-3">
+                {result.language && (
+                  <span className="badge badge-blue">
+                    Detected: {result.language}
+                  </span>
+                )}
+                {result.model && (
+                  <span
+                    className="font-mono2 text-xs"
+                    style={{ color: "var(--muted)" }}
+                  >
+                    model: {result.model}
+                  </span>
+                )}
+              </div>
               <div className="result-box !border-solid">
                 <p className="whitespace-pre-wrap text-sm leading-relaxed">
                   {result.text}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 mt-4">
-                <button type="button" className="btn btn-sm" onClick={copyText}>
+                <button type="button" className="btn btn-sm" onClick={() => copyText()}>
                   {copied ? "Copied!" : "Copy text"}
                 </button>
                 <button
@@ -408,6 +513,111 @@ export default function ToolClient() {
               <p style={{ color: "var(--muted)" }}>
                 Your transcript will appear here.
               </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {mode === "youtube" && (
+        <div>
+          <label className="field-label" htmlFor="at-yturl">
+            YouTube link
+          </label>
+          <input
+            id="at-yturl"
+            type="url"
+            inputMode="url"
+            className="input input-mono"
+            placeholder="https://www.youtube.com/watch?v=… or https://youtu.be/…"
+            value={ytUrl}
+            onChange={(e) => setYtUrl(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <p className="text-xs mt-2" style={{ color: "var(--muted)" }}>
+            The video&apos;s audio is fetched and transcribed — only use
+            videos you have the right to transcribe.
+          </p>
+
+          <div className="mt-4">
+            <label className="flex items-center gap-3 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={ytTranslate}
+                onChange={(e) => setYtTranslate(e.target.checked)}
+                className="w-5 h-5 accent-[#e0263c]"
+              />
+              <span className="text-sm font-semibold">Translate to English</span>
+            </label>
+          </div>
+
+          <button
+            type="button"
+            className="btn btn-primary mt-6"
+            onClick={transcribeYouTube}
+            disabled={ytStatus === "loading" || !ytUrl.trim()}
+          >
+            {ytStatus === "loading" ? "Transcribing…" : "Transcribe video"}
+          </button>
+
+          {ytStatus === "loading" && (
+            <div className="result-box mt-6 text-center">
+              <p className="font-bold">Fetching & transcribing…</p>
+              <p className="text-sm mt-1" style={{ color: "var(--muted)" }}>
+                This can take a while for longer videos. Please keep this tab
+                open.
+              </p>
+            </div>
+          )}
+
+          {ytStatus === "error" && ytError && (
+            <div className="notice notice-warn mt-6" role="alert">
+              <strong>Transcription failed.</strong> {ytError}
+            </div>
+          )}
+
+          {ytStatus === "done" && ytResult && (
+            <div className="mt-6">
+              {ytResult.language && (
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="badge badge-blue">
+                    Detected: {ytResult.language}
+                  </span>
+                </div>
+              )}
+              <div className="result-box !border-solid">
+                <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                  {ytResult.text}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(ytResult.text);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    } catch {
+                      setYtError(
+                        "Copy was blocked by the browser — select the text manually."
+                      );
+                    }
+                  }}
+                >
+                  {copied ? "Copied!" : "Copy text"}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  onClick={() =>
+                    downloadBlob(ytResult.text, "transcript.txt", "text/plain")
+                  }
+                >
+                  Download .txt
+                </button>
+              </div>
             </div>
           )}
         </div>
