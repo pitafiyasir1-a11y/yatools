@@ -105,7 +105,8 @@ export default function PdfToWordOcrClient() {
     setStatus("Reading your PDF…");
     setError(null);
     try {
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const bytes = new Uint8Array(await f.arrayBuffer());
       const pdf = await pdfjs.getDocument({ data: bytes }).promise;
       const count = pdf.numPages;
@@ -163,7 +164,8 @@ export default function PdfToWordOcrClient() {
       if (runId !== runIdRef.current) return;
 
       // Render each page at 150 DPI and OCR it.
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const pdf = await pdfjs.getDocument({ data: pdfBytes.current }).promise;
       const pageTexts: { num: number; text: string }[] = [];
       const scale = 150 / 72; // 150 DPI — enough for OCR, keeps memory reasonable.

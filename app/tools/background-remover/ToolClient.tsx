@@ -6,7 +6,7 @@ const MAX_BYTES = 10 * 1024 * 1024; // ~10MB soft cap
 
 const FAIL_MESSAGE =
   "Background removal failed — the AI model couldn't load or run. Next steps: " +
-  "1) check your internet connection (the first run downloads ~40 MB), " +
+  "1) check your internet connection (the first run downloads ~85 MB), " +
   "2) use a Chromium-based browser like Chrome or Edge with WebGPU enabled, " +
   "3) try a smaller image.";
 
@@ -68,7 +68,7 @@ export default function BackgroundRemoverClient() {
       setStage("working");
       const blob = await removeBackground(file, {
         progress: (key: string, current: number, total: number) => {
-          // First-run calls fetch:… while the ~40MB model downloads,
+          // First-run calls fetch:… while the ~85MB model downloads,
           // then compute:… while the image is segmented.
           if (key.startsWith("fetch:")) {
             setProgressLabel("Downloading AI model…");
@@ -87,9 +87,8 @@ export default function BackgroundRemoverClient() {
             setProgressDetail("");
           }
         },
-        // "small" model (~42MB vs the ~84MB default): much faster first
-        // download, quality fine for typical photos per the library docs.
-        model: "isnet_quint8",
+        // Full-quality default model ("isnet", ~84MB): best edge quality.
+        // (The smaller "isnet_quint8" cut ragged edges — reverted on user feedback.)
         output: { format: "image/png", quality: 1 },
       });
       if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -152,7 +151,7 @@ export default function BackgroundRemoverClient() {
           </div>
           <p style={{ fontSize: "0.92rem" }}>
             JPG, PNG, WebP — up to ~10MB. First run downloads the AI model
-            (~40 MB) — once, then it&apos;s cached in your browser. Later runs are instant.
+            (~85 MB) — once, then it&apos;s cached in your browser. Later runs are instant.
           </p>
         </div>
       )}
@@ -191,7 +190,7 @@ export default function BackgroundRemoverClient() {
           <style>{`@keyframes br-slide { 0% { transform: translateX(-100%);} 100% { transform: translateX(220%);} }`}</style>
           {progressLabel.startsWith("Downloading") && (
             <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: 10, lineHeight: 1.5 }}>
-              First run downloads the AI model (~40 MB) — once, then it&apos;s cached
+              First run downloads the AI model (~85 MB) — once, then it&apos;s cached
               in your browser. Later runs are instant.
             </p>
           )}

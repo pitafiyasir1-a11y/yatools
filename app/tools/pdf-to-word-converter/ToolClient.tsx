@@ -37,7 +37,8 @@ export default function PdfToWordClient() {
     setPhase("extracting");
     setError(null);
     try {
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const bytes = new Uint8Array(await f.arrayBuffer());
       const pdf = await pdfjs.getDocument({ data: bytes }).promise;
 

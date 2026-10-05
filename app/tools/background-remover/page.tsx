@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     q: "Why does the first run take a while?",
-    a: "The first run downloads the AI model (~40MB) to your browser — that's what the “Downloading AI model…” progress bar shows. Once cached, later removals start almost instantly. This also means the first run needs an internet connection; everything after that is pure local computation.",
+    a: "The first run downloads the AI model (~85MB) to your browser — that's what the “Downloading AI model…” progress bar shows. Once cached, later removals start almost instantly. This also means the first run needs an internet connection; everything after that is pure local computation.",
   },
   {
     q: "Which browsers work best?",
@@ -153,7 +153,7 @@ export default function BackgroundRemoverPage() {
             },
             {
               title: "Remove the background",
-              text: "The in-browser AI downloads once (~40MB, cached afterwards), then segments your subject. Watch honest progress: model download, then removal.",
+              text: "The in-browser AI downloads once (~85MB, cached afterwards), then segments your subject. Watch honest progress: model download, then removal.",
             },
             {
               title: "Download the PNG",

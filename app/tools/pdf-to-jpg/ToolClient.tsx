@@ -36,10 +36,10 @@ export default function PdfToJpgClient() {
     setLoading(true);
     try {
       // pdf.js is heavy: load it only when a file is chosen.
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const bytes = new Uint8Array(await f.arrayBuffer());
-      // No worker configured → pdf.js runs on the main thread ("fake worker").
-      // Simpler and reliable; big PDFs just take a few seconds.
+      // Worker is configured in lib/pdfjs.ts (pdfjs-dist v6 requires one).
       const pdf = await pdfjs.getDocument({ data: bytes }).promise;
       pdfBytes.current = bytes;
       setFileName(f.name.replace(/\.pdf$/i, ""));
@@ -61,7 +61,8 @@ export default function PdfToJpgClient() {
       return [];
     });
     try {
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const pdf = await pdfjs.getDocument({ data: pdfBytes.current }).promise;
       const out: PageOut[] = [];
       for (let n = 1; n <= pdf.numPages; n++) {

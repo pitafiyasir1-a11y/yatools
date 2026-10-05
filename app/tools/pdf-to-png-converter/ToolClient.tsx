@@ -54,7 +54,8 @@ export default function PdfToPngClient() {
     setLoading(true);
     try {
       // pdf.js is heavy: load it only when a file is chosen.
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const bytes = new Uint8Array(await f.arrayBuffer());
       // No worker configured → pdf.js runs on the main thread ("fake worker").
       // Simpler and reliable; big PDFs just take a few seconds.
@@ -79,7 +80,8 @@ export default function PdfToPngClient() {
     renderedRef.current.forEach((r) => URL.revokeObjectURL(r.url));
     setRendered([]);
     try {
-      const pdfjs = await import("pdfjs-dist");
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
       const pdf = await pdfjs.getDocument({ data: pdfBytes.current }).promise;
       const scale = dpi / 72;
       const out: PageOut[] = [];
