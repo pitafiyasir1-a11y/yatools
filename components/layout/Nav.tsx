@@ -8,7 +8,6 @@ const LINKS = [
   { label: "Tools", href: "/#tools" },
   { label: "Guides", href: "/#use-cases" },
   { label: "Developers", href: "/developers" },
-  { label: "اردو", href: "/ur" },
 ];
 
 function Logo() {

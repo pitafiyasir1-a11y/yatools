@@ -7,7 +7,6 @@ const RESOURCES = [
   { label: "Error Codes", href: "/developers/errors" },
   { label: "Changelog", href: "/developers/changelog" },
   { label: "Guides", href: "/#use-cases" },
-  { label: "Urdu Version", href: "/ur" },
 ];
 
 const LEGAL = [
