@@ -6,6 +6,7 @@ import {
   webAppJsonLd,
   faqJsonLd,
   breadcrumbJsonLd,
+  type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
 
@@ -16,16 +17,30 @@ function getTool() {
 }
 const tool = getTool();
 
+function softwareAppJsonLd(t: ToolDef) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${t.name} — ${SITE.name}`,
+    url: `${SITE.url}/tools/${t.slug}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: t.description,
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Urdu Handwriting Generator — Free Online | YATools",
+  title: "Urdu Handwriting Generator - Convert Text Free Online",
   description:
-    "Turn typed English or Urdu text into realistic handwriting on ruled paper. Free handwriting generator with PNG download — no sign-up.",
+    "Convert Urdu text to realistic handwriting free online. Type in Urdu, pick paper and ink styles, and download handwritten notes as an image or PDF. Try now!",
   path: "/tools/urdu-handwriting",
   keywords: [
-    "urdu handwriting generator",
-    "text to handwriting",
-    "handwriting generator online",
-    "english to handwriting",
+    "Urdu handwriting",
+    "Urdu text to handwriting",
+    "handwritten Urdu",
+    "Urdu notes generator",
+    "Urdu writing tool",
   ],
 });
 
@@ -108,7 +123,18 @@ const FAQS = [
     q: "Do you store my text?",
     a: "No. Everything is rendered on the spot and nothing is stored.",
   },
+  {
+    q: "Can I convert Urdu text to handwriting online for free?",
+    a: "Yes. Type or paste Urdu text and get realistic handwritten-style output instantly — no sign-up, no watermark, and your text stays in your browser.",
+  },
+  {
+    q: "Can I download my handwritten Urdu notes as a PDF?",
+    a: "Yes. Export your notes as a printable PDF for assignments and worksheets, or as an image to share on WhatsApp and social media.",
+  },
+
 ];
+
+const RELATED_SLUGS: string[] = ["text-to-pdf", "wikipedia-to-pdf", "word-counter"];
 
 export default function UrduHandwritingPage() {
   return (
@@ -117,6 +143,11 @@ export default function UrduHandwritingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd(tool)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd(tool)) }}
+      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
@@ -152,9 +183,9 @@ export default function UrduHandwritingPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-4">
-          Urdu <em>Handwriting</em>
+          Free Urdu <em>Handwriting</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">{tool.tagline}</p>
+        <p className="sec-sub mx-auto mt-4">A free Urdu handwriting generator: type Urdu text and get realistic handwritten notes on styled paper — download as image or PDF.</p>
       </header>
 
       <section className="card p-5 sm:p-8 md:p-10" aria-label="Handwriting tool">
@@ -167,7 +198,22 @@ export default function UrduHandwritingPage() {
         Rendered in your browser — nothing is uploaded or stored.
       </p>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Urdu Handwriting</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            An Urdu handwriting generator turns typed Urdu text into realistic handwritten notes — perfect for students preparing assignments, teachers making worksheets, and anyone who wants the warmth of handwriting without picking up a pen. Type or paste your Urdu text into this free online tool, choose from paper and ink styles, and watch your words render in natural, flowing Urdu script. The interface is in simple English so anyone can use it, and the rendering happens primarily on a client-side canvas, which means your text never has to leave your device.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            Handwritten-style notes are easier on the eyes for long study sessions and look far more personal for letters, quotes, and classroom materials than plain typed text. You can fine-tune the look with different paper backgrounds and ink colors, then export the result as an image to share or a PDF to print. Because the main engine runs in your browser, generation is instant and private; an optional API render mode exists for a different handwriting style when you want variety.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">Supported formats &amp; limits</p>
         <h2 className="sec-title">
           What it <em>handles</em>
@@ -254,7 +300,7 @@ export default function UrduHandwritingPage() {
           Keep <em>going</em>
         </h2>
         <div className="tool-grid mt-6">
-          {tool.related.map((slug) => {
+          {RELATED_SLUGS.map((slug) => {
             const t = toolBySlug(slug);
             if (!t) return null;
             return (
