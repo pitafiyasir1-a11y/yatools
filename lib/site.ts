@@ -1069,6 +1069,7 @@ export function orgJsonLd() {
     name: SITE.name,
     url: SITE.url,
     description: SITE.description,
+    logo: "https://yatools-xyv3.vercel.app/og-image.jpg",
   };
 }
 

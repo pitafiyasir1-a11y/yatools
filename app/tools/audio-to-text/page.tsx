@@ -9,6 +9,7 @@ import {
   type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
+import { ToolIcon } from "@/components/tool-icons";
 
 function getTool() {
   const t = toolBySlug("audio-to-text");
@@ -180,7 +181,10 @@ export default function AudioToTextPage() {
       </nav>
 
       <header className="text-center max-w-2xl mx-auto mb-10">
-        <span className="eyebrow">
+        <span aria-hidden="true" className="tool-icon tool-icon-lg" style={{ margin: "0 auto 16px" }}>
+          <ToolIcon slug={tool.slug} />
+        </span>
+                <span className="eyebrow">
           <span className="dot" />
           Free tool
         </span>

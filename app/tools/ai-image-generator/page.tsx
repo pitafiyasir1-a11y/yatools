@@ -8,6 +8,7 @@ import {
   type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
+import { ToolIcon } from "@/components/tool-icons";
 
 const tool = toolBySlug("ai-image-generator")!;
 
@@ -280,7 +281,10 @@ export default function AiImageGeneratorPage() {
       </nav>
 
       <header className="text-center max-w-3xl mx-auto mb-10">
-        <span className="eyebrow">
+        <span aria-hidden="true" className="tool-icon tool-icon-lg" style={{ margin: "0 auto 16px" }}>
+          <ToolIcon slug={tool.slug} />
+        </span>
+                <span className="eyebrow">
           <span className="dot" />
           Free tool
         </span>
