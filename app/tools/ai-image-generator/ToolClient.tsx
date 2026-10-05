@@ -86,9 +86,9 @@ export default function AiImageClient() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="neu-card p-6 md:p-8">
+      <div className="card p-6 md:p-8">
         <div className="flex items-end justify-between mb-2">
-          <label className="neu-label !mb-0" htmlFor="ai-prompt">
+          <label className="field-label !mb-0" htmlFor="ai-prompt">
             Describe your image
           </label>
           <span
@@ -100,7 +100,7 @@ export default function AiImageClient() {
         </div>
         <textarea
           id="ai-prompt"
-          className="neu-textarea"
+          className="textarea"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value.slice(0, MAX_PROMPT))}
           placeholder="A cozy mountain cabin at dusk, warm lights in the windows, snow falling, cinematic style…"
@@ -109,12 +109,12 @@ export default function AiImageClient() {
 
         <div className="grid sm:grid-cols-2 gap-4 mt-5">
           <div>
-            <label className="neu-label" htmlFor="ai-ratio">
+            <label className="field-label" htmlFor="ai-ratio">
               Aspect ratio
             </label>
             <select
               id="ai-ratio"
-              className="neu-select"
+              className="select"
               value={ratio}
               onChange={(e) => setRatio(e.target.value)}
             >
@@ -127,7 +127,7 @@ export default function AiImageClient() {
           </div>
           <div className="flex items-end">
             <button
-              className="neu-btn neu-btn-primary w-full"
+              className="btn btn-primary w-full"
               onClick={generate}
               disabled={busy}
             >
@@ -154,20 +154,20 @@ export default function AiImageClient() {
       </div>
 
       {status === "ready" && imageUrl && (
-        <div className="neu-card p-4 md:p-5 mt-6">
+        <div className="card p-4 md:p-5 mt-6">
           <img
             src={imageUrl}
             alt={prompt.trim() || "AI generated image"}
             className="w-full rounded-lg border-2"
-            style={{ borderColor: "var(--ink)" }}
+            style={{ borderColor: "var(--line)" }}
           />
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4">
             <div className="flex flex-wrap gap-3">
-              <button className="neu-btn neu-btn-primary" onClick={download}>
+              <button className="btn btn-primary" onClick={download}>
                 Download
               </button>
               <button
-                className="neu-btn"
+                className="btn"
                 onClick={generate}
                 disabled={busy}
               >
@@ -175,7 +175,7 @@ export default function AiImageClient() {
               </button>
             </div>
             {viaFallback && (
-              <span className="neu-badge neu-badge-green self-start sm:self-auto">
+              <span className="badge badge-green self-start sm:self-auto">
                 Pollinations fallback
               </span>
             )}

@@ -77,9 +77,9 @@ export default function Page() {
         </div>
 
         <div className="max-w-3xl mt-10 space-y-5">
-          <article className="neu-card p-6 md:p-8">
+          <article className="card p-6 md:p-8">
             <div className="flex flex-wrap items-center gap-3 mb-3">
-              <span className="neu-badge neu-badge-red">v1.2.0</span>
+              <span className="badge badge-red">v1.2.0</span>
               <span className="font-mono2 text-xs text-[var(--muted)]">
                 2026-10-06
               </span>
@@ -116,9 +116,9 @@ export default function Page() {
               </ul>
             </div>
           </article>
-          <article className="neu-card p-6 md:p-8">
+          <article className="card p-6 md:p-8">
             <div className="flex flex-wrap items-center gap-3 mb-3">
-              <span className="neu-badge neu-badge-red">v1.1.0</span>
+              <span className="badge badge-red">v1.1.0</span>
               <span className="font-mono2 text-xs text-[var(--muted)]">
                 2026-10-05
               </span>
@@ -143,9 +143,9 @@ export default function Page() {
               </ul>
             </div>
           </article>
-          <article className="neu-card p-6 md:p-8">
+          <article className="card p-6 md:p-8">
             <div className="flex flex-wrap items-center gap-3 mb-3">
-              <span className="neu-badge neu-badge-red">v1.0.0</span>
+              <span className="badge badge-red">v1.0.0</span>
               <span className="font-mono2 text-xs text-[var(--muted)]">
                 2026-10-05
               </span>

@@ -26,16 +26,16 @@ export default function NotFound() {
         </p>
         <div className="mb-8 flex flex-wrap justify-center gap-2.5">
           {POPULAR.map((t) => (
-            <Link key={t.href} href={t.href} className="neu-chip no-underline">
+            <Link key={t.href} href={t.href} className="tab no-underline">
               {t.label}
             </Link>
           ))}
         </div>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link href="/" className="neu-btn neu-btn-primary no-underline">
+          <Link href="/" className="btn btn-primary no-underline">
             Back to home
           </Link>
-          <Link href="/#tools" className="neu-btn no-underline">
+          <Link href="/#tools" className="btn no-underline">
             Browse all tools
           </Link>
         </div>

@@ -10,7 +10,7 @@ import {
   breadcrumbJsonLd,
 } from "@/lib/site";
 import SectionHead from "@/components/SectionHead";
-import ToolCard from "@/components/ToolCard";
+import ToolGrid from "@/components/ToolGrid";
 import Faq from "@/components/Faq";
 
 const meta = pageMeta({
@@ -56,7 +56,7 @@ const websiteJsonLd = {
 const FAQS = [
   {
     q: "Are the tools really free?",
-    a: "Yes — all 14 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the six in-browser tools have no limits at all.",
+    a: "Yes — all 36 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the 24 in-browser tools have no limits at all.",
   },
   {
     q: "Do I need an account or signup?",
@@ -90,7 +90,7 @@ const TRUST = [
 const STEPS = [
   {
     title: "Pick a tool",
-    text: "Open any of the 14 tools below — nothing to install, nothing to sign up for.",
+    text: "Open any of the 36 tools below — nothing to install, nothing to sign up for.",
   },
   {
     title: "Paste your input",
@@ -152,7 +152,7 @@ curl -X POST https://yatools.vercel.app/api/v1/websnap \\
 
 function CheckIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M4 12.5l5 5L20 6.5" />
     </svg>
   );
@@ -161,10 +161,10 @@ function CheckIcon() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <p className="font-display m-0 text-4xl md:text-5xl" style={{ color: "var(--text)", lineHeight: 1 }}>
+      <p className="font-display m-0 text-3xl" style={{ color: "var(--text)", lineHeight: 1 }}>
         {value}
       </p>
-      <p className="font-mono2 m-0 mt-1 text-xs uppercase" style={{ color: "var(--muted)", letterSpacing: "0.08em" }}>
+      <p className="font-mono2 m-0 mt-1.5 text-[0.7rem] uppercase" style={{ color: "var(--muted)", letterSpacing: "0.08em" }}>
         {label}
       </p>
     </div>
@@ -185,10 +185,6 @@ function CodeWindow({ code, title }: { code: string; title: string }) {
   );
 }
 
-const apiTools = TOOLS.filter((t) => t.api !== null);
-const browserTools = TOOLS.filter((t) => t.api === null);
-const categories = Array.from(new Set(TOOLS.map((t) => t.category)));
-
 export default function HomePage() {
   return (
     <>
@@ -198,13 +194,13 @@ export default function HomePage() {
       <JsonLd data={faqJsonLd(FAQS)} />
 
       {/* ================= HERO ================= */}
-      <section className="wrap pt-28 pb-12 md:pt-32 md:pb-16">
+      <section className="wrap pt-28 pb-10 md:pt-32 md:pb-12">
         <div className="max-w-3xl">
           <span className="eyebrow">
             <span className="dot" aria-hidden="true" />
             Free online tools
           </span>
-          <h1 className="hero-title mt-5 mb-5">
+          <h1 className="hero-title mt-4 mb-4">
             Free tools for <em>screenshots</em>, audio, documents &amp; everyday work.
           </h1>
           <p className="mb-8 max-w-xl text-lg leading-relaxed" style={{ color: "var(--text2)" }}>
@@ -213,14 +209,14 @@ export default function HomePage() {
             free API you can call from your own apps.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/#tools" className="neu-btn neu-btn-primary no-underline">
+            <Link href="/#tools" className="btn btn-primary no-underline">
               Explore tools
             </Link>
-            <Link href="/developers" className="neu-btn no-underline">
+            <Link href="/developers" className="btn no-underline">
               View API docs
             </Link>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
             <Stat value="14" label="Free tools" />
             <Stat value="8" label="API-powered" />
             <Stat value="6" label="In-browser" />
@@ -231,99 +227,33 @@ export default function HomePage() {
 
       {/* ================= TRUST STRIP ================= */}
       <div className="wrap">
-        <div className="neu-card flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
+        <div className="trust-strip" role="list" aria-label="Why YATools is free to use">
           {TRUST.map((t) => (
-            <span key={t} className="flex items-center gap-2 text-sm font-bold" style={{ color: "var(--text)" }}>
-              <span style={{ color: "var(--green)" }}>
-                <CheckIcon />
-              </span>
+            <span key={t} role="listitem" className="trust-item">
+              <CheckIcon />
               {t}
             </span>
           ))}
         </div>
       </div>
 
-      {/* ================= TOOLS (grouped) ================= */}
-      <section id="tools" className="wrap scroll-mt-20 py-16">
+      {/* ================= TOOLS (filterable grid) ================= */}
+      <section id="tools" className="wrap scroll-mt-20 py-14">
         <SectionHead
           eyebrow="The toolbox"
           title={
             <>
-              All <em>14 tools</em>, one tab.
+              All <em>36 tools</em>, one tab.
             </>
           }
-          sub="Eight tools run on our free API with a fair daily allowance. Six run entirely in your browser — no limits, nothing uploaded."
+          sub="Filter by category — or just scroll. API tools run on a free daily allowance; in-browser tools have no limits at all."
         />
-        <h3 className="font-mono2 mb-4 text-xs font-medium uppercase" style={{ color: "var(--muted)", letterSpacing: "0.08em" }}>
-          API-powered — free daily allowance
-        </h3>
-        <div className="tool-grid mb-10">
-          {apiTools.map((t) => (
-            <ToolCard key={t.slug} tool={t} />
-          ))}
-        </div>
-        <h3 className="font-mono2 mb-4 text-xs font-medium uppercase" style={{ color: "var(--muted)", letterSpacing: "0.08em" }}>
-          In-browser — unlimited, nothing leaves your device
-        </h3>
-        <div className="tool-grid">
-          {browserTools.map((t) => (
-            <ToolCard key={t.slug} tool={t} />
-          ))}
-        </div>
-      </section>
-
-      {/* ================= CATEGORIES ================= */}
-      <section className="wrap pb-16">
-        <hr className="sec-rule mb-12" />
-        <SectionHead
-          eyebrow="Browse"
-          title={
-            <>
-              Six <em>categories</em>, zero clutter.
-            </>
-          }
-          sub="Each tool page has its own guide, FAQ, and — for API tools — live documentation."
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => {
-            const tools = TOOLS.filter((t) => t.category === cat);
-            return (
-              <Link key={cat} href="/#tools" className="neu-card neu-card-hover no-underline p-5">
-                <div className="flex items-center gap-4">
-                  <span
-                    aria-hidden="true"
-                    className="font-display inline-flex h-11 w-11 items-center justify-center rounded-xl text-2xl"
-                    style={{
-                      border: "2.5px solid var(--ink)",
-                      background: "var(--red-tint)",
-                      color: "var(--red-dark)",
-                      lineHeight: 1,
-                      paddingTop: "4px",
-                    }}
-                  >
-                    {cat.charAt(0)}
-                  </span>
-                  <div>
-                    <h3 className="m-0 text-base font-extrabold" style={{ color: "var(--text)" }}>
-                      {cat}
-                    </h3>
-                    <p className="font-mono2 m-0 text-xs" style={{ color: "var(--muted)" }}>
-                      {tools.length} {tools.length === 1 ? "tool" : "tools"}
-                    </p>
-                  </div>
-                </div>
-                <p className="m-0 mt-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                  {tools.map((t) => t.name).join(" · ")}
-                </p>
-              </Link>
-            );
-          })}
-        </div>
+        <ToolGrid tools={TOOLS} />
       </section>
 
       {/* ================= HOW IT WORKS ================= */}
-      <section className="wrap pb-16">
-        <hr className="sec-rule mb-12" />
+      <section className="wrap pb-14">
+        <hr className="sec-rule mb-10" />
         <SectionHead
           eyebrow="How it works"
           title={
@@ -335,21 +265,15 @@ export default function HomePage() {
         />
         <ol className="m-0 grid list-none gap-4 p-0 md:grid-cols-3">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="neu-card p-5">
+            <li key={s.title} className="card p-5">
               <span
                 aria-hidden="true"
-                className="font-display mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full text-xl text-white"
-                style={{
-                  background: "var(--red)",
-                  border: "2.5px solid var(--ink)",
-                  boxShadow: "3px 3px 0 var(--ink)",
-                  lineHeight: 1,
-                  paddingTop: "2px",
-                }}
+                className="font-display mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-base text-white"
+                style={{ background: "var(--red)", lineHeight: 1 }}
               >
                 {i + 1}
               </span>
-              <h3 className="mb-1 text-base font-extrabold" style={{ color: "var(--text)" }}>
+              <h3 className="mb-1 text-base font-bold" style={{ color: "var(--text)" }}>
                 {s.title}
               </h3>
               <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--text2)" }}>
@@ -361,8 +285,8 @@ export default function HomePage() {
       </section>
 
       {/* ================= WHY FREE ================= */}
-      <section className="wrap pb-16">
-        <hr className="sec-rule mb-12" />
+      <section className="wrap pb-14">
+        <hr className="sec-rule mb-10" />
         <SectionHead
           eyebrow="The model"
           title={
@@ -374,8 +298,8 @@ export default function HomePage() {
         />
         <div className="grid gap-4 md:grid-cols-3">
           {WHY_FREE.map((w) => (
-            <div key={w.title} className="neu-card p-6">
-              <h3 className="mb-2 text-lg font-extrabold" style={{ color: "var(--text)" }}>
+            <div key={w.title} className="card p-6">
+              <h3 className="mb-2 text-lg font-bold" style={{ color: "var(--text)" }}>
                 {w.title}
               </h3>
               <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--text2)" }}>
@@ -387,8 +311,8 @@ export default function HomePage() {
       </section>
 
       {/* ================= USE CASES ================= */}
-      <section id="use-cases" className="wrap scroll-mt-20 pb-16">
-        <hr className="sec-rule mb-12" />
+      <section id="use-cases" className="wrap scroll-mt-20 pb-14">
+        <hr className="sec-rule mb-10" />
         <SectionHead
           eyebrow="Guides"
           title={
@@ -400,17 +324,17 @@ export default function HomePage() {
         />
         <div className="grid gap-4 sm:grid-cols-2">
           {USE_CASES.map((u) => (
-            <Link key={u.slug} href={`/use-cases/${u.slug}`} className="neu-card neu-card-hover no-underline p-6">
-              <p className="font-mono2 mb-2 text-xs uppercase" style={{ color: "var(--red)", letterSpacing: "0.08em" }}>
+            <Link key={u.slug} href={`/use-cases/${u.slug}`} className="card card-hover no-underline p-6">
+              <p className="font-mono2 mb-2 text-xs uppercase" style={{ color: "var(--red-dark)", letterSpacing: "0.08em" }}>
                 Guide
               </p>
-              <h3 className="mb-2 text-xl font-extrabold" style={{ color: "var(--text)" }}>
+              <h3 className="mb-2 text-xl font-bold" style={{ color: "var(--text)" }}>
                 {u.title}
               </h3>
-              <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+              <p className="m-0 text-sm leading-relaxed" style={{ color: "var(--text2)" }}>
                 {u.description}
               </p>
-              <span className="mt-4 inline-block text-sm font-bold" style={{ color: "var(--red-dark)" }}>
+              <span className="mt-4 inline-block text-sm font-semibold" style={{ color: "var(--red-dark)" }}>
                 Read the guide &rarr;
               </span>
             </Link>
@@ -419,8 +343,8 @@ export default function HomePage() {
       </section>
 
       {/* ================= API ================= */}
-      <section id="api" className="wrap scroll-mt-20 pb-16">
-        <hr className="sec-rule mb-12" />
+      <section id="api" className="wrap scroll-mt-20 pb-14">
+        <hr className="sec-rule mb-10" />
         <SectionHead
           eyebrow="For developers"
           title={
@@ -437,7 +361,7 @@ export default function HomePage() {
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
           {API_BULLETS.map((b) => (
-            <span key={b} className="flex items-center gap-2 text-sm font-bold" style={{ color: "var(--text)" }}>
+            <span key={b} className="trust-item flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--text)" }}>
               <span style={{ color: "var(--green)" }}>
                 <CheckIcon />
               </span>
@@ -446,10 +370,10 @@ export default function HomePage() {
           ))}
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/developers" className="neu-btn neu-btn-primary no-underline">
+          <Link href="/developers" className="btn btn-primary no-underline">
             Read the API docs
           </Link>
-          <Link href="/tools/website-screenshot" className="neu-btn no-underline">
+          <Link href="/tools/website-screenshot" className="btn no-underline">
             Try a live tool
           </Link>
         </div>
@@ -457,7 +381,7 @@ export default function HomePage() {
 
       {/* ================= FAQ ================= */}
       <section id="faq" className="wrap scroll-mt-20 pb-20">
-        <hr className="sec-rule mb-12" />
+        <hr className="sec-rule mb-10" />
         <SectionHead
           eyebrow="FAQ"
           title={
@@ -469,7 +393,7 @@ export default function HomePage() {
         />
         <Faq faqs={FAQS} />
         <div className="mt-10 text-center">
-          <Link href="/#tools" className="neu-btn neu-btn-primary no-underline">
+          <Link href="/#tools" className="btn btn-primary no-underline">
             Try a tool now
           </Link>
         </div>

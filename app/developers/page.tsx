@@ -331,7 +331,7 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="max-w-5xl mt-4 neu-card p-2 md:p-4 overflow-x-auto">
+        <div className="max-w-5xl mt-4 card p-2 md:p-4 overflow-x-auto">
           <table className="param-table">
             <thead>
               <tr>
@@ -368,7 +368,7 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="max-w-4xl mt-4 neu-card p-2 md:p-4 overflow-x-auto">
+        <div className="max-w-4xl mt-4 card p-2 md:p-4 overflow-x-auto">
           <table className="param-table">
             <thead>
               <tr>

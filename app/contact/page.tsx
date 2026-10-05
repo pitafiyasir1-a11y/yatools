@@ -78,12 +78,12 @@ export default function Page() {
         </div>
 
         <div className="grid md:grid-cols-5 gap-6 mt-10 max-w-5xl">
-          <div className="neu-card p-6 md:p-8 md:col-span-3">
+          <div className="card p-6 md:p-8 md:col-span-3">
             <h2 className="sec-title mb-6">Send a message</h2>
             <ContactForm />
           </div>
           <div className="md:col-span-2">
-            <div className="neu-card p-6 md:p-8">
+            <div className="card p-6 md:p-8">
               <p className="sec-label">Email us directly</p>
               <h2 className="font-extrabold text-lg mb-2 break-all">
                 {SITE.email}
@@ -96,7 +96,7 @@ export default function Page() {
                 href={`mailto:${SITE.email}?subject=${encodeURIComponent(
                   "Hello YATools"
                 )}`}
-                className="neu-btn"
+                className="btn"
               >
                 Email us
               </a>
