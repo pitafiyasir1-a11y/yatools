@@ -16,22 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("qr-code-generator")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "QR Code Generator — YATools",
+    url: `${SITE.url}/tools/qr-code-generator`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Create QR codes free online — links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. No sign-up, no expiry. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free QR Code Generator — Create QR Codes Online",
+  title: "Free QR Code Generator - Create Scannable Codes Online",
   description:
-    "Generate free QR codes for URLs, text, Wi-Fi, email & SMS right in your browser. Add a center logo, style dots and corner eyes, custom colors with a contrast check, high-res PNG/SVG download. No sign-up.",
-  path: "/tools/qr-code",
+    "Create QR codes free online — links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. No sign-up, no expiry. Try now!",
+  path: "/tools/qr-code-generator",
   keywords: [
-    "free qr code generator",
-    "qr code maker online",
-    "create qr code for wifi",
-    "qr code generator no signup",
-    "qr code with logo",
-    "custom qr code styles",
+    "QR code generator",
+    "create QR code",
+    "QR maker",
+    "QR code maker",
+    "generate QR",
   ],
 });
 
@@ -68,6 +81,15 @@ const faqs = [
     q: "Is my data private?",
     a: "Completely. The QR code is generated inside your browser with a built-in encoder — your text, URLs, Wi-Fi passwords, and any logo you upload never leave your device.",
   },
+  {
+    q: "Can I create a QR code for my Wi-Fi for free?",
+    a: "Yes. Enter your network name, password, and security type to generate a code guests can scan to join instantly — no typing long passwords.",
+  },
+  {
+    q: "Can I make a QR code for plain text?",
+    a: "Yes. Choose the text mode and type anything — a message, an address, a coupon code — and it encodes directly into the QR image.",
+  },
+
 ];
 
 export default function QrCodePage() {
@@ -77,6 +99,7 @@ export default function QrCodePage() {
       <JsonLd
         data={webAppJsonLd({ ...tool, slug: "qr-code", name: "QR Code Generator" })}
       />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -96,10 +119,10 @@ export default function QrCodePage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              QR Code <em>Generator</em>
+              Free QR Code <em>Generator</em> Online
             </>
           }
-          tagline="Create crisp, scannable QR codes for links, text, Wi-Fi credentials, emails, and phone numbers — with your logo in the center, styled dots and corner eyes, and full color control. Instantly, in your browser."
+          tagline="A free QR code generator: create crisp, scannable codes for links, text, and Wi-Fi — custom styles, high-res download, no expiry."
         />
 
         <QrToolClient />
@@ -107,6 +130,17 @@ export default function QrCodePage() {
           Everything runs 100% in your browser — your text, URLs, and Wi-Fi passwords are never
           uploaded or stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>QR Code Generator</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A QR code generator turns links, text, and Wi-Fi credentials into scannable squares in seconds. Type a website address, a block of text, or your Wi-Fi name and password into this free online tool and get a crisp QR code you can download as a high-resolution PNG. Cafes print them for menus, creators link them to portfolios, teachers share resources with a scan, and small businesses put them on packaging and receipts — anywhere typing a URL is too slow.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Every code is generated entirely in your browser, so your data never leaves your device, and the codes never expire because the information is encoded directly in the image. You can style codes with custom colors, dot patterns, and rounded eyes, then check the live preview before downloading — styled codes scan just as reliably as classic black-and-white when the contrast stays strong and the quiet zone around the code is preserved. Pick a larger download size for print and a smaller one for screens.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>your code</em></>} />
@@ -214,7 +248,7 @@ card → scanners land on your page.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["password-generator", "color-picker", "website-screenshot"]} />
+        <RelatedTools slugs={["website-screenshot", "password-generator", "qr-scanner"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

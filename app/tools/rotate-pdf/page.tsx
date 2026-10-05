@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["merge-pdf", "split-pdf", "compress-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Rotate PDF — YATools",
+    url: `${SITE.url}/tools/rotate-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Rotate PDF pages free online — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Rotate PDF Online Free — Fix Sideways Pages",
+  title: "Rotate PDF Online Free - Fix Sideways Pages Instantly",
   description:
-    "Rotate PDF pages 90°, 180°, or 270° for free. Rotate all pages or pick specific ones — 100% in your browser, no sign-up.",
+    "Rotate PDF pages free online — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
   path: "/tools/rotate-pdf",
   keywords: [
     "rotate pdf online",
-    "rotate pdf pages free",
-    "fix sideways pdf",
-    "rotate pdf 90 degrees",
+    "rotate PDF",
+    "fix sideways PDF",
+    "rotate PDF pages",
+    "PDF rotator",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "What if my PDF is password-protected?",
     a: "Encrypted PDFs can't be processed by the browser, so they're rejected. Open the file with its password and save an unlocked copy first, then rotate.",
   },
+  {
+    q: "How do I fix a sideways PDF?",
+    a: "Upload it, select the sideways pages, rotate 90 degrees, and download — the fix is lossless and takes seconds.",
+  },
+
 ];
 
 export default function RotatePdfPage() {
@@ -77,6 +97,7 @@ export default function RotatePdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function RotatePdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Rotate <em>PDF</em> pages
+              Free Rotate <em>PDF</em> Online
             </>
           }
-          tagline="Fix sideways or upside-down pages — rotate all pages or just the ones you pick, 90°, 180°, or 270°."
+          tagline="A free PDF rotator: fix sideways or upside-down pages — rotate all pages or just the ones you pick."
         />
 
         <RotatePdfClient />
         <PrivacyNote>
           Rotation runs on your device with pdf-lib. Your PDF never leaves your browser.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Rotate PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Rotating a PDF fixes pages that came out sideways or upside-down — the classic scanned-document problem. Upload your PDF to this free online tool, rotate every page or just the selected ones by 90, 180, or 270 degrees, preview the result, and download the corrected file. Offices fix sideways scans before archiving, students straighten photographed notes, and anyone receiving a landscape-trapped document gets it readable in seconds.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Rotation here is lossless: pages are turned at the document level rather than re-rendered, so text stays razor sharp and file size barely changes. You can rotate the whole document at once or target individual pages when only a few scans went wrong. Everything runs in your browser — your documents are never uploaded — and password-protected PDFs must be unlocked first, since the tool will not bypass document security.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function RotatePdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["text-to-pdf", "word-counter", "qr-code-generator"]} />
+        <RelatedTools slugs={["merge-pdf", "split-pdf", "compress-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

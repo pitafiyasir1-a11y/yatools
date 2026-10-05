@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["qr-code-generator", "word-counter", "image-converter"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "QR Code Scanner — YATools",
+    url: `${SITE.url}/tools/qr-scanner`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Scan QR codes free online — upload a photo or use your live camera. Instant decoding in your browser, private and secure, no app needed. Try it free now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "QR Code Scanner Online Free — Scan QR from Image or Camera",
+  title: "Free QR Code Scanner Online - Decode Any QR Code Fast",
   description:
-    "Scan QR codes online for free: upload a photo or use your live camera. Instant decoding in your browser — no app, no sign-up, fully private.",
+    "Scan QR codes free online — upload a photo or use your live camera. Instant decoding in your browser, private and secure, no app needed. Try it free now!",
   path: "/tools/qr-scanner",
   keywords: [
     "qr code scanner online",
-    "scan qr code from image",
-    "qr code reader online free",
-    "decode qr code camera",
+    "QR scanner",
+    "scan QR code",
+    "decode QR",
+    "online QR reader",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "What can I do with the decoded text?",
     a: "The decoded text or URL is shown in full with a one-click copy button. If it's a link, paste it into your browser; if it's Wi-Fi credentials or contact info, copy it into the right app.",
   },
+  {
+    q: "How do I scan a QR code without installing an app?",
+    a: "Upload a photo of the code or allow camera access on this page — the code decodes instantly in your browser, no app needed.",
+  },
+
 ];
 
 export default function QrScannerPage() {
@@ -77,6 +97,7 @@ export default function QrScannerPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function QrScannerPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              QR Code <em>Scanner</em>
+              Free QR Code <em>Scanner</em> Online
             </>
           }
-          tagline="Decode QR codes from a photo or straight through your camera — free, instant, and private. No app needed."
+          tagline="A free QR code scanner: decode QR codes from a photo or straight through your camera — instant, private, no app."
         />
 
         <QrScannerClient />
         <PrivacyNote>
           Decoding runs 100% in your browser with jsQR. Your camera feed and images never leave your device.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>QR Code Scanner</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A QR code scanner reads the data hidden in those pixel squares — no app install required. Upload a photo containing a QR code or point your device's camera at one, and this free online tool decodes it instantly in your browser, revealing the link, text, Wi-Fi credentials, or contact card inside. It is the fastest way to open a QR link on a desktop, where phone cameras cannot help, or to decode a code from a screenshot someone sent you.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Decoding happens entirely on your device: the image is analyzed locally and nothing is uploaded, so scanning codes with personal or sensitive content stays private. If a code will not scan, try a sharper photo, better lighting, or a tighter crop around the code — damaged or extremely tiny codes defeat every scanner. The decoded text appears ready to copy, and links are shown for you to open deliberately rather than auto-launched.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead

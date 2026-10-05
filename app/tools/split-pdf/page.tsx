@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["merge-pdf", "rotate-pdf", "compress-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Split PDF — YATools",
+    url: `${SITE.url}/tools/split-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Split PDF free online — extract page ranges, split every N pages, or pick individual pages. In-browser, private, no sign-up needed. Try it free right now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Split PDF Online Free — Extract Pages & Ranges",
+  title: "Split PDF Online Free - Extract Pages & Ranges Fast",
   description:
-    "Split a PDF for free: extract page ranges, split every N pages, or pick individual pages. 100% in your browser — no sign-up, no uploads.",
+    "Split PDF free online — extract page ranges, split every N pages, or pick individual pages. In-browser, private, no sign-up needed. Try it free right now!",
   path: "/tools/split-pdf",
   keywords: [
     "split pdf online",
-    "extract pages from pdf",
-    "split pdf into separate pages",
-    "divide pdf free",
+    "split PDF",
+    "extract pages from PDF",
+    "PDF splitter",
+    "separate PDF pages",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "Is my document private?",
     a: "Yes. Your PDF is processed locally in your browser and never uploaded or stored. You can split confidential documents with confidence.",
   },
+  {
+    q: "Can I extract just one page from a PDF for free?",
+    a: "Yes. Select the single page you want, extract it, and download it as its own PDF — the rest of the document stays untouched.",
+  },
+
 ];
 
 export default function SplitPdfPage() {
@@ -77,6 +97,7 @@ export default function SplitPdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function SplitPdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Split <em>PDF</em> files
+              Free Split <em>PDF</em> Online
             </>
           }
-          tagline="Pull out the pages you need — extract ranges, split every N pages, or pick pages by hand. Free and private."
+          tagline="A free PDF splitter: pull out the pages you need — extract ranges, split every N pages, or pick individual ones."
         />
 
         <SplitPdfClient />
         <PrivacyNote>
           Splitting runs on your device with pdf-lib. Your PDF never leaves your browser.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Split PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Splitting a PDF breaks one document into the pieces you actually need. Upload a PDF to this free online tool and extract a page range like pages 5 to 12, split the document into equal parts every N pages, or hand-pick individual pages for separate files. Students pull single chapters from a course pack, professionals extract the signed page from a contract, and anyone trimming a bloated report keeps only what matters.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Extracted pages keep their original quality — splitting copies pages rather than re-rendering them, so text stays sharp and images untouched. The whole operation runs in your browser, meaning sensitive documents never travel to a server. Password-protected PDFs need to be unlocked first; the tool will not bypass document security, and that is a deliberate guarantee.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function SplitPdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["text-to-pdf", "image-converter", "qr-code-generator"]} />
+        <RelatedTools slugs={["merge-pdf", "rotate-pdf", "compress-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
