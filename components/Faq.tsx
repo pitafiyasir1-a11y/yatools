@@ -7,7 +7,7 @@ export default function Faq({ faqs }: { faqs: { q: string; a: string }[] }) {
   const [open, setOpen] = useState(0);
 
   return (
-    <div className="neu-card px-5 sm:px-7">
+    <div className="card px-5 sm:px-7">
       {faqs.map((item, i) => {
         const isOpen = open === i;
         return (

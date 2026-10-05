@@ -21,7 +21,7 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
     <h3
       className="font-mono2 mb-4 text-xs font-medium uppercase"
-      style={{ color: "#b9b0a0", letterSpacing: "0.08em" }}
+      style={{ color: "var(--muted)", letterSpacing: "0.08em" }}
     >
       {children}
     </h3>
@@ -34,7 +34,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
       <Link
         href={href}
         className="text-sm no-underline hover:underline"
-        style={{ color: "#f2ede1" }}
+        style={{ color: "var(--text2)" }}
       >
         {label}
       </Link>
@@ -46,35 +46,29 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "#141210",
-        color: "#f2ede1",
-        borderTop: "3px solid #141210",
+        background: "var(--surface)",
+        borderTop: "1px solid var(--line)",
       }}
     >
       <div className="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="mb-3 flex items-center gap-2.5">
             <span
-              className="font-display inline-flex h-10 w-10 items-center justify-center rounded-xl text-2xl text-white"
-              style={{
-                background: "#e0263c",
-                border: "2.5px solid #f2ede1",
-                transform: "rotate(-4deg)",
-                lineHeight: 1,
-                paddingTop: "2px",
-              }}
+              aria-hidden="true"
+              className="font-display inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-xl text-white"
+              style={{ background: "var(--red)", lineHeight: 1 }}
             >
               Y
             </span>
-            <span className="font-display text-3xl" style={{ lineHeight: 1, paddingTop: "4px" }}>
+            <span className="font-display text-[1.35rem]" style={{ color: "var(--text)", lineHeight: 1 }}>
               YATools
             </span>
           </div>
-          <p className="text-sm leading-relaxed" style={{ color: "#b9b0a0" }}>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--text2)" }}>
             A collection of free online tools for screenshots, audio, documents, Urdu
             content, and developers. No signups, no cards — just tools that work.
           </p>
-          <p className="mt-3 text-sm" style={{ color: "#b9b0a0" }}>
+          <p className="mt-3 text-sm" style={{ color: "var(--text2)" }}>
             Built by Yasir Abbas.
           </p>
         </div>
@@ -107,16 +101,16 @@ export default function Footer() {
         </nav>
       </div>
 
-      <div style={{ borderTop: "2px solid #2e2a22" }}>
+      <div style={{ borderTop: "1px solid var(--line)" }}>
         <div className="wrap flex flex-col items-center justify-between gap-3 py-5 sm:flex-row">
-          <p className="m-0 text-sm" style={{ color: "#b9b0a0" }}>
+          <p className="m-0 text-sm" style={{ color: "var(--muted)" }}>
             &copy; 2026 YATools &middot; Free tools, no strings attached.
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="text-sm no-underline hover:underline" style={{ color: "#b9b0a0" }}>
+            <Link href="/privacy" className="text-sm no-underline hover:underline" style={{ color: "var(--muted)" }}>
               Privacy
             </Link>
-            <Link href="/terms" className="text-sm no-underline hover:underline" style={{ color: "#b9b0a0" }}>
+            <Link href="/terms" className="text-sm no-underline hover:underline" style={{ color: "var(--muted)" }}>
               Terms
             </Link>
           </div>

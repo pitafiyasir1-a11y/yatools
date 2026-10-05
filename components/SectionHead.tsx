@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-/** Section header: eyebrow pill + Bangers title + optional sub-copy. */
+/** Section header: red eyebrow label + strong heading + optional sub-copy. */
 export default function SectionHead({
   eyebrow,
   title,
@@ -12,11 +12,8 @@ export default function SectionHead({
 }) {
   return (
     <div className="mb-8">
-      <span className="eyebrow">
-        <span className="dot" aria-hidden="true" />
-        {eyebrow}
-      </span>
-      <h2 className="sec-title mt-4">{title}</h2>
+      <p className="sec-label">{eyebrow}</p>
+      <h2 className="sec-title">{title}</h2>
       {sub ? <p className="sec-sub">{sub}</p> : null}
     </div>
   );

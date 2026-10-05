@@ -60,8 +60,8 @@ export default function ThemeToggle() {
       onClick={toggle}
       aria-label={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
       title={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      className="neu-btn neu-btn-sm"
-      style={{ padding: "9px 11px" }}
+      className="btn btn-sm btn-icon"
+      style={{ color: "var(--text2)" }}
     >
       {mounted && theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>

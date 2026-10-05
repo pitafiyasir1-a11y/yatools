@@ -41,7 +41,7 @@ export default function UseCasesIndex() {
           <Link
             key={u.slug}
             href={`/use-cases/${u.slug}`}
-            className="neu-card neu-card-hover"
+            className="card card-hover"
           >
             <h2
               style={{
@@ -54,7 +54,7 @@ export default function UseCasesIndex() {
             </h2>
             <p style={{ marginTop: "0.5rem" }}>{u.description}</p>
             <span
-              className="neu-btn neu-btn-sm"
+              className="btn btn-sm"
               style={{ marginTop: "1rem", display: "inline-block" }}
             >
               Read guide →
@@ -63,7 +63,7 @@ export default function UseCasesIndex() {
         ))}
       </div>
 
-      <div className="neu-card" style={{ marginTop: "2.5rem" }}>
+      <div className="card" style={{ marginTop: "2.5rem" }}>
         <h2
           style={{
             fontFamily: "var(--font-display)",
@@ -74,12 +74,12 @@ export default function UseCasesIndex() {
           Prefer to explore the tools directly?
         </h2>
         <p style={{ marginTop: "0.5rem" }}>
-          All 14 tools are free, with no signup. Start with the most popular
+          All 36 tools are free, with no signup. Start with the most popular
           ones and learn by doing.
         </p>
         <Link
           href="/#tools"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           style={{ marginTop: "1rem", display: "inline-block" }}
         >
           Browse all tools

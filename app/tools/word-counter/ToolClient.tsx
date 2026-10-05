@@ -55,29 +55,29 @@ export default function WordCounterClient() {
   ];
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => setText(SAMPLE)}>
+        <button type="button" className="btn btn-sm" onClick={() => setText(SAMPLE)}>
           Load sample
         </button>
         <button
           type="button"
-          className="neu-btn neu-btn-sm"
+          className="btn btn-sm"
           onClick={() => setText("")}
           disabled={!text}
         >
           Clear
         </button>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={copy} disabled={!text}>
+        <button type="button" className="btn btn-sm" onClick={copy} disabled={!text}>
           {copied ? "Copied!" : "Copy text"}
         </button>
       </div>
-      <label className="neu-label" htmlFor="wc-input">
+      <label className="field-label" htmlFor="wc-input">
         Your text
       </label>
       <textarea
         id="wc-input"
-        className="neu-textarea neu-input-mono"
+        className="textarea input input-mono"
         style={{ minHeight: 200 }}
         placeholder="Type or paste your text here — counts update live as you type…"
         value={text}
@@ -95,8 +95,8 @@ export default function WordCounterClient() {
         {cards.map((c) => (
           <div
             key={c.label}
-            className="neu-card"
-            style={{ padding: "14px 16px", boxShadow: "3px 3px 0 var(--ink)" }}
+            className="card"
+            style={{ padding: "14px 16px",  }}
           >
             <div className="font-display" style={{ fontSize: "1.7rem", lineHeight: 1 }}>
               {c.value}

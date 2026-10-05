@@ -96,7 +96,7 @@ function Crumbs({ items }: { items: { name: string; path: string }[] }) {
 
 function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="neu-card px-5 sm:px-7 [&_summary::-webkit-details-marker]:hidden">
+    <div className="card px-5 sm:px-7 [&_summary::-webkit-details-marker]:hidden">
       {items.map((item, i) => (
         <details key={i} className="faq-item" open={i === 0}>
           <summary className="faq-q" style={{ listStyle: "none" }}>
@@ -123,10 +123,10 @@ function RelatedTools({ tools }: { tools: ToolDef[] }) {
         <Link
           key={t.slug}
           href={`/tools/${t.slug}`}
-          className="neu-card neu-card-hover flex flex-col gap-3 p-5 no-underline"
+          className="card card-hover flex flex-col gap-3 p-5 no-underline"
         >
           <div className="flex items-center justify-between">
-            <span className={`neu-badge neu-badge-${t.badgeColor}`}>
+            <span className={`badge badge-${t.badgeColor}`}>
               {t.badge}
             </span>
             <span
@@ -279,14 +279,14 @@ export default function Page() {
         </div>
 
         <div className="max-w-3xl mt-10">
-          <div className="neu-card p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <h2 className="sec-title">Transcribe your first voice note</h2>
             <p className="sec-sub mb-6">
               Upload the audio file, get editable text back. Free, no sign-up.
             </p>
             <Link
               href="/tools/audio-to-text"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
             >
               Open Audio to Text
             </Link>

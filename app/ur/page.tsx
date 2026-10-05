@@ -129,7 +129,7 @@ function Crumbs({ items }: { items: { name: string; path: string }[] }) {
 
 function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="neu-card px-5 sm:px-7 [&_summary::-webkit-details-marker]:hidden">
+    <div className="card px-5 sm:px-7 [&_summary::-webkit-details-marker]:hidden">
       {items.map((item, i) => (
         <details key={i} className="faq-item" open={i === 0}>
           <summary className="faq-q" style={{ listStyle: "none" }}>
@@ -170,10 +170,10 @@ export default function Page() {
             اکاؤنٹ اور بغیر فیس کے، براہِ راست آپ کے براؤزر میں۔
           </p>
           <div className="flex flex-wrap gap-3 mt-7">
-            <Link href="#tools" className="neu-btn neu-btn-primary">
+            <Link href="#tools" className="btn btn-primary">
               ٹولز دیکھیں
             </Link>
-            <Link href="/" className="neu-btn">
+            <Link href="/" className="btn">
               English version
             </Link>
           </div>
@@ -188,9 +188,9 @@ export default function Page() {
                   <Link
                     key={t.slug}
                     href={`/tools/${t.slug}`}
-                    className="neu-card neu-card-hover p-5 no-underline block"
+                    className="card card-hover p-5 no-underline block"
                   >
-                    <span className="neu-badge neu-badge-green mb-3">
+                    <span className="badge badge-green mb-3">
                       {t.badge}
                     </span>
                     <h2
@@ -225,7 +225,7 @@ export default function Page() {
               d: "اردو وائس اوور، ہینڈ رائٹنگ اور مزید اردو فیچرز۔",
             },
           ].map((f) => (
-            <div key={f.t} className="neu-card p-5">
+            <div key={f.t} className="card p-5">
               <h2 className="font-extrabold text-lg mb-1">{f.t}</h2>
               <p className="text-[var(--text2)] text-sm leading-7">{f.d}</p>
             </div>
@@ -239,16 +239,16 @@ export default function Page() {
         </div>
 
         <div className="max-w-3xl mt-12">
-          <div className="neu-card p-6 md:p-8 text-center">
+          <div className="card p-6 md:p-8 text-center">
             <h2 className="sec-title">آج ہی شروع کریں</h2>
             <p className="sec-sub mb-6 mx-auto">
               کوئی اکاؤنٹ نہیں، کوئی فیس نہیں — صرف مفید ٹولز۔
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Link href="#tools" className="neu-btn neu-btn-primary">
+              <Link href="#tools" className="btn btn-primary">
                 ٹولز آزمائیں
               </Link>
-              <Link href="/contact" className="neu-btn">
+              <Link href="/contact" className="btn">
                 رابطہ کریں
               </Link>
             </div>
