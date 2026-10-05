@@ -181,7 +181,7 @@ export default function TempMailClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         className="notice"
         style={{ marginBottom: 18, borderColor: "var(--red)" }}
@@ -194,7 +194,7 @@ export default function TempMailClient() {
 
       {!address ? (
         <div>
-          <label className="neu-label" htmlFor="tm-name">
+          <label className="field-label" htmlFor="tm-name">
             Custom name (optional)
           </label>
           <div
@@ -202,7 +202,7 @@ export default function TempMailClient() {
           >
             <input
               id="tm-name"
-              className="neu-input neu-input-mono"
+              className="input input-mono"
               style={{ flex: "1 1 200px" }}
               placeholder="e.g. yatools-test"
               value={name}
@@ -213,7 +213,7 @@ export default function TempMailClient() {
             />
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={createAddress}
               disabled={creating}
             >
@@ -227,7 +227,7 @@ export default function TempMailClient() {
         </div>
       ) : (
         <div>
-          <p className="neu-label">Your temporary address</p>
+          <p className="field-label">Your temporary address</p>
           <div
             className="result-box"
             style={{
@@ -247,18 +247,18 @@ export default function TempMailClient() {
               {address}
             </span>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <button type="button" className="neu-btn neu-btn-sm" onClick={copyAddress}>
+              <button type="button" className="btn btn-sm" onClick={copyAddress}>
                 {copied ? "Copied!" : "Copy"}
               </button>
               <button
                 type="button"
-                className="neu-btn neu-btn-sm"
+                className="btn btn-sm"
                 onClick={() => refreshInbox(address)}
                 disabled={loadingInbox}
               >
                 {loadingInbox ? "Checking…" : "↻ Check inbox"}
               </button>
-              <button type="button" className="neu-btn neu-btn-sm" onClick={discard}>
+              <button type="button" className="btn btn-sm" onClick={discard}>
                 Discard
               </button>
             </div>
@@ -273,7 +273,7 @@ export default function TempMailClient() {
             }}
           >
             <div>
-              <p className="neu-label">
+              <p className="field-label">
                 Inbox {messages.length > 0 && `(${messages.length})`}
                 {lastChecked && (
                   <span
@@ -302,7 +302,7 @@ export default function TempMailClient() {
                       key={m.id || `${m.from}-${m.date}`}
                       type="button"
                       onClick={() => m.id && openMessage(m.id)}
-                      className="neu-card neu-card-hover"
+                      className="card card-hover"
                       style={{
                         padding: "12px 16px",
                         textAlign: "left",
@@ -352,7 +352,7 @@ export default function TempMailClient() {
             </div>
 
             <div>
-              <p className="neu-label">Message</p>
+              <p className="field-label">Message</p>
               <div className="result-box" style={{ padding: 18, minHeight: 220 }}>
                 {reading ? (
                   <p style={{ color: "var(--muted)" }}>Opening message…</p>
@@ -387,7 +387,7 @@ export default function TempMailClient() {
                     {full.id && (
                       <button
                         type="button"
-                        className="neu-btn neu-btn-sm"
+                        className="btn btn-sm"
                         style={{ marginTop: 14 }}
                         onClick={() => deleteMessage(full.id!)}
                       >

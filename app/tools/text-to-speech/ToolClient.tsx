@@ -190,7 +190,7 @@ export default function ToolClient() {
       {!fallbackMode && (
         <div>
           <div className="flex items-baseline justify-between">
-            <label className="neu-label" htmlFor="tts-text">
+            <label className="field-label" htmlFor="tts-text">
               Your text
             </label>
             <span
@@ -204,7 +204,7 @@ export default function ToolClient() {
           </div>
           <textarea
             id="tts-text"
-            className="neu-textarea"
+            className="textarea"
             rows={7}
             maxLength={MAX_CHARS}
             placeholder="Type or paste the text you want to hear…"
@@ -214,12 +214,12 @@ export default function ToolClient() {
 
           <div className="grid sm:grid-cols-3 gap-4 mt-5">
             <div>
-              <label className="neu-label" htmlFor="tts-voice">
+              <label className="field-label" htmlFor="tts-voice">
                 Voice
               </label>
               <select
                 id="tts-voice"
-                className="neu-select"
+                className="select"
                 value={voiceIndex}
                 onChange={(e) =>
                   setVoiceIndex(e.target.value === "" ? "" : Number(e.target.value))
@@ -249,7 +249,7 @@ export default function ToolClient() {
               )}
             </div>
             <div>
-              <label className="neu-label" htmlFor="tts-pitch">
+              <label className="field-label" htmlFor="tts-pitch">
                 Pitch: {pitch}
               </label>
               <input
@@ -263,7 +263,7 @@ export default function ToolClient() {
               />
             </div>
             <div>
-              <label className="neu-label" htmlFor="tts-rate">
+              <label className="field-label" htmlFor="tts-rate">
                 Speed: {rate}
               </label>
               <input
@@ -281,7 +281,7 @@ export default function ToolClient() {
           <div className="flex flex-wrap gap-3 mt-6">
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={generate}
               disabled={status === "loading" || voicesLoading}
             >
@@ -290,7 +290,7 @@ export default function ToolClient() {
             {voicesFailed && (
               <button
                 type="button"
-                className="neu-btn"
+                className="btn"
                 onClick={() => setFallbackMode(true)}
               >
                 Use browser voice
@@ -324,7 +324,7 @@ export default function ToolClient() {
                 <a
                   href={audioUrl}
                   download="speech.mp3"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                 >
                   Download MP3
                 </a>
@@ -350,12 +350,12 @@ export default function ToolClient() {
             text aloud instead. No download in this mode.
           </div>
 
-          <label className="neu-label mt-6" htmlFor="tts-fb-text">
+          <label className="field-label mt-6" htmlFor="tts-fb-text">
             Text to read aloud
           </label>
           <textarea
             id="tts-fb-text"
-            className="neu-textarea"
+            className="textarea"
             rows={6}
             maxLength={MAX_CHARS}
             placeholder="Type or paste the text…"
@@ -365,12 +365,12 @@ export default function ToolClient() {
 
           <div className="grid sm:grid-cols-2 gap-4 mt-4">
             <div>
-              <label className="neu-label" htmlFor="tts-fb-voice">
+              <label className="field-label" htmlFor="tts-fb-voice">
                 Browser voice
               </label>
               <select
                 id="tts-fb-voice"
-                className="neu-select"
+                className="select"
                 value={svVoiceUri}
                 onChange={(e) => setSvVoiceUri(e.target.value)}
                 disabled={svVoices.length === 0}
@@ -389,20 +389,20 @@ export default function ToolClient() {
               {!speaking ? (
                 <button
                   type="button"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                   onClick={speakFallback}
                   disabled={!text.trim() || svVoices.length === 0}
                 >
                   Read aloud
                 </button>
               ) : (
-                <button type="button" className="neu-btn" onClick={stopFallback}>
+                <button type="button" className="btn" onClick={stopFallback}>
                   Stop
                 </button>
               )}
               <button
                 type="button"
-                className="neu-btn"
+                className="btn"
                 onClick={() => {
                   stopFallback();
                   setFallbackMode(false);

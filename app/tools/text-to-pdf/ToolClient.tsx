@@ -285,9 +285,9 @@ export default function TextToPdfClient() {
   const toolBtn = (on: boolean, label: string): React.CSSProperties => ({
     padding: "7px 11px",
     borderRadius: 9,
-    border: "2px solid var(--ink)",
-    background: on ? "var(--ink)" : "var(--surface)",
-    color: on ? "var(--paper)" : "var(--text)",
+    border: "1px solid var(--line)",
+    background: on ? "var(--text)" : "var(--surface)",
+    color: on ? "var(--bg)" : "var(--text)",
     fontWeight: 800,
     fontSize: "0.8rem",
     cursor: "pointer",
@@ -299,7 +299,7 @@ export default function TextToPdfClient() {
     : SAMPLE_TEXT.map((s) => ({ ...s, align: "left" as Align, bold: false, italic: false, fontSize: 12 }));
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       {/* ------- Document options ------- */}
       <div
         style={{
@@ -310,10 +310,10 @@ export default function TextToPdfClient() {
         }}
       >
         <div>
-          <label className="neu-label" htmlFor="ttp-title">Document title</label>
+          <label className="field-label" htmlFor="ttp-title">Document title</label>
           <input
             id="ttp-title"
-            className="neu-input"
+            className="input"
             type="text"
             value={docTitle}
             onChange={(e) => setDocTitle(e.target.value)}
@@ -322,10 +322,10 @@ export default function TextToPdfClient() {
           />
         </div>
         <div>
-          <label className="neu-label" htmlFor="ttp-filename">Filename</label>
+          <label className="field-label" htmlFor="ttp-filename">Filename</label>
           <input
             id="ttp-filename"
-            className="neu-input neu-input-mono"
+            className="input input-mono"
             type="text"
             value={fileName}
             onChange={(e) => setFileName(e.target.value)}
@@ -334,10 +334,10 @@ export default function TextToPdfClient() {
           />
         </div>
         <div>
-          <label className="neu-label" htmlFor="ttp-pagesize">Page size</label>
+          <label className="field-label" htmlFor="ttp-pagesize">Page size</label>
           <select
             id="ttp-pagesize"
-            className="neu-select"
+            className="select"
             value={pageSize}
             onChange={(e) => setPageSize(e.target.value as PageSize)}
           >
@@ -346,10 +346,10 @@ export default function TextToPdfClient() {
           </select>
         </div>
         <div style={{ display: "flex", alignItems: "end", gap: 8 }}>
-          <button type="button" className="neu-btn neu-btn-sm" onClick={loadSample}>
+          <button type="button" className="btn btn-sm" onClick={loadSample}>
             Load sample
           </button>
-          <button type="button" className="neu-btn neu-btn-sm" onClick={clearAll} disabled={!hasContent}>
+          <button type="button" className="btn btn-sm" onClick={clearAll} disabled={!hasContent}>
             Clear
           </button>
         </div>
@@ -366,7 +366,7 @@ export default function TextToPdfClient() {
       >
         {/* Editor */}
         <div>
-          <p className="neu-label">Editor — click a block, then style it</p>
+          <p className="field-label">Editor — click a block, then style it</p>
 
           {/* Formatting toolbar */}
           <div
@@ -377,10 +377,10 @@ export default function TextToPdfClient() {
               flexWrap: "wrap",
               gap: 6,
               alignItems: "center",
-              border: "2.5px solid var(--ink)",
+              border: "1px solid var(--line)",
               borderRadius: 12,
               padding: 8,
-              background: "var(--paper2)",
+              background: "var(--surface2)",
               marginBottom: 10,
               position: "sticky",
               top: 76,
@@ -399,7 +399,7 @@ export default function TextToPdfClient() {
                 {k === "p" ? "¶" : k === "bullets" ? "• List" : k.toUpperCase()}
               </button>
             ))}
-            <span aria-hidden="true" style={{ width: 2, alignSelf: "stretch", background: "var(--ink)", opacity: 0.25 }} />
+            <span aria-hidden="true" style={{ width: 2, alignSelf: "stretch", background: "var(--text)", opacity: 0.25 }} />
             <button
               type="button"
               title="Bold"
@@ -418,7 +418,7 @@ export default function TextToPdfClient() {
             >
               I
             </button>
-            <span aria-hidden="true" style={{ width: 2, alignSelf: "stretch", background: "var(--ink)", opacity: 0.25 }} />
+            <span aria-hidden="true" style={{ width: 2, alignSelf: "stretch", background: "var(--text)", opacity: 0.25 }} />
             {(["left", "center", "justify"] as Align[]).map((a) => (
               <button
                 key={a}
@@ -436,7 +436,7 @@ export default function TextToPdfClient() {
               value={active.fontSize}
               onChange={(e) => updateBlock(active.id, { fontSize: Number(e.target.value) })}
               style={{
-                border: "2px solid var(--ink)",
+                border: "1px solid var(--line)",
                 borderRadius: 9,
                 padding: "7px 8px",
                 background: "var(--surface)",
@@ -450,7 +450,7 @@ export default function TextToPdfClient() {
                 <option key={s} value={s}>{s} pt</option>
               ))}
             </select>
-            <button type="button" className="neu-btn neu-btn-sm" onClick={addBlock} title="Add a new block below">
+            <button type="button" className="btn btn-sm" onClick={addBlock} title="Add a new block below">
               + Block
             </button>
           </div>
@@ -465,10 +465,10 @@ export default function TextToPdfClient() {
                   display: "flex",
                   gap: 8,
                   alignItems: "flex-start",
-                  border: b.id === activeId ? "2.5px solid var(--red)" : "2.5px solid var(--ink)",
+                  border: b.id === activeId ? "1.5px solid var(--red)" : "1px solid var(--line)",
                   borderRadius: 12,
                   background: "var(--surface)",
-                  boxShadow: b.id === activeId ? "4px 4px 0 var(--ink)" : "3px 3px 0 var(--ink)",
+                  boxShadow: b.id === activeId ? "var(--shadow)" : "var(--shadow-sm)",
                   padding: "8px 8px 8px 10px",
                   transition: "box-shadow 0.12s ease, border-color 0.12s ease",
                 }}
@@ -534,7 +534,7 @@ export default function TextToPdfClient() {
 
         {/* Live preview */}
         <div>
-          <p className="neu-label">
+          <p className="field-label">
             Live preview
             <span className="font-mono2" style={{ marginLeft: 8, color: "var(--muted)", textTransform: "none" }}>
               {PAGE_DIMS[pageSize].label}
@@ -543,10 +543,10 @@ export default function TextToPdfClient() {
           <div
             aria-live="polite"
             style={{
-              border: "2.5px solid var(--ink)",
+              border: "1px solid var(--line)",
               borderRadius: 16,
               background: "var(--surface)",
-              boxShadow: "8px 8px 0 var(--ink)",
+              
               padding: "clamp(18px, 3vw, 30px)",
               minHeight: 320,
               position: "relative",
@@ -562,8 +562,8 @@ export default function TextToPdfClient() {
                   fontSize: "0.65rem",
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
-                  background: "var(--paper2)",
-                  border: "2px solid var(--ink)",
+                  background: "var(--surface2)",
+                  border: "1px solid var(--line)",
                   borderRadius: 999,
                   padding: "3px 10px",
                   color: "var(--text2)",
@@ -626,7 +626,7 @@ export default function TextToPdfClient() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", marginTop: 16 }}>
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={generate}
               disabled={generating || !hasContent}
             >

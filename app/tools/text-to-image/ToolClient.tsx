@@ -165,7 +165,7 @@ export default function TextToImageClient() {
       style={{
         width: "100%",
         height: 46,
-        border: "2.5px solid var(--ink)",
+        border: "1px solid var(--line)",
         borderRadius: 11,
         background: "var(--surface)",
         cursor: "pointer",
@@ -175,7 +175,7 @@ export default function TextToImageClient() {
   );
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         style={{
           display: "grid",
@@ -185,12 +185,12 @@ export default function TextToImageClient() {
       >
         {/* Controls */}
         <div>
-          <label className="neu-label" htmlFor="tti-text">
+          <label className="field-label" htmlFor="tti-text">
             Your text
           </label>
           <textarea
             id="tti-text"
-            className="neu-textarea"
+            className="textarea"
             style={{ minHeight: 110, marginBottom: 16 }}
             placeholder="Type something worth framing…"
             value={text}
@@ -206,12 +206,12 @@ export default function TextToImageClient() {
             }}
           >
             <div>
-              <label className="neu-label" htmlFor="tti-font">
+              <label className="field-label" htmlFor="tti-font">
                 Font
               </label>
               <select
                 id="tti-font"
-                className="neu-select"
+                className="select"
                 value={fontIdx}
                 onChange={(e) => setFontIdx(Number(e.target.value))}
               >
@@ -223,12 +223,12 @@ export default function TextToImageClient() {
               </select>
             </div>
             <div>
-              <label className="neu-label" htmlFor="tti-size-id">
+              <label className="field-label" htmlFor="tti-size-id">
                 Canvas size
               </label>
               <select
                 id="tti-size-id"
-                className="neu-select"
+                className="select"
                 value={sizeId}
                 onChange={(e) => setSizeId(e.target.value)}
               >
@@ -241,7 +241,7 @@ export default function TextToImageClient() {
             </div>
           </div>
 
-          <label className="neu-label" htmlFor="tti-fontsize">
+          <label className="field-label" htmlFor="tti-fontsize">
             Text size — {fontSize}px
           </label>
           <input
@@ -255,7 +255,7 @@ export default function TextToImageClient() {
           />
 
           <div style={{ marginBottom: 16 }}>
-            <span className="neu-label">Alignment</span>
+            <span className="field-label">Alignment</span>
             <div
               style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
               role="group"
@@ -265,7 +265,7 @@ export default function TextToImageClient() {
                 <button
                   key={a.id}
                   type="button"
-                  className={`neu-btn neu-btn-sm${align === a.id ? " neu-btn-primary" : ""}`}
+                  className={`btn btn-sm${align === a.id ? " btn-primary" : ""}`}
                   aria-pressed={align === a.id}
                   onClick={() => setAlign(a.id)}
                 >
@@ -284,13 +284,13 @@ export default function TextToImageClient() {
             }}
           >
             <div>
-              <label className="neu-label" htmlFor="tti-tc">
+              <label className="field-label" htmlFor="tti-tc">
                 Text color
               </label>
               {colorInput("tti-tc", textColor, setTextColor)}
             </div>
             <div>
-              <label className="neu-label" htmlFor="tti-bg1">
+              <label className="field-label" htmlFor="tti-bg1">
                 {bgMode === "solid" ? "Background" : "Gradient start"}
               </label>
               {colorInput("tti-bg1", bg1, setBg1)}
@@ -298,7 +298,7 @@ export default function TextToImageClient() {
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <span className="neu-label">Background style</span>
+            <span className="field-label">Background style</span>
             <div
               style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
               role="group"
@@ -306,7 +306,7 @@ export default function TextToImageClient() {
             >
               <button
                 type="button"
-                className={`neu-btn neu-btn-sm${bgMode === "solid" ? " neu-btn-primary" : ""}`}
+                className={`btn btn-sm${bgMode === "solid" ? " btn-primary" : ""}`}
                 aria-pressed={bgMode === "solid"}
                 onClick={() => setBgMode("solid")}
               >
@@ -314,7 +314,7 @@ export default function TextToImageClient() {
               </button>
               <button
                 type="button"
-                className={`neu-btn neu-btn-sm${bgMode === "gradient" ? " neu-btn-primary" : ""}`}
+                className={`btn btn-sm${bgMode === "gradient" ? " btn-primary" : ""}`}
                 aria-pressed={bgMode === "gradient"}
                 onClick={() => setBgMode("gradient")}
               >
@@ -333,18 +333,18 @@ export default function TextToImageClient() {
               }}
             >
               <div>
-                <label className="neu-label" htmlFor="tti-bg2">
+                <label className="field-label" htmlFor="tti-bg2">
                   Gradient end
                 </label>
                 {colorInput("tti-bg2", bg2, setBg2)}
               </div>
               <div>
-                <label className="neu-label" htmlFor="tti-gdir">
+                <label className="field-label" htmlFor="tti-gdir">
                   Direction
                 </label>
                 <select
                   id="tti-gdir"
-                  className="neu-select"
+                  className="select"
                   value={gradDir}
                   onChange={(e) => setGradDir(e.target.value as GradientDir)}
                 >
@@ -358,7 +358,7 @@ export default function TextToImageClient() {
             </div>
           )}
 
-          <label className="neu-label" htmlFor="tti-pad">
+          <label className="field-label" htmlFor="tti-pad">
             Padding — {padding}px
           </label>
           <input
@@ -377,7 +377,7 @@ export default function TextToImageClient() {
 
         {/* Preview */}
         <div>
-          <p className="neu-label">Live preview</p>
+          <p className="field-label">Live preview</p>
           <div
             className="result-box"
             style={{
@@ -394,7 +394,7 @@ export default function TextToImageClient() {
               style={{
                 maxWidth: "100%",
                 maxHeight: 480,
-                border: "2.5px solid var(--ink)",
+                border: "1px solid var(--line)",
                 borderRadius: 12,
                 display: "block",
               }}
@@ -409,7 +409,7 @@ export default function TextToImageClient() {
           <div style={{ marginTop: 14 }}>
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={download}
               disabled={downloading}
             >
