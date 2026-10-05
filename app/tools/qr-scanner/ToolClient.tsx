@@ -136,7 +136,7 @@ export default function QrScannerClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
         {(
           [
@@ -147,10 +147,10 @@ export default function QrScannerClient() {
           <button
             key={m.v}
             type="button"
-            className="neu-btn neu-btn-sm"
+            className="btn btn-sm"
             style={
               mode === m.v
-                ? { background: "var(--red)", color: "#fff", borderColor: "var(--ink)" }
+                ? { background: "var(--red)", color: "#fff", borderColor: "var(--red)" }
                 : undefined
             }
             onClick={() => setMode(m.v)}
@@ -174,7 +174,7 @@ export default function QrScannerClient() {
           />
           <button
             type="button"
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
             onClick={() => inputRef.current?.click()}
             style={{ width: "100%" }}
             disabled={scanning}
@@ -193,7 +193,7 @@ export default function QrScannerClient() {
             <>
               <button
                 type="button"
-                className="neu-btn neu-btn-primary"
+                className="btn btn-primary"
                 onClick={startCamera}
                 style={{ width: "100%" }}
               >
@@ -213,7 +213,7 @@ export default function QrScannerClient() {
                   width: "100%",
                   maxHeight: 380,
                   borderRadius: 12,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   background: "#000",
                   display: "block",
                 }}
@@ -221,13 +221,13 @@ export default function QrScannerClient() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 12 }}>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                   onClick={scanCameraFrame}
                   disabled={scanning}
                 >
                   {scanning ? "Scanning…" : "Scan this frame"}
                 </button>
-                <button type="button" className="neu-btn" onClick={stopCamera}>
+                <button type="button" className="btn" onClick={stopCamera}>
                   Stop camera
                 </button>
               </div>
@@ -259,7 +259,7 @@ export default function QrScannerClient() {
           >
             {decoded}
           </pre>
-          <button type="button" className="neu-btn neu-btn-sm" onClick={copy}>
+          <button type="button" className="btn btn-sm" onClick={copy}>
             {copied ? "Copied ✓" : "Copy text"}
           </button>
         </div>

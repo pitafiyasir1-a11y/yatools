@@ -125,7 +125,7 @@ export default function SplitPdfClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -140,7 +140,7 @@ export default function SplitPdfClient() {
         <>
           <button
             type="button"
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
             onClick={() => inputRef.current?.click()}
             style={{ width: "100%" }}
           >
@@ -169,7 +169,7 @@ export default function SplitPdfClient() {
                 {pageCount !== null && ` · ${pageCount} page${pageCount === 1 ? "" : "s"}`}
               </div>
             </div>
-            <button type="button" className="neu-btn neu-btn-sm" onClick={() => inputRef.current?.click()}>
+            <button type="button" className="btn btn-sm" onClick={() => inputRef.current?.click()}>
               Choose a different file
             </button>
           </div>
@@ -185,10 +185,10 @@ export default function SplitPdfClient() {
               <button
                 key={m.v}
                 type="button"
-                className="neu-btn neu-btn-sm"
+                className="btn btn-sm"
                 style={
                   mode === m.v
-                    ? { background: "var(--red)", color: "#fff", borderColor: "var(--ink)" }
+                    ? { background: "var(--red)", color: "#fff", borderColor: "var(--red)" }
                     : undefined
                 }
                 onClick={() => setMode(m.v)}
@@ -200,12 +200,12 @@ export default function SplitPdfClient() {
 
           {mode === "ranges" && (
             <div>
-              <label className="neu-label" htmlFor="sp-ranges">
+              <label className="field-label" htmlFor="sp-ranges">
                 Pages to extract
               </label>
               <input
                 id="sp-ranges"
-                className="neu-input neu-input-mono"
+                className="input input-mono"
                 value={ranges}
                 onChange={(e) => setRanges(e.target.value)}
                 placeholder="1-3, 5, 8-10"
@@ -218,12 +218,12 @@ export default function SplitPdfClient() {
 
           {mode === "every" && (
             <div>
-              <label className="neu-label" htmlFor="sp-everyn">
+              <label className="field-label" htmlFor="sp-everyn">
                 Split every N pages
               </label>
               <input
                 id="sp-everyn"
-                className="neu-input neu-input-mono"
+                className="input input-mono"
                 type="number"
                 min={1}
                 max={pageCount ?? undefined}
@@ -239,7 +239,7 @@ export default function SplitPdfClient() {
 
           {mode === "pages" && pageCount !== null && (
             <div>
-              <label className="neu-label">Tick pages to extract</label>
+              <label className="field-label">Tick pages to extract</label>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
                   <button
@@ -252,8 +252,8 @@ export default function SplitPdfClient() {
                       minWidth: 44,
                       padding: "8px 10px",
                       borderRadius: 8,
-                      border: "2.5px solid var(--ink)",
-                      boxShadow: "3px 3px 0 var(--ink)",
+                      border: "1px solid var(--line)",
+                      
                       background: selected.has(n) ? "var(--red)" : "var(--surface)",
                       color: selected.has(n) ? "#fff" : "var(--text)",
                       cursor: "pointer",
@@ -267,12 +267,12 @@ export default function SplitPdfClient() {
               <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => setSelected(new Set(Array.from({ length: pageCount }, (_, i) => i + 1)))}
                 >
                   Select all
                 </button>
-                <button type="button" className="neu-btn neu-btn-sm" onClick={() => setSelected(new Set())}>
+                <button type="button" className="btn btn-sm" onClick={() => setSelected(new Set())}>
                   Clear
                 </button>
               </div>
@@ -281,7 +281,7 @@ export default function SplitPdfClient() {
 
           <button
             type="button"
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
             onClick={split}
             disabled={working}
             style={{ marginTop: 18 }}
@@ -294,7 +294,7 @@ export default function SplitPdfClient() {
               <strong>Done — {results.length} file{results.length === 1 ? "" : "s"} created.</strong>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
                 {results.map((r) => (
-                  <a key={r.url} href={r.url} download={r.name} className="neu-btn neu-btn-sm">
+                  <a key={r.url} href={r.url} download={r.name} className="btn btn-sm">
                     {r.name} ({r.pages}p)
                   </a>
                 ))}

@@ -101,7 +101,7 @@ export default function RotatePdfClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -114,7 +114,7 @@ export default function RotatePdfClient() {
       />
       <button
         type="button"
-        className="neu-btn neu-btn-primary"
+        className="btn btn-primary"
         onClick={() => inputRef.current?.click()}
         style={{ width: "100%" }}
       >
@@ -141,10 +141,10 @@ export default function RotatePdfClient() {
               <button
                 key={s.v}
                 type="button"
-                className="neu-btn neu-btn-sm"
+                className="btn btn-sm"
                 style={
                   scope === s.v
-                    ? { background: "var(--red)", color: "#fff", borderColor: "var(--ink)" }
+                    ? { background: "var(--red)", color: "#fff", borderColor: "var(--red)" }
                     : undefined
                 }
                 onClick={() => setScope(s.v)}
@@ -156,10 +156,10 @@ export default function RotatePdfClient() {
 
           {scope === "custom" && (
             <div style={{ marginBottom: 4 }}>
-              <label className="neu-label" htmlFor="rp-custom">Pages to rotate</label>
+              <label className="field-label" htmlFor="rp-custom">Pages to rotate</label>
               <input
                 id="rp-custom"
-                className="neu-input neu-input-mono"
+                className="input input-mono"
                 value={custom}
                 onChange={(e) => setCustom(e.target.value)}
                 placeholder="1, 3, 5-8"
@@ -179,7 +179,7 @@ export default function RotatePdfClient() {
               <button
                 key={b.deg}
                 type="button"
-                className="neu-btn"
+                className="btn"
                 onClick={() => rotate(b.deg)}
                 disabled={working}
               >
@@ -199,7 +199,7 @@ export default function RotatePdfClient() {
               <a
                 href={downloadUrl}
                 download={file.name.replace(/\.pdf$/i, "") + "-rotated.pdf"}
-                className="neu-btn neu-btn-primary neu-btn-sm"
+                className="btn btn-primary btn-sm"
                 style={{ marginTop: 10 }}
               >
                 Download rotated PDF

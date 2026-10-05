@@ -194,25 +194,25 @@ export default function QrToolClient() {
     flex: "1 1 0",
     padding: "9px 6px",
     borderRadius: 10,
-    border: "2.5px solid var(--ink)",
+    border: "1px solid var(--line)",
     background: active ? "var(--red)" : "var(--surface)",
     color: active ? "#fff" : "var(--text)",
     fontWeight: 700,
     fontSize: "0.82rem",
     cursor: "pointer",
-    boxShadow: active ? "3px 3px 0 var(--ink)" : "none",
+    boxShadow: active ? "var(--shadow)" : "none",
   });
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
         {/* ------- Controls ------- */}
         <div>
-          <p className="neu-label" style={{ marginBottom: 8 }}>Content</p>
-          <label className="neu-label" htmlFor="qr-type" style={{ fontSize: "0.68rem" }}>Content type</label>
+          <p className="field-label" style={{ marginBottom: 8 }}>Content</p>
+          <label className="field-label" htmlFor="qr-type" style={{ fontSize: "0.68rem" }}>Content type</label>
           <select
             id="qr-type"
-            className="neu-select"
+            className="select"
             value={type}
             onChange={(e) => setType(e.target.value as ContentType)}
             style={{ marginBottom: 16 }}
@@ -224,10 +224,10 @@ export default function QrToolClient() {
 
           {type === "wifi" ? (
             <>
-              <label className="neu-label" htmlFor="qr-ssid">Network name (SSID)</label>
+              <label className="field-label" htmlFor="qr-ssid">Network name (SSID)</label>
               <input
                 id="qr-ssid"
-                className="neu-input neu-input-mono"
+                className="input input-mono"
                 style={{ marginBottom: 16 }}
                 placeholder="MyWiFi"
                 value={ssid}
@@ -235,10 +235,10 @@ export default function QrToolClient() {
               />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
                 <div>
-                  <label className="neu-label" htmlFor="qr-auth">Security</label>
+                  <label className="field-label" htmlFor="qr-auth">Security</label>
                   <select
                     id="qr-auth"
-                    className="neu-select"
+                    className="select"
                     value={wifiAuth}
                     onChange={(e) => setWifiAuth(e.target.value)}
                   >
@@ -248,10 +248,10 @@ export default function QrToolClient() {
                   </select>
                 </div>
                 <div>
-                  <label className="neu-label" htmlFor="qr-hidden">Hidden network</label>
+                  <label className="field-label" htmlFor="qr-hidden">Hidden network</label>
                   <select
                     id="qr-hidden"
-                    className="neu-select"
+                    className="select"
                     value={wifiHidden ? "yes" : "no"}
                     onChange={(e) => setWifiHidden(e.target.value === "yes")}
                   >
@@ -262,11 +262,11 @@ export default function QrToolClient() {
               </div>
               {wifiAuth !== "nopass" && (
                 <>
-                  <label className="neu-label" htmlFor="qr-wpass">Password</label>
+                  <label className="field-label" htmlFor="qr-wpass">Password</label>
                   <input
                     id="qr-wpass"
                     type="password"
-                    className="neu-input neu-input-mono"
+                    className="input input-mono"
                     style={{ marginBottom: 16 }}
                     placeholder="Wi-Fi password"
                     value={wifiPass}
@@ -278,12 +278,12 @@ export default function QrToolClient() {
             </>
           ) : (
             <>
-              <label className="neu-label" htmlFor="qr-text">
+              <label className="field-label" htmlFor="qr-text">
                 {type === "text" ? "Text or URL" : type === "email" ? "Email address" : "Phone number"}
               </label>
               <textarea
                 id="qr-text"
-                className="neu-textarea neu-input-mono"
+                className="textarea input input-mono"
                 style={{ minHeight: 100, marginBottom: 16 }}
                 placeholder={type === "text" ? "https://example.com" : type === "email" ? "hello@example.com" : "+92 300 1234567"}
                 value={text}
@@ -292,9 +292,9 @@ export default function QrToolClient() {
             </>
           )}
 
-          <p className="neu-label" style={{ marginBottom: 8, marginTop: 4 }}>Design</p>
+          <p className="field-label" style={{ marginBottom: 8, marginTop: 4 }}>Design</p>
 
-          <span className="neu-label" style={{ fontSize: "0.68rem" }}>Dot style</span>
+          <span className="field-label" style={{ fontSize: "0.68rem" }}>Dot style</span>
           <div style={{ display: "flex", gap: 8, marginBottom: 12 }} role="group" aria-label="Dot style">
             {DOT_STYLES.map((d) => (
               <button
@@ -309,7 +309,7 @@ export default function QrToolClient() {
             ))}
           </div>
 
-          <span className="neu-label" style={{ fontSize: "0.68rem" }}>Corner eyes</span>
+          <span className="field-label" style={{ fontSize: "0.68rem" }}>Corner eyes</span>
           <div style={{ display: "flex", gap: 8, marginBottom: 12 }} role="group" aria-label="Corner eye style">
             {EYE_STYLES.map((d) => (
               <button
@@ -326,7 +326,7 @@ export default function QrToolClient() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
-              <label className="neu-label" htmlFor="qr-fg" style={{ fontSize: "0.68rem" }}>
+              <label className="field-label" htmlFor="qr-fg" style={{ fontSize: "0.68rem" }}>
                 Code color <span className="font-mono2">{fg}</span>
               </label>
               <input
@@ -334,11 +334,11 @@ export default function QrToolClient() {
                 type="color"
                 value={fg}
                 onChange={(e) => setFg(e.target.value)}
-                style={{ width: "100%", height: 44, border: "2.5px solid var(--ink)", borderRadius: 11, background: "var(--surface)", cursor: "pointer", padding: 4 }}
+                style={{ width: "100%", height: 44, border: "1px solid var(--line)", borderRadius: 11, background: "var(--surface)", cursor: "pointer", padding: 4 }}
               />
             </div>
             <div>
-              <label className="neu-label" htmlFor="qr-bg" style={{ fontSize: "0.68rem" }}>
+              <label className="field-label" htmlFor="qr-bg" style={{ fontSize: "0.68rem" }}>
                 Background <span className="font-mono2">{bg}</span>
               </label>
               <input
@@ -346,7 +346,7 @@ export default function QrToolClient() {
                 type="color"
                 value={bg}
                 onChange={(e) => setBg(e.target.value)}
-                style={{ width: "100%", height: 44, border: "2.5px solid var(--ink)", borderRadius: 11, background: "var(--surface)", cursor: "pointer", padding: 4 }}
+                style={{ width: "100%", height: 44, border: "1px solid var(--line)", borderRadius: 11, background: "var(--surface)", cursor: "pointer", padding: 4 }}
               />
             </div>
           </div>
@@ -357,7 +357,7 @@ export default function QrToolClient() {
             </div>
           )}
 
-          <label className="neu-label" htmlFor="qr-quiet" style={{ fontSize: "0.68rem" }}>
+          <label className="field-label" htmlFor="qr-quiet" style={{ fontSize: "0.68rem" }}>
             Quiet-zone margin · {quiet} module{quiet === 1 ? "" : "s"}
           </label>
           <input
@@ -376,7 +376,7 @@ export default function QrToolClient() {
               : "4 modules is the standard clear margin scanners expect."}
           </p>
 
-          <span className="neu-label" style={{ fontSize: "0.68rem" }}>Center logo (optional)</span>
+          <span className="field-label" style={{ fontSize: "0.68rem" }}>Center logo (optional)</span>
           <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}>
             <input
               ref={logoInputRef}
@@ -390,11 +390,11 @@ export default function QrToolClient() {
                 e.target.value = "";
               }}
             />
-            <button type="button" className="neu-btn neu-btn-sm" onClick={() => logoInputRef.current?.click()}>
+            <button type="button" className="btn btn-sm" onClick={() => logoInputRef.current?.click()}>
               {logoUrl ? "Change logo" : "Upload logo"}
             </button>
             {logoUrl && (
-              <button type="button" className="neu-btn neu-btn-sm" onClick={removeLogo}>
+              <button type="button" className="btn btn-sm" onClick={removeLogo}>
                 Remove
               </button>
             )}
@@ -408,13 +408,13 @@ export default function QrToolClient() {
             )}
           </p>
 
-          <p className="neu-label" style={{ marginBottom: 8 }}>Export</p>
+          <p className="field-label" style={{ marginBottom: 8 }}>Export</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 8 }}>
             <div>
-              <label className="neu-label" htmlFor="qr-ecc" style={{ fontSize: "0.68rem" }}>Error correction</label>
+              <label className="field-label" htmlFor="qr-ecc" style={{ fontSize: "0.68rem" }}>Error correction</label>
               <select
                 id="qr-ecc"
-                className="neu-select"
+                className="select"
                 value={ecc}
                 onChange={(e) => setEcc(e.target.value as QrEcc)}
               >
@@ -424,10 +424,10 @@ export default function QrToolClient() {
               </select>
             </div>
             <div>
-              <label className="neu-label" htmlFor="qr-size" style={{ fontSize: "0.68rem" }}>PNG resolution</label>
+              <label className="field-label" htmlFor="qr-size" style={{ fontSize: "0.68rem" }}>PNG resolution</label>
               <select
                 id="qr-size"
-                className="neu-select"
+                className="select"
                 value={pngPx}
                 onChange={(e) => setPngPx(Number(e.target.value))}
               >
@@ -441,7 +441,7 @@ export default function QrToolClient() {
 
         {/* ------- Preview ------- */}
         <div>
-          <p className="neu-label">Live preview</p>
+          <p className="field-label">Live preview</p>
           <div
             className="result-box"
             style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 320, background: "var(--surface)", padding: 16 }}
@@ -465,13 +465,13 @@ export default function QrToolClient() {
             </p>
           )}
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
-            <button type="button" className="neu-btn neu-btn-primary neu-btn-sm" onClick={downloadPng} disabled={!qr.ok}>
+            <button type="button" className="btn btn-primary btn-sm" onClick={downloadPng} disabled={!qr.ok}>
               Download PNG ({pngPx}px)
             </button>
-            <button type="button" className="neu-btn neu-btn-sm" onClick={downloadSvg} disabled={!qr.ok}>
+            <button type="button" className="btn btn-sm" onClick={downloadSvg} disabled={!qr.ok}>
               Download SVG
             </button>
-            <button type="button" className="neu-btn neu-btn-sm" onClick={copyPayload} disabled={!payload}>
+            <button type="button" className="btn btn-sm" onClick={copyPayload} disabled={!payload}>
               {copied ? "Copied!" : "Copy content"}
             </button>
           </div>
