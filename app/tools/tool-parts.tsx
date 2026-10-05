@@ -2,6 +2,7 @@
  * Self-contained: only depends on lib/site.ts (no @/components imports). */
 import Link from "next/link";
 import { TOOLS, toolBySlug, type ToolDef } from "@/lib/site";
+import { ToolIcon } from "@/components/tool-icons";
 
 /** Resolve a tool slug to its registry entry + public route. */
 export function resolveTool(slug: string): { tool: ToolDef; href: string } | null {
@@ -65,14 +66,21 @@ export function ToolHero({
   badgeColor,
   title,
   tagline,
+  slug,
 }: {
   badge: string;
   badgeColor: "red" | "green" | "blue" | "purple";
   title: React.ReactNode;
   tagline: string;
+  slug?: string;
 }) {
   return (
     <header style={{ marginBottom: 28, maxWidth: 760 }}>
+      {slug ? (
+        <span aria-hidden="true" className="tool-icon tool-icon-lg" style={{ marginBottom: 16 }}>
+          <ToolIcon slug={slug} />
+        </span>
+      ) : null}
       <div style={{ marginBottom: 14 }}>
         <span className={`badge badge-${badgeColor}`}>{badge}</span>
       </div>

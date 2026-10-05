@@ -105,6 +105,7 @@ export default function ConvPage({
       <div className="wrap" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: tool.name }]} />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={spec.heroTitle}

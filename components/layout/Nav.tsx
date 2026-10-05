@@ -11,15 +11,28 @@ const LINKS = [
 ];
 
 function Logo() {
+  const [logoOk, setLogoOk] = useState(true);
   return (
     <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="YATools home">
-      <span
-        aria-hidden="true"
-        className="font-display inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-xl text-white"
-        style={{ background: "var(--red)", lineHeight: 1 }}
-      >
-        Y
-      </span>
+      {logoOk ? (
+        <img
+          src="/logo-mark.png"
+          alt="YATools logo"
+          width={36}
+          height={36}
+          className="rounded-xl"
+          style={{ display: "block" }}
+          onError={() => setLogoOk(false)}
+        />
+      ) : (
+        <span
+          aria-hidden="true"
+          className="font-display inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-xl text-white"
+          style={{ background: "var(--red)", lineHeight: 1 }}
+        >
+          Y
+        </span>
+      )}
       <span className="font-display text-[1.35rem]" style={{ color: "var(--text)", lineHeight: 1 }}>
         YATools
       </span>

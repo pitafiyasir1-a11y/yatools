@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TOOLS } from "@/lib/site";
+import FooterLogo from "./FooterLogo";
 
 const RESOURCES = [
   { label: "Developer API", href: "/developers" },
@@ -51,18 +52,7 @@ export default function Footer() {
     >
       <div className="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="mb-3 flex items-center gap-2.5">
-            <span
-              aria-hidden="true"
-              className="font-display inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-xl text-white"
-              style={{ background: "var(--red)", lineHeight: 1 }}
-            >
-              Y
-            </span>
-            <span className="font-display text-[1.35rem]" style={{ color: "var(--text)", lineHeight: 1 }}>
-              YATools
-            </span>
-          </div>
+          <FooterLogo />
           <p className="text-sm leading-relaxed" style={{ color: "var(--text2)" }}>
             A collection of free online tools for screenshots, audio, documents, Urdu
             content, and developers. No signups, no cards — just tools that work.

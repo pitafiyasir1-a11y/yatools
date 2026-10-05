@@ -201,9 +201,11 @@ a { color: inherit; }
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 12px;
   background: var(--red-tint); color: var(--red-dark);
-  font-family: var(--font-display); font-weight: 800; font-size: 1.35rem;
-  line-height: 1; flex-shrink: 0;
+  flex-shrink: 0;
 }
+.tool-icon svg { width: 24px; height: 24px; display: block; }
+.tool-icon-lg { width: 58px; height: 58px; border-radius: 16px; }
+.tool-icon-lg svg { width: 30px; height: 30px; }
 
 /* Trust strip */
 .trust-strip {

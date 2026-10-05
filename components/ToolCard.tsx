@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ToolDef } from "@/lib/site";
+import { ToolIcon } from "./tool-icons";
 
 /** Server tool card: quiet card — icon tile + name + one-line description + footer. */
 export default function ToolCard({ tool }: { tool: ToolDef }) {
@@ -10,7 +11,7 @@ export default function ToolCard({ tool }: { tool: ToolDef }) {
     >
       <div className="flex items-start justify-between gap-3">
         <span aria-hidden="true" className="tool-icon">
-          {tool.name.charAt(0)}
+          <ToolIcon slug={tool.slug} />
         </span>
         <span className={`badge badge-${tool.badgeColor}`}>{tool.badge}</span>
       </div>

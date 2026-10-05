@@ -8,11 +8,11 @@ export default function manifest(): MetadataRoute.Manifest {
       "Free online tools for screenshots, audio, documents, and everyday work. No sign-up.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f6f1e5",
+    background_color: "#ffffff",
     theme_color: "#e0263c",
     icons: [
+      { src: "/logo-icon.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
-      { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   };
 }

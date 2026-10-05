@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE, pageMeta, orgJsonLd, breadcrumbJsonLd } from "@/lib/site";
+import BrandImage from "@/components/BrandImage";
 
 export const metadata = pageMeta({
   title: "About YATools",
@@ -65,6 +66,14 @@ export default function Page() {
       <div className="wrap py-10 md:py-14">
         <Crumbs items={crumbs} />
         <div className="max-w-3xl">
+          <BrandImage
+            src="/logo-full.png"
+            alt="YATools — All Tools, One Place"
+            width={220}
+            height={65}
+            className="mb-2 h-auto"
+            style={{ maxWidth: 220 }}
+          />
           <p className="eyebrow mt-6">
             <span className="dot" /> About
           </p>
