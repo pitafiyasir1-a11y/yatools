@@ -255,7 +255,7 @@ export default function ToolClient() {
       <div className="flex flex-wrap gap-3 mb-6">
         <button
           type="button"
-          className={`neu-chip ${mode === "upload" ? "neu-chip-active" : ""}`}
+          className={`tab ${mode === "upload" ? "tab-active" : ""}`}
           onClick={() => setMode("upload")}
         >
           Upload file
@@ -263,7 +263,7 @@ export default function ToolClient() {
         {srSupported && (
           <button
             type="button"
-            className={`neu-chip ${mode === "dictate" ? "neu-chip-active" : ""}`}
+            className={`tab ${mode === "dictate" ? "tab-active" : ""}`}
             onClick={() => setMode("dictate")}
           >
             Dictate with microphone
@@ -273,12 +273,12 @@ export default function ToolClient() {
 
       {mode === "upload" && (
         <div>
-          <label className="neu-label" htmlFor="at-file">
+          <label className="field-label" htmlFor="at-file">
             Audio file (max 25 MB)
           </label>
           <label
             htmlFor="at-file"
-            className="neu-btn w-full !justify-start mb-2 cursor-pointer"
+            className="btn w-full !justify-start mb-2 cursor-pointer"
           >
             {file ? file.name : "Choose an audio file…"}
           </label>
@@ -297,12 +297,12 @@ export default function ToolClient() {
 
           <div className="grid sm:grid-cols-3 gap-4 mt-4">
             <div>
-              <label className="neu-label" htmlFor="at-lang">
+              <label className="field-label" htmlFor="at-lang">
                 Language
               </label>
               <select
                 id="at-lang"
-                className="neu-select"
+                className="select"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
               >
@@ -314,12 +314,12 @@ export default function ToolClient() {
               </select>
             </div>
             <div>
-              <label className="neu-label" htmlFor="at-model">
+              <label className="field-label" htmlFor="at-model">
                 Model
               </label>
               <select
                 id="at-model"
-                className="neu-select"
+                className="select"
                 value={model}
                 onChange={(e) =>
                   setModel(e.target.value as "turbo" | "accurate")
@@ -346,7 +346,7 @@ export default function ToolClient() {
 
           <button
             type="button"
-            className="neu-btn neu-btn-primary mt-6"
+            className="btn btn-primary mt-6"
             onClick={transcribe}
             disabled={status === "loading" || !file}
           >
@@ -376,12 +376,12 @@ export default function ToolClient() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 mt-4">
-                <button type="button" className="neu-btn neu-btn-sm" onClick={copyText}>
+                <button type="button" className="btn btn-sm" onClick={copyText}>
                   {copied ? "Copied!" : "Copy text"}
                 </button>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() =>
                     downloadBlob(result.text, "transcript.txt", "text/plain")
                   }
@@ -391,7 +391,7 @@ export default function ToolClient() {
                 {result.srt && (
                   <button
                     type="button"
-                    className="neu-btn neu-btn-sm"
+                    className="btn btn-sm"
                     onClick={() =>
                       downloadBlob(result.srt as string, "transcript.srt", "text/plain")
                     }
@@ -417,12 +417,12 @@ export default function ToolClient() {
         <div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="neu-label" htmlFor="at-dlang">
+              <label className="field-label" htmlFor="at-dlang">
                 Dictation language
               </label>
               <select
                 id="at-dlang"
-                className="neu-select"
+                className="select"
                 value={dictateLang}
                 onChange={(e) => setDictateLang(e.target.value)}
                 disabled={listening}
@@ -438,7 +438,7 @@ export default function ToolClient() {
               {!listening ? (
                 <button
                   type="button"
-                  className="neu-btn neu-btn-primary"
+                  className="btn btn-primary"
                   onClick={startDictation}
                 >
                   Start dictation
@@ -446,7 +446,7 @@ export default function ToolClient() {
               ) : (
                 <button
                   type="button"
-                  className="neu-btn"
+                  className="btn"
                   onClick={stopDictation}
                 >
                   Stop
@@ -472,12 +472,12 @@ export default function ToolClient() {
             </div>
           )}
 
-          <label className="neu-label mt-6" htmlFor="at-dtext">
+          <label className="field-label mt-6" htmlFor="at-dtext">
             Dictated text
           </label>
           <textarea
             id="at-dtext"
-            className="neu-textarea"
+            className="textarea"
             rows={8}
             placeholder="Your dictated words will appear here…"
             value={dictateText}
@@ -486,7 +486,7 @@ export default function ToolClient() {
           <div className="flex flex-wrap gap-3 mt-4">
             <button
               type="button"
-              className="neu-btn neu-btn-sm"
+              className="btn btn-sm"
               disabled={!dictateText}
               onClick={async () => {
                 try {
@@ -504,7 +504,7 @@ export default function ToolClient() {
             </button>
             <button
               type="button"
-              className="neu-btn neu-btn-sm"
+              className="btn btn-sm"
               disabled={!dictateText}
               onClick={() =>
                 downloadBlob(dictateText, "dictation.txt", "text/plain")
@@ -514,7 +514,7 @@ export default function ToolClient() {
             </button>
             <button
               type="button"
-              className="neu-btn neu-btn-sm"
+              className="btn btn-sm"
               disabled={!dictateText}
               onClick={() => setDictateText("")}
             >

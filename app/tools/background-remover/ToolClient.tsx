@@ -110,7 +110,7 @@ export default function BackgroundRemoverClient() {
     : "no-background.png";
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -119,12 +119,12 @@ export default function BackgroundRemoverClient() {
         onChange={(e) => pickFile(e.target.files?.[0] ?? null)}
       />
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
-        <button type="button" className="neu-btn neu-btn-sm" onClick={() => inputRef.current?.click()}>
+        <button type="button" className="btn btn-sm" onClick={() => inputRef.current?.click()}>
           {file ? "Choose a different image" : "Choose image"}
         </button>
         <button
           type="button"
-          className="neu-btn neu-btn-primary neu-btn-sm"
+          className="btn btn-primary btn-sm"
           onClick={process}
           disabled={!file || stage === "loading" || stage === "working"}
         >
@@ -138,7 +138,7 @@ export default function BackgroundRemoverClient() {
           tabIndex={0}
           onClick={() => inputRef.current?.click()}
           onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
-          className="neu-card"
+          className="card"
           style={{
             padding: "48px 24px",
             textAlign: "center",
@@ -170,11 +170,11 @@ export default function BackgroundRemoverClient() {
           <div
             style={{
               height: 14,
-              border: "2px solid var(--ink)",
+              border: "1px solid var(--line)",
               borderRadius: 8,
               marginTop: 10,
               overflow: "hidden",
-              background: "var(--paper2)",
+              background: "var(--surface2)",
             }}
           >
             <div
@@ -207,9 +207,9 @@ export default function BackgroundRemoverClient() {
           }}
         >
           <div>
-            <p className="neu-label">Before</p>
+            <p className="field-label">Before</p>
             <div
-              className="neu-card"
+              className="card"
               style={{ padding: 10, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 220 }}
             >
               <img
@@ -220,9 +220,9 @@ export default function BackgroundRemoverClient() {
             </div>
           </div>
           <div>
-            <p className="neu-label">After</p>
+            <p className="field-label">After</p>
             <div
-              className="neu-card"
+              className="card"
               style={{
                 padding: 10,
                 display: "flex",
@@ -254,7 +254,7 @@ export default function BackgroundRemoverClient() {
 
       {resultUrl && stage === "done" && (
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 16, alignItems: "center" }}>
-          <a href={resultUrl} download={downloadName} className="neu-btn neu-btn-primary neu-btn-sm">
+          <a href={resultUrl} download={downloadName} className="btn btn-primary btn-sm">
             Download PNG
           </a>
           <span className="font-mono2" style={{ fontSize: "0.74rem", color: "var(--text2)" }}>

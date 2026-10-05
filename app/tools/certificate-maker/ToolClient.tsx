@@ -124,28 +124,28 @@ export default function CertificateMakerClient() {
   return (
     <div className="max-w-3xl mx-auto">
       {status !== "ready" && (
-        <div className="neu-card p-6 md:p-8">
+        <div className="card p-6 md:p-8">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="neu-label" htmlFor="cert-name">
+              <label className="field-label" htmlFor="cert-name">
                 Recipient name
               </label>
               <input
                 id="cert-name"
-                className="neu-input"
+                className="input"
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, MAX_LEN))}
                 placeholder="e.g. Ahmed Khan"
               />
             </div>
             <div>
-              <label className="neu-label" htmlFor="cert-date">
+              <label className="field-label" htmlFor="cert-date">
                 Date
               </label>
               <input
                 id="cert-date"
                 type="date"
-                className="neu-input"
+                className="input"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
@@ -154,7 +154,7 @@ export default function CertificateMakerClient() {
 
           <div className="mt-4">
             <div className="flex items-end justify-between mb-2">
-              <label className="neu-label !mb-0" htmlFor="cert-details">
+              <label className="field-label !mb-0" htmlFor="cert-details">
                 Achievement details
               </label>
               <span className="font-mono2 text-xs" style={{ color: "var(--muted)" }}>
@@ -163,7 +163,7 @@ export default function CertificateMakerClient() {
             </div>
             <textarea
               id="cert-details"
-              className="neu-textarea"
+              className="textarea"
               value={details}
               onChange={(e) => setDetails(e.target.value.slice(0, MAX_LEN))}
               placeholder="e.g. For winning the office cricket tournament 2026"
@@ -172,12 +172,12 @@ export default function CertificateMakerClient() {
           </div>
 
           <div className="mt-4">
-            <label className="neu-label" htmlFor="cert-signature">
+            <label className="field-label" htmlFor="cert-signature">
               Signature line (optional)
             </label>
             <input
               id="cert-signature"
-              className="neu-input"
+              className="input"
               value={signature}
               onChange={(e) => setSignature(e.target.value.slice(0, MAX_LEN))}
               placeholder="e.g. Chief Fun Officer"
@@ -185,7 +185,7 @@ export default function CertificateMakerClient() {
           </div>
 
           <div className="mt-6">
-            <span className="neu-label">Pick a style</span>
+            <span className="field-label">Pick a style</span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {TEMPLATES.map((t) => (
                 <button
@@ -193,7 +193,7 @@ export default function CertificateMakerClient() {
                   type="button"
                   aria-pressed={templateId === t.id}
                   onClick={() => setTemplateId(t.id)}
-                  className="neu-btn !px-3 !py-3 flex-col !gap-1"
+                  className="btn !px-3 !py-3 flex-col !gap-1"
                   style={{
                     background: templateId === t.id ? "var(--red)" : "var(--surface)",
                     color: templateId === t.id ? "#fff" : "inherit",
@@ -212,12 +212,12 @@ export default function CertificateMakerClient() {
 
           <div className="grid sm:grid-cols-2 gap-4 mt-6">
             <div>
-              <label className="neu-label" htmlFor="cert-format">
+              <label className="field-label" htmlFor="cert-format">
                 File format
               </label>
               <select
                 id="cert-format"
-                className="neu-select"
+                className="select"
                 value={format}
                 onChange={(e) => setFormat(e.target.value)}
               >
@@ -230,7 +230,7 @@ export default function CertificateMakerClient() {
             </div>
             <div className="flex items-end">
               <button
-                className="neu-btn neu-btn-primary w-full"
+                className="btn btn-primary w-full"
                 onClick={generate}
                 disabled={busy}
               >
@@ -262,13 +262,13 @@ export default function CertificateMakerClient() {
       )}
 
       {status === "ready" && result && (
-        <div className="neu-card p-4 md:p-5">
+        <div className="card p-4 md:p-5">
           {isImage ? (
             <img
               src={result.renderUrl}
               alt={`Novelty certificate for ${name.trim()}`}
               className="w-full rounded-lg border-2"
-              style={{ borderColor: "var(--ink)" }}
+              style={{ borderColor: "var(--line)" }}
             />
           ) : (
             <div className="result-box text-center !py-10">
@@ -282,21 +282,21 @@ export default function CertificateMakerClient() {
           )}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-4">
             <button
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={download}
               disabled={downloading}
             >
               {downloading ? "Downloading…" : `Download ${result.format.toUpperCase()}`}
             </button>
             <a
-              className="neu-btn"
+              className="btn"
               href={result.renderUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
               Open full size
             </a>
-            <button className="neu-btn sm:ml-auto" onClick={reset}>
+            <button className="btn sm:ml-auto" onClick={reset}>
               Make another
             </button>
           </div>

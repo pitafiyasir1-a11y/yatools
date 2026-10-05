@@ -127,11 +127,11 @@ export default function ColorPickerClient() {
       aria-label={`Use color ${color}`}
       style={{
         background: color,
-        border: "2.5px solid var(--ink)",
+        border: "1px solid var(--line)",
         borderRadius: 10,
         height: small ? 44 : 64,
         cursor: "pointer",
-        boxShadow: "3px 3px 0 var(--ink)",
+        
         transition: "transform 0.12s ease",
       }}
       onMouseEnter={(e) => (e.currentTarget.style.transform = "translate(-2px,-2px)")}
@@ -140,15 +140,15 @@ export default function ColorPickerClient() {
   );
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
         <div>
           <div
             style={{
               background: hex,
-              border: "2.5px solid var(--ink)",
+              border: "1px solid var(--line)",
               borderRadius: 14,
-              boxShadow: "5px 5px 0 var(--ink)",
+              
               height: 150,
               display: "flex",
               alignItems: "center",
@@ -164,7 +164,7 @@ export default function ColorPickerClient() {
               {hex.toUpperCase()}
             </span>
           </div>
-          <label className="neu-label" htmlFor="cp-visual">
+          <label className="field-label" htmlFor="cp-visual">
             Pick a color
           </label>
           <input
@@ -179,7 +179,7 @@ export default function ColorPickerClient() {
             style={{
               width: "100%",
               height: 52,
-              border: "2.5px solid var(--ink)",
+              border: "1px solid var(--line)",
               borderRadius: 11,
               background: "var(--surface)",
               cursor: "pointer",
@@ -187,13 +187,13 @@ export default function ColorPickerClient() {
               marginBottom: 14,
             }}
           />
-          <label className="neu-label" htmlFor="cp-hex">
+          <label className="field-label" htmlFor="cp-hex">
             Or type a hex code
           </label>
           <div style={{ display: "flex", gap: 8 }}>
             <input
               id="cp-hex"
-              className="neu-input neu-input-mono"
+              className="input input-mono"
               value={draft}
               onChange={(e) => {
                 setDraft(e.target.value);
@@ -205,7 +205,7 @@ export default function ColorPickerClient() {
               spellCheck={false}
               style={draftError ? { borderColor: "var(--red)" } : undefined}
             />
-            <button type="button" className="neu-btn neu-btn-sm" onClick={commitDraft}>
+            <button type="button" className="btn btn-sm" onClick={commitDraft}>
               Apply
             </button>
           </div>
@@ -220,7 +220,7 @@ export default function ColorPickerClient() {
         </div>
 
         <div>
-          <p className="neu-label">Copy color codes</p>
+          <p className="field-label">Copy color codes</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
             {values.map((v) => (
               <div
@@ -240,7 +240,7 @@ export default function ColorPickerClient() {
                   {v.label}
                 </span>
                 <code
-                  className="neu-input-mono"
+                  className="input input-mono"
                   style={{
                     flex: 1,
                     border: "2px solid var(--line)",
@@ -255,7 +255,7 @@ export default function ColorPickerClient() {
                 </code>
                 <button
                   type="button"
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => copy(v.value, v.key)}
                 >
                   {copied === v.key ? "Copied!" : "Copy"}
@@ -264,11 +264,11 @@ export default function ColorPickerClient() {
             ))}
           </div>
 
-          <p className="neu-label">Tints</p>
+          <p className="field-label">Tints</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 14 }}>
             {tints.map((c, i) => swatch(c, `tint-${i}`, true))}
           </div>
-          <p className="neu-label">Shades</p>
+          <p className="field-label">Shades</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
             {shades.map((c, i) => swatch(c, `shade-${i}`, true))}
           </div>
@@ -276,10 +276,10 @@ export default function ColorPickerClient() {
       </div>
 
       <hr className="sec-rule" style={{ margin: "24px 0" }} />
-      <p className="neu-label">Curated palettes — click any swatch to use it</p>
+      <p className="field-label">Curated palettes — click any swatch to use it</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
         {PALETTES.map((p) => (
-          <div key={p.name} className="neu-card" style={{ padding: 14, boxShadow: "3px 3px 0 var(--ink)" }}>
+          <div key={p.name} className="card" style={{ padding: 14,  }}>
             <p className="font-mono2" style={{ fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 10, color: "var(--text2)" }}>
               {p.name}
             </p>

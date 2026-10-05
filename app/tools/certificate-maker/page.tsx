@@ -147,7 +147,7 @@ export default function CertificateMakerPage() {
               d: "Download as a JPG to drop into a WhatsApp group, a PNG for a crisp social post, or a PDF to print and frame as a gag gift. Kids' reading challenges and pet awards are all-time classics.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>

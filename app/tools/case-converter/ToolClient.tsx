@@ -97,20 +97,20 @@ export default function CaseConverterClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
-      <label className="neu-label" htmlFor="cc-input">
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+      <label className="field-label" htmlFor="cc-input">
         Your text
       </label>
       <textarea
         id="cc-input"
-        className="neu-textarea"
+        className="textarea"
         style={{ minHeight: 130 }}
         placeholder="Type or paste text here…"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
 
-      <p className="neu-label" style={{ marginTop: 18 }}>
+      <p className="field-label" style={{ marginTop: 18 }}>
         Choose a case
       </p>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 18 }}>
@@ -118,7 +118,7 @@ export default function CaseConverterClient() {
           <button
             key={c.id}
             type="button"
-            className={`neu-chip${active === c.id ? " neu-chip-active" : ""}`}
+            className={`tab${active === c.id ? " tab-active" : ""}`}
             onClick={() => setActive(c.id)}
             title={c.example}
             aria-pressed={active === c.id}
@@ -137,16 +137,16 @@ export default function CaseConverterClient() {
           marginBottom: 10,
         }}
       >
-        <p className="neu-label" style={{ margin: 0 }}>
+        <p className="field-label" style={{ margin: 0 }}>
           Result · {CASES.find((c) => c.id === active)?.label}
         </p>
         <div style={{ display: "flex", gap: 8 }}>
-          <button type="button" className="neu-btn neu-btn-sm" onClick={copy} disabled={!output}>
+          <button type="button" className="btn btn-sm" onClick={copy} disabled={!output}>
             {copied ? "Copied!" : "Copy result"}
           </button>
           <button
             type="button"
-            className="neu-btn neu-btn-sm"
+            className="btn btn-sm"
             onClick={() => setText("")}
             disabled={!text}
           >

@@ -115,13 +115,13 @@ export default function AiVisionChatClient() {
   return (
     <div className="max-w-3xl mx-auto">
       {/* Upload card */}
-      <div className="neu-card p-6 md:p-8 mb-6">
-        <span className="neu-label">Your image</span>
+      <div className="card p-6 md:p-8 mb-6">
+        <span className="field-label">Your image</span>
         {!imageData ? (
           <button
             type="button"
             onClick={() => fileInput.current?.click()}
-            className="neu-btn w-full !py-10 flex-col !gap-2 mt-1"
+            className="btn w-full !py-10 flex-col !gap-2 mt-1"
             style={{ borderStyle: "dashed" }}
           >
             <span className="font-display" style={{ fontSize: "1.7rem" }}>
@@ -137,14 +137,14 @@ export default function AiVisionChatClient() {
               src={imageData}
               alt="Uploaded image preview"
               className="rounded-lg border-2 shrink-0"
-              style={{ borderColor: "var(--ink)", maxWidth: 160, maxHeight: 160, objectFit: "cover" }}
+              style={{ borderColor: "var(--line)", maxWidth: 160, maxHeight: 160, objectFit: "cover" }}
             />
             <div className="flex-1 min-w-0">
               <p className="font-bold break-words">{imageName}</p>
               <p className="font-mono2 text-xs mt-1" style={{ color: "var(--muted)" }}>
                 Ready — ask as many questions as you like about this image.
               </p>
-              <button className="neu-btn !py-2 mt-3" onClick={changeImage}>
+              <button className="btn !py-2 mt-3" onClick={changeImage}>
                 Change image
               </button>
             </div>
@@ -170,8 +170,8 @@ export default function AiVisionChatClient() {
             >
               {m.role === "user" ? (
                 <div
-                  className="neu-card !shadow-none"
-                  style={{ padding: "12px 16px", background: "var(--paper2)" }}
+                  className="card !shadow-none"
+                  style={{ padding: "12px 16px", background: "var(--surface2)" }}
                 >
                   <p className="font-mono2 text-xs mb-1" style={{ color: "var(--muted)" }}>
                     You
@@ -179,7 +179,7 @@ export default function AiVisionChatClient() {
                   <p style={{ lineHeight: 1.6 }}>{m.text}</p>
                 </div>
               ) : (
-                <div className="neu-card" style={{ padding: "16px 18px" }}>
+                <div className="card" style={{ padding: "16px 18px" }}>
                   <p className="font-mono2 text-xs mb-1" style={{ color: "var(--red-dark)" }}>
                     AI Vision
                   </p>
@@ -201,9 +201,9 @@ export default function AiVisionChatClient() {
       )}
 
       {/* Ask card */}
-      <div className="neu-card p-6 md:p-8">
+      <div className="card p-6 md:p-8">
         <div className="flex items-end justify-between mb-2">
-          <label className="neu-label !mb-0" htmlFor="vision-q">
+          <label className="field-label !mb-0" htmlFor="vision-q">
             {hasConversation ? "Ask another question" : "Ask about the image"}
           </label>
           <span className="font-mono2 text-xs" style={{ color: "var(--muted)" }}>
@@ -213,7 +213,7 @@ export default function AiVisionChatClient() {
         <textarea
           id="vision-q"
           ref={questionInput}
-          className="neu-textarea"
+          className="textarea"
           value={question}
           onChange={(e) => setQuestion(e.target.value.slice(0, MAX_PROMPT))}
           placeholder="What is happening in this photo? Read the text on the sign…"
@@ -225,7 +225,7 @@ export default function AiVisionChatClient() {
             }
           }}
         />
-        <button className="neu-btn neu-btn-primary w-full mt-4" onClick={ask} disabled={busy}>
+        <button className="btn btn-primary w-full mt-4" onClick={ask} disabled={busy}>
           {busy ? "Thinking…" : "Ask"}
         </button>
         <p className="text-xs mt-4" style={{ color: "var(--muted)" }}>
