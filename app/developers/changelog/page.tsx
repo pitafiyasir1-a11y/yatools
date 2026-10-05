@@ -79,6 +79,45 @@ export default function Page() {
         <div className="max-w-3xl mt-10 space-y-5">
           <article className="neu-card p-6 md:p-8">
             <div className="flex flex-wrap items-center gap-3 mb-3">
+              <span className="neu-badge neu-badge-red">v1.2.0</span>
+              <span className="font-mono2 text-xs text-[var(--muted)]">
+                2026-10-06
+              </span>
+            </div>
+            <h2 className="font-extrabold text-xl mb-3">Polish + 14 new tools + blog</h2>
+            <div className="prose-neu">
+              <ul>
+                <li>
+                  7 new PDF tools: Merge, Split, Compress, Rotate, Image to
+                  PDF, PDF to JPG, and a QR Code Scanner — all in-browser.
+                </li>
+                <li>
+                  7 more tools: Invert, Mirror, Crop, Text to Image, Image to
+                  Text (OCR), Universal Downloader, and Temporary Email.
+                </li>
+                <li>
+                  Upgrades: advanced QR generator (logo, styles, colors),
+                  Text to PDF with live preview, Image Resizer with live
+                  preview, Background Remover with real download progress.
+                </li>
+                <li>
+                  Fixes: image compressor never returns a larger file;
+                  movie results gained a "Watch direct" button.
+                </li>
+                <li>
+                  New: official logo + favicon, Vercel Analytics, and the
+                  YATools Blog (5 starter guides).
+                </li>
+                <li>
+                  New <span className="font-mono2 text-sm">/api/v1/*</span>{" "}
+                  endpoints: alldl, mail — same normalized errors and
+                  fair-use quotas.
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article className="neu-card p-6 md:p-8">
+            <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="neu-badge neu-badge-red">v1.1.0</span>
               <span className="font-mono2 text-xs text-[var(--muted)]">
                 2026-10-05

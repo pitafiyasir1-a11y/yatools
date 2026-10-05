@@ -19,6 +19,8 @@ type Result = {
   rating: number | null;
   image: string | null;
   url: string | null;
+  imdbUrl: string | null;
+  watchUrl: string | null;
 };
 
 type MsearchItem = {
@@ -45,18 +47,18 @@ function adaptMsearch(payload: unknown): Result[] {
     .map((r): Result => {
       const item = r as MsearchItem;
       const title = typeof item.title === "string" ? item.title : "Untitled";
+      // Keep IMDb and watch URLs separate so the UI can offer both buttons.
+      const imdbUrl = typeof item.imdbUrl === "string" ? item.imdbUrl : null;
+      const watchUrl = typeof item.watchUrl === "string" ? item.watchUrl : null;
       return {
         title,
         type: typeof item.type === "string" ? item.type : null,
         year: typeof item.year === "number" ? item.year : null,
         rating: null, // upstream exposes no rating for movies
         image: typeof item.poster === "string" ? item.poster : null,
-        url:
-          typeof item.imdbUrl === "string"
-            ? item.imdbUrl
-            : typeof item.watchUrl === "string"
-              ? item.watchUrl
-              : null,
+        url: imdbUrl ?? watchUrl,
+        imdbUrl,
+        watchUrl,
       };
     })
     .filter((r) => r.title !== "Untitled" || r.url !== null);
@@ -97,6 +99,8 @@ function adaptTvmaze(payload: unknown): Result[] {
       rating,
       image,
       url: typeof s.url === "string" ? s.url : null,
+      imdbUrl: null, // TVMaze fallback carries no IMDb/watch links
+      watchUrl: null,
     };
   });
 }
