@@ -115,6 +115,7 @@ export default function QrCodePage() {
           ]}
         />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={

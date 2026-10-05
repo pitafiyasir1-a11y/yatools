@@ -108,6 +108,7 @@ export default function SplitPdfPage() {
       <div className="wrap" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Split PDF" }]} />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={

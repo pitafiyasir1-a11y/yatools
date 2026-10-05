@@ -127,6 +127,7 @@ export default function SlugPage() {
       <div className="wrap" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "URL Slug Generator" }]} />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={
