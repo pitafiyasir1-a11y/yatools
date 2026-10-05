@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE, TOOLS, USE_CASES } from "@/lib/site";
+import { POSTS } from "@/app/blog/posts";
 
 type Freq = "weekly";
 
@@ -20,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contact", priority: 0.7 },
     { path: "/privacy", priority: 0.7 },
     { path: "/terms", priority: 0.7 },
+    { path: "/blog", priority: 0.8 },
+    ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
   ];
 
   return routes.map((r) => ({

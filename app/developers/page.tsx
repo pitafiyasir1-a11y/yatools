@@ -87,6 +87,18 @@ const ENDPOINTS: {
     params: "JSON: image as data:image/* data URL (required, ≤ 5 MB), userPrompt (required)",
     purpose: "Ask AI questions about an uploaded image.",
   },
+  {
+    method: "GET",
+    path: "/api/v1/alldl",
+    params: "url (required, public video/audio page URL)",
+    purpose: "Get download links for a video/audio URL — only for content you own or have the right to save.",
+  },
+  {
+    method: "GET",
+    path: "/api/v1/mail",
+    params: "action=create|inbox|read|delete; mail (address), id (message id) as required per action",
+    purpose: "Temporary receive-only email addresses. Addresses expire; never use for account recovery.",
+  },
 ];
 
 const QUOTAS: { tool: string; route: string; limit: string }[] = [
@@ -99,6 +111,8 @@ const QUOTAS: { tool: string; route: string; limit: string }[] = [
   { tool: "Movie & TV Search", route: "/api/v1/msearch", limit: "50 / day" },
   { tool: "Certificate Maker", route: "/api/v1/certificate", limit: "10 / day" },
   { tool: "AI Vision Chat", route: "/api/v1/imgchat", limit: "10 / day" },
+  { tool: "Universal Downloader", route: "/api/v1/alldl", limit: "10 / day" },
+  { tool: "Temporary Email", route: "/api/v1/mail", limit: "20 / day" },
 ];
 
 const CURL_SNIPPET = `# Full-page screenshot of any public URL

@@ -5,7 +5,10 @@ import { useEffect, useRef, useState } from "react";
 const MAX_BYTES = 10 * 1024 * 1024; // ~10MB soft cap
 
 const FAIL_MESSAGE =
-  "Background removal failed — your browser couldn't run the AI model. Try a smaller image or a Chromium-based browser.";
+  "Background removal failed — the AI model couldn't load or run. Next steps: " +
+  "1) check your internet connection (the first run downloads ~40 MB), " +
+  "2) use a Chromium-based browser like Chrome or Edge with WebGPU enabled, " +
+  "3) try a smaller image.";
 
 type Stage = "idle" | "loading" | "working" | "done" | "error";
 
@@ -16,6 +19,7 @@ export default function BackgroundRemoverClient() {
   const [stage, setStage] = useState<Stage>("idle");
   const [progressLabel, setProgressLabel] = useState("");
   const [progressPct, setProgressPct] = useState<number | null>(null);
+  const [progressDetail, setProgressDetail] = useState(""); // e.g. "12.4 / 40.0 MB"
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,6 +49,7 @@ export default function BackgroundRemoverClient() {
     setStage("idle");
     setProgressLabel("");
     setProgressPct(null);
+    setProgressDetail("");
     setFile(f);
     setOriginalUrl(URL.createObjectURL(f));
   };
@@ -55,6 +60,7 @@ export default function BackgroundRemoverClient() {
     setStage("loading");
     setProgressLabel("Loading AI model…");
     setProgressPct(null);
+    setProgressDetail("");
     try {
       // Dynamic import keeps the AI model code and its heavy dependencies
       // out of the initial bundle — nothing loads until you press the button.
@@ -66,12 +72,24 @@ export default function BackgroundRemoverClient() {
           // then compute:… while the image is segmented.
           if (key.startsWith("fetch:")) {
             setProgressLabel("Downloading AI model…");
-            setProgressPct(total > 0 ? Math.round((current / total) * 100) : null);
+            if (total > 0) {
+              setProgressPct(Math.round((current / total) * 100));
+              setProgressDetail(
+                `${(current / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`
+              );
+            } else {
+              setProgressPct(null);
+              setProgressDetail("");
+            }
           } else {
             setProgressLabel("Removing background…");
             setProgressPct(null);
+            setProgressDetail("");
           }
         },
+        // "small" model (~42MB vs the ~84MB default): much faster first
+        // download, quality fine for typical photos per the library docs.
+        model: "isnet_quint8",
         output: { format: "image/png", quality: 1 },
       });
       if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -82,6 +100,7 @@ export default function BackgroundRemoverClient() {
       setStage("error");
       setProgressLabel("");
       setProgressPct(null);
+      setProgressDetail("");
       setError(FAIL_MESSAGE);
     }
   };
@@ -132,8 +151,8 @@ export default function BackgroundRemoverClient() {
             Drop in a photo
           </div>
           <p style={{ fontSize: "0.92rem" }}>
-            JPG, PNG, WebP — up to ~10MB. The first run downloads an AI model
-            (~40MB); afterwards it's cached in your browser.
+            JPG, PNG, WebP — up to ~10MB. First run downloads the AI model
+            (~40 MB) — once, then it&apos;s cached in your browser. Later runs are instant.
           </p>
         </div>
       )}
@@ -143,8 +162,8 @@ export default function BackgroundRemoverClient() {
           <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
             <strong>{progressLabel}</strong>
             {progressPct !== null && (
-              <span className="font-mono2" style={{ fontSize: "0.78rem" }}>
-                {progressPct}%
+              <span className="font-mono2" style={{ fontSize: "0.78rem", whiteSpace: "nowrap" }}>
+                {progressDetail ? `${progressDetail} (${progressPct}%)` : `${progressPct}%`}
               </span>
             )}
           </div>
@@ -170,6 +189,12 @@ export default function BackgroundRemoverClient() {
             />
           </div>
           <style>{`@keyframes br-slide { 0% { transform: translateX(-100%);} 100% { transform: translateX(220%);} }`}</style>
+          {progressLabel.startsWith("Downloading") && (
+            <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: 10, lineHeight: 1.5 }}>
+              First run downloads the AI model (~40 MB) — once, then it&apos;s cached
+              in your browser. Later runs are instant.
+            </p>
+          )}
         </div>
       )}
 

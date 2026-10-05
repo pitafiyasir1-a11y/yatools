@@ -34,9 +34,13 @@ export default function ImageCompressorClient() {
   const [quality, setQuality] = useState(80);
   const [format, setFormat] = useState<FormatChoice>("original");
   const [compressing, setCompressing] = useState(false);
+  const [keptOriginal, setKeptOriginal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
+  // Ref mirror of `file` so runCompression can compare byte sizes
+  // without re-creating the callback on every file change.
+  const fileRef = useRef<File | null>(null);
 
   // Resolve what we'll actually encode to. Canvas can only emit
   // PNG/JPEG/WebP, so exotic inputs (GIF, AVIF…) fall back to PNG.
@@ -49,7 +53,8 @@ export default function ImageCompressorClient() {
 
   const runCompression = useCallback(async () => {
     const img = imgRef.current;
-    if (!img) return;
+    const src = fileRef.current;
+    if (!img || !src) return;
     setCompressing(true);
     try {
       const canvas = document.createElement("canvas");
@@ -64,11 +69,17 @@ export default function ImageCompressorClient() {
       const q = mime === "image/png" ? undefined : quality / 100;
       const blob = await new Promise<Blob | null>((res) => canvas.toBlob((b) => res(b), mime, q));
       if (!blob) throw new Error("encode failed");
+      // Universal guard: re-encoding can GROW some files (e.g. an already
+      // optimized PNG re-encoded without quantization). Never deliver a
+      // bigger file — keep the original and say so honestly.
+      const kept = blob.size >= src.size;
+      const finalBlob = kept ? src : blob;
+      setKeptOriginal(kept);
       setCompressedUrl((prev) => {
         if (prev) URL.revokeObjectURL(prev);
-        return URL.createObjectURL(blob);
+        return URL.createObjectURL(finalBlob);
       });
-      setCompressedSize(blob.size);
+      setCompressedSize(finalBlob.size);
     } catch {
       setError("Couldn't compress that image — try a different file.");
     } finally {
@@ -105,6 +116,7 @@ export default function ImageCompressorClient() {
         return url;
       });
       setFile(f);
+      fileRef.current = f;
       setDimensions({ w: img.naturalWidth, h: img.naturalHeight });
     };
     img.onerror = () => {
@@ -122,8 +134,9 @@ export default function ImageCompressorClient() {
 
   const outMime = resolvedMime();
   const qualityApplies = outMime !== "image/png";
+  const origExt = (file?.name.split(".").pop() || "").toLowerCase();
   const downloadName = file
-    ? `${file.name.replace(/\.[^.]+$/, "") || "image"}-compressed.${extFor(outMime)}`
+    ? `${file.name.replace(/\.[^.]+$/, "") || "image"}${keptOriginal ? "" : "-compressed"}.${keptOriginal && origExt ? origExt : extFor(outMime)}`
     : "compressed.jpg";
 
   const savedPct =
@@ -284,14 +297,24 @@ export default function ImageCompressorClient() {
                     <>
                       {" · "}
                       <span style={{ color: savedPct >= 0 ? "var(--green)" : "var(--red)" }}>
-                        {savedPct >= 0
-                          ? `${savedPct.toFixed(1)}% smaller`
-                          : `${Math.abs(savedPct).toFixed(1)}% larger`}
+                        {keptOriginal
+                          ? "Already optimized"
+                          : savedPct >= 0
+                            ? `${savedPct.toFixed(1)}% smaller`
+                            : `${Math.abs(savedPct).toFixed(1)}% larger`}
                       </span>
                     </>
                   )}
                 </p>
               </div>
+            </div>
+          )}
+
+          {keptOriginal && file && (
+            <div className="notice" style={{ marginTop: 16 }}>
+              <strong>Already well-optimized.</strong> Compressing this file would have
+              made it bigger, so we kept your original ({formatSize(file.size)}).
+              Try JPEG or WebP output for extra savings.
             </div>
           )}
 

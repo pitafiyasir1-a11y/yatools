@@ -25,6 +25,8 @@ const QUOTAS: { tool: string; route: string; limit: string }[] = [
   { tool: "Movie & TV Search", route: "/api/v1/msearch", limit: "50 / day" },
   { tool: "Certificate Maker", route: "/api/v1/certificate", limit: "10 / day" },
   { tool: "AI Vision Chat", route: "/api/v1/imgchat", limit: "10 / day" },
+  { tool: "Universal Downloader", route: "/api/v1/alldl", limit: "10 / day" },
+  { tool: "Temporary Email", route: "/api/v1/mail", limit: "20 / day" },
   { tool: "Client-side tools", route: "—", limit: "Unlimited" },
 ];
 

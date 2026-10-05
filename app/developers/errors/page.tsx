@@ -92,6 +92,12 @@ const CODES: { code: string; http: string; meaning: string }[] = [
     meaning:
       "Certificate generation or AI vision has no free fallback — the upstream API itself is unreachable. Retry later.",
   },
+  {
+    code: "ALLDL_DOWN / MAIL_DOWN",
+    http: "502",
+    meaning:
+      "The downloader or temporary-mail upstream is unreachable (the mail service is intermittently degraded). Retry later; do not hammer the endpoint.",
+  },
 ];
 
 const SHAPE = `{
