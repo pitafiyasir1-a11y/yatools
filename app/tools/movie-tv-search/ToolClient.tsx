@@ -9,9 +9,15 @@ interface TitleResult {
   rating: string | number;
   image: string;
   url: string;
+  imdbUrl?: string | null;
+  watchUrl?: string | null;
 }
 
 type Status = "idle" | "loading" | "ready" | "error";
+
+// Only render links that are real http(s) URLs — never javascript: or junk.
+const isHttpUrl = (u: unknown): u is string =>
+  typeof u === "string" && /^https?:\/\//i.test(u);
 
 const EXAMPLES = ["Breaking Bad", "Dune", "The Office", "Interstellar"];
 
@@ -201,17 +207,41 @@ export default function MovieTvClient() {
                             </span>
                           )}
                       </div>
-                      {r.url && (
-                        <a
-                          href={r.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline text-sm font-semibold mt-2 inline-block"
-                          style={{ color: "var(--red-dark)" }}
-                        >
-                          View details
-                        </a>
-                      )}
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {isHttpUrl(r.watchUrl) && (
+                          <a
+                            href={r.watchUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="neu-btn neu-btn-sm neu-btn-primary"
+                          >
+                            ▶ Watch direct
+                          </a>
+                        )}
+                        {isHttpUrl(r.imdbUrl) && (
+                          <a
+                            href={r.imdbUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="neu-btn neu-btn-sm"
+                          >
+                            IMDb
+                          </a>
+                        )}
+                        {!isHttpUrl(r.watchUrl) &&
+                          !isHttpUrl(r.imdbUrl) &&
+                          isHttpUrl(r.url) && (
+                            <a
+                              href={r.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline text-sm font-semibold inline-block"
+                              style={{ color: "var(--red-dark)" }}
+                            >
+                              View details
+                            </a>
+                          )}
+                      </div>
                     </div>
                   </div>
                 ))}

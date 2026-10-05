@@ -426,3 +426,251 @@ export function qrToSvg(qr: QrResult, fg = "#141210", bg = "#ffffff"): string {
   const dim = n + q * 2;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${dim} ${dim}" shape-rendering="crispEdges"><rect width="${dim}" height="${dim}" fill="${bg}"/><path d="${d}" fill="${fg}"/></svg>`;
 }
+
+/* ---------- Styled rendering (dot styles, eye styles, logo, quiet zone) ---------- */
+
+export type QrDotStyle = "square" | "rounded" | "dots";
+export type QrEyeStyle = "square" | "rounded" | "circle";
+
+export interface QrStyle {
+  fg?: string;
+  bg?: string;
+  /** Quiet zone in modules (0–8). Standard is 4; smaller can hurt scannability. */
+  quiet?: number;
+  dotStyle?: QrDotStyle;
+  eyeStyle?: QrEyeStyle;
+  /** Logo image (canvas only). Auto-sized to ≤ 20% of the code width. */
+  logo?: HTMLImageElement | null;
+  /** Fraction of the code width the logo may cover (default 0.2). */
+  logoScale?: number;
+  /** Logo as data URL (SVG downloads only). */
+  logoDataUrl?: string | null;
+}
+
+/** The three 7×7 finder-eye origins: top-left, top-right, bottom-left. */
+function eyeOrigins(size: number): [number, number][] {
+  return [
+    [0, 0],
+    [0, size - 7],
+    [size - 7, 0],
+  ];
+}
+
+/** True for any module inside the 8×8 eye zones (finder + separators) — those are drawn by drawEye instead. */
+function inEyeZone(r: number, c: number, size: number): boolean {
+  const z = 8;
+  return (r < z && c < z) || (r < z && c >= size - z) || (r >= size - z && c < z);
+}
+
+function roundRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+) {
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+}
+
+function drawEyeCanvas(
+  ctx: CanvasRenderingContext2D,
+  er: number,
+  ec: number,
+  s: number,
+  style: QrEyeStyle,
+  fg: string,
+  bg: string
+) {
+  const X = (m: number) => ec + m * s;
+  const Y = (m: number) => er + m * s;
+  if (style === "circle") {
+    const cx = X(3.5);
+    const cy = Y(3.5);
+    ctx.fillStyle = fg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3.5 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = bg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 2.5 * s, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = fg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 1.5 * s, 0, Math.PI * 2);
+    ctx.fill();
+  } else {
+    const r = style === "rounded" ? 1.4 * s : 0;
+    ctx.fillStyle = fg;
+    roundRectPath(ctx, X(0), Y(0), 7 * s, 7 * s, r);
+    ctx.fill();
+    ctx.fillStyle = bg;
+    roundRectPath(ctx, X(1), Y(1), 5 * s, 5 * s, r * 0.7);
+    ctx.fill();
+    ctx.fillStyle = fg;
+    roundRectPath(ctx, X(2), Y(2), 3 * s, 3 * s, r * 0.5);
+    ctx.fill();
+  }
+}
+
+/** Draw a styled QR code onto a canvas. Canvas is resized to `px × px`. */
+export function drawQrToCanvas(
+  canvas: HTMLCanvasElement,
+  qr: QrResult,
+  px: number,
+  opts: QrStyle = {}
+): void {
+  const fg = opts.fg ?? "#141210";
+  const bg = opts.bg ?? "#ffffff";
+  const quiet = opts.quiet ?? 4;
+  const dotStyle = opts.dotStyle ?? "square";
+  const eyeStyle = opts.eyeStyle ?? "square";
+  const n = qr.size;
+  const dim = n + quiet * 2;
+  const s = px / dim;
+
+  canvas.width = px;
+  canvas.height = px;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, px, px);
+
+  const ox = quiet * s;
+  const oy = quiet * s;
+
+  // Data modules (eyes handled separately).
+  ctx.fillStyle = fg;
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (!qr.modules[r][c] || inEyeZone(r, c, n)) continue;
+      const x = ox + c * s;
+      const y = oy + r * s;
+      if (dotStyle === "dots") {
+        ctx.beginPath();
+        ctx.arc(x + s / 2, y + s / 2, s * 0.46, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (dotStyle === "rounded") {
+        roundRectPath(ctx, x + s * 0.04, y + s * 0.04, s * 0.92, s * 0.92, s * 0.32);
+        ctx.fill();
+      } else {
+        ctx.fillRect(x, y, s, s);
+      }
+    }
+  }
+
+  // Eyes.
+  for (const [er, ec] of eyeOrigins(n)) {
+    drawEyeCanvas(ctx, oy + er * s, ox + ec * s, s, eyeStyle, fg, bg);
+  }
+
+  // Logo: white rounded backdrop + image, covering ≤ logoScale of the code.
+  if (opts.logo && opts.logo.naturalWidth > 0) {
+    const codePx = n * s;
+    const logoSide = codePx * (opts.logoScale ?? 0.2);
+    const pad = s * 1.2;
+    const backSide = logoSide + pad * 2;
+    const cx = px / 2;
+    const cy = px / 2;
+    ctx.fillStyle = "#ffffff";
+    roundRectPath(ctx, cx - backSide / 2, cy - backSide / 2, backSide, backSide, pad * 0.6);
+    ctx.fill();
+    // Fit logo with "contain" behaviour.
+    const iw = opts.logo.naturalWidth;
+    const ih = opts.logo.naturalHeight;
+    const fit = Math.min(logoSide / iw, logoSide / ih);
+    const dw = iw * fit;
+    const dh = ih * fit;
+    ctx.drawImage(opts.logo, cx - dw / 2, cy - dh / 2, dw, dh);
+  }
+}
+
+/** Build a styled SVG string (used for preview + SVG download). */
+export function qrToStyledSvg(qr: QrResult, opts: QrStyle = {}): string {
+  const fg = opts.fg ?? "#141210";
+  const bg = opts.bg ?? "#ffffff";
+  const quiet = opts.quiet ?? 4;
+  const dotStyle = opts.dotStyle ?? "square";
+  const eyeStyle = opts.eyeStyle ?? "square";
+  const n = qr.size;
+  const dim = n + quiet * 2;
+  const q = quiet;
+
+  let body = "";
+
+  // Data modules.
+  const shapes: string[] = [];
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (!qr.modules[r][c] || inEyeZone(r, c, n)) continue;
+      const x = (c + q).toFixed(3);
+      const y = (r + q).toFixed(3);
+      if (dotStyle === "dots") {
+        shapes.push(`<circle cx="${(+x + 0.5).toFixed(3)}" cy="${(+y + 0.5).toFixed(3)}" r="0.46"/>`);
+      } else if (dotStyle === "rounded") {
+        shapes.push(`<rect x="${(+x + 0.04).toFixed(3)}" y="${(+y + 0.04).toFixed(3)}" width="0.92" height="0.92" rx="0.32"/>`);
+      } else {
+        shapes.push(`<rect x="${x}" y="${y}" width="1" height="1"/>`);
+      }
+    }
+  }
+  if (shapes.length > 0) body += `<g fill="${fg}">${shapes.join("")}</g>`;
+
+  // Eyes.
+  const eye = (er: number, ec: number) => {
+    const x = ec + q;
+    const y = er + q;
+    if (eyeStyle === "circle") {
+      const cx = (x + 3.5).toFixed(3);
+      const cy = (y + 3.5).toFixed(3);
+      return `<circle cx="${cx}" cy="${cy}" r="3.5" fill="${fg}"/><circle cx="${cx}" cy="${cy}" r="2.5" fill="${bg}"/><circle cx="${cx}" cy="${cy}" r="1.5" fill="${fg}"/>`;
+    }
+    const r = eyeStyle === "rounded" ? 1.4 : 0;
+    return `<rect x="${x}" y="${y}" width="7" height="7" rx="${r}" fill="${fg}"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" rx="${(r * 0.7).toFixed(2)}" fill="${bg}"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" rx="${(r * 0.5).toFixed(2)}" fill="${fg}"/>`;
+  };
+  for (const [er, ec] of eyeOrigins(n)) body += eye(er, ec);
+
+  // Logo: white rounded backdrop + embedded image.
+  const logoUrl = opts.logoDataUrl;
+  if (logoUrl) {
+    const logoSide = n * (opts.logoScale ?? 0.2);
+    const pad = 1.2;
+    const backSide = logoSide + pad * 2;
+    const cx = dim / 2;
+    const cy = dim / 2;
+    body += `<rect x="${(cx - backSide / 2).toFixed(3)}" y="${(cy - backSide / 2).toFixed(3)}" width="${backSide.toFixed(3)}" height="${backSide.toFixed(3)}" rx="${(pad * 0.6).toFixed(3)}" fill="#ffffff"/>`;
+    body += `<image href="${logoUrl}" x="${(cx - logoSide / 2).toFixed(3)}" y="${(cy - logoSide / 2).toFixed(3)}" width="${logoSide.toFixed(3)}" height="${logoSide.toFixed(3)}" preserveAspectRatio="xMidYMid meet"/>`;
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${dim} ${dim}" shape-rendering="geometricPrecision"><rect width="${dim}" height="${dim}" fill="${bg}"/>${body}</svg>`;
+}
+
+/* ---------- Colour contrast (WCAG relative luminance) ---------- */
+
+function lum(hex: string): number {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return 0;
+  const v = [0, 2, 4].map((i) => {
+    const c = parseInt(m[1].slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+}
+
+/** WCAG contrast ratio between two hex colours (1–21). */
+export function contrastRatio(a: string, b: string): number {
+  const l1 = lum(a);
+  const l2 = lum(b);
+  const [hi, lo] = l1 >= l2 ? [l1, l2] : [l2, l1];
+  return (hi + 0.05) / (lo + 0.05);
+}

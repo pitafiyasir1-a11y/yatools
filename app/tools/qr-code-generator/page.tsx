@@ -23,13 +23,15 @@ const tool = toolBySlug("qr-code-generator")!;
 export const metadata = pageMeta({
   title: "Free QR Code Generator — Create QR Codes Online",
   description:
-    "Generate free QR codes for URLs, text, Wi-Fi, email & SMS right in your browser. Custom colors, error correction, PNG/SVG download. No sign-up.",
+    "Generate free QR codes for URLs, text, Wi-Fi, email & SMS right in your browser. Add a center logo, style dots and corner eyes, custom colors with a contrast check, high-res PNG/SVG download. No sign-up.",
   path: "/tools/qr-code",
   keywords: [
     "free qr code generator",
     "qr code maker online",
     "create qr code for wifi",
     "qr code generator no signup",
+    "qr code with logo",
+    "custom qr code styles",
   ],
 });
 
@@ -43,20 +45,28 @@ const faqs = [
     a: "No. Unlike some services that route scans through their own short links, YATools encodes your content straight into the code. Nothing is stored anywhere, so there is nothing to expire.",
   },
   {
-    q: "Which error correction level should I choose?",
-    a: "Error correction lets a code stay scannable even when part of it is damaged or covered. Low (7%) is fine for clean screens and prints; Medium (15%) is a good default. Pick Quartile (25%) or High (30%) if the code will be small, printed on textured surfaces, or partially obscured — higher levels make the code denser, so keep the content short.",
+    q: "Can I add my logo to the QR code?",
+    a: "Yes — upload any image and it is composited into the center on a white rounded backdrop, auto-sized to at most 20% of the code so it stays scannable. When a logo is added, error correction is automatically bumped to at least Medium (15%) so the covered modules can be recovered. Always test-scan once before printing.",
   },
   {
-    q: "Will custom colors still scan?",
-    a: "Usually yes, as long as contrast is strong — dark modules on a light background scan most reliably. Light-on-dark (inverted) codes fail on many phone cameras, so avoid them. Always test-scan with your phone before printing.",
+    q: "Do styled codes (dots, round eyes, colors) still scan?",
+    a: "On modern phones, yes — dot and rounded module styles and round or rounded corner eyes all scan fine as long as contrast stays strong. The tool warns you if your foreground/background contrast is too low. Inverted (light-on-dark) codes fail on many cameras, so stick to dark on light.",
+  },
+  {
+    q: "Which error correction level should I choose?",
+    a: "Error correction lets a code stay scannable even when part of it is damaged or covered. Low (7%) is fine for clean screens and prints; Medium (15%) is a good default and the minimum when you add a logo. Pick Quartile (25%) or High (30%) if the code will be small, printed on textured surfaces, or partially obscured — higher levels make the code denser, so keep the content short.",
+  },
+  {
+    q: "What is the quiet zone and how big should it be?",
+    a: "The quiet zone is the blank margin around the code that scanners use to find it. The standard is 4 modules and that is the default here; exports below 4 modules may scan poorly on prints or at a distance. Keep it at 4 or higher for anything that leaves the screen.",
   },
   {
     q: "What download size should I pick?",
-    a: "256 px is fine for screens and messaging apps, 512 px covers most printing, and 1024 px stays sharp on posters and large signage. SVG is vector, so it scales infinitely without losing sharpness.",
+    a: "512 px is fine for screens and messaging apps, 1024 px covers most printing, and 2048 px stays sharp on posters and large signage. SVG is vector, so it scales infinitely without losing sharpness — ideal for print designers.",
   },
   {
     q: "Is my data private?",
-    a: "Completely. The QR code is generated inside your browser with a built-in encoder — your text, URLs, and Wi-Fi passwords never leave your device.",
+    a: "Completely. The QR code is generated inside your browser with a built-in encoder — your text, URLs, Wi-Fi passwords, and any logo you upload never leave your device.",
   },
 ];
 
@@ -89,7 +99,7 @@ export default function QrCodePage() {
               QR Code <em>Generator</em>
             </>
           }
-          tagline="Create crisp, scannable QR codes for links, text, Wi-Fi credentials, emails, and phone numbers — instantly, in your browser."
+          tagline="Create crisp, scannable QR codes for links, text, Wi-Fi credentials, emails, and phone numbers — with your logo in the center, styled dots and corner eyes, and full color control. Instantly, in your browser."
         />
 
         <QrToolClient />
@@ -107,12 +117,12 @@ export default function QrCodePage() {
               text: "Paste a URL, type plain text, or fill in the Wi-Fi, email, SMS, or phone fields. The QR code updates live as you type.",
             },
             {
-              title: "Tune the options",
-              text: "Pick an error-correction level for damaged-print resilience, choose custom colors, and set the PNG download size.",
+              title: "Tune the design",
+              text: "Pick square, rounded, or dot module styles, restyle the corner eyes, set custom colors with a live contrast check, adjust the quiet-zone margin, and drop your logo into the center — the preview updates instantly.",
             },
             {
               title: "Download & share",
-              text: "Save as PNG for print and screens, or as SVG for infinitely scalable vector output. Test-scan with your phone first.",
+              text: "Save as high-res PNG (up to 2048 px) for print and screens, or as SVG for infinitely scalable vector output. Test-scan with your phone first, especially after styling.",
             },
           ]}
         />
@@ -136,12 +146,20 @@ export default function QrCodePage() {
               d: "Long URLs make dense codes. Use a short link when the code will be printed small — fewer modules means easier scanning.",
             },
             {
+              t: "Logos need Medium+",
+              d: "A center logo covers up modules, so the tool auto-bumps error correction to Medium (15%) when you add one. Keep the content short and the logo at its default size for maximum reliability.",
+            },
+            {
+              t: "Watch the contrast meter",
+              d: "The tool warns you when your color pair is too low-contrast to scan. A dark code on a light background is the safest combo; inverted codes fail on many cameras.",
+            },
+            {
               t: "Keep a quiet zone",
-              d: "Leave a clear margin around the code (downloads include one automatically). Scanners need the blank border to find the code.",
+              d: "Leave a clear margin around the code (4 modules is the standard and the default). Scanners need the blank border to find the code — shrink it only for on-screen use.",
             },
             {
               t: "Medium is the sweet spot",
-              d: "Medium (15%) error correction survives smudges and small print defects without bloating the code like High does.",
+              d: "Medium (15%) error correction survives smudges and small print defects without bloating the code like High does — and it is the minimum for logo codes.",
             },
             {
               t: "Wi-Fi codes join instantly",
