@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("case-converter")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Case Converter — YATools",
+    url: `${SITE.url}/tools/case-converter`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert text between cases free online — UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case, and more. Instant, private. Try it free now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Text Case Converter Online",
+  title: "Free Case Converter - Uppercase, Lowercase & More Online",
   description:
-    "Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case and more — instantly in your browser. Free, private, no sign-up.",
+    "Convert text between cases free online — UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case, and more. Instant, private. Try it free now!",
   path: "/tools/case-converter",
   keywords: [
+    "case converter",
     "text case converter",
-    "uppercase to lowercase",
-    "title case converter",
-    "camelcase converter",
-    "snake case converter",
+    "change case",
+    "uppercase converter",
+    "lowercase converter",
   ],
 });
 
@@ -55,6 +69,15 @@ const faqs = [
     q: "Is my text private?",
     a: "Yes. Conversion runs entirely in your browser — nothing is uploaded or stored, so proprietary code and unpublished drafts stay on your device.",
   },
+  {
+    q: "How do I convert text to uppercase online?",
+    a: "Paste your text, hit the UPPERCASE button, and copy the result — the whole block converts instantly with no sign-up.",
+  },
+  {
+    q: "Can I convert variable names to snake_case or kebab-case?",
+    a: "Yes. Paste identifiers like myVariableName and convert to snake_case for Python or kebab-case for CSS classes and URLs — the converter handles the word boundaries for you.",
+  },
+
 ];
 
 export default function CaseConverterPage() {
@@ -62,6 +85,7 @@ export default function CaseConverterPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -76,10 +100,10 @@ export default function CaseConverterPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Case <em>Converter</em>
+              Free Case <em>Converter</em> Online
             </>
           }
-          tagline="Switch text between UPPERCASE, lowercase, Title Case, camelCase, snake_case, and more — instantly, in one click."
+          tagline="A free case converter: switch text between UPPERCASE, lowercase, Title Case, camelCase, and more — instantly, privately."
         />
 
         <CaseConverterClient />
@@ -87,6 +111,17 @@ export default function CaseConverterPage() {
           Everything runs 100% in your browser — your text is never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Case Converter</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A case converter switches your text between naming and formatting styles in one click. Paste any text into this free online tool and convert it to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, or CONSTANT_CASE. Writers fix shouty headlines, developers rename variables to match a codebase convention, SEO editors normalize title tags, and data cleaners standardize spreadsheet columns — all without retyping a word.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Title Case follows proper headline rules, keeping small words like and and the lowercase unless they lead the title. The programming cases each have a home: camelCase for JavaScript variables, PascalCase for class names, snake_case for Python and databases, kebab-case for URLs and CSS classes. Conversion is instant and runs entirely in your browser, so drafts, code, and client copy never leave your device.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>perfect casing</em></>} />
@@ -188,7 +223,7 @@ THE QUICK BROWN FOX  →  The quick brown fox
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["word-counter", "json-formatter", "text-to-speech"]} />
+        <RelatedTools slugs={["word-counter", "text-to-pdf", "json-formatter"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

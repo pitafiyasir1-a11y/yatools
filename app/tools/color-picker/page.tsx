@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("color-picker")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Color Picker — YATools",
+    url: `${SITE.url}/tools/color-picker`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Pick any color free online and copy its HEX, RGB, and HSL codes instantly. Tints, shades, and contrast hints for designers. No sign-up needed. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Color Picker & Converter — HEX, RGB, HSL",
+  title: "Color Picker - Pick HEX, RGB & HSL Colors Free Online",
   description:
-    "Pick any color and copy its HEX, RGB, and HSL values instantly. Curated palettes, tints & shades. Free, runs entirely in your browser.",
+    "Pick any color free online and copy its HEX, RGB, and HSL codes instantly. Tints, shades, and contrast hints for designers. No sign-up needed. Try now!",
   path: "/tools/color-picker",
   keywords: [
-    "color picker hex",
-    "hex to rgb",
-    "rgb to hsl",
-    "color palette generator",
-    "html color codes",
+    "color picker",
+    "color picker tool",
+    "pick color",
+    "HEX color picker",
+    "RGB color picker",
   ],
 });
 
@@ -55,6 +69,11 @@ const faqs = [
     q: "Is my color history stored anywhere?",
     a: "No. The picker runs entirely in your browser with no uploads, no cookies, and no history tracking. Your brand colors stay yours.",
   },
+  {
+    q: "Can I copy HEX, RGB, and HSL codes at once?",
+    a: "Yes. Pick or enter any color and all three formats appear together, each with its own copy button — grab whichever your project needs.",
+  },
+
 ];
 
 export default function ColorPickerPage() {
@@ -62,6 +81,7 @@ export default function ColorPickerPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -76,10 +96,10 @@ export default function ColorPickerPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Color <em>Picker</em>
+              Free Color <em>Picker</em> Online
             </>
           }
-          tagline="Pick any color, copy its HEX, RGB, and HSL codes instantly — plus tints, shades, and curated palettes."
+          tagline="A free color picker: pick any color and copy its HEX, RGB, and HSL codes instantly — with tints, shades, and contrast hints."
         />
 
         <ColorPickerClient />
@@ -87,6 +107,17 @@ export default function ColorPickerPage() {
           Everything runs 100% in your browser — colors you pick are never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Color Picker</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A color picker turns the vague idea of a color into exact codes you can use in code and design tools. Click anywhere on the picker or type a known value into this free online tool and instantly get the HEX, RGB, and HSL representations, each with a one-click copy button. Designers grab brand colors for mockups, developers paste values into CSS, and content creators build palettes for thumbnails and slides without opening heavy software.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Beyond the base color, the tool generates tints and shades so you can build a full scale from one starting point, and a readability hint tells you whether white or black text stays legible on top of it — a small detail that prevents real accessibility mistakes. Your recent colors are kept in a history on your device for the session, making it easy to compare options. Everything runs locally in the browser with no account and no tracking.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>the right color</em></>} />
@@ -189,7 +220,7 @@ one click — no guessing.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["ai-image-generator", "qr-code", "website-screenshot"]} />
+        <RelatedTools slugs={["image-converter", "text-to-image", "website-screenshot"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

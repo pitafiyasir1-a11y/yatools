@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["merge-pdf", "image-compressor", "image-to-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Compress PDF — YATools",
+    url: `${SITE.url}/tools/compress-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Compress PDF file size free online with honest structural compression — remove bloat, strip metadata, keep quality. Fully private and in-browser. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Compress PDF Online Free — Reduce PDF File Size",
+  title: "Compress PDF Online Free - Reduce PDF File Size Fast",
   description:
-    "Shrink your PDF file size with honest, in-browser compression. Removes unused objects and metadata — no sign-up, no uploads.",
+    "Compress PDF file size free online with honest structural compression — remove bloat, strip metadata, keep quality. Fully private and in-browser. Try it now!",
   path: "/tools/compress-pdf",
   keywords: [
     "compress pdf online free",
-    "reduce pdf file size",
-    "shrink pdf online",
-    "make pdf smaller free",
+    "compress PDF",
+    "reduce PDF size",
+    "shrink PDF",
+    "PDF compressor",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "What if my PDF is password-protected?",
     a: "Encrypted PDFs can't be processed by the browser, so they're rejected. Unlock the file first with a password you know, then compress the unlocked copy.",
   },
+  {
+    q: "Why is my PDF so large and how do I shrink it?",
+    a: "Large PDFs are usually full of uncompressed images or leftover editing data. Structural compression removes the bloat and strips metadata — text-heavy files can shrink dramatically.",
+  },
+
 ];
 
 export default function CompressPdfPage() {
@@ -77,6 +97,7 @@ export default function CompressPdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function CompressPdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Compress <em>PDF</em> files
+              Free Compress <em>PDF</em> Online
             </>
           }
-          tagline="Shrink PDF size with honest structural compression — unused objects removed, metadata stripped. No quality tricks."
+          tagline="A free PDF compressor: shrink file size with honest structural compression — unused objects removed, metadata stripped."
         />
 
         <CompressPdfClient />
         <PrivacyNote>
           Compression runs on your device with pdf-lib. Nothing is uploaded, stored, or seen by anyone but you.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Compress PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A PDF compressor shrinks bloated documents so they email cleanly and upload without errors. Drop your PDF into this free online tool and it applies honest structural compression: removing unused objects, stripping metadata, and cleaning up the file's internal structure — all in your browser, with your document never uploaded anywhere. Anyone who has bounced off a 25MB email attachment limit knows exactly why this exists.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Here is the honest part most compressors skip: results depend on what is inside. Text-heavy PDFs with embedded bloat can shrink dramatically, while scanned PDFs — which are really just stacks of page images — barely budge with structural compression and would need image downsampling instead. Your text and layout stay pixel-identical either way; nothing is re-rendered at lower quality. If your file barely shrinks, the tool tells you so rather than pretending otherwise.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function CompressPdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["image-compressor", "image-converter", "text-to-pdf"]} />
+        <RelatedTools slugs={["merge-pdf", "image-compressor", "image-to-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

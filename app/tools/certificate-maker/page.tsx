@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("certificate-maker")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Novelty Certificate Maker — YATools",
+    url: `${SITE.url}/tools/certificate-maker`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. 10 free per day. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Novelty Certificate Maker — Create Fun Certificates",
+  title: "Novelty Certificate Maker - Create Fun Awards Free Online",
   description:
-    "Make fun novelty certificates online: add a name, achievement, date, and signature, pick from 8 styles, download as PDF, PNG, or JPG. Free, 10 per day.",
+    "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. 10 free per day. Try now!",
   path: "/tools/certificate-maker",
   keywords: [
-    "novelty certificate maker free",
-    "fun certificate generator",
-    "fake award certificate",
-    "gag gift certificate maker",
-    "certificate template download",
+    "certificate maker",
+    "certificate generator",
+    "create certificate",
+    "novelty certificate",
+    "fun certificate",
   ],
 });
 
@@ -59,6 +73,11 @@ const faqs = [
     q: "Is my name stored anywhere?",
     a: "No. Your inputs are sent only to generate the certificate file and are not kept. Feel free to use nicknames if you prefer.",
   },
+  {
+    q: "Can I make a funny certificate for a friend for free?",
+    a: "Absolutely. Add their name and a joke achievement, pick a style, and download it — a perfect gag gift, as long as it stays clearly for fun.",
+  },
+
 ];
 
 export default function CertificateMakerPage() {
@@ -66,6 +85,7 @@ export default function CertificateMakerPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -80,10 +100,10 @@ export default function CertificateMakerPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Novelty <em>Certificate Maker</em>
+              Free Novelty <em>Certificate Maker</em> Online
             </>
           }
-          tagline="Create fun novelty certificates in seconds — add a name, achievement, date, and signature, pick from 8 styles, and download as PDF, PNG, or JPG."
+          tagline="A free novelty certificate maker: add a name and achievement, pick from 8 styles, download as PDF, PNG, or JPG."
         />
 
         <div className="notice notice-warn" style={{ marginBottom: 20 }}>
@@ -96,6 +116,17 @@ export default function CertificateMakerPage() {
           Your name and details are used only to generate the certificate file — nothing is stored
           or reused.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Novelty Certificate Maker</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A novelty certificate maker turns any achievement — real or gloriously silly — into a handsome certificate in seconds. Add the recipient's name, what they achieved, the date, and a signature line, then choose from 8 styles ranging from Modern to Golden Elegant in this free online tool. Download the result as a PDF for printing, a PNG for crisp quality, or a JPG for easy sharing in chat apps. Offices run joke award nights, parents reward reading challenges, and friends commemorate everything from World's Best Coffee Maker to Surviving Monday.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Let us be completely clear, because it matters: every certificate made here is a novelty item. It is not an official credential and has no academic, legal, or professional value — never present one as a real qualification, and avoid using the names or logos of real institutions. Within those honest bounds, it is pure fun: you get 10 free certificates per day with no account, and nothing you type is stored anywhere.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>your award</em></>} />
@@ -195,7 +226,7 @@ framed on the bedroom wall.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["text-to-pdf", "image-to-pdf", "qr-code-generator"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
