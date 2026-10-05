@@ -12,16 +12,16 @@ import ToolClient from "./ToolClient";
 const tool = toolBySlug("wikipedia-to-pdf")!;
 
 export const metadata = pageMeta({
-  title: "Wikipedia to PDF — Free Online | YATools",
+  title: "Wikipedia to PDF Converter - Download Articles Free Online",
   description:
-    "Convert any Wikipedia article into a clean, selectable-text PDF — free. Save articles for offline reading, study packs, and printing. No signup.",
+    "Convert any Wikipedia article to PDF free online. Paste the article link, get a clean, readable PDF with images and links — no sign-up, no watermark. Try now!",
   path: "/tools/wikipedia-to-pdf",
   keywords: [
-    "wikipedia to pdf",
-    "wikipedia article to pdf",
-    "save wikipedia as pdf",
-    "wikipedia pdf downloader",
-    "wikster",
+    "Wikipedia to PDF",
+    "download Wikipedia PDF",
+    "Wikipedia article PDF",
+    "save Wikipedia page",
+    "Wikipedia converter",
   ],
 });
 
@@ -50,6 +50,15 @@ const FAQS = [
     q: "Do you store the articles I convert?",
     a: "No. Each conversion is generated per request and is not tied to an account. In fallback mode your browser talks to Wikipedia directly.",
   },
+  {
+    q: "Can I download a Wikipedia article as a PDF for free?",
+    a: "Yes. Paste the article link and download a clean PDF with formatting, images, and links preserved — no account, no watermark, no cost.",
+  },
+  {
+    q: "Is saving Wikipedia articles as PDFs legal?",
+    a: "For personal use like offline reading and study, yes — Wikipedia content is published under a free license. Just respect the license terms if you republish the material.",
+  },
+
 ];
 
 const STEPS = [
@@ -216,8 +225,10 @@ function RelatedGrid({ related }: { related: ToolDef[] }) {
   );
 }
 
+const RELATED_SLUGS: string[] = ["pdf-to-jpg", "text-to-pdf", "merge-pdf"];
+
 export default function WikipediaToPdfPage() {
-  const related = tool.related
+  const related = RELATED_SLUGS
     .map((s) => toolBySlug(s))
     .filter((t): t is ToolDef => Boolean(t));
 
@@ -262,12 +273,9 @@ export default function WikipediaToPdfPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-5">
-          Wikster — Wikipedia to <em>PDF</em>
+          Free Wikipedia to <em>PDF</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">
-          {tool.tagline} Save articles for offline reading, study packs, and
-          clean printing — no signup needed.
-        </p>
+        <p className="sec-sub mx-auto mt-4">A free Wikipedia to PDF converter: paste any article link and download a clean, readable PDF — no sign-up, no watermark.</p>
       </header>
 
       <section aria-label="Wikipedia to PDF tool">
@@ -289,7 +297,22 @@ export default function WikipediaToPdfPage() {
         </p>
       </section>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Wikipedia to PDF</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            A Wikipedia to PDF converter saves any Wikipedia article as a clean, portable document you can read offline, print, or file away. Paste the article URL into this free online tool and get a properly formatted PDF that keeps the article's structure, images, and links intact — far more readable than a raw browser printout. Students build offline study packs, researchers archive reference material before it changes, travelers save destination guides for trips without connectivity, and teachers prepare handouts in seconds.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            If the primary PDF service is ever down, a fallback provider takes over automatically so your download still goes through. The PDFs carry no watermark and there is no account or payment step anywhere in the flow. Saving Wikipedia articles for personal, offline reading is fine — Wikipedia's content is freely licensed — but remember that articles evolve, so check the date on anything you cite. Nothing you convert is stored on any server.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">How it works</p>
         <h2 className="sec-title">
           Three steps to <em>done</em>

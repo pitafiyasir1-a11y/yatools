@@ -6,6 +6,7 @@ import {
   webAppJsonLd,
   faqJsonLd,
   breadcrumbJsonLd,
+  type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
 
@@ -16,16 +17,30 @@ function getTool() {
 }
 const tool = getTool();
 
+function softwareAppJsonLd(t: ToolDef) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${t.name} — ${SITE.name}`,
+    url: `${SITE.url}/tools/${t.slug}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: t.description,
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Website Screenshot — Free Online | YATools",
+  title: "Website Screenshot Tool - Capture Any URL Free Online",
   description:
-    "Capture any public URL as a full-page PNG screenshot. Free online website screenshot tool — paste a link, preview, and download. No sign-up.",
+    "Capture a full-page website screenshot free online — paste any URL, preview, and download the PNG. File-info lookup and capture history included. Try now!",
   path: "/tools/website-screenshot",
   keywords: [
-    "website screenshot online",
-    "url to png",
+    "website screenshot tool",
+    "capture website screenshot",
+    "URL screenshot online",
     "full page screenshot",
-    "capture website image",
+    "website screen grabber",
   ],
 });
 
@@ -47,6 +62,8 @@ const STEPS = [
 const LIMITS: [string, string][] = [
   ["Input", "Any public http:// or https:// URL"],
   ["Output", "PNG image — full page, top to bottom"],
+  ["File info check", "Preview the expected file type and size before capturing"],
+  ["History", "Your last 10 captures are saved in this browser for one-click re-runs"],
   ["Render time", "Usually a few seconds; heavy pages can take ~20 seconds"],
   ["Viewport", "Desktop layout"],
   ["Not supported", "Pages behind a login, or sites that block automated browsers"],
@@ -96,7 +113,18 @@ const FAQS = [
     q: "Do you store my screenshots?",
     a: "No. Screenshots are generated on request and never stored on our servers.",
   },
+  {
+    q: "Can I take a full-page screenshot of any website for free?",
+    a: "Yes. Paste any public URL and you get a full-page PNG capture — top to bottom — with no sign-up, no watermark, and no daily cap on the tool itself.",
+  },
+  {
+    q: "Is there a watermark on the screenshots?",
+    a: "No. Every capture downloads as a clean PNG with nothing stamped on it, so it is safe to use in client reports, presentations, and documentation.",
+  },
+
 ];
+
+const RELATED_SLUGS: string[] = ["qr-code-generator", "text-to-pdf", "image-to-pdf"];
 
 export default function WebsiteScreenshotPage() {
   return (
@@ -105,6 +133,11 @@ export default function WebsiteScreenshotPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd(tool)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd(tool)) }}
+      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
@@ -140,9 +173,9 @@ export default function WebsiteScreenshotPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-4">
-          Website <em>Screenshot</em>
+          Free Website Screenshot <em>Tool</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">{tool.tagline}</p>
+        <p className="sec-sub mx-auto mt-4">A free website screenshot tool: paste any public URL, capture the full page, and download a crisp PNG — no sign-up, no watermark.</p>
       </header>
 
       <section className="card p-5 sm:p-8 md:p-10" aria-label="Screenshot tool">
@@ -155,7 +188,22 @@ export default function WebsiteScreenshotPage() {
         Files are processed in real time and never stored.
       </p>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Website Screenshot Tool</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            A website screenshot tool should do one thing perfectly: turn any public URL into a clean, full-page image in seconds. Paste a link and this free online website screenshot tool loads the page in a real browser, renders it top to bottom, and hands you a PNG you can download, preview full-size, or open in a new tab. Designers use it to archive client homepages before a redesign, QA teams capture staging versus production for bug reports, and marketers grab competitor landing pages for teardown decks — all without installing anything.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            Two extras set it apart. The file-info lookup tells you the expected file type and size before you capture, so there are no surprises. And your last ten captures are kept as a history right in your browser, making one-click re-runs of the same URLs effortless. Captures render in a desktop viewport and usually finish in a few seconds, though very heavy pages can take around twenty. Pages behind a login or sites that block automated browsers cannot be captured — that is a hard technical limit, not a paywall. Nothing you capture is stored on any server.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">Supported formats &amp; limits</p>
         <h2 className="sec-title">
           What it <em>handles</em>
@@ -242,7 +290,7 @@ export default function WebsiteScreenshotPage() {
           Keep <em>going</em>
         </h2>
         <div className="tool-grid mt-6">
-          {tool.related.map((slug) => {
+          {RELATED_SLUGS.map((slug) => {
             const t = toolBySlug(slug);
             if (!t) return null;
             return (

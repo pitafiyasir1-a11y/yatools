@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("word-counter")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Word Counter — YATools",
+    url: `${SITE.url}/tools/word-counter`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Count words, characters, sentences, and paragraphs free online as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Word Counter — Count Words & Characters",
+  title: "Word Counter - Count Words & Characters Free Online",
   description:
-    "Count words, characters, sentences, and paragraphs as you type, with live reading-time estimates. Free, private, runs 100% in your browser.",
+    "Count words, characters, sentences, and paragraphs free online as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
   path: "/tools/word-counter",
   keywords: [
-    "word counter online",
+    "word counter",
+    "word count tool",
     "character counter",
-    "count words in text",
-    "reading time calculator",
-    "sentence counter",
+    "count words",
+    "word checker",
   ],
 });
 
@@ -55,6 +69,11 @@ const faqs = [
     q: "Is my text private?",
     a: "Yes. Nothing is uploaded or stored — counting happens locally on your device. Safe for drafts, client work, and unpublished manuscripts.",
   },
+  {
+    q: "Is there a free word counter with no character limit?",
+    a: "Yes. Because counting happens entirely in your browser, you can paste anything from a tweet to a full manuscript — the counts update live with no cap.",
+  },
+
 ];
 
 export default function WordCounterPage() {
@@ -62,6 +81,7 @@ export default function WordCounterPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -76,10 +96,10 @@ export default function WordCounterPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Word <em>Counter</em>
+              Free Word <em>Counter</em> Online
             </>
           }
-          tagline="Count words, characters, sentences, and paragraphs as you type — with live reading-time estimates for writers, students, and creators."
+          tagline="A free word counter: count words, characters, sentences, and paragraphs as you type — with live reading-time estimates."
         />
 
         <WordCounterClient />
@@ -87,6 +107,17 @@ export default function WordCounterPage() {
           Everything runs 100% in your browser — your text is never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Word Counter</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A word counter is the simplest writing tool and one of the most used: paste your text and instantly see words, characters with and without spaces, sentences, paragraphs, and estimated reading time. This free online word counter updates live with every keystroke, entirely in your browser — nothing is uploaded, so there is no character limit and no privacy concern. Students check essay word limits, bloggers hit article targets, SEO writers keep meta descriptions under the character cap, and scriptwriters estimate video length from reading time.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Reading time assumes 200 words per minute, the commonly cited adult average, so a 1,000-word article shows as about five minutes — matching the read-time labels you see across the web. Character counts matter wherever strict caps apply: social posts, SMS, headlines, and search snippets. Because everything runs locally, you can paste a full thesis or a data dump without slowdown. Use the sentence and paragraph counts as a readability check too — if your average sentence runs past 25 words, readers start skimming.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>your count</em></>} />
@@ -187,7 +218,7 @@ so plan for ~8 minutes of video.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["case-converter", "text-to-speech", "audio-to-text"]} />
+        <RelatedTools slugs={["case-converter", "text-to-pdf", "text-to-speech"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

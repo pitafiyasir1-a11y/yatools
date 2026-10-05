@@ -26,6 +26,35 @@ function fileNameFor(url: string): string {
   }
 }
 
+function formatBytes(n: number): string {
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / 1024 / 1024).toFixed(2)} MB`;
+}
+
+const HISTORY_KEY = "yatools-websnap-history";
+const HISTORY_MAX = 10;
+
+function loadHistory(): string[] {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const arr = raw ? (JSON.parse(raw) as unknown) : [];
+    return Array.isArray(arr)
+      ? arr.filter((u): u is string => typeof u === "string").slice(0, HISTORY_MAX)
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(items: string[]) {
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, HISTORY_MAX)));
+  } catch {
+    /* storage unavailable — non-fatal */
+  }
+}
+
 /** Human-readable names for the render services behind /api/v1/websnap. */
 function providerLabel(provider: string): string {
   switch (provider) {
@@ -57,12 +86,95 @@ export default function ToolClient() {
     provider: string;
     fallback: boolean;
   } | null>(null);
+  const [info, setInfo] = useState<{
+    contentType: string;
+    sizeBytes: number | null;
+  } | null>(null);
+  const [infoLoading, setInfoLoading] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
+  const [copiedApi, setCopiedApi] = useState(false);
+
+  useEffect(() => {
+    setHistory(loadHistory());
+  }, []);
 
   useEffect(() => {
     return () => {
       if (imgUrl) URL.revokeObjectURL(imgUrl);
     };
   }, [imgUrl]);
+
+  async function checkInfo() {
+    const target = normalizeUrl(url);
+    if (!target) {
+      setError("Enter a valid URL, e.g. https://example.com");
+      setStatus("error");
+      return;
+    }
+    setInfoLoading(true);
+    setInfo(null);
+    try {
+      const res = await fetch(
+        `/api/v1/websnap?url=${encodeURIComponent(target)}&info=1`
+      );
+      const data = (await res.json().catch(() => null)) as {
+        ok?: boolean;
+        data?: { contentType?: string; sizeBytes?: number | null };
+        error?: { message?: string };
+      } | null;
+      if (!res.ok || !data || data.ok !== true || !data.data) {
+        throw new Error(
+          data?.error?.message || "Couldn't check that URL right now."
+        );
+      }
+      setInfo({
+        contentType: data.data.contentType || "image/png",
+        sizeBytes:
+          typeof data.data.sizeBytes === "number" ? data.data.sizeBytes : null,
+      });
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : "Couldn't check that URL right now."
+      );
+      setStatus("error");
+    } finally {
+      setInfoLoading(false);
+    }
+  }
+
+  function apiUrlFor(target: string): string {
+    return `/api/v1/websnap?url=${encodeURIComponent(target)}`;
+  }
+
+  async function copyApiUrl() {
+    if (!capturedUrl) return;
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}${apiUrlFor(capturedUrl)}`
+      );
+      setCopiedApi(true);
+      setTimeout(() => setCopiedApi(false), 2000);
+    } catch {
+      setError("Copy was blocked by the browser — copy the URL manually.");
+      setStatus("error");
+    }
+  }
+
+  function pushHistory(target: string) {
+    setHistory((prev) => {
+      const next = [target, ...prev.filter((u) => u !== target)].slice(
+        0,
+        HISTORY_MAX
+      );
+      saveHistory(next);
+      return next;
+    });
+  }
+
+  function clearHistory() {
+    setHistory([]);
+    saveHistory([]);
+  }
 
   async function capture() {
     const target = normalizeUrl(url);
@@ -74,6 +186,7 @@ export default function ToolClient() {
     setStatus("loading");
     setError("");
     setProviderInfo(null);
+    setInfo(null);
     if (imgUrl) URL.revokeObjectURL(imgUrl);
     setImgUrl("");
     try {
@@ -89,6 +202,7 @@ export default function ToolClient() {
           provider: res.headers.get("X-Provider") || "unknown",
           fallback: res.headers.get("X-Fallback-Used") === "1",
         });
+        pushHistory(target);
         setStatus("done");
       } else {
         const data = (await res.json().catch(() => null)) as ErrorBody | null;
@@ -138,7 +252,24 @@ export default function ToolClient() {
         >
           {status === "loading" ? "Capturing…" : "Capture"}
         </button>
+        <button
+          type="button"
+          className="btn"
+          onClick={checkInfo}
+          disabled={status === "loading" || infoLoading}
+        >
+          {infoLoading ? "Checking…" : "Check file info"}
+        </button>
       </div>
+      {info && (
+        <p
+          className="font-mono2 text-xs mt-3"
+          style={{ color: "var(--muted)" }}
+        >
+          Expected output: {info.contentType}
+          {info.sizeBytes !== null && ` · about ${formatBytes(info.sizeBytes)}`}
+        </p>
+      )}
       <p
         className="font-mono2 text-xs mt-3"
         style={{ color: "var(--muted)" }}
@@ -190,6 +321,9 @@ export default function ToolClient() {
             >
               Open full size
             </a>
+            <button type="button" className="btn" onClick={copyApiUrl}>
+              {copiedApi ? "Copied!" : "Copy API URL"}
+            </button>
           </div>
           <p
             className="font-mono2 text-xs mt-3 break-all"
@@ -219,6 +353,49 @@ export default function ToolClient() {
         <div className="result-box mt-6 text-center">
           <p style={{ color: "var(--muted)" }}>
             Your screenshot will appear here.
+          </p>
+        </div>
+      )}
+
+      {history.length > 0 && (
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-display text-xl">Recent captures</h3>
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={clearHistory}
+            >
+              Clear
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {history.map((h) => (
+              <button
+                key={h}
+                type="button"
+                className="tab"
+                title={h}
+                onClick={() => {
+                  setUrl(h);
+                }}
+              >
+                {(() => {
+                  try {
+                    return new URL(h).hostname;
+                  } catch {
+                    return h;
+                  }
+                })()}
+              </button>
+            ))}
+          </div>
+          <p
+            className="font-mono2 text-xs mt-2"
+            style={{ color: "var(--muted)" }}
+          >
+            Saved in this browser only — click one to load it, then hit
+            Capture to re-run.
           </p>
         </div>
       )}
