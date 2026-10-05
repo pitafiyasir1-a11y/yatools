@@ -70,7 +70,7 @@ export default function UniversalDownloaderClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         className="notice"
         style={{ marginBottom: 18, borderColor: "var(--red)" }}
@@ -81,7 +81,7 @@ export default function UniversalDownloaderClient() {
         some videos are protected by copyright.
       </div>
 
-      <label className="neu-label" htmlFor="ud-url">
+      <label className="field-label" htmlFor="ud-url">
         Video or audio page URL
       </label>
       <div
@@ -95,7 +95,7 @@ export default function UniversalDownloaderClient() {
       >
         <input
           id="ud-url"
-          className="neu-input neu-input-mono"
+          className="input input-mono"
           style={{ flex: "1 1 260px" }}
           placeholder="https://www.youtube.com/watch?v=…"
           value={url}
@@ -107,7 +107,7 @@ export default function UniversalDownloaderClient() {
         />
         <button
           type="button"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={fetchLinks}
           disabled={working}
         >
@@ -130,7 +130,7 @@ export default function UniversalDownloaderClient() {
           className="notice"
           style={{
             marginTop: 16,
-            borderColor: links.length ? "var(--ink)" : "var(--red)",
+            borderColor: links.length ? "var(--line)" : "var(--red)",
           }}
         >
           {message}
@@ -139,14 +139,14 @@ export default function UniversalDownloaderClient() {
 
       {links.length > 0 && !/unsupported platform/i.test(message ?? "") && (
         <div style={{ marginTop: 18 }}>
-          <p className="neu-label">
+          <p className="field-label">
             {links.length} {links.length === 1 ? "file" : "files"} found
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {links.map((l, i) => (
               <div
                 key={`${l}-${i}`}
-                className="neu-card"
+                className="card"
                 style={{
                   padding: "12px 16px",
                   display: "flex",
@@ -166,7 +166,7 @@ export default function UniversalDownloaderClient() {
                   href={l}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="neu-btn neu-btn-sm neu-btn-primary"
+                  className="btn btn-sm btn-primary"
                 >
                   Open / download ↓
                 </a>
@@ -181,10 +181,10 @@ export default function UniversalDownloaderClient() {
       )}
 
       <div style={{ marginTop: 22 }}>
-        <p className="neu-label">Platforms the service reports</p>
+        <p className="field-label">Platforms the service reports</p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {platforms.map((p) => (
-            <span key={p} className="neu-chip font-mono2" style={{ fontSize: "0.7rem" }}>
+            <span key={p} className="tab font-mono2" style={{ fontSize: "0.7rem" }}>
               {p}
             </span>
           ))}

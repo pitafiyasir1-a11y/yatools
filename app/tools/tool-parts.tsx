@@ -20,7 +20,7 @@ export function JsonLd({ data }: { data: unknown }) {
 
 export function Breadcrumbs({ trail }: { trail: { name: string; href?: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" style={{ marginBottom: 18 }}>
+    <nav aria-label="Breadcrumb" style={{ marginBottom: 20 }}>
       <ol
         className="font-mono2"
         style={{
@@ -41,11 +41,17 @@ export function Breadcrumbs({ trail }: { trail: { name: string; href?: string }[
           <li key={t.name} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {i > 0 && <span aria-hidden="true">/</span>}
             {t.href ? (
-              <Link href={t.href} style={{ color: "var(--red-dark)" }}>
+              <Link
+                href={t.href}
+                className="no-underline hover:underline"
+                style={{ color: "var(--red-dark)" }}
+              >
                 {t.name}
               </Link>
             ) : (
-              <span aria-current="page">{t.name}</span>
+              <span aria-current="page" style={{ color: "var(--text2)" }}>
+                {t.name}
+              </span>
             )}
           </li>
         ))}
@@ -66,19 +72,27 @@ export function ToolHero({
   tagline: string;
 }) {
   return (
-    <header style={{ marginBottom: 26 }}>
-      <p className="eyebrow" style={{ marginBottom: 16 }}>
-        <span className="dot" aria-hidden="true" />
-        Free tool · No sign-up
-      </p>
+    <header style={{ marginBottom: 28, maxWidth: 760 }}>
       <div style={{ marginBottom: 14 }}>
-        <span className={`neu-badge neu-badge-${badgeColor}`}>{badge}</span>
+        <span className={`badge badge-${badgeColor}`}>{badge}</span>
       </div>
-      <h1 className="hero-title" style={{ marginBottom: 14 }}>
+      <h1 className="hero-title" style={{ marginBottom: 12, fontSize: "clamp(1.9rem, 4vw, 2.9rem)" }}>
         {title}
       </h1>
-      <p className="sec-sub" style={{ fontSize: "1.08rem", maxWidth: 700 }}>
+      <p className="sec-sub" style={{ fontSize: "1.05rem" }}>
         {tagline}
+      </p>
+      <p
+        className="font-mono2"
+        style={{
+          marginTop: 14,
+          fontSize: "0.72rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          color: "var(--muted)",
+        }}
+      >
+        Free tool · No sign-up · Private
       </p>
     </header>
   );
@@ -94,28 +108,27 @@ export function Steps({ steps }: { steps: { title: string; text: string }[] }) {
       }}
     >
       {steps.map((s, i) => (
-        <div key={s.title} className="neu-card" style={{ padding: 20 }}>
+        <div key={s.title} className="card" style={{ padding: 20 }}>
           <div
-            className="font-display"
+            aria-hidden="true"
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 38,
-              height: 38,
+              width: 34,
+              height: 34,
               borderRadius: 10,
-              background: "var(--red)",
-              color: "#fff",
-              border: "2px solid var(--ink)",
-              boxShadow: "3px 3px 0 var(--ink)",
-              fontSize: "1.3rem",
+              background: "var(--red-tint)",
+              color: "var(--red-dark)",
+              fontWeight: 800,
+              fontSize: "1rem",
               marginBottom: 12,
             }}
           >
             {i + 1}
           </div>
-          <h3 style={{ fontWeight: 800, fontSize: "1.02rem", marginBottom: 6 }}>{s.title}</h3>
-          <p style={{ color: "var(--text2)", fontSize: "0.92rem", lineHeight: 1.65 }}>{s.text}</p>
+          <h3 style={{ fontWeight: 700, fontSize: "1rem", marginBottom: 6 }}>{s.title}</h3>
+          <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{s.text}</p>
         </div>
       ))}
     </div>
@@ -124,7 +137,7 @@ export function Steps({ steps }: { steps: { title: string; text: string }[] }) {
 
 export function FaqList({ faqs }: { faqs: { q: string; a: string }[] }) {
   return (
-    <div className="neu-card" style={{ padding: "6px 22px" }}>
+    <div className="card" style={{ padding: "4px 22px" }}>
       {faqs.map((f) => (
         <details key={f.q} className="faq-item">
           <summary
@@ -132,7 +145,7 @@ export function FaqList({ faqs }: { faqs: { q: string; a: string }[] }) {
             style={{ listStyle: "none", cursor: "pointer" } as React.CSSProperties}
           >
             <span>{f.q}</span>
-            <span aria-hidden="true" style={{ color: "var(--red)", fontWeight: 800 }}>
+            <span aria-hidden="true" style={{ color: "var(--red)", fontWeight: 700, fontSize: "1.2rem", lineHeight: 1 }}>
               +
             </span>
           </summary>
@@ -153,14 +166,16 @@ export function RelatedTools({ slugs }: { slugs: string[] }) {
         <Link
           key={tool.slug}
           href={href}
-          className="neu-card neu-card-hover"
-          style={{ padding: 22, display: "block", textDecoration: "none", color: "inherit" }}
+          className="card card-hover"
+          style={{ padding: 20, display: "block", textDecoration: "none", color: "inherit" }}
         >
-          <span className={`neu-badge neu-badge-${tool.badgeColor}`} style={{ marginBottom: 12 }}>
+          <span className={`badge badge-${tool.badgeColor}`} style={{ marginBottom: 12 }}>
             {tool.badge}
           </span>
-          <div style={{ fontWeight: 800, fontSize: "1.05rem", marginBottom: 6 }}>{tool.name}</div>
-          <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.6, marginBottom: 14 }}>
+          <div style={{ fontWeight: 700, fontSize: "1.02rem", marginBottom: 6, color: "var(--text)" }}>
+            {tool.name}
+          </div>
+          <p style={{ color: "var(--text2)", fontSize: "0.88rem", lineHeight: 1.6, marginBottom: 14 }}>
             {tool.tagline}
           </p>
           <span
@@ -185,7 +200,7 @@ export function PrivacyNote({ children }: { children: React.ReactNode }) {
 
 export function SectionHead({ label, title, sub }: { label: string; title: React.ReactNode; sub?: string }) {
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div style={{ marginBottom: 22 }}>
       <p className="sec-label">{label}</p>
       <h2 className="sec-title">{title}</h2>
       {sub && <p className="sec-sub">{sub}</p>}
@@ -196,19 +211,20 @@ export function SectionHead({ label, title, sub }: { label: string; title: React
 export function ApiCta() {
   return (
     <div
-      className="neu-card"
+      className="card"
       style={{
-        padding: "clamp(20px, 4vw, 36px)",
+        padding: "clamp(20px, 4vw, 32px)",
         display: "flex",
         flexWrap: "wrap",
         gap: 18,
         alignItems: "center",
         justifyContent: "space-between",
+        background: "var(--surface)",
       }}
     >
       <div style={{ maxWidth: 560 }}>
         <p className="sec-label">For developers</p>
-        <h2 className="sec-title" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}>
+        <h2 className="sec-title" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)" }}>
           Need this <em>programmatically?</em>
         </h2>
         <p className="sec-sub">
@@ -216,7 +232,7 @@ export function ApiCta() {
           tier included.
         </p>
       </div>
-      <Link href="/developers" className="neu-btn neu-btn-primary">
+      <Link href="/developers" className="btn btn-primary">
         Explore the API →
       </Link>
     </div>

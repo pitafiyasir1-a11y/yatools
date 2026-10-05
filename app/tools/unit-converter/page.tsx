@@ -138,7 +138,7 @@ export default function UnitConverterPage() {
               d: "Results are rounded to 10 significant digits, so you see 2.54 cm for an inch — not 2.5399999999. Good enough for real work, clean enough to copy-paste.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>

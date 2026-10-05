@@ -140,7 +140,7 @@ export default function UnitConverterClient() {
   const swapToUnit = (id: string) => setFromId(id);
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 18 }} role="tablist" aria-label="Unit category">
         {CATEGORIES.map((c) => (
           <button
@@ -148,7 +148,7 @@ export default function UnitConverterClient() {
             type="button"
             role="tab"
             aria-selected={categoryId === c.id}
-            className={`neu-btn neu-btn-sm${categoryId === c.id ? " neu-btn-primary" : ""}`}
+            className={`btn btn-sm${categoryId === c.id ? " btn-primary" : ""}`}
             onClick={() => switchCategory(c.id)}
           >
             {c.label}
@@ -165,26 +165,26 @@ export default function UnitConverterClient() {
         }}
       >
         <div>
-          <label className="neu-label" htmlFor="uc-value">
+          <label className="field-label" htmlFor="uc-value">
             Value
           </label>
           <input
             id="uc-value"
             type="text"
             inputMode="decimal"
-            className="neu-input neu-input-mono"
+            className="input input-mono"
             placeholder="Enter a number…"
             value={raw}
             onChange={(e) => setRaw(e.target.value)}
           />
         </div>
         <div>
-          <label className="neu-label" htmlFor="uc-from">
+          <label className="field-label" htmlFor="uc-from">
             From unit
           </label>
           <select
             id="uc-from"
-            className="neu-select"
+            className="select"
             value={fromId}
             onChange={(e) => setFromId(e.target.value)}
           >
@@ -226,10 +226,10 @@ export default function UnitConverterClient() {
               type="button"
               onClick={() => swapToUnit(unit.id)}
               title={`Convert from ${unit.label}`}
-              className="neu-card"
+              className="card"
               style={{
                 padding: "14px 16px",
-                boxShadow: "3px 3px 0 var(--ink)",
+                
                 textAlign: "left",
                 cursor: "pointer",
                 background:

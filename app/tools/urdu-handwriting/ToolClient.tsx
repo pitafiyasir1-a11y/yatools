@@ -299,12 +299,12 @@ export default function ToolClient() {
       <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
         Rendered live in your browser — your text never leaves this page.
         {font.rtl && (
-          <span className="neu-badge neu-badge-green ml-2">RTL</span>
+          <span className="badge badge-green ml-2">RTL</span>
         )}
       </p>
 
       <div className="flex items-baseline justify-between">
-        <label className="neu-label" htmlFor="hw-text">
+        <label className="field-label" htmlFor="hw-text">
           Your text
         </label>
         <span className="font-mono2 text-xs" style={{ color: "var(--muted)" }}>
@@ -313,7 +313,7 @@ export default function ToolClient() {
       </div>
       <textarea
         id="hw-text"
-        className={`neu-textarea ${font.cls}`}
+        className={`textarea ${font.cls}`}
         rows={6}
         maxLength={MAX_CHARS}
         dir={font.rtl ? "rtl" : "ltr"}
@@ -325,12 +325,12 @@ export default function ToolClient() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
         <div>
-          <label className="neu-label" htmlFor="hw-font">
+          <label className="field-label" htmlFor="hw-font">
             Handwriting font
           </label>
           <select
             id="hw-font"
-            className="neu-select"
+            className="select"
             value={fontKey}
             onChange={(e) => setFontKey(e.target.value)}
           >
@@ -342,13 +342,13 @@ export default function ToolClient() {
           </select>
         </div>
         <div>
-          <label className="neu-label" htmlFor="hw-ink">
+          <label className="field-label" htmlFor="hw-ink">
             Ink color
           </label>
           <div className="flex gap-2">
             <select
               id="hw-ink"
-              className="neu-select flex-1"
+              className="select flex-1"
               value={inkKey}
               onChange={(e) => setInkKey(e.target.value)}
             >
@@ -359,7 +359,7 @@ export default function ToolClient() {
               ))}
             </select>
             <span
-              className="neu-input !w-14 !px-2 shrink-0"
+              className="input !w-14 !px-2 shrink-0"
               style={{ background: inkHex }}
               aria-hidden
             />
@@ -368,7 +368,7 @@ export default function ToolClient() {
             <input
               type="text"
               inputMode="text"
-              className="neu-input neu-input-mono mt-2"
+              className="input input-mono mt-2"
               value={customHex}
               onChange={(e) => setCustomHex(e.target.value)}
               placeholder="#1e40c8"
@@ -377,7 +377,7 @@ export default function ToolClient() {
           )}
         </div>
         <div>
-          <label className="neu-label" htmlFor="hw-size">
+          <label className="field-label" htmlFor="hw-size">
             Size: {size}px
           </label>
           <input
@@ -391,12 +391,12 @@ export default function ToolClient() {
           />
         </div>
         <div>
-          <label className="neu-label" htmlFor="hw-paper">
+          <label className="field-label" htmlFor="hw-paper">
             Paper
           </label>
           <select
             id="hw-paper"
-            className="neu-select"
+            className="select"
             value={paper}
             onChange={(e) => setPaper(e.target.value as "ruled" | "plain")}
           >
@@ -405,12 +405,12 @@ export default function ToolClient() {
           </select>
         </div>
         <div>
-          <label className="neu-label" htmlFor="hw-style">
+          <label className="field-label" htmlFor="hw-style">
             Style
           </label>
           <select
             id="hw-style"
-            className="neu-select"
+            className="select"
             value={style}
             onChange={(e) => setStyle(e.target.value as "neat" | "rough")}
           >
@@ -423,7 +423,7 @@ export default function ToolClient() {
       <div className="flex flex-wrap gap-3 mt-6">
         <button
           type="button"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={renderPages}
           disabled={rendering || !text.trim()}
         >
@@ -431,7 +431,7 @@ export default function ToolClient() {
         </button>
         <button
           type="button"
-          className="neu-btn"
+          className="btn"
           onClick={renderViaApi}
           disabled={apiStatus === "loading" || !text.trim()}
         >
@@ -460,7 +460,7 @@ export default function ToolClient() {
           </h3>
           <div className="grid sm:grid-cols-2 gap-5">
             {pages.map((src, i) => (
-              <div key={i} className="neu-card p-3">
+              <div key={i} className="card p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={src}
@@ -478,7 +478,7 @@ export default function ToolClient() {
                   <a
                     href={src}
                     download={`handwriting-page-${i + 1}.png`}
-                    className="neu-btn neu-btn-sm"
+                    className="btn btn-sm"
                   >
                     Download PNG
                   </a>
@@ -498,7 +498,7 @@ export default function ToolClient() {
       {apiStatus === "done" && apiImg && (
         <div className="mt-6">
           <h3 className="font-display text-2xl mb-4">API render</h3>
-          <div className="neu-card p-3">
+          <div className="card p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={apiImg}
@@ -510,7 +510,7 @@ export default function ToolClient() {
               <a
                 href={apiImg}
                 download="handwriting-api.png"
-                className="neu-btn neu-btn-sm"
+                className="btn btn-sm"
               >
                 Download PNG
               </a>

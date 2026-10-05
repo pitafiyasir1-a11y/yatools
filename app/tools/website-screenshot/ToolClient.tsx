@@ -113,7 +113,7 @@ export default function ToolClient() {
         get a full-page PNG.
       </p>
 
-      <label className="neu-label" htmlFor="ws-url">
+      <label className="field-label" htmlFor="ws-url">
         Page URL
       </label>
       <div className="flex flex-col sm:flex-row gap-3">
@@ -122,7 +122,7 @@ export default function ToolClient() {
           type="url"
           inputMode="url"
           placeholder="https://example.com"
-          className="neu-input neu-input-mono flex-1"
+          className="input input-mono flex-1"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           onKeyDown={(e) => {
@@ -132,7 +132,7 @@ export default function ToolClient() {
         />
         <button
           type="button"
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={capture}
           disabled={status === "loading"}
         >
@@ -178,7 +178,7 @@ export default function ToolClient() {
             <a
               href={imgUrl}
               download={fileNameFor(capturedUrl)}
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
             >
               Download PNG
             </a>
@@ -186,7 +186,7 @@ export default function ToolClient() {
               href={imgUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="neu-btn"
+              className="btn"
             >
               Open full size
             </a>
@@ -199,7 +199,7 @@ export default function ToolClient() {
           </p>
           {providerInfo && (
             <div className="flex flex-wrap items-center gap-3 mt-3">
-              <span className="neu-badge neu-badge-blue">
+              <span className="badge badge-blue">
                 Powered by {providerLabel(providerInfo.provider)}
                 {providerInfo.fallback ? " (fallback)" : ""}
               </span>

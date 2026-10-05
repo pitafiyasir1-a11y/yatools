@@ -125,7 +125,7 @@ export default function WikipediaToPdfClient() {
   const busy = status === "loading" || status === "fallback-loading";
 
   return (
-    <div className="neu-card p-6 md:p-8 max-w-3xl mx-auto">
+    <div className="card p-6 md:p-8 max-w-3xl mx-auto">
       <style>{`
         .wiki-article { overflow-wrap: break-word; }
         .wiki-article img { max-width: 100%; height: auto; }
@@ -146,13 +146,13 @@ export default function WikipediaToPdfClient() {
         }
       `}</style>
 
-      <label className="neu-label" htmlFor="wiki-title">
+      <label className="field-label" htmlFor="wiki-title">
         Wikipedia article title
       </label>
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           id="wiki-title"
-          className="neu-input"
+          className="input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onKeyDown={(e) => {
@@ -162,7 +162,7 @@ export default function WikipediaToPdfClient() {
           autoComplete="off"
         />
         <button
-          className="neu-btn neu-btn-primary"
+          className="btn btn-primary"
           onClick={generate}
           disabled={busy}
         >
@@ -200,7 +200,7 @@ export default function WikipediaToPdfClient() {
           <a
             href={pdfUrl}
             download={pdfName}
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
           >
             Download PDF
           </a>
@@ -215,11 +215,11 @@ export default function WikipediaToPdfClient() {
             <strong>Print / Save as PDF</strong> below — your browser
             creates the PDF.
           </div>
-          <span className="neu-badge neu-badge-green mb-4 inline-block">
+          <span className="badge badge-green mb-4 inline-block">
             Rendered from Wikipedia (fallback)
           </span>
           <button
-            className="neu-btn neu-btn-primary mb-5"
+            className="btn btn-primary mb-5"
             onClick={() => window.print()}
           >
             Print / Save as PDF

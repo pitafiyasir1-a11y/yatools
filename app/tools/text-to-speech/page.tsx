@@ -152,7 +152,7 @@ export default function TextToSpeechPage() {
         <p className="sec-sub mx-auto mt-4">{tool.tagline}</p>
       </header>
 
-      <section className="neu-card p-5 sm:p-8 md:p-10" aria-label="Text to speech tool">
+      <section className="card p-5 sm:p-8 md:p-10" aria-label="Text to speech tool">
         <ToolClient />
       </section>
       <p
@@ -168,7 +168,7 @@ export default function TextToSpeechPage() {
         <h2 className="sec-title">
           What it <em>handles</em>
         </h2>
-        <div className="neu-card p-2 sm:p-4 mt-6 overflow-x-auto">
+        <div className="card p-2 sm:p-4 mt-6 overflow-x-auto">
           <table className="param-table">
             <thead>
               <tr>
@@ -197,7 +197,7 @@ export default function TextToSpeechPage() {
         </h2>
         <div className="grid md:grid-cols-3 gap-4 mt-6">
           {STEPS.map((s, i) => (
-            <div key={s.title} className="neu-card p-6">
+            <div key={s.title} className="card p-6">
               <div className="font-display text-4xl" style={{ color: "var(--red)" }}>
                 {i + 1}
               </div>
@@ -217,7 +217,7 @@ export default function TextToSpeechPage() {
         </h2>
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           {USE_CASES.map((u) => (
-            <div key={u.title} className="neu-card p-6">
+            <div key={u.title} className="card p-6">
               <h3 className="font-bold">{u.title}</h3>
               <p className="text-sm mt-1" style={{ color: "var(--text2)" }}>
                 {u.text}
@@ -257,9 +257,9 @@ export default function TextToSpeechPage() {
               <Link
                 key={slug}
                 href={`/tools/${slug}`}
-                className="neu-card neu-card-hover p-5 block"
+                className="card card-hover p-5 block"
               >
-                <span className={`neu-badge neu-badge-${t.badgeColor}`}>
+                <span className={`badge badge-${t.badgeColor}`}>
                   {t.badge}
                 </span>
                 <h3 className="font-display text-2xl mt-3">{t.name}</h3>
@@ -272,7 +272,7 @@ export default function TextToSpeechPage() {
         </div>
       </section>
 
-      <section className="neu-card p-6 md:p-8 mt-14 flex flex-col md:flex-row md:items-center gap-6 justify-between">
+      <section className="card p-6 md:p-8 mt-14 flex flex-col md:flex-row md:items-center gap-6 justify-between">
         <div>
           <p className="sec-label">For developers</p>
           <h2 className="sec-title">
@@ -284,7 +284,7 @@ export default function TextToSpeechPage() {
           </p>
         </div>
         <a
-          className="neu-btn neu-btn-primary shrink-0"
+          className="btn btn-primary shrink-0"
           href={`mailto:${SITE.email}?subject=${encodeURIComponent(
             "API access: Text to Speech"
           )}`}
