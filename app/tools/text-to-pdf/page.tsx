@@ -16,22 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("text-to-pdf")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Text to PDF — YATools",
+    url: `${SITE.url}/tools/text-to-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert text to PDF free online — write or paste text, style it with a formatting toolbar, set page layout, and download a clean PDF. No watermark. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Text to PDF — Convert Text to PDF Online",
+  title: "Text to PDF Converter - Create Styled PDFs Free Online",
   description:
-    "Convert text to PDF free in your browser. Formatting toolbar with headings, bold, italic, alignment, bullet lists, and a live preview — no uploads, no watermarks, no sign-up.",
+    "Convert text to PDF free online — write or paste text, style it with a formatting toolbar, set page layout, and download a clean PDF. No watermark. Try now!",
   path: "/tools/text-to-pdf",
   keywords: [
-    "text to pdf converter free",
-    "convert text to pdf online",
-    "text to pdf no watermark",
-    "make pdf from text",
-    "online pdf maker free",
-    "text to pdf with formatting",
+    "text to PDF",
+    "text to PDF converter",
+    "create PDF from text",
+    "text to PDF maker",
+    "convert text to PDF",
   ],
 });
 
@@ -60,6 +73,11 @@ const faqs = [
     q: "Is my text private?",
     a: "Yes. The PDF is built entirely inside your browser with an open-source PDF library. Your words never leave your device, so it's safe for contracts, journals, and unpublished work.",
   },
+  {
+    q: "How do I convert text to PDF without a watermark?",
+    a: "Paste or write your text here, style it, and download — the PDF comes out clean with no watermark, no account, and no page limits.",
+  },
+
 ];
 
 const useCases = [
@@ -90,6 +108,7 @@ export default function TextToPdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -104,10 +123,10 @@ export default function TextToPdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Text to <em>PDF</em>
+              Free Text to <em>PDF</em> Online
             </>
           }
-          tagline="Write or paste text, style it with a real formatting toolbar — headings, bold, italic, alignment, bullet lists — watch it update in the live preview, then download a clean, watermark-free PDF in your browser."
+          tagline="A free text to PDF converter: write or paste text, style it with a real formatting toolbar, and download a clean, watermark-free PDF."
         />
 
         <TextToPdfClient />
@@ -115,6 +134,17 @@ export default function TextToPdfPage() {
           Everything runs 100% in your browser — your text is never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Text to PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A text to PDF converter turns plain words into a proper document. Write or paste your text into this free online tool, style it with a real formatting toolbar — headings, bold, italics, lists — set the page size, orientation, and margins, and download a clean PDF that looks the way you designed it. Students submit formatted assignments, freelancers create simple invoices and quotes, writers export clean manuscripts, and anyone can turn meeting notes into a shareable file in under a minute.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The live preview shows exactly what the downloaded PDF will look like, so there are no layout surprises. Unlike many converters, the output carries no watermark and there are no page limits or accounts standing between you and the download. Everything is generated in your browser, which means your text is never uploaded or stored — safe for drafts, contracts, and personal documents.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>your PDF</em></>} />
@@ -162,7 +192,7 @@ export default function TextToPdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["wikipedia-to-pdf", "word-counter", "case-converter"]} />
+        <RelatedTools slugs={["pdf-to-jpg", "merge-pdf", "wikipedia-to-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

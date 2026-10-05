@@ -2,9 +2,42 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const MAX_CHARS = 1950;
+const MAX_CHARS = 12_000; // long text is split into ~900-char chunks client-side
+const CHUNK_SIZE = 900;
 
 type Status = "idle" | "loading" | "done" | "error";
+
+/**
+ * Split text at sentence boundaries into chunks of ~CHUNK_SIZE characters,
+ * mirroring the upstream SpeechSter approach (parallel chunks, MP3 blobs
+ * concatenated client-side — MP3 is a stream format, so plain concat works).
+ */
+function splitText(text: string, max: number): string[] {
+  const sentences = text
+    .split(/(?<=[.!?…\n])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const chunks: string[] = [];
+  let current = "";
+  for (const s of sentences) {
+    if ((current + " " + s).trim().length <= max) {
+      current = (current + " " + s).trim();
+      continue;
+    }
+    if (current) chunks.push(current);
+    if (s.length <= max) {
+      current = s;
+    } else {
+      // One giant sentence — hard-split it.
+      for (let i = 0; i < s.length; i += max) {
+        chunks.push(s.slice(i, i + max));
+      }
+      current = "";
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks.length ? chunks : [text];
+}
 
 interface ApiVoice {
   index: number;
@@ -59,6 +92,7 @@ export default function ToolClient() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
+  const [chunkCount, setChunkCount] = useState(1);
   const [fallbackMode, setFallbackMode] = useState(false);
   const [voicesFailed, setVoicesFailed] = useState(false);
 
@@ -130,26 +164,33 @@ export default function ToolClient() {
     setError("");
     if (audioUrl) URL.revokeObjectURL(audioUrl);
     setAudioUrl("");
+    setChunkCount(1);
     try {
-      const res = await fetch("/api/v1/tts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ voiceIndex, text, pitch, rate }),
-      });
-      const ct = res.headers.get("content-type") || "";
-      if (ct.startsWith("audio/")) {
-        const blob = await res.blob();
-        setAudioUrl(URL.createObjectURL(blob));
-        setStatus("done");
-      } else {
-        const data = (await res.json().catch(() => null)) as ApiErr | null;
-        setFallbackMode(true);
-        setError(
-          data?.error?.message ||
-            "The voice service could not generate audio right now."
-        );
-        setStatus("error");
-      }
+      // Long text: split at sentence boundaries, fire all chunks in
+      // parallel, concatenate the MP3 blobs into one file.
+      const chunks = splitText(text.trim(), CHUNK_SIZE).slice(0, 30);
+      setChunkCount(chunks.length);
+      const blobs = await Promise.all(
+        chunks.map(async (chunk) => {
+          const res = await fetch("/api/v1/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ voiceIndex, text: chunk, pitch, rate }),
+          });
+          const ct = res.headers.get("content-type") || "";
+          if (!ct.startsWith("audio/")) {
+            const data = (await res.json().catch(() => null)) as ApiErr | null;
+            throw new Error(
+              data?.error?.message ||
+                "The voice service could not generate audio right now."
+            );
+          }
+          return res.blob();
+        })
+      );
+      const merged = new Blob(blobs, { type: "audio/mpeg" });
+      setAudioUrl(URL.createObjectURL(merged));
+      setStatus("done");
     } catch (e) {
       setFallbackMode(true);
       setError(
@@ -184,7 +225,8 @@ export default function ToolClient() {
       <h2 className="font-display text-3xl mb-1">Turn text into speech</h2>
       <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
         Type up to {MAX_CHARS.toLocaleString()} characters, pick a voice, and
-        generate an MP3.
+        generate an MP3. Long text is split into chunks automatically and
+        merged into a single audio file.
       </p>
 
       {!fallbackMode && (
@@ -297,12 +339,18 @@ export default function ToolClient() {
               </button>
             )}
           </div>
+          <p className="text-xs mt-3" style={{ color: "var(--muted)" }}>
+            Daily limit: 30 generations. Long text counts as one generation
+            per ~900-character chunk.
+          </p>
 
           {status === "loading" && (
             <div className="result-box mt-6 text-center">
               <p className="font-bold">Generating audio…</p>
               <p className="text-sm mt-1" style={{ color: "var(--muted)" }}>
-                Synthesizing your text. This usually takes a few seconds.
+                Synthesizing your text. Long passages are generated in
+                parallel chunks, then merged — this usually takes a few
+                seconds.
               </p>
             </div>
           )}
@@ -320,6 +368,15 @@ export default function ToolClient() {
                   Your browser does not support audio playback.
                 </audio>
               </div>
+              {chunkCount > 1 && (
+                <p
+                  className="font-mono2 text-xs mt-3"
+                  style={{ color: "var(--muted)" }}
+                >
+                  {chunkCount} chunks generated in parallel and merged into
+                  one MP3.
+                </p>
+              )}
               <div className="flex flex-wrap gap-3 mt-4">
                 <a
                   href={audioUrl}

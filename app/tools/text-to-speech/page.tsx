@@ -6,6 +6,7 @@ import {
   webAppJsonLd,
   faqJsonLd,
   breadcrumbJsonLd,
+  type ToolDef,
 } from "@/lib/site";
 import ToolClient from "./ToolClient";
 
@@ -16,23 +17,37 @@ function getTool() {
 }
 const tool = getTool();
 
+function softwareAppJsonLd(t: ToolDef) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${t.name} — ${SITE.name}`,
+    url: `${SITE.url}/tools/${t.slug}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: t.description,
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Text to Speech — Free Online | YATools",
+  title: "Text to Speech - Convert Text to Audio Free Online",
   description:
-    "Convert text into natural-sounding MP3 audio online. Free text-to-speech with multiple voices, pitch and speed control — no sign-up.",
+    "Convert text to speech free online — paste up to 12,000 characters, pick a natural voice, and download the MP3. Offline browser fallback included. Try now!",
   path: "/tools/text-to-speech",
   keywords: [
-    "text to speech online",
-    "tts free",
-    "text to voice mp3",
-    "urdu text to speech",
+    "text to speech",
+    "TTS tool",
+    "text to audio",
+    "speech generator",
+    "voice synthesizer",
   ],
 });
 
 const STEPS = [
   {
     title: "Type or paste your text",
-    text: "Up to 1,950 characters per request — a few paragraphs at a time.",
+    text: "Up to 12,000 characters — long text is split into chunks automatically and merged into a single MP3.",
   },
   {
     title: "Choose a voice",
@@ -45,7 +60,8 @@ const STEPS = [
 ];
 
 const LIMITS: [string, string][] = [
-  ["Text length", "Up to 1,950 characters per request"],
+  ["Text length", "Up to 12,000 characters — auto-split into ~900-char chunks, merged into one MP3"],
+  ["Daily limit", "30 generations per day; long text uses one per ~900-character chunk"],
   ["Output", "MP3 audio"],
   ["Pitch & rate", "−100 to +100 each"],
   ["Voices", "Multiple voices, grouped by language"],
@@ -89,7 +105,7 @@ const FAQS = [
   },
   {
     q: "How much text can I convert at once?",
-    a: "Up to 1,950 characters per request. For longer scripts, split the text and generate it in parts.",
+    a: "Up to 12,000 characters in one go. The tool splits long text at sentence boundaries into ~900-character chunks, generates them all in parallel, and merges them into a single MP3 download.",
   },
   {
     q: "What is browser voice (offline fallback)?",
@@ -103,7 +119,22 @@ const FAQS = [
     q: "Do you store my text?",
     a: "No. Text is processed in real time and never stored on our servers.",
   },
+  {
+    q: "Is there a free text to speech tool with no strict character limit?",
+    a: "This one converts up to 12,000 characters per run — long articles, full scripts, and study guides — by automatically chunking the text and joining the audio.",
+  },
+  {
+    q: "Can I download the generated audio as an MP3?",
+    a: "Yes. After conversion you can download the full narration as an MP3, ready to drop into a video editor, podcast workflow, or music player.",
+  },
+  {
+    q: "Does text to speech work offline?",
+    a: "If the online voice service is unavailable, the tool falls back to your browser's built-in voices, which work offline on most devices — the voice selection is smaller but it keeps you going.",
+  },
+
 ];
+
+const RELATED_SLUGS: string[] = ["audio-to-text", "text-to-pdf", "word-counter"];
 
 export default function TextToSpeechPage() {
   return (
@@ -112,6 +143,11 @@ export default function TextToSpeechPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd(tool)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd(tool)) }}
+      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
@@ -147,9 +183,9 @@ export default function TextToSpeechPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-4">
-          Text to <em>Speech</em>
+          Free Text to <em>Speech</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">{tool.tagline}</p>
+        <p className="sec-sub mx-auto mt-4">A free text to speech tool: paste up to 12,000 characters, pick a voice, listen instantly, and download the MP3 — no sign-up.</p>
       </header>
 
       <section className="card p-5 sm:p-8 md:p-10" aria-label="Text to speech tool">
@@ -163,7 +199,22 @@ export default function TextToSpeechPage() {
         stored.
       </p>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Text to Speech</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            A text to speech tool reads your words aloud with natural-sounding voices — and this free online TTS converter handles up to 12,000 characters in one go by automatically splitting long text into chunks and stitching the audio back together. Paste an article, a script, or study notes, choose a voice, and listen instantly in the browser or download the result as an MP3 for later. Creators voice their videos, language learners hear correct pronunciation, busy readers turn long articles into audio, and accessibility users get any text read aloud.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            If the cloud voice service is ever unreachable, an offline browser-voice fallback speaks your text using the voices built into your device, so the tool keeps working with no connection to the voice API. Short texts convert in seconds; a full 12,000-character document takes longer as each chunk is synthesized in turn. Your text is sent only to generate the audio and is never stored, and you can freely use the MP3s in your own videos and projects.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">Supported formats &amp; limits</p>
         <h2 className="sec-title">
           What it <em>handles</em>
@@ -250,7 +301,7 @@ export default function TextToSpeechPage() {
           Keep <em>going</em>
         </h2>
         <div className="tool-grid mt-6">
-          {tool.related.map((slug) => {
+          {RELATED_SLUGS.map((slug) => {
             const t = toolBySlug(slug);
             if (!t) return null;
             return (

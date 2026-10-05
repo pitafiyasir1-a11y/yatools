@@ -16,17 +16,74 @@ const KNOWN_PLATFORMS = [
   "CapCut",
 ];
 
+type QualityOption = { quality: string; url: string };
+
+type MediaResult = {
+  title: string | null;
+  author: string | null;
+  thumbnail: string | null;
+  duration: string | null;
+  platform: string | null;
+  videoUrl: string | null;
+  audioUrl: string | null;
+  coverImage: string | null;
+  musicUrl: string | null;
+  qualities: QualityOption[];
+};
+
 type ApiOk = {
   ok: true;
-  data: { links: string[]; message: string | null; supportedPlatforms: string[] };
+  data: {
+    success: boolean;
+    message: string | null;
+    supportedPlatforms: string[];
+    media: MediaResult | null;
+  };
 };
 type ApiErr = { ok: false; error: { code: string; message: string } };
 
-function shortHost(url: string): string {
+/** Build a safe download filename from a media title. */
+function safeFilename(title: string | null, ext: string): string {
+  const base = (title ?? "video")
+    .replace(/[^\p{L}\p{N}\s._-]/gu, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .slice(0, 80);
+  return `${base || "video"}${ext}`;
+}
+
+/**
+ * Download that really works: fetch the file, save it as a blob with a
+ * sensible filename. Some hosts block cross-origin fetch — then fall back to
+ * opening the file in a new tab so the user can save it from there.
+ */
+async function saveFile(
+  fileUrl: string,
+  filename: string,
+  setBusy: (b: string | null) => void,
+  setNote: (n: string | null) => void
+): Promise<void> {
+  setBusy(filename);
+  setNote(null);
   try {
-    return new URL(url).hostname.replace(/^www\./, "");
+    const res = await fetch(fileUrl);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const blob = await res.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
   } catch {
-    return url.slice(0, 40);
+    window.open(fileUrl, "_blank", "noopener");
+    setNote(
+      "Your browser blocked the direct save — the file opened in a new tab. Use Save from there."
+    );
+  } finally {
+    setBusy(null);
   }
 }
 
@@ -34,11 +91,14 @@ export default function UniversalDownloaderClient() {
   const [url, setUrl] = useState("");
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [links, setLinks] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const [media, setMedia] = useState<MediaResult | null>(null);
   const [platforms, setPlatforms] = useState<string[]>(KNOWN_PLATFORMS);
+  const [selectedQuality, setSelectedQuality] = useState(0);
+  const [busyFile, setBusyFile] = useState<string | null>(null);
+  const [downloadNote, setDownloadNote] = useState<string | null>(null);
 
-  const fetchLinks = async () => {
+  const fetchMedia = async () => {
     const target = url.trim();
     if (!target) {
       setError("Please paste a video or audio page URL first.");
@@ -46,18 +106,21 @@ export default function UniversalDownloaderClient() {
     }
     setWorking(true);
     setError(null);
-    setLinks([]);
     setMessage(null);
+    setMedia(null);
+    setDownloadNote(null);
+    setSelectedQuality(0);
     try {
       const res = await fetch(`/api/v1/alldl?url=${encodeURIComponent(target)}`);
       const json = (await res.json()) as ApiOk | ApiErr;
       if (!json.ok) throw new Error(json.error.message);
-      setLinks(json.data.links ?? []);
-      setMessage(json.data.message ?? null);
-      if (json.data.supportedPlatforms?.length) {
-        setPlatforms(json.data.supportedPlatforms);
+      const data = json.data;
+      setMedia(data.media);
+      setMessage(data.message);
+      if (data.supportedPlatforms?.length) {
+        setPlatforms(data.supportedPlatforms);
       }
-      if (!json.data.links?.length && !json.data.message) {
+      if (!data.success && !data.message) {
         setMessage("No downloadable files were found for that URL.");
       }
     } catch (e) {
@@ -68,6 +131,46 @@ export default function UniversalDownloaderClient() {
       setWorking(false);
     }
   };
+
+  const hasQualities = (media?.qualities?.length ?? 0) > 0;
+  const chosenQuality = hasQualities
+    ? media!.qualities[Math.min(selectedQuality, media!.qualities.length - 1)]
+    : null;
+
+  const downloadButtons: { label: string; fileUrl: string; filename: string }[] = [];
+  if (media) {
+    if (hasQualities && chosenQuality) {
+      downloadButtons.push({
+        label: `Download Video (${chosenQuality.quality})`,
+        fileUrl: chosenQuality.url,
+        filename: safeFilename(media.title, ".mp4"),
+      });
+    } else if (media.videoUrl) {
+      downloadButtons.push({
+        label: "Download Video",
+        fileUrl: media.videoUrl,
+        filename: safeFilename(media.title, ".mp4"),
+      });
+    }
+    if (media.audioUrl) {
+      downloadButtons.push({
+        label: "Download Audio",
+        fileUrl: media.audioUrl,
+        filename: safeFilename(media.title, ".mp3"),
+      });
+    }
+    // Some platforms return audio as a "music" file instead.
+    if (!media.audioUrl && media.musicUrl) {
+      downloadButtons.push({
+        label: "Download Audio",
+        fileUrl: media.musicUrl,
+        filename: safeFilename(media.title, ".mp3"),
+      });
+    }
+  }
+
+  const imageSrc = media?.thumbnail ?? media?.coverImage ?? null;
+  const metaLine = [media?.author, media?.duration].filter(Boolean).join(" · ");
 
   return (
     <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
@@ -100,7 +203,7 @@ export default function UniversalDownloaderClient() {
           placeholder="https://www.youtube.com/watch?v=…"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && fetchLinks()}
+          onKeyDown={(e) => e.key === "Enter" && fetchMedia()}
           inputMode="url"
           autoComplete="off"
           spellCheck={false}
@@ -108,7 +211,7 @@ export default function UniversalDownloaderClient() {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={fetchLinks}
+          onClick={fetchMedia}
           disabled={working}
         >
           {working ? "Fetching…" : "Get download links"}
@@ -128,54 +231,116 @@ export default function UniversalDownloaderClient() {
       {message && !error && (
         <div
           className="notice"
-          style={{
-            marginTop: 16,
-            borderColor: links.length ? "var(--line)" : "var(--red)",
-          }}
+          style={{ marginTop: 16, borderColor: media ? "var(--line)" : "var(--red)" }}
         >
           {message}
         </div>
       )}
 
-      {links.length > 0 && !/unsupported platform/i.test(message ?? "") && (
+      {media && !error && (
         <div style={{ marginTop: 18 }}>
-          <p className="field-label">
-            {links.length} {links.length === 1 ? "file" : "files"} found
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {links.map((l, i) => (
-              <div
-                key={`${l}-${i}`}
-                className="card"
+          <div
+            className="card"
+            style={{
+              padding: "16px",
+              display: "flex",
+              gap: 16,
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+            }}
+          >
+            {imageSrc && (
+              <img
+                src={imageSrc}
+                alt={media.title ?? "Video thumbnail"}
+                loading="lazy"
                 style={{
-                  padding: "12px 16px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  flexWrap: "wrap",
-                  justifyContent: "space-between",
+                  width: "100%",
+                  maxWidth: 240,
+                  height: "auto",
+                  borderRadius: 8,
+                  border: "1px solid var(--line)",
+                  flex: "0 0 auto",
+                }}
+                referrerPolicy="no-referrer"
+              />
+            )}
+            <div style={{ flex: "1 1 220px", minWidth: 0 }}>
+              {media.platform && (
+                <span
+                  className="tab font-mono2"
+                  style={{ fontSize: "0.7rem", marginBottom: 10, display: "inline-block" }}
+                >
+                  {media.platform}
+                </span>
+              )}
+              <h2
+                style={{
+                  fontSize: "1.05rem",
+                  lineHeight: 1.35,
+                  margin: "0 0 6px",
+                  overflowWrap: "anywhere",
                 }}
               >
-                <span
-                  className="font-mono2"
-                  style={{ fontSize: "0.78rem", color: "var(--text2)" }}
-                >
-                  File {i + 1} · {shortHost(l)}
-                </span>
-                <a
-                  href={l}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-primary"
-                >
-                  Open / download ↓
-                </a>
-              </div>
-            ))}
+                {media.title ?? "Untitled media"}
+              </h2>
+              {metaLine && (
+                <p style={{ fontSize: "0.85rem", color: "var(--text2)", margin: "0 0 14px" }}>
+                  {metaLine}
+                </p>
+              )}
+
+              {hasQualities && (
+                <div style={{ marginBottom: 12 }}>
+                  <label className="field-label" htmlFor="ud-quality">
+                    Quality
+                  </label>
+                  <select
+                    id="ud-quality"
+                    className="input"
+                    style={{ maxWidth: 260 }}
+                    value={selectedQuality}
+                    onChange={(e) => setSelectedQuality(Number(e.target.value))}
+                  >
+                    {media.qualities.map((q, i) => (
+                      <option key={`${q.quality}-${i}`} value={i}>
+                        {q.quality}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {downloadButtons.length > 0 ? (
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  {downloadButtons.map((b) => (
+                    <button
+                      key={b.filename}
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={busyFile !== null}
+                      onClick={() => saveFile(b.fileUrl, b.filename, setBusyFile, setDownloadNote)}
+                    >
+                      {busyFile === b.filename ? "Preparing download…" : `${b.label} ↓`}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0 }}>
+                  The service found this page but no downloadable files were returned.
+                </p>
+              )}
+
+              {downloadNote && (
+                <p style={{ fontSize: "0.8rem", color: "var(--text2)", marginTop: 10 }}>
+                  {downloadNote}
+                </p>
+              )}
+            </div>
           </div>
           <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: 10 }}>
-            Links open in a new tab — save the file from there. Links may expire; if one is dead,
-            fetch fresh links.
+            Links may expire — if a download fails, fetch fresh links. Some browsers block direct
+            saves; then the file opens in a new tab instead.
           </p>
         </div>
       )}

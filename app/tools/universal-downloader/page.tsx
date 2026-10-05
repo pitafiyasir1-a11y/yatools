@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["website-screenshot", "audio-to-text", "text-to-speech"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Online Video Downloader — YATools",
+    url: `${SITE.url}/tools/universal-downloader`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Get download links for videos and audio free online — paste a link from YouTube, TikTok, Instagram, and more. For content you own or have rights to. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Online Video Downloader — Free Multi-Platform Download Links",
+  title: "Online Video Downloader - Save Videos & Audio Free",
   description:
-    "Free online video downloader. Paste a YouTube, TikTok, Instagram, or Facebook link to get direct download links. Only for content you own or have the right to save.",
+    "Get download links for videos and audio free online — paste a link from YouTube, TikTok, Instagram, and more. For content you own or have rights to. Try it now!",
   path: "/tools/universal-downloader",
   keywords: [
     "online video downloader",
-    "download video from link",
-    "tiktok video downloader",
-    "youtube video download link",
+    "video downloader",
+    "download videos online",
+    "save video",
+    "universal downloader",
   ],
 });
 
@@ -66,6 +81,15 @@ const faqs = [
     q: "Do you store the links I fetch?",
     a: "No. Lookups go through our proxy to the provider and aren't saved. The download links themselves come from the provider and may expire — fetch fresh ones if a link goes dead.",
   },
+  {
+    q: "Can I download a video for offline viewing?",
+    a: "Only content you own or have the right to save — your own uploads, freely licensed media, and public-domain material. Respect creators' rights and platform terms.",
+  },
+  {
+    q: "Which sites does this work with?",
+    a: "YouTube, TikTok, Instagram, Facebook, and more. Supported platforms change over time; unsupported links show a clear message instead of failing silently.",
+  },
+
 ];
 
 export default function UniversalDownloaderPage() {
@@ -73,6 +97,7 @@ export default function UniversalDownloaderPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -87,10 +112,10 @@ export default function UniversalDownloaderPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Universal <em>Downloader</em>
+              Free Universal <em>Downloader</em> Online
             </>
           }
-          tagline="Paste a video or audio link, get direct download links. Free — for content you own or have the right to save."
+          tagline="A free online video downloader: paste a link from YouTube, TikTok, Instagram, or Facebook and get direct download links."
         />
 
         <UniversalDownloaderClient />
@@ -98,6 +123,17 @@ export default function UniversalDownloaderPage() {
           Lookups pass through our proxy to the download provider and are never stored. We do
           not log the URLs you paste.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Online Video Downloader</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A universal downloader fetches direct download links for videos and audio from links you paste in. Drop a URL from YouTube, TikTok, Instagram, Facebook, or other supported platforms into this free online tool and get download options for the media — useful for saving your own uploads, archiving content you created, or keeping offline copies of freely licensed material for travel and study.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            An important boundary, stated plainly: only download content you own or have the right to save. Ripping copyrighted music, movies, or creators' work without permission violates their rights and platform terms — this tool is built for your own content and openly licensed media, not piracy. Availability varies by platform and link type; if you see an unsupported-platform message, that source cannot be fetched. Links are resolved on request and never stored.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>download link</em></>} />
@@ -162,7 +198,7 @@ export default function UniversalDownloaderPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["website-screenshot", "audio-to-text", "text-to-speech"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

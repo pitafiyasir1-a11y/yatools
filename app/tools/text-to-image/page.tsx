@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["qr-code-generator", "text-to-pdf", "word-counter"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Text to Image Generator — YATools",
+    url: `${SITE.url}/tools/text-to-image`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Turn words into images free online — design typography posters with custom fonts, colors, and gradients. Square, portrait, or landscape PNG. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Text to Image Generator — Free Typography Poster Maker",
+  title: "Text to Image Generator - Create Typography Posters Free",
   description:
-    "Free text to image generator. Turn words into beautiful typography posters with custom fonts, colors, and gradients. Square, landscape, or portrait PNG download. No sign-up.",
+    "Turn words into images free online — design typography posters with custom fonts, colors, and gradients. Square, portrait, or landscape PNG. Try it now!",
   path: "/tools/text-to-image",
   keywords: [
     "text to image generator",
-    "text to image maker online",
+    "text to image",
     "typography poster maker",
-    "quote image generator",
+    "quote image maker",
+    "text poster generator",
   ],
 });
 
@@ -66,6 +81,15 @@ const faqs = [
     q: "Is my text uploaded anywhere?",
     a: "No. The poster is rendered entirely in your browser with the canvas engine — your words never leave your device and nothing is stored.",
   },
+  {
+    q: "How do I turn a quote into a shareable image?",
+    a: "Type the quote, pick a font and background style, choose your image size, and download the PNG — ready to post in under a minute.",
+  },
+  {
+    q: "Is this AI image generation?",
+    a: "No. This is a typography poster designer — you style real text yourself, so the wording is always exactly right, unlike AI-generated images.",
+  },
+
 ];
 
 export default function TextToImagePage() {
@@ -73,6 +97,7 @@ export default function TextToImagePage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -87,10 +112,10 @@ export default function TextToImagePage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Text to Image <em>Generator</em>
+              Free Text to Image <em>Generator</em> Online
             </>
           }
-          tagline="Turn words into share-ready typography posters. Custom fonts, colors, and gradients — rendered live in your browser."
+          tagline="A free text to image generator: turn words into share-ready typography posters — custom fonts, colors, and gradients."
         />
 
         <TextToImageClient />
@@ -98,6 +123,17 @@ export default function TextToImagePage() {
           Everything runs 100% in your browser — your text and designs are never uploaded,
           processed, or stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Text to Image Generator</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            This text to image generator turns your words into designed typography posters — quotes, announcements, and headlines rendered as shareable images. Type your text into this free online tool, choose fonts, colors, and gradient backgrounds, pick square, portrait, or landscape sizing, and download a crisp PNG. Creators make quote cards for social feeds, businesses design simple sale announcements, and friends turn inside jokes into shareable graphics — no design software needed.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            To be clear about what this is: a typography designer, not an AI art generator. You control the lettering, layout, and style directly, which means the output always says exactly what you typed — no AI surprises, no misspelled words. Long text reflows across lines automatically, and the live preview shows the final poster before you download. Everything renders in your browser, so your words stay private.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>poster</em></>} />
@@ -162,7 +198,7 @@ export default function TextToImagePage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["qr-code-generator", "text-to-pdf", "word-counter"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

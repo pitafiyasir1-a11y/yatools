@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("unit-converter")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Unit Converter — YATools",
+    url: `${SITE.url}/tools/unit-converter`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert units free online — length, weight, temperature, and data sizes. Type a number and see every conversion instantly. No sign-up needed. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Unit Converter — Length, Weight & Data Units",
+  title: "Unit Converter - Convert Length, Weight & Data Free Online",
   description:
-    "Instant unit converter: length, weight, temperature, and 1024-based data sizes. Type a value, see every conversion at once. Free and private.",
+    "Convert units free online — length, weight, temperature, and data sizes. Type a number and see every conversion instantly. No sign-up needed. Try it now!",
   path: "/tools/unit-converter",
   keywords: [
     "unit converter online",
-    "length converter mm cm km",
-    "celsius fahrenheit kelvin converter",
-    "weight converter kg to lb",
-    "gb to mb converter",
+    "unit converter",
+    "convert units",
+    "metric to imperial",
+    "measurement converter",
   ],
 });
 
@@ -55,6 +69,15 @@ const faqs = [
     q: "Is my data private?",
     a: "Completely. Conversions run in your browser with plain JavaScript — nothing is typed into a server, stored, or tracked.",
   },
+  {
+    q: "How do I convert miles to kilometers?",
+    a: "Select length, enter your miles value, and the kilometer equivalent appears instantly alongside every other length unit.",
+  },
+  {
+    q: "Is 1 KB 1000 or 1024 bytes here?",
+    a: "1000 bytes — the decimal convention used by storage makers and network speeds. Some operating systems display 1024-based values, which is why numbers occasionally differ.",
+  },
+
 ];
 
 export default function UnitConverterPage() {
@@ -62,6 +85,7 @@ export default function UnitConverterPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -76,10 +100,10 @@ export default function UnitConverterPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Unit <em>Converter</em>
+              Free Unit <em>Converter</em> Online
             </>
           }
-          tagline="Length, weight, temperature, and data sizes — type a number once and see every conversion in the category, instantly."
+          tagline="A free unit converter: length, weight, temperature, and data sizes — type a number and see every conversion at once."
         />
 
         <UnitConverterClient />
@@ -87,6 +111,17 @@ export default function UnitConverterPage() {
           Everything runs 100% in your browser — your numbers are never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Unit Converter</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A unit converter answers the everyday question of how much that is in the units you understand. Type a number into this free online tool and instantly see it converted across length, weight, temperature, and data storage — metric and imperial side by side. Travelers convert miles to kilometers, cooks switch cups to milliliters, students check homework, and developers translate bytes to gigabytes without mental arithmetic.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Conversions use standard international definitions, and temperature handles the tricky Celsius-Fahrenheit-Kelvin math that trips everyone up. For data sizes, the tool follows the decimal convention where 1 KB equals 1000 bytes — the standard used by storage manufacturers and network speeds — rather than the binary 1024 used by some operating systems. Everything calculates instantly in your browser with no sign-up and no data leaving your device.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>any conversion</em></>} />

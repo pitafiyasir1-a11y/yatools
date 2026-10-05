@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["qr-code-generator", "password-generator", "word-counter"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Temporary Email — YATools",
+    url: `${SITE.url}/tools/temp-mail`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Get a free temporary email address online — a disposable inbox for sign-ups and verification codes. Receive-only, no sign-up needed, auto-expiry. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Temporary Email Generator — Free Disposable Inbox",
+  title: "Temporary Email Generator - Free Disposable Inbox Online",
   description:
-    "Free temporary email generator. Create a disposable address in one click, receive verification emails and codes — no sign-up. Receive-only; addresses expire automatically.",
+    "Get a free temporary email address online — a disposable inbox for sign-ups and verification codes. Receive-only, no sign-up needed, auto-expiry. Try it now!",
   path: "/tools/temp-mail",
   keywords: [
     "temporary email generator",
-    "disposable email address",
-    "temp mail free",
-    "fake email for sign up",
+    "temporary email",
+    "disposable email",
+    "temp mail",
+    "fake email",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "Is there a usage limit?",
     a: "Yes — 20 mail actions per day per visitor. That's plenty for normal one-off sign-ups and keeps the free service abuse-resistant.",
   },
+  {
+    q: "How do I get a disposable email for sign-ups?",
+    a: "Click generate on this page to create a random address instantly, paste it into the sign-up form, and read the incoming verification mail right here.",
+  },
+
 ];
 
 export default function TempMailPage() {
@@ -77,6 +97,7 @@ export default function TempMailPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,10 +112,10 @@ export default function TempMailPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Temporary <em>Email</em>
+              Free Temporary <em>Email</em> Online
             </>
           }
-          tagline="A disposable inbox in one click — perfect for sign-ups that don't deserve your real address."
+          tagline="A free temporary email generator: a disposable inbox in one click — perfect for sign-ups that don't deserve your real address."
         />
 
         <TempMailClient />
@@ -103,6 +124,17 @@ export default function TempMailPage() {
           from the mail provider through our proxy and are never stored by us — but remember,
           anyone with the address can read its mail.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Temporary Email</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A temporary email gives you a throwaway inbox for the sign-ups, downloads, and free trials that demand an address but do not deserve your real one. One click on this free tool creates a random disposable address; incoming mail lands in the inbox panel and auto-refreshes, so verification codes and download links appear without ever touching your personal inbox. It is receive-only by design — no sending, no replies — which keeps the service simple and abuse-resistant.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Use it wisely and it is a genuine privacy shield: one-off registrations, beta waitlists, forum accounts, and gated content. Never use it for anything you cannot afford to lose — password recovery, banking, work accounts — because addresses expire automatically and anyone who knows the address can read its mail. Some sites block disposable domains outright; that is their policy, not a bug. The service allows 20 mail actions per day per visitor, plenty for normal one-off use.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>clean inbox</em></>} />
@@ -167,7 +199,7 @@ export default function TempMailPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["qr-code-generator", "password-generator", "word-counter"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
