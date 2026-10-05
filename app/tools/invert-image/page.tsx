@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["image-converter", "image-resizer", "background-remover"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Invert Image Colors — YATools",
+    url: `${SITE.url}/tools/invert-image`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Invert image colors free online — turn any photo into its negative with one click. Instant, private, in-browser processing, no sign-up needed. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Invert Image Colors Online — Free Photo Negative Tool",
+  title: "Invert Image Colors - Free Photo Negative Effect Online",
   description:
-    "Invert image colors online for free. Upload any photo and flip it to a negative in one click. PNG/JPG download, before-and-after preview, no sign-up.",
+    "Invert image colors free online — turn any photo into its negative with one click. Instant, private, in-browser processing, no sign-up needed. Try it now!",
   path: "/tools/invert-image",
   keywords: [
     "invert image colors online",
-    "photo negative online",
-    "invert colors image free",
-    "negative filter photo",
+    "invert image",
+    "photo negative effect",
+    "negative image maker",
+    "invert colors",
   ],
 });
 
@@ -66,6 +81,19 @@ const faqs = [
     q: "Can I invert the same image twice to get the original back?",
     a: "Yes — inverting is a perfect round trip. Invert an inverted image and you get the exact original back (PNG to PNG).",
   },
+  {
+    q: "How do I make a photo negative online?",
+    a: "Upload your photo and hit invert — the negative version renders instantly and you can download it as PNG or JPG.",
+  },
+  {
+    q: "Will inverting twice restore my original photo?",
+    a: "Yes, exactly. Inverting maps every color to its opposite, so applying it a second time returns every pixel to its original value — the round trip is pixel-perfect.",
+  },
+  {
+    q: "Does inverting work on black-and-white photos?",
+    a: "Yes, and the results are striking. Grayscale images invert cleanly into classic film-negative looks, which is why photographers use inversion to preview dramatic monochrome edits.",
+  },
+
 ];
 
 export default function InvertImagePage() {
@@ -73,6 +101,7 @@ export default function InvertImagePage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -87,10 +116,10 @@ export default function InvertImagePage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Invert Image <em>Colors</em>
+              Free Invert Image <em>Colors</em> Online
             </>
           }
-          tagline="Turn any photo into its negative in one click. Free, private, and instant — right in your browser."
+          tagline="A free invert-image tool: turn any photo into its negative in one click — private, in-browser, instant."
         />
 
         <InvertImageClient />
@@ -98,6 +127,17 @@ export default function InvertImagePage() {
           Everything runs 100% in your browser — your image is never uploaded, processed, or
           stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Invert Image Colors</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Inverting an image flips every pixel to its opposite color — turning a photo into its negative, like classic film. Upload any picture to this free online tool and get the inverted version instantly, right in your browser. Designers create striking negative-space artwork, educators demonstrate how film negatives work, and photographers preview dramatic alternate edits; some people even invert dark screenshots for easier reading.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The effect is perfectly reversible: invert the result a second time and you get your original back, pixel for pixel. Inverting does not reduce quality or change dimensions — it only remaps colors. Download the result as PNG for lossless quality or JPG for smaller files. Because the whole operation runs on your device, your photos are never uploaded, stored, or seen by anyone but you.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to a <em>negative</em></>} />
@@ -162,7 +202,7 @@ export default function InvertImagePage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["image-converter", "image-resizer", "mirror-image"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

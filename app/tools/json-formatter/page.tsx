@@ -16,21 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("json-formatter")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "JSON Formatter — YATools",
+    url: `${SITE.url}/tools/json-formatter`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Format, validate, and minify JSON free online — paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free JSON Formatter, Validator & Minifier",
+  title: "JSON Formatter - Validate & Beautify JSON Free Online",
   description:
-    "Format, validate, and minify JSON in your browser. Clear error messages with line numbers, one-click copy. Free, no sign-up, fully private.",
+    "Format, validate, and minify JSON free online — paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private. Try now!",
   path: "/tools/json-formatter",
   keywords: [
-    "json formatter online",
-    "json validator",
-    "json minifier",
-    "format json",
-    "json syntax checker",
+    "JSON formatter",
+    "JSON beautifier",
+    "format JSON",
+    "JSON validator",
+    "JSON minifier",
   ],
 });
 
@@ -55,6 +69,11 @@ const faqs = [
     q: "Is my JSON data private?",
     a: "Yes. Parsing and formatting happen locally on your device; your JSON is never uploaded or logged. Safe for API keys, tokens, and production payloads — though as a rule, avoid pasting live secrets anywhere.",
   },
+  {
+    q: "Is there a free JSON formatter with no sign-up?",
+    a: "Yes. Paste your JSON and get formatted, validated output instantly — no account, no upload, and your data never leaves your browser.",
+  },
+
 ];
 
 export default function JsonFormatterPage() {
@@ -62,6 +81,7 @@ export default function JsonFormatterPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -76,10 +96,10 @@ export default function JsonFormatterPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              JSON <em>Formatter</em>
+              Free JSON <em>Formatter</em> Online
             </>
           }
-          tagline="Format, validate, and minify JSON instantly — with precise error messages that point at the exact line and column."
+          tagline="A free JSON formatter: format, validate, and minify JSON instantly — with precise error messages and zero sign-up."
         />
 
         <JsonFormatterClient />
@@ -87,6 +107,17 @@ export default function JsonFormatterPage() {
           Everything runs 100% in your browser — your JSON is never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>JSON Formatter</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            A JSON formatter takes the unreadable one-line blob your API returned and turns it into clean, indented, human-readable JSON. Paste any JSON into this free online tool and it validates the structure, pretty-prints it with proper indentation, or minifies it down for production payloads. Developers debugging APIs, configuring n8n workflows, and editing config files use it daily — and when your JSON is broken, the error messages point at the exact line and character instead of a cryptic failure.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Common culprits like trailing commas, unquoted keys, and mismatched brackets get flagged with plain-language explanations, which makes this as much a learning tool as a utility. Everything runs in your browser, so API keys, tokens, and production payloads you paste are never sent to a server. Switch between formatted and minified views with one click, copy the result straight to your clipboard, and get back to building.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>clean JSON</em></>} />
@@ -189,7 +220,7 @@ calls and cheaper bandwidth.`}</pre>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["n8n-workflow-search", "word-counter", "case-converter"]} />
+        <RelatedTools slugs={["base64-encoder-decoder", "url-encoder-decoder", "n8n-workflow-search"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["audio-to-text", "word-counter", "text-to-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Image to Text OCR — YATools",
+    url: `${SITE.url}/tools/image-to-text`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Extract text from images free online with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Image to Text OCR Online — Free Photo & Screenshot Text Extractor",
+  title: "Image to Text OCR - Extract Text from Images Free Online",
   description:
-    "Free image to text OCR online. Extract editable English text from photos, screenshots, and scans right in your browser. No sign-up, editable results, copy in one click.",
+    "Extract text from images free online with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
   path: "/tools/image-to-text",
   keywords: [
     "image to text ocr online",
-    "photo to text converter",
-    "extract text from image free",
-    "screenshot to text",
+    "image to text",
+    "photo to text",
+    "OCR online",
+    "extract text from image",
   ],
 });
 
@@ -66,6 +81,15 @@ const faqs = [
     q: "Can I edit the extracted text?",
     a: "Yes — the result appears in an editable text box. Fix any misread words, then copy the cleaned text with one click.",
   },
+  {
+    q: "How do I extract text from a screenshot for free?",
+    a: "Upload the screenshot and the in-browser OCR reads the visible text into an editable box — copy it straight into your document.",
+  },
+  {
+    q: "Which languages does the OCR support?",
+    a: "English text is supported, including common Latin characters, numbers, and punctuation. Handwriting and heavily stylized fonts are not supported — clean printed text gives the best results.",
+  },
+
 ];
 
 export default function ImageToTextPage() {
@@ -73,6 +97,7 @@ export default function ImageToTextPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -87,10 +112,10 @@ export default function ImageToTextPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Image to Text <em>OCR</em>
+              Free Image to Text <em>OCR</em> Online
             </>
           }
-          tagline="Pull editable text out of photos, screenshots, and scans. Free, private, and right in your browser."
+          tagline="A free image to text OCR tool: pull editable text out of photos, screenshots, and scans — right in your browser."
         />
 
         <ImageToTextClient />
@@ -98,6 +123,17 @@ export default function ImageToTextPage() {
           Everything runs 100% in your browser — the OCR engine and your image never touch our
           servers, and nothing is stored anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Image to Text OCR</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Image to text OCR reads the words inside your pictures and hands them back as editable text. Upload a photo, screenshot, or scanned page to this free online tool and the optical character recognition engine — running entirely in your browser — extracts the English text for you to copy and edit. Students digitize textbook pages, professionals pull text from slides and whiteboards, and anyone can rescue the words from a screenshot instead of retyping them.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Accuracy depends on the source: crisp, high-contrast text on a clean background extracts almost perfectly, while blurry photos, decorative fonts, and cluttered backgrounds produce more errors — always proofread important passages. Because the OCR runs on your device, your images are never uploaded anywhere, which makes this safe for documents you would not send to a server. The extracted text is plain and editable, ready to paste into any document.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to <em>editable text</em></>} />
@@ -162,7 +198,7 @@ export default function ImageToTextPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={tool.related} />
+        <RelatedTools slugs={["audio-to-text", "word-counter", "text-to-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

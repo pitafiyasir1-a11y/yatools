@@ -16,22 +16,35 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   toolBySlug,
+  SITE,
 } from "@/lib/site";
 
 const tool = toolBySlug("image-resizer")!;
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Image Resizer — YATools",
+    url: `${SITE.url}/tools/image-resizer`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Resize images to exact dimensions free online — set width and height with aspect-ratio lock, preview live, and download instantly. No sign-up. Try now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Free Image Resizer — Resize Photos to Exact Size",
+  title: "Image Resizer - Resize Photos to Exact Size Free Online",
   description:
-    "Resize images to exact pixel dimensions with a live original-vs-resized preview, aspect-ratio lock, and HD/4K/social presets. Free, private, 100% in-browser — download as PNG, JPG, or WebP.",
+    "Resize images to exact dimensions free online — set width and height with aspect-ratio lock, preview live, and download instantly. No sign-up. Try now!",
   path: "/tools/image-resizer",
   keywords: [
     "resize image online free",
-    "image resizer exact dimensions",
-    "resize photo to 1920x1080",
-    "instagram image resizer",
-    "reduce image dimensions",
-    "4k image resizer",
+    "image resizer",
+    "resize photo",
+    "change image dimensions",
+    "photo resizer",
   ],
 });
 
@@ -60,6 +73,11 @@ const faqs = [
     q: "Are my photos uploaded anywhere?",
     a: "Never. The whole resize happens in your browser with the canvas API — your images are never sent to a server, stored, or tracked.",
   },
+  {
+    q: "How do I resize an image to exact dimensions?",
+    a: "Enter the target width and height, keep the aspect-ratio lock on to avoid stretching, and download — the output matches your numbers precisely.",
+  },
+
 ];
 
 export default function ImageResizerPage() {
@@ -67,6 +85,7 @@ export default function ImageResizerPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -81,10 +100,10 @@ export default function ImageResizerPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Image <em>Resizer</em>
+              Free Image <em>Resizer</em> Online
             </>
           }
-          tagline="See the original next to the resized result as you type, with exact dimensions, a live file-size estimate, an aspect-ratio lock, and one-tap HD, 4K, and social presets — then download as PNG, JPG, or WebP."
+          tagline="A free image resizer: set exact width and height — with aspect-ratio lock — and download your resized image instantly."
         />
 
         <ImageResizerClient />
@@ -92,6 +111,17 @@ export default function ImageResizerPage() {
           Everything runs 100% in your browser — your images are never uploaded, stored, or sent
           anywhere.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Image Resizer</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            An image resizer changes a photo's dimensions to exactly what you need. Type the target width and height into this free online tool — or scale by percentage — and download the resized image in seconds. Bloggers fit images to their theme's content width, sellers meet marketplace dimension requirements, developers generate correctly sized assets, and anyone preparing a profile picture gets the exact pixels the platform asks for.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The aspect-ratio lock keeps your photo from stretching: change the width and the height follows proportionally. The live preview shows the original next to the resized result as you type, so you can judge sharpness before downloading. One honest note: shrinking a large photo down always looks great, but enlarging a small one cannot invent detail — upscaling past the original size softens the image, and no resizer can fix that. All resizing happens in your browser, so your photos stay private.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="How it works" title={<>Three steps to the <em>perfect size</em></>} />
@@ -192,7 +222,7 @@ set width to 1080 → height follows at
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["image-converter", "image-compressor", "background-remover"]} />
+        <RelatedTools slugs={["image-compressor", "image-converter", "image-cropper"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />

@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["text-to-pdf", "pdf-to-jpg", "merge-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Image to PDF — YATools",
+    url: `${SITE.url}/tools/image-to-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Convert JPG, PNG, and WebP images to PDF free online — combine multiple photos into one PDF with custom page size, orientation, and margins. Try it now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "JPG to PDF Online Free — Convert Images to PDF",
+  title: "JPG to PDF Converter - Combine Images to PDF Free Online",
   description:
-    "Convert JPG, PNG, and WebP images to PDF for free. Reorder pages, pick A4/Letter/fit-to-image, set margins — all in your browser.",
+    "Convert JPG, PNG, and WebP images to PDF free online — combine multiple photos into one PDF with custom page size, orientation, and margins. Try it now!",
   path: "/tools/image-to-pdf",
   keywords: [
     "jpg to pdf online",
-    "image to pdf converter",
-    "png to pdf free",
-    "convert photos to pdf",
+    "image to PDF",
+    "convert images to PDF",
+    "photos to PDF",
+    "PNG to PDF",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "Can I convert WebP images to PDF?",
     a: "Yes. WebP files are accepted alongside JPG and PNG. They're converted to PNG internally before being placed in the PDF, so transparency and quality are preserved.",
   },
+  {
+    q: "How do I combine multiple JPGs into one PDF?",
+    a: "Upload all your images, drag them into order, pick page size and orientation, and convert — they merge into a single PDF document.",
+  },
+
 ];
 
 export default function ImageToPdfPage() {
@@ -77,6 +97,7 @@ export default function ImageToPdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function ImageToPdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Image to <em>PDF</em>
+              Free Image to <em>PDF</em> Online
             </>
           }
-          tagline="Turn photos and scans into a proper PDF — pick page size, orientation, and margins, all free in your browser."
+          tagline="A free image to PDF converter: turn JPG, PNG, and WebP images into a single PDF — custom page size, orientation, and margins."
         />
 
         <ImageToPdfClient />
         <PrivacyNote>
           Images are converted with jsPDF on your device. Nothing is uploaded, stored, or seen by anyone but you.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Image to PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            An image to PDF converter bundles your photos into a single, properly paginated document. Upload JPG, PNG, or WebP images to this free online tool, arrange them in the order you want, choose the page size, orientation, and margins, and download one clean PDF. Students compile scanned assignment pages, professionals assemble photo documentation, travelers merge boarding passes and bookings, and artists build simple portfolios — all without desktop software.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Each image gets its own page by default, scaled to fit without distortion, and you can reorder pages by dragging before converting. The preview shows exactly how the final PDF will look, so margins and orientation are never a surprise. Because the PDF is assembled entirely in your browser, your photos are never uploaded to a server — handy for IDs, receipts, and anything personal. The output is a standard PDF that opens everywhere.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function ImageToPdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["text-to-pdf", "image-compressor", "image-resizer"]} />
+        <RelatedTools slugs={["text-to-pdf", "pdf-to-jpg", "merge-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
