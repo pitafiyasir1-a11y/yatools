@@ -115,6 +115,7 @@ export default function BackgroundRemoverPage() {
       <div className="wrap" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Background Remover" }]} />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={
