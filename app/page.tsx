@@ -204,8 +204,8 @@ export default function HomePage() {
             Free tools for <em>screenshots</em>, audio, documents &amp; everyday work.
           </h1>
           <p className="mb-8 max-w-xl text-lg leading-relaxed" style={{ color: "var(--text2)" }}>
-            14 genuinely free tools — capture pages, convert audio, generate images,
-            format JSON, and more. No signup, no card, and eight of them come with a
+            36 genuinely free tools — capture pages, convert audio, generate images,
+            format JSON, and more. No signup, no card, and twelve of them come with a
             free API you can call from your own apps.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -217,9 +217,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <Stat value="14" label="Free tools" />
-            <Stat value="8" label="API-powered" />
-            <Stat value="6" label="In-browser" />
+            <Stat value="36" label="Free tools" />
+            <Stat value="12" label="API-powered" />
+            <Stat value="24" label="In-browser" />
             <Stat value="0" label="Signups" />
           </div>
         </div>
