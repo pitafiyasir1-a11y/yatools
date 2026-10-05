@@ -126,6 +126,7 @@ export default function PdfToWordOcrPage() {
           trail={[{ name: "Home", href: "/" }, { name: "PDF to Word (OCR)" }]}
         />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={

@@ -95,6 +95,7 @@ export default function Mp4ToMp3Page() {
       <div className="wrap" style={{ paddingTop: 40, paddingBottom: 60 }}>
         <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "MP4 to MP3" }]} />
         <ToolHero
+          slug={tool.slug}
           badge={tool.badge}
           badgeColor={tool.badgeColor}
           title={
