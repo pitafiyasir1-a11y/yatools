@@ -23,7 +23,7 @@ const tool = toolBySlug("image-resizer")!;
 export const metadata = pageMeta({
   title: "Free Image Resizer — Resize Photos to Exact Size",
   description:
-    "Resize images to exact pixel dimensions with aspect-ratio lock and handy presets. Free, private, 100% in-browser — download as PNG, JPG, or WebP.",
+    "Resize images to exact pixel dimensions with a live original-vs-resized preview, aspect-ratio lock, and HD/4K/social presets. Free, private, 100% in-browser — download as PNG, JPG, or WebP.",
   path: "/tools/image-resizer",
   keywords: [
     "resize image online free",
@@ -31,6 +31,7 @@ export const metadata = pageMeta({
     "resize photo to 1920x1080",
     "instagram image resizer",
     "reduce image dimensions",
+    "4k image resizer",
   ],
 });
 
@@ -41,15 +42,19 @@ const faqs = [
   },
   {
     q: "Is there a maximum size?",
-    a: "Each side is capped at 8,000 pixels. Beyond that, browser canvas rendering gets slow and memory-hungry, so the tool politely asks you to pick a smaller size.",
+    a: "Each side is capped at 8,000 pixels. Beyond that, browser canvas rendering gets slow and memory-hungry, so the tool politely asks you to pick a smaller size. 4K (3840 × 2160) presets are fully supported.",
   },
   {
     q: "Does resizing reduce file size?",
-    a: "Usually, yes — fewer pixels generally means a smaller file, especially with JPG or WebP output. But resizing isn't compression: pair it with the Image Compressor if you need the smallest possible file.",
+    a: "Usually, yes — fewer pixels generally means a smaller file, especially with JPG or WebP output. The tool shows a live output-size estimate under the resized preview before you download, so there are no surprises. Pair it with the Image Compressor if you need the smallest possible file.",
   },
   {
     q: "Will upscaling make my image look better?",
-    a: "No. Enlarging an image beyond its original dimensions just stretches existing pixels, so it can look softer. Resizing down is always safe; resizing up works best for small increases and clean graphics.",
+    a: "No. Enlarging an image beyond its original dimensions just stretches existing pixels — it adds no new detail, so it can look softer. The tool shows an honest note whenever you upscale. Resizing down is always safe; resizing up works best for small increases and clean graphics.",
+  },
+  {
+    q: "How accurate is the live preview?",
+    a: "Pixel-accurate. The preview is the actual resized image rendered in your browser — the same render the download uses — so what you see side-by-side with the original is exactly what you get, including the file-size estimate.",
   },
   {
     q: "Are my photos uploaded anywhere?",
@@ -79,7 +84,7 @@ export default function ImageResizerPage() {
               Image <em>Resizer</em>
             </>
           }
-          tagline="Set exact pixel dimensions with an aspect-ratio lock and one-tap presets — then download as PNG, JPG, or WebP."
+          tagline="See the original next to the resized result as you type, with exact dimensions, a live file-size estimate, an aspect-ratio lock, and one-tap HD, 4K, and social presets — then download as PNG, JPG, or WebP."
         />
 
         <ImageResizerClient />
@@ -98,11 +103,11 @@ export default function ImageResizerPage() {
             },
             {
               title: "Set new dimensions",
-              text: "Type exact width and height, hit a preset like 1920×1080 or 1080×1080, and keep the aspect-ratio lock on to avoid distortion.",
+              text: "Type exact width and height, or hit a preset — Full HD, 4K, Instagram post and story, link previews, avatars. The resized preview updates live next to the original with an exact file-size estimate.",
             },
             {
               title: "Download",
-              text: "Pick PNG, JPG, or WebP output (with a quality slider for JPG/WebP) and grab the resized file instantly.",
+              text: "Pick PNG, JPG, or WebP output (with a quality slider for JPG/WebP) and grab the resized file. If you're upscaling past the original, the tool says so honestly before you commit.",
             },
           ]}
         />
