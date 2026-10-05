@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/", priority: 1.0 },
     ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, priority: 0.9 })),
     ...USE_CASES.map((u) => ({ path: `/use-cases/${u.slug}`, priority: 0.7 })),
-    { path: "/ur", priority: 0.7 },
     { path: "/use-cases", priority: 0.7 },
     { path: "/developers", priority: 0.7 },
     ...DEVELOPER_SUBPAGES.map((s) => ({ path: `/developers/${s}`, priority: 0.7 })),
@@ -22,6 +21,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/privacy", priority: 0.7 },
     { path: "/terms", priority: 0.7 },
     { path: "/blog", priority: 0.8 },
+    { path: "/pdf-tools", priority: 0.8 },
+    { path: "/image-tools", priority: 0.8 },
+    { path: "/video-tools", priority: 0.8 },
+    { path: "/audio-tools", priority: 0.8 },
+    { path: "/developer-tools", priority: 0.8 },
     ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
   ];
 

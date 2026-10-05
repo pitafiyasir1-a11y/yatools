@@ -32,7 +32,6 @@ const meta = pageMeta({
 
 export const metadata: Metadata = {
   ...meta,
-  alternates: { ...meta.alternates, languages: { ur: "/ur" } },
 };
 
 function JsonLd({ data }: { data: unknown }) {
@@ -56,7 +55,7 @@ const websiteJsonLd = {
 const FAQS = [
   {
     q: "Are the tools really free?",
-    a: "Yes — all 36 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the 24 in-browser tools have no limits at all.",
+    a: "Yes — all 74 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the 62 in-browser tools have no limits at all.",
   },
   {
     q: "Do I need an account or signup?",
@@ -90,7 +89,7 @@ const TRUST = [
 const STEPS = [
   {
     title: "Pick a tool",
-    text: "Open any of the 36 tools below — nothing to install, nothing to sign up for.",
+    text: "Open any of the 74 tools below — nothing to install, nothing to sign up for.",
   },
   {
     title: "Paste your input",
@@ -217,9 +216,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <Stat value="36" label="Free tools" />
+            <Stat value="74" label="Free tools" />
             <Stat value="12" label="API-powered" />
-            <Stat value="24" label="In-browser" />
+            <Stat value="62" label="In-browser" />
             <Stat value="0" label="Signups" />
           </div>
         </div>
@@ -243,12 +242,43 @@ export default function HomePage() {
           eyebrow="The toolbox"
           title={
             <>
-              All <em>36 tools</em>, one tab.
+              All <em>74 tools</em>, one tab.
             </>
           }
           sub="Filter by category — or just scroll. API tools run on a free daily allowance; in-browser tools have no limits at all."
         />
         <ToolGrid tools={TOOLS} />
+
+        {/* Browse by category — SEO hub pages */}
+        <div
+          className="card"
+          style={{
+            marginTop: 26,
+            padding: "18px 22px",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 10,
+            alignItems: "center",
+          }}
+        >
+          <span
+            className="font-mono2"
+            style={{ fontSize: "0.72rem", color: "var(--muted)", marginRight: 6 }}
+          >
+            BROWSE BY CATEGORY
+          </span>
+          {[
+            ["PDF Tools", "/pdf-tools"],
+            ["Image Tools", "/image-tools"],
+            ["Video Tools", "/video-tools"],
+            ["Audio Tools", "/audio-tools"],
+            ["Developer Tools", "/developer-tools"],
+          ].map(([label, href]) => (
+            <Link key={href} href={href} className="btn btn-sm">
+              {label} →
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* ================= HOW IT WORKS ================= */}
