@@ -138,7 +138,7 @@ export default function PasswordGeneratorPage() {
               d: "Naive random generators skew toward some characters. This tool uses rejection sampling on crypto.getRandomValues, so every character in the pool is equally likely.",
             },
           ].map((c) => (
-            <div key={c.t} className="neu-card" style={{ padding: 20 }}>
+            <div key={c.t} className="card" style={{ padding: 20 }}>
               <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: 8 }}>{c.t}</h3>
               <p style={{ color: "var(--text2)", fontSize: "0.9rem", lineHeight: 1.65 }}>{c.d}</p>
             </div>

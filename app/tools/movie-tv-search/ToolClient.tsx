@@ -68,14 +68,14 @@ export default function MovieTvClient() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="neu-card p-6 md:p-8 max-w-3xl mx-auto">
-        <label className="neu-label" htmlFor="mtv-q">
+      <div className="card p-6 md:p-8 max-w-3xl mx-auto">
+        <label className="field-label" htmlFor="mtv-q">
           Movie or TV show title
         </label>
         <div className="flex flex-col sm:flex-row gap-3">
           <input
             id="mtv-q"
-            className="neu-input"
+            className="input"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => {
@@ -85,7 +85,7 @@ export default function MovieTvClient() {
             autoComplete="off"
           />
           <button
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
             onClick={() => search()}
             disabled={status === "loading"}
           >
@@ -105,7 +105,7 @@ export default function MovieTvClient() {
               {EXAMPLES.map((ex) => (
                 <button
                   key={ex}
-                  className="neu-chip"
+                  className="tab"
                   onClick={() => pickExample(ex)}
                 >
                   {ex}
@@ -154,7 +154,7 @@ export default function MovieTvClient() {
                   {EXAMPLES.map((ex) => (
                     <button
                       key={ex}
-                      className="neu-chip"
+                      className="tab"
                       onClick={() => pickExample(ex)}
                     >
                       {ex}
@@ -167,7 +167,7 @@ export default function MovieTvClient() {
                 {results.map((r, i) => (
                   <div
                     key={`${r.title}-${i}`}
-                    className="neu-card neu-card-hover p-4 flex gap-4"
+                    className="card card-hover p-4 flex gap-4"
                   >
                     {r.image && (
                       <img
@@ -175,7 +175,7 @@ export default function MovieTvClient() {
                         alt={`${r.title} poster`}
                         loading="lazy"
                         className="w-20 h-28 object-cover rounded-lg border-2 shrink-0"
-                        style={{ borderColor: "var(--ink)" }}
+                        style={{ borderColor: "var(--line)" }}
                         onError={(e) => {
                           e.currentTarget.style.display = "none";
                         }}
@@ -185,7 +185,7 @@ export default function MovieTvClient() {
                       <h3 className="font-bold leading-snug">{r.title}</h3>
                       <div className="flex flex-wrap items-center gap-2 mt-2">
                         {r.type && (
-                          <span className="neu-badge neu-badge-blue">
+                          <span className="badge badge-blue">
                             {r.type}
                           </span>
                         )}
@@ -213,7 +213,7 @@ export default function MovieTvClient() {
                             href={r.watchUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="neu-btn neu-btn-sm neu-btn-primary"
+                            className="btn btn-sm btn-primary"
                           >
                             ▶ Watch direct
                           </a>
@@ -223,7 +223,7 @@ export default function MovieTvClient() {
                             href={r.imdbUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="neu-btn neu-btn-sm"
+                            className="btn btn-sm"
                           >
                             IMDb
                           </a>

@@ -131,14 +131,14 @@ export default function N8nSearchClient() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="neu-card p-6 md:p-8">
-        <label className="neu-label" htmlFor="n8n-q">
+      <div className="card p-6 md:p-8">
+        <label className="field-label" htmlFor="n8n-q">
           Search workflows
         </label>
         <div className="flex flex-col sm:flex-row gap-3">
           <input
             id="n8n-q"
-            className="neu-input"
+            className="input"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => {
@@ -148,7 +148,7 @@ export default function N8nSearchClient() {
             autoComplete="off"
           />
           <button
-            className="neu-btn neu-btn-primary"
+            className="btn btn-primary"
             onClick={onSearch}
             disabled={loading}
           >
@@ -158,12 +158,12 @@ export default function N8nSearchClient() {
 
         <div className="grid sm:grid-cols-3 gap-4 mt-5">
           <div>
-            <label className="neu-label" htmlFor="n8n-cat">
+            <label className="field-label" htmlFor="n8n-cat">
               Category
             </label>
             <select
               id="n8n-cat"
-              className="neu-select"
+              className="select"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -176,12 +176,12 @@ export default function N8nSearchClient() {
             </select>
           </div>
           <div>
-            <label className="neu-label" htmlFor="n8n-complexity">
+            <label className="field-label" htmlFor="n8n-complexity">
               Complexity
             </label>
             <select
               id="n8n-complexity"
-              className="neu-select"
+              className="select"
               value={complexity}
               onChange={(e) => setComplexity(e.target.value)}
             >
@@ -193,12 +193,12 @@ export default function N8nSearchClient() {
             </select>
           </div>
           <div>
-            <label className="neu-label" htmlFor="n8n-trigger">
+            <label className="field-label" htmlFor="n8n-trigger">
               Trigger type
             </label>
             <select
               id="n8n-trigger"
-              className="neu-select"
+              className="select"
               value={trigger}
               onChange={(e) => setTrigger(e.target.value)}
             >
@@ -253,7 +253,7 @@ export default function N8nSearchClient() {
                 </span>
                 {fallbackUsed && (
                   <>
-                    <span className="neu-badge neu-badge-green">
+                    <span className="badge badge-green">
                       snapshot — refreshed weekly
                     </span>
                     <span
@@ -284,19 +284,19 @@ export default function N8nSearchClient() {
                 {templates.map((t, i) => (
                   <div
                     key={t.id || `${t.name}-${i}`}
-                    className="neu-card neu-card-hover p-5 flex flex-col"
+                    className="card card-hover p-5 flex flex-col"
                   >
                     <h3 className="font-bold text-lg leading-snug mb-2">
                       {t.name || "Untitled workflow"}
                     </h3>
                     <div className="flex flex-wrap gap-2 mb-3">
                       {t.category && (
-                        <span className="neu-badge neu-badge-blue">
+                        <span className="badge badge-blue">
                           {t.category}
                         </span>
                       )}
                       {t.complexity && (
-                        <span className="neu-badge neu-badge-purple">
+                        <span className="badge badge-purple">
                           {t.complexity}
                         </span>
                       )}
@@ -321,7 +321,7 @@ export default function N8nSearchClient() {
                           href={t.downloadUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="neu-btn neu-btn-sm"
+                          className="btn btn-sm"
                         >
                           Get workflow
                         </a>
@@ -335,7 +335,7 @@ export default function N8nSearchClient() {
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-4 mt-8">
                 <button
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => goPage(page - 1)}
                   disabled={page <= 1}
                 >
@@ -348,7 +348,7 @@ export default function N8nSearchClient() {
                   Page {page} of {totalPages}
                 </span>
                 <button
-                  className="neu-btn neu-btn-sm"
+                  className="btn btn-sm"
                   onClick={() => goPage(page + 1)}
                   disabled={page >= totalPages}
                 >

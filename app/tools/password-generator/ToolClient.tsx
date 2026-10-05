@@ -99,8 +99,8 @@ export default function PasswordGeneratorClient() {
   const toggle = (k: OptKey) => setOpts((o) => ({ ...o, [k]: !o[k] }));
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
-      <label className="neu-label" htmlFor="pw-out">
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+      <label className="field-label" htmlFor="pw-out">
         Your password
       </label>
       <div
@@ -123,17 +123,17 @@ export default function PasswordGeneratorClient() {
       </div>
 
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}>
-        <button type="button" className="neu-btn neu-btn-primary" onClick={generate} disabled={activeSets.length === 0}>
+        <button type="button" className="btn btn-primary" onClick={generate} disabled={activeSets.length === 0}>
           ⟳ Generate
         </button>
-        <button type="button" className="neu-btn" onClick={copy} disabled={!password}>
+        <button type="button" className="btn" onClick={copy} disabled={!password}>
           {copied ? "Copied!" : "Copy password"}
         </button>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>
         <div>
-          <label className="neu-label" htmlFor="pw-len">
+          <label className="field-label" htmlFor="pw-len">
             Length: <strong style={{ color: "var(--text)" }}>{length}</strong> characters
           </label>
           <input
@@ -155,7 +155,7 @@ export default function PasswordGeneratorClient() {
         </div>
 
         <div>
-          <p className="neu-label">Character sets</p>
+          <p className="field-label">Character sets</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {(
               [
@@ -193,15 +193,15 @@ export default function PasswordGeneratorClient() {
         </div>
 
         <div>
-          <p className="neu-label">Strength</p>
+          <p className="field-label">Strength</p>
           {password ? (
             <>
               <div
                 style={{
                   height: 14,
-                  border: "2px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 8,
-                  background: "var(--paper2)",
+                  background: "var(--surface2)",
                   overflow: "hidden",
                   marginBottom: 8,
                 }}

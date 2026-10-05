@@ -104,7 +104,7 @@ export default function PdfToJpgClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <input
         ref={inputRef}
         type="file"
@@ -117,7 +117,7 @@ export default function PdfToJpgClient() {
       />
       <button
         type="button"
-        className="neu-btn neu-btn-primary"
+        className="btn btn-primary"
         onClick={() => inputRef.current?.click()}
         style={{ width: "100%" }}
       >
@@ -147,10 +147,10 @@ export default function PdfToJpgClient() {
               }}
             >
               <div>
-                <label className="neu-label" htmlFor="pj-quality">Image quality</label>
+                <label className="field-label" htmlFor="pj-quality">Image quality</label>
                 <select
                   id="pj-quality"
-                  className="neu-select"
+                  className="select"
                   value={scale}
                   onChange={(e) => setScale(Number(e.target.value))}
                   disabled={loading}
@@ -162,7 +162,7 @@ export default function PdfToJpgClient() {
               </div>
               <button
                 type="button"
-                className="neu-btn neu-btn-primary"
+                className="btn btn-primary"
                 onClick={renderAll}
                 disabled={loading}
               >
@@ -174,10 +174,10 @@ export default function PdfToJpgClient() {
           {rendered.length > 0 && (
             <>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
-                <button type="button" className="neu-btn" onClick={downloadAll}>
+                <button type="button" className="btn" onClick={downloadAll}>
                   Download all pages
                 </button>
-                <button type="button" className="neu-btn neu-btn-sm" onClick={renderAll} disabled={loading}>
+                <button type="button" className="btn btn-sm" onClick={renderAll} disabled={loading}>
                   Re-render
                 </button>
                 <span className="font-mono2" style={{ fontSize: "0.72rem", color: "var(--muted)", alignSelf: "center" }}>
@@ -192,7 +192,7 @@ export default function PdfToJpgClient() {
                 }}
               >
                 {rendered.map((r) => (
-                  <div key={r.num} className="neu-card" style={{ padding: 8, background: "var(--surface)" }}>
+                  <div key={r.num} className="card" style={{ padding: 8, background: "var(--surface)" }}>
                     <img
                       src={r.url}
                       alt={`Page ${r.num}`}
@@ -215,7 +215,7 @@ export default function PdfToJpgClient() {
                     <a
                       href={r.url}
                       download={`${fileName}-page-${r.num}.jpg`}
-                      className="neu-btn neu-btn-sm"
+                      className="btn btn-sm"
                       style={{ width: "100%", textAlign: "center" }}
                     >
                       Download JPG

@@ -130,7 +130,7 @@ export default function MirrorImageClient() {
   };
 
   return (
-    <div className="neu-card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <div
         role="button"
         tabIndex={0}
@@ -148,9 +148,9 @@ export default function MirrorImageClient() {
           pickFile(e.dataTransfer.files?.[0] || null);
         }}
         style={{
-          border: "2.5px dashed var(--ink)",
+          border: "1.5px dashed var(--line)",
           borderRadius: 12,
-          background: dragOver ? "var(--paper2)" : "transparent",
+          background: dragOver ? "var(--surface2)" : "transparent",
           padding: "clamp(24px, 5vw, 44px) 16px",
           textAlign: "center",
           cursor: "pointer",
@@ -187,14 +187,14 @@ export default function MirrorImageClient() {
             }}
           >
             <div>
-              <span className="neu-label">Before</span>
+              <span className="field-label">Before</span>
               <img
                 src={imgUrl}
                 alt="Original preview"
                 style={{
                   maxWidth: "100%",
                   maxHeight: 240,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                   background: "var(--surface)",
@@ -208,14 +208,14 @@ export default function MirrorImageClient() {
               </p>
             </div>
             <div>
-              <span className="neu-label">After — mirrored (live)</span>
+              <span className="field-label">After — mirrored (live)</span>
               <canvas
                 ref={canvasRef}
                 aria-label="Mirrored preview"
                 style={{
                   maxWidth: "100%",
                   maxHeight: 240,
-                  border: "2.5px solid var(--ink)",
+                  border: "1px solid var(--line)",
                   borderRadius: 12,
                   display: "block",
                   background: "var(--surface)",
@@ -239,7 +239,7 @@ export default function MirrorImageClient() {
           )}
 
           <div style={{ marginTop: 18 }}>
-            <span className="neu-label">Flip direction</span>
+            <span className="field-label">Flip direction</span>
             <div
               style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
               role="group"
@@ -249,7 +249,7 @@ export default function MirrorImageClient() {
                 <button
                   key={m.id}
                   type="button"
-                  className={`neu-btn neu-btn-sm${mode === m.id ? " neu-btn-primary" : ""}`}
+                  className={`btn btn-sm${mode === m.id ? " btn-primary" : ""}`}
                   aria-pressed={mode === m.id}
                   onClick={() => setMode(m.id)}
                   title={m.hint}
@@ -261,7 +261,7 @@ export default function MirrorImageClient() {
           </div>
 
           <div style={{ marginTop: 16 }}>
-            <span className="neu-label">Download format</span>
+            <span className="field-label">Download format</span>
             <div
               style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
               role="group"
@@ -271,7 +271,7 @@ export default function MirrorImageClient() {
                 <button
                   key={f.id}
                   type="button"
-                  className={`neu-btn neu-btn-sm${format === f.id ? " neu-btn-primary" : ""}`}
+                  className={`btn btn-sm${format === f.id ? " btn-primary" : ""}`}
                   aria-pressed={format === f.id}
                   onClick={() => setFormat(f.id)}
                 >
@@ -284,7 +284,7 @@ export default function MirrorImageClient() {
           <div style={{ marginTop: 18 }}>
             <button
               type="button"
-              className="neu-btn neu-btn-primary"
+              className="btn btn-primary"
               onClick={download}
               disabled={downloading || !orig}
             >
