@@ -12,16 +12,16 @@ import ToolClient from "./ToolClient";
 const tool = toolBySlug("movie-tv-search")!;
 
 export const metadata = pageMeta({
-  title: "Movie & TV Search — Free Online | YATools",
+  title: "Movie & TV Search - Find Films and Shows Free Online",
   description:
-    "Search movies and TV shows free: ratings, release years, posters, and details. Find your next watch in seconds — no signup needed.",
+    "Search movies and TV shows free online — ratings, cast, posters, and plot summaries in one place, plus a Watch direct button for streaming. Try it now!",
   path: "/tools/movie-tv-search",
   keywords: [
     "movie search",
-    "tv show search",
-    "movie ratings lookup",
-    "find movies online",
-    "cinesearch",
+    "TV show search",
+    "find movies",
+    "movie database",
+    "film search tool",
   ],
 });
 
@@ -46,6 +46,15 @@ const FAQS = [
     q: "Is it free? Do I need an account?",
     a: "Yes, it is free, and no account is needed — 50 searches per day keeps it fast for everyone.",
   },
+  {
+    q: "Can I search movies and TV shows in one place for free?",
+    a: "Yes. One search covers both films and series, returning ratings, cast, posters, and summaries together — no account needed.",
+  },
+  {
+    q: "What does the Watch direct button do?",
+    a: "It takes you directly toward streaming and watch options for that title, so you go from deciding to watching without hunting across sites.",
+  },
+
 ];
 
 const STEPS = [
@@ -74,7 +83,7 @@ const PARAMS = [
     name: "response",
     type: "JSON",
     required: "\u2014",
-    desc: "{ ok:true, provider, fallbackUsed, data:{ results:[{ title, type, year, rating, image, url }], tvOnly? } }.",
+    desc: "{ ok:true, provider, fallbackUsed, data:{ results:[{ title, type, year, rating, image, url, imdbUrl, watchUrl, cast }], tvOnly? } }.",
   },
   {
     name: "provider",
@@ -209,8 +218,10 @@ function RelatedGrid({ related }: { related: ToolDef[] }) {
   );
 }
 
+const RELATED_SLUGS: string[] = ["qr-code-generator", "text-to-image", "ai-image-generator"];
+
 export default function MovieTvSearchPage() {
-  const related = tool.related
+  const related = RELATED_SLUGS
     .map((s) => toolBySlug(s))
     .filter((t): t is ToolDef => Boolean(t));
 
@@ -255,12 +266,9 @@ export default function MovieTvSearchPage() {
           Free tool
         </span>
         <h1 className="hero-title mt-5">
-          CineSearch — Movie &amp; TV <em>Search</em>
+          Free Movie &amp; <em>TV Search</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">
-          {tool.tagline} Look up titles with ratings, years, and posters —
-          plan your next watch in seconds.
-        </p>
+        <p className="sec-sub mx-auto mt-4">A free movie and TV search engine: ratings, cast, posters, and summaries in one place — with a Watch direct button.</p>
       </header>
 
       <section aria-label="Movie and TV search tool">
@@ -274,7 +282,22 @@ export default function MovieTvSearchPage() {
         </p>
       </section>
 
-      <section className="mt-14">
+            <section className="mt-14">
+        <p className="sec-label">About this tool</p>
+        <h2 className="sec-title">
+          About the <em>Movie &amp; TV Search</em>
+        </h2>
+        <div className="card p-6 mt-6">
+          <p className="text-sm" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            A movie and TV search tool answers the only question that matters on movie night: what should we watch? Type a title into this free search engine and get the essentials in one view — the poster, the plot summary, audience and critic ratings, and the full cast list, so you can judge a film before committing two hours to it. It covers both movies and TV series, which means one search settles whether that show your friend recommended is worth the binge.
+          </p>
+          <p className="text-sm mt-4" style={{ color: "var(--text2)", lineHeight: 1.8 }}>
+            Each result now includes cast details plus a Watch direct button that takes you straight toward streaming options, cutting out the usual tab-hopping between databases. Data comes from open movie and TV databases, with a TV-focused fallback keeping results flowing when the primary source is slow. Use it to settle trivia debates, build a watchlist from ratings, check who that familiar actor is, or find what to watch next based on what you already love — free, with no account.
+          </p>
+        </div>
+      </section>
+
+<section className="mt-14">
         <p className="sec-label">How it works</p>
         <h2 className="sec-title">
           Three steps to <em>done</em>

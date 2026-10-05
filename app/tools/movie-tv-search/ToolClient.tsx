@@ -11,6 +11,7 @@ interface TitleResult {
   url: string;
   imdbUrl?: string | null;
   watchUrl?: string | null;
+  cast?: string | null;
 }
 
 type Status = "idle" | "loading" | "ready" | "error";
@@ -183,6 +184,14 @@ export default function MovieTvClient() {
                     )}
                     <div className="min-w-0 flex-1">
                       <h3 className="font-bold leading-snug">{r.title}</h3>
+                      {r.cast && (
+                        <p
+                          className="text-xs mt-1 leading-snug"
+                          style={{ color: "var(--muted)" }}
+                        >
+                          {r.cast}
+                        </p>
+                      )}
                       <div className="flex flex-wrap items-center gap-2 mt-2">
                         {r.type && (
                           <span className="badge badge-blue">

@@ -16,6 +16,7 @@ import {
   webAppJsonLd,
   breadcrumbJsonLd,
   type ToolDef,
+  SITE,
 } from "@/lib/site";
 
 const tool: ToolDef = {
@@ -32,16 +33,30 @@ const tool: ToolDef = {
   related: ["split-pdf", "rotate-pdf", "text-to-pdf"],
 };
 
+function softwareAppJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Merge PDF — YATools",
+    url: `${SITE.url}/tools/merge-pdf`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: "Merge PDF files free online — combine multiple PDFs into one document in your chosen order. In-browser, private, no sign-up needed. Try it free right now!",
+  };
+}
+
 export const metadata = pageMeta({
-  title: "Merge PDF Online Free — Combine PDF Files",
+  title: "Merge PDF Online Free - Combine PDF Files into One",
   description:
-    "Merge multiple PDFs into one document for free. Drag to reorder pages, combine files in your browser — no sign-up, no uploads, no watermarks.",
+    "Merge PDF files free online — combine multiple PDFs into one document in your chosen order. In-browser, private, no sign-up needed. Try it free right now!",
   path: "/tools/merge-pdf",
   keywords: [
     "merge pdf online free",
-    "combine pdf files",
-    "merge pdf files online",
-    "join pdf documents free",
+    "merge PDF",
+    "combine PDF",
+    "join PDF files",
+    "PDF merger",
   ],
 });
 
@@ -70,6 +85,11 @@ const faqs = [
     q: "Does merging change my PDF quality?",
     a: "No. Pages are copied as-is — text, images, and formatting are preserved exactly. The merged file is simply all the original pages glued together in your order.",
   },
+  {
+    q: "How do I merge PDF files for free without uploading them?",
+    a: "Drop your PDFs here, arrange the order, and merge — the files combine entirely in your browser and are never sent to a server.",
+  },
+
 ];
 
 export default function MergePdfPage() {
@@ -77,6 +97,7 @@ export default function MergePdfPage() {
     <>
       <JsonLd data={faqJsonLd(faqs)} />
       <JsonLd data={webAppJsonLd(tool)} />
+      <JsonLd data={softwareAppJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -91,16 +112,27 @@ export default function MergePdfPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Merge <em>PDF</em> files
+              Free Merge <em>PDF</em> Online
             </>
           }
-          tagline="Combine multiple PDFs into one document in the exact order you want — free, private, and done entirely in your browser."
+          tagline="A free PDF merger: combine multiple PDFs into one document in the exact order you choose — in your browser."
         />
 
         <MergePdfClient />
         <PrivacyNote>
           Files are merged on your device with pdf-lib. Nothing is uploaded, stored, or seen by anyone but you.
         </PrivacyNote>
+        <hr className="sec-rule" style={{ margin: "44px 0" }} />
+        <SectionHead label="About this tool" title={<>About the <em>Merge PDF</em></>} />
+        <div style={{ maxWidth: 780 }}>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
+            Merging PDFs combines several documents into one file, in the order you decide. Drop your PDFs into this free online tool, drag them into the right sequence, and download a single merged document in seconds. Job seekers bundle a resume with certificates, students combine assignment chapters, accountants merge monthly statements, and anyone assembling a report stops juggling five attachments.
+          </p>
+          <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            The merge happens entirely in your browser using a real PDF engine — your files are never uploaded to a server, which matters for contracts, financial records, and personal documents. Page quality is preserved exactly as in the originals: merging rearranges pages rather than re-rendering them. If one of your PDFs is password-protected you will need to unlock it first, since the tool cannot and will not bypass document security.
+          </p>
+        </div>
+
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead
@@ -203,7 +235,7 @@ export default function MergePdfPage() {
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
         <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-        <RelatedTools slugs={["text-to-pdf", "image-compressor", "word-counter"]} />
+        <RelatedTools slugs={["split-pdf", "rotate-pdf", "text-to-pdf"]} />
 
         <div style={{ marginTop: 48 }}>
           <ApiCta />
