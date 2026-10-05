@@ -26,6 +26,8 @@ export const TIMEOUTS = {
   msearch: 15_000,
   certificate: 40_000,
   imgchat: 60_000,
+  alldl: 30_000,
+  mail: 45_000,
 } as const;
 
 export function okJson(data: unknown, provider: string, fallbackUsed = false): Response {
