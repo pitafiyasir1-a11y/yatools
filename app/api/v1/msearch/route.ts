@@ -21,6 +21,7 @@ type Result = {
   url: string | null;
   imdbUrl: string | null;
   watchUrl: string | null;
+  cast: string | null;
 };
 
 type MsearchItem = {
@@ -30,6 +31,7 @@ type MsearchItem = {
   poster?: unknown;
   imdbUrl?: unknown;
   watchUrl?: unknown;
+  cast?: unknown;
 };
 
 /**
@@ -59,6 +61,7 @@ function adaptMsearch(payload: unknown): Result[] {
         url: imdbUrl ?? watchUrl,
         imdbUrl,
         watchUrl,
+        cast: typeof item.cast === "string" && item.cast.trim() ? item.cast.trim() : null,
       };
     })
     .filter((r) => r.title !== "Untitled" || r.url !== null);
@@ -101,6 +104,7 @@ function adaptTvmaze(payload: unknown): Result[] {
       url: typeof s.url === "string" ? s.url : null,
       imdbUrl: null, // TVMaze fallback carries no IMDb/watch links
       watchUrl: null,
+      cast: null, // TVMaze fallback carries no cast list
     };
   });
 }

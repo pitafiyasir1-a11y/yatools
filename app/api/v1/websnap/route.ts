@@ -1,8 +1,12 @@
 /**
- * GET /api/v1/websnap?url=
+ * GET /api/v1/websnap?url=[&info=1]
  * Screenshot a public URL. Primary: ahm7 /api/websnap.
  * Fallback chain: Microlink -> mShots -> thum.io (all third-party).
  * Binary route: PNG/JPEG bytes with X-Provider / X-Fallback-Used headers.
+ *
+ * With ?info=1 the route instead returns the upstream's documented
+ * action=info metadata ({ contentType, sizeBytes }) as JSON — primary
+ * only, since the fallback services expose no metadata endpoint.
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
@@ -10,6 +14,7 @@ import { assertSafeUrl, fetchUpstream } from "@/lib/proxy/ssrf";
 import {
   UPSTREAM,
   TIMEOUTS,
+  okJson,
   errJson,
   rateLimited,
   binaryHeaders,
@@ -100,6 +105,41 @@ export async function GET(req: Request): Promise<Response> {
   } catch (e) {
     const msg = e instanceof Error ? e.message : "That URL isn't allowed.";
     return errJson("UNSAFE_URL", msg, 400, "ahm7");
+  }
+
+  // Metadata check: upstream action=info returns JSON without the binary —
+  // lets callers validate a URL and inspect size before a full capture.
+  if (searchParams.get("info") === "1") {
+    try {
+      const res = await fetchUpstream(
+        `${UPSTREAM}/api/websnap?action=info&url=${encodeURIComponent(safeUrl.toString())}`,
+        { headers: { accept: "application/json" } },
+        TIMEOUTS.websnap,
+      );
+      const json = (await res.json()) as {
+        ok?: unknown;
+        contentType?: unknown;
+        sizeBytes?: unknown;
+      };
+      if (!res.ok || json.ok !== true) throw new Error("info failed");
+      return okJson(
+        {
+          url: safeUrl.toString(),
+          contentType:
+            typeof json.contentType === "string" ? json.contentType : "image/png",
+          sizeBytes:
+            typeof json.sizeBytes === "number" ? json.sizeBytes : null,
+        },
+        "ahm7",
+      );
+    } catch {
+      return errJson(
+        "INFO_FAILED",
+        "Couldn't check that URL right now — try the capture anyway, or try again later.",
+        502,
+        "ahm7",
+      );
+    }
   }
 
   // 1) Primary: ahm7 screenshot.

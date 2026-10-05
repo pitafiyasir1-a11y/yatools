@@ -6,6 +6,11 @@
  * NOTE: there is no server-side TTS fallback. On upstream failure this route
  * returns 502 JSON and the CLIENT implements the browser speechSynthesis
  * fallback.
+ *
+ * Long text is a client concern: the client splits text at sentence
+ * boundaries into ~900-char chunks, fires one POST per chunk in parallel,
+ * and concatenates the MP3 blobs. Upstream's X-Voice-Name / X-Char-Count
+ * response headers are passed through on the binary response.
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
@@ -73,9 +78,15 @@ export async function POST(req: Request): Promise<Response> {
     if (!res.ok) throw new Error(`upstream ${res.status}`);
     const bytes = await res.arrayBuffer();
     if (bytes.byteLength < 512) throw new Error("empty audio");
-    return new Response(bytes, {
-      headers: binaryHeaders("ahm7", false, "audio/mpeg"),
-    });
+    // Upstream documents X-Pitch, X-Rate, X-Voice-Name, X-Char-Count on
+    // successful responses — pass the informational ones through so the
+    // client can show which voice actually rendered the chunk.
+    const headers = binaryHeaders("ahm7", false, "audio/mpeg");
+    for (const h of ["X-Voice-Name", "X-Char-Count"] as const) {
+      const v = res.headers.get(h);
+      if (v) headers[h] = v;
+    }
+    return new Response(bytes, { headers });
   } catch {
     return errJson(
       "TTS_DOWN",

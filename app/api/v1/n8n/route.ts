@@ -1,8 +1,14 @@
 /**
- * GET /api/v1/n8n?endpoint=categories|templates[&category&complexity&triggerType&page&limit]
+ * GET /api/v1/n8n?endpoint=categories|templates[&category&complexity&triggerType&page&limit&q]
  * Primary: ahm7 /api/n8n. On failure: read the lib/n8n-cache-N.json part
  * files (written by scripts/snapshot-n8n.mjs via prebuild) and filter
  * in-memory. If still nothing: 502 N8N_UNAVAILABLE.
+ *
+ * Keyword search (q): the upstream API has no keyword parameter — it only
+ * filters by category/complexity/triggerType. When q is present this route
+ * searches the local snapshot full-text (name, description, tags,
+ * category) instead of the primary, and the response is labelled
+ * provider:"cache", fallbackUsed:true so the UI stays honest about it.
  */
 
 import fs from "node:fs";
@@ -68,6 +74,31 @@ function matches(t: Template, filters: { category?: string; complexity?: string;
   return true;
 }
 
+/**
+ * Full-text keyword match over name, description, tags and category.
+ * Every whitespace-separated token must appear somewhere (AND semantics).
+ */
+function matchesKeyword(t: Template, q: string): boolean {
+  const tokens = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!tokens.length) return true;
+  const tags = Array.isArray(t.tags) ? t.tags.map(String).join(" ") : "";
+  const hay = `${t.name ?? ""} ${t.description ?? ""} ${tags} ${t.category ?? ""}`.toLowerCase();
+  return tokens.every((tok) => hay.includes(tok));
+}
+
+function paginate(templates: Template[], page: number, limit: number) {
+  const start = (page - 1) * limit;
+  return {
+    templates: templates.slice(start, start + limit),
+    pagination: {
+      page,
+      limit,
+      totalItems: templates.length,
+      totalPages: Math.max(1, Math.ceil(templates.length / limit)),
+    },
+  };
+}
+
 export async function GET(req: Request): Promise<Response> {
   const { allowed, retryAfterSec } = checkRateLimit("n8n", RATE_LIMIT, req);
   if (!allowed) return rateLimited("n8n", retryAfterSec ?? 86_400);
@@ -76,6 +107,39 @@ export async function GET(req: Request): Promise<Response> {
   const endpoint = searchParams.get("endpoint") ?? "templates";
   if (endpoint !== "categories" && endpoint !== "templates") {
     return errJson("BAD_ENDPOINT", "endpoint must be 'categories' or 'templates'.", 400);
+  }
+
+  const q = (searchParams.get("q") ?? "").trim().slice(0, 100);
+  const filters = {
+    category: searchParams.get("category")?.toLowerCase() ?? undefined,
+    complexity: searchParams.get("complexity")?.toLowerCase() ?? undefined,
+    triggerType: searchParams.get("triggerType")?.toLowerCase() ?? undefined,
+  };
+  const limit = Math.min(
+    100,
+    Math.max(1, Number(searchParams.get("limit") ?? "20") || 20),
+  );
+  const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
+
+  // Keyword search: upstream has no keyword parameter, so q is served from
+  // the local snapshot (full-text over name/description/tags/category).
+  // Labelled provider:"cache", fallbackUsed:true — the UI shows the
+  // "snapshot" badge for these results.
+  if (q && endpoint === "templates") {
+    const templates = loadCache();
+    if (!templates.length) {
+      return errJson(
+        "N8N_UNAVAILABLE",
+        "Keyword search is unavailable right now — the local snapshot hasn't loaded. Try the category filters instead.",
+        502,
+        "ahm7",
+        true,
+      );
+    }
+    const hits = templates.filter(
+      (t) => matches(t, filters) && matchesKeyword(t, q),
+    );
+    return okJson({ ...paginate(hits, page, limit), keyword: q }, "cache", true);
   }
 
   // Forward allow-listed params to upstream.
@@ -99,17 +163,6 @@ export async function GET(req: Request): Promise<Response> {
     // 2) Fallback: local snapshot.
     const templates = loadCache();
     if (templates.length) {
-      const filters = {
-        category: searchParams.get("category")?.toLowerCase() ?? undefined,
-        complexity: searchParams.get("complexity")?.toLowerCase() ?? undefined,
-        triggerType: searchParams.get("triggerType")?.toLowerCase() ?? undefined,
-      };
-      const limit = Math.min(
-        100,
-        Math.max(1, Number(searchParams.get("limit") ?? "20") || 20),
-      );
-      const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
-
       if (endpoint === "categories") {
         const counts = new Map<string, number>();
         for (const t of templates) {
@@ -123,20 +176,7 @@ export async function GET(req: Request): Promise<Response> {
       }
 
       const filtered = templates.filter((t) => matches(t, filters));
-      const start = (page - 1) * limit;
-      return okJson(
-        {
-          templates: filtered.slice(start, start + limit),
-          pagination: {
-            page,
-            limit,
-            totalItems: filtered.length,
-            totalPages: Math.max(1, Math.ceil(filtered.length / limit)),
-          },
-        },
-        "cache",
-        true,
-      );
+      return okJson(paginate(filtered, page, limit), "cache", true);
     }
   }
 
