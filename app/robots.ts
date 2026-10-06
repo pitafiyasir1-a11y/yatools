@@ -7,9 +7,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // The private blog-studio is unlinked and password-gated; keep every
-        // crawler (and its index) away from it, current and legacy paths.
-        disallow: ["/api/", "/site-studio/", "/api/site-studio/", "/admin/", "/api/admin/"],
+        // Keep API routes out of the index. The private studio is NOT listed
+        // here on purpose — advertising its path in robots.txt would defeat
+        // the point. It's protected instead by noindex headers (next.config),
+        // no links, no sitemap entry, and password auth.
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${SITE.url}/sitemap.xml`,
