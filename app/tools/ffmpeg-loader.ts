@@ -6,6 +6,16 @@
  * build doesn't use SharedArrayBuffer. We fetch the files ourselves (with an
  * honest progress readout) and hand blob URLs to ffmpeg.
  *
+ * IMPORTANT: we must use the `dist/esm` build, NOT `dist/umd`. The ffmpeg
+ * worker loads the core via `await import(coreURL)` and reads
+ * `.default` off the module namespace — the UMD build has no ES default
+ * export, so `load()` would reject with ERROR_IMPORT_FAILURE and every video
+ * tool would die at the "Loading video engine…" stage. The ESM build ends
+ * with `export default createFFmpegCore`.
+ *
+ * The blob URLs also need explicit MIME types: dynamic `import()` of a
+ * blob: URL fails the module-script MIME check when the blob has no type.
+ *
  * The ~32MB engine downloads once, then the instance is cached in memory
  * for the rest of the page session.
  */
@@ -13,8 +23,9 @@
 
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
 
-export const FFMPEG_BASE = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.9/dist/umd";
-export const FFMPEG_WASM_BYTES = 32232419; // honest size for the progress readout
+export const FFMPEG_BASE = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.9/dist/esm";
+export const FFMPEG_JS_BYTES = 111804; // dist/esm/ffmpeg-core.js
+export const FFMPEG_WASM_BYTES = 32232419; // dist/esm/ffmpeg-core.wasm (honest size for the progress readout)
 export const FFMPEG_FIRST_RUN_NOTE =
   "First run loads the video engine (~30 MB), then it's instant for the rest of your visit.";
 
@@ -27,12 +38,15 @@ function fmtMB(bytes: number): string {
   return `${(bytes / 1048576).toFixed(1)} MB`;
 }
 
-/** Fetch a URL with byte-level progress (needed: the wasm is ~32MB). */
+/** Fetch a URL with byte-level progress (needed: the wasm is ~32MB).
+ * The blob gets an explicit MIME type — the worker dynamic-imports the core
+ * JS from its blob URL, and module scripts require a JavaScript MIME type. */
 async function fetchWithProgress(
   url: string,
   total: number,
   label: string,
   onProgress: ProgressCb,
+  mimeType: string,
   signal?: AbortSignal
 ): Promise<Blob> {
   const res = await fetch(url, signal ? { signal } : undefined);
@@ -49,7 +63,7 @@ async function fetchWithProgress(
     loaded += value.length;
     onProgress(label, Math.min(99, Math.round((loaded / total) * 100)), `${fmtMB(loaded)} / ${fmtMB(total)}`);
   }
-  return new Blob(chunks as BlobPart[]);
+  return new Blob(chunks as BlobPart[], { type: mimeType });
 }
 
 /**
@@ -67,9 +81,10 @@ export function loadFFmpeg(onProgress?: ProgressCb, signal?: AbortSignal): Promi
     // ffmpeg fetch them blindly — jsDelivr serves CORS `*`, so blob URLs work.
     const coreJs = await fetchWithProgress(
       `${FFMPEG_BASE}/ffmpeg-core.js`,
-      112059,
+      FFMPEG_JS_BYTES,
       "Loading video engine…",
       report,
+      "text/javascript",
       signal
     );
     const coreWasm = await fetchWithProgress(
@@ -77,6 +92,7 @@ export function loadFFmpeg(onProgress?: ProgressCb, signal?: AbortSignal): Promi
       FFMPEG_WASM_BYTES,
       "Loading video engine…",
       report,
+      "application/wasm",
       signal
     );
     const coreURL = URL.createObjectURL(coreJs);

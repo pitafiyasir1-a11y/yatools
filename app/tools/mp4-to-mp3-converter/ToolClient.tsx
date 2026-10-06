@@ -84,10 +84,20 @@ export default function Mp4ToMp3Client() {
         setProgressPct(p);
         setProgressDetail("");
       });
+      // Capture ffmpeg's stderr so a silent video gets an honest message
+      // instead of a generic failure (ff.exec only rejects with a bare
+      // FS error string; the reason lives in the logs).
+      const logLines: string[] = [];
+      const onLog = ({ message }: { message: string }) => {
+        if (logLines.length < 60) logLines.push(message);
+      };
+      ff.on("log", onLog);
       try {
         await writeInputFile(ff, "input", file);
-        await ff.exec(["-i", "input", "-vn", "-c:a", "libmp3lame", "-b:a", bitrate, "output.mp3"]);
+        const ret = await ff.exec(["-i", "input", "-vn", "-c:a", "libmp3lame", "-b:a", bitrate, "output.mp3"]);
+        if (ret !== 0) throw new Error(logLines.join("\n") || "ffmpeg exited with an error");
       } finally {
+        ff.off("log", onLog);
         detach();
       }
       const blob = await readOutputBlob(ff, "output.mp3", "audio/mpeg");
@@ -104,9 +114,11 @@ export default function Mp4ToMp3Client() {
       setProgressLabel("");
       setProgressPct(null);
       setProgressDetail("");
-      const msg = e instanceof Error ? e.message : "";
+      // NOTE: ff.exec/readFile failures reject with a plain string (the
+      // worker posts e.toString()), not an Error instance.
+      const msg = e instanceof Error ? e.message : typeof e === "string" ? e : "";
       setError(
-        /audio|stream/i.test(msg)
+        /does not contain any stream|no audio/i.test(msg)
           ? "That video doesn't seem to have an audio track — there's nothing to extract."
           : "Audio extraction failed. Your video may use an unusual format — try converting it to MP4 first (see our Video Converter), then try again."
       );

@@ -48,6 +48,8 @@ export default function ExcelToPdfClient() {
       setRows(trimmed);
       setTruncated(data.length > MAX_ROWS || (data[0]?.length ?? 0) > MAX_COLS);
       setActive(idx);
+    }).catch(() => {
+      setError("That sheet couldn't be rendered. Try a different sheet or file.");
     });
   };
 

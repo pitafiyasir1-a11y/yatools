@@ -82,24 +82,28 @@ export default function VideoConverterClient() {
       let method = "";
       try {
         await writeInputFile(ff, "input", file);
-        try {
+        // NOTE: ff.exec() RESOLVES with the exit code (0 = ok) — it does not
+        // throw when ffmpeg itself fails. A try/catch fallback here would
+        // never fire, so check the return code explicitly.
+        const remuxRet = await ff.exec([
+          "-i", "input",
+          "-map", "0:v:0", "-map", "0:a?",
+          "-c", "copy",
+          "-movflags", "+faststart",
+          "output.mp4",
+        ]);
+        if (remuxRet === 0) {
           // Fast path: repackage streams without touching them — instant,
           // zero quality loss. Works when the codecs are MP4-compatible
           // (e.g. H.264/AAC inside MOV or MKV).
-          await ff.exec([
-            "-i", "input",
-            "-map", "0:v:0", "-map", "0:a?",
-            "-c", "copy",
-            "-movflags", "+faststart",
-            "output.mp4",
-          ]);
           method = "remuxed — streams copied untouched, zero quality loss";
-        } catch {
+        } else {
           // Slow path: codecs (e.g. VP8/VP9, AV1, Vorbis) can't live in MP4,
           // so re-encode to H.264 + AAC.
+          await cleanupFFmpeg(ff, ["output.mp4"]); // drop any partial remux output
           setProgressLabel("Converting to MP4…");
           setProgressDetail("remux not possible — re-encoding for compatibility");
-          await ff.exec([
+          const encRet = await ff.exec([
             "-i", "input",
             "-map", "0:v:0", "-map", "0:a?",
             "-c:v", "libx264",
@@ -109,6 +113,7 @@ export default function VideoConverterClient() {
             "-movflags", "+faststart",
             "output.mp4",
           ]);
+          if (encRet !== 0) throw new Error("re-encode failed");
           method = "re-encoded to H.264 + AAC for maximum compatibility";
         }
       } finally {

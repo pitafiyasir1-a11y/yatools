@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: "Why does the first background removal take longer?",
-    a: "The first run downloads the AI model (~40MB) into your browser — that's the progress bar you see. Once cached, later removals start almost instantly. The download needs an internet connection; everything after it is pure local computation.",
+    a: "The first run downloads the AI model (~85MB) into your browser — that's the progress bar you see. Once cached, later removals start almost instantly. The download needs an internet connection; everything after it is pure local computation.",
   },
   {
     q: "What image format should I download the result in?",
@@ -119,7 +119,7 @@ export default function HowToRemoveBackgroundWithAiPage() {
             Go to the{" "}
             <Link href="/tools/background-remover">Background Remover</Link>{" "}
             and drop your image in. On your first visit, the tool downloads
-            the AI model (~40MB) — you&apos;ll see a progress bar. This is a
+            the AI model (~85MB) — you&apos;ll see a progress bar. This is a
             one-time download; afterwards the model is cached and removals
             start almost instantly. Everything runs on your device: no
             upload, no queue, no account.

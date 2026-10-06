@@ -127,19 +127,23 @@ export default function VideoMp4Client({ config }: { config: VideoMp4Config }) {
       try {
         await writeInputFile(ff, inName, file);
         // Path 1: lossless remux — instant, original quality, same size.
+        // NOTE: ff.exec() RESOLVES with the exit code (0 = ok) — it does not
+        // throw when ffmpeg itself fails, so a try/catch fallback here would
+        // never fire. Check the return code explicitly.
         setProgressLabel(`Trying a quick remux of your ${config.inputLabel}…`);
         setProgressPct(null);
         setProgressDetail("no re-encoding — this is usually instant");
-        try {
-          await ff.exec(remuxArgs(inName, outName));
+        const remuxRet = await ff.exec(remuxArgs(inName, outName));
+        if (remuxRet === 0) {
           path = "remuxed";
-        } catch {
+        } else {
           // Path 2: the source's streams don't fit MP4 — re-encode to
           // H.264 + AAC, the pair every player on earth understands.
-          await cleanupFFmpeg(ff, [outName]);
+          await cleanupFFmpeg(ff, [outName]); // drop any partial remux output
           setProgressLabel(`Re-encoding to H.264 + AAC…`);
           setProgressDetail("keep this tab open — video encoding takes a while");
-          await ff.exec(reencodeArgs(inName, outName));
+          const encRet = await ff.exec(reencodeArgs(inName, outName));
+          if (encRet !== 0) throw new Error("The conversion produced an empty file.");
           path = "re-encoded";
         }
       } finally {

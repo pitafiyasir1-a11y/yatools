@@ -85,6 +85,16 @@ export function PrintStyles({ rootId }: { rootId: string }) {
           width: 100% !important;
           margin: 0 !important; padding: 0 !important;
         }
+        /* The tool wraps the document in an on-screen scroll box (max-height +
+           overflow:auto). In print that would clip the document to one viewport,
+           so unbind it: the full document must flow onto the printed pages. */
+        #${rootId} > div {
+          max-height: none !important;
+          overflow: visible !important;
+          border: none !important;
+          border-radius: 0 !important;
+          background: #fff !important;
+        }
         #${rootId} .docx-wrapper { background: #fff !important; padding: 0 !important; }
         #${rootId} .docx-wrapper > section.docx {
           box-shadow: none !important;

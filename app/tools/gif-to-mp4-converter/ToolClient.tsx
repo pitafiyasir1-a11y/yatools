@@ -136,8 +136,11 @@ export default function GifToMp4Client() {
       setProgressLabel("");
       setProgressPct(null);
       setProgressDetail("");
+      // NOTE: ff.exec/readFile failures reject with a plain string (the
+      // worker posts e.toString()), not an Error instance.
+      const msg = e instanceof Error ? e.message : typeof e === "string" ? e : "";
       setError(
-        e instanceof Error && /invalid data/i.test(e.message)
+        /invalid data/i.test(msg)
           ? "That file couldn't be read as a GIF — it may be corrupted or renamed from another format."
           : "Conversion failed. The GIF may be corrupted, or it may use an unusual encoding — try a different file."
       );

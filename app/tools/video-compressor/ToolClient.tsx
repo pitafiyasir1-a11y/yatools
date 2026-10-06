@@ -139,7 +139,7 @@ export default function VideoCompressorClient() {
       setProgressLabel("");
       setProgressPct(null);
       setProgressDetail("");
-      const msg = e instanceof Error ? e.message : "";
+      const msg = e instanceof Error ? e.message : typeof e === "string" ? e : "";
       setError(
         /moov|header|invalid data/i.test(msg)
           ? "That file couldn't be read as a video — it may be corrupted or in an unusual container. Try converting it to MP4 first, then compress."

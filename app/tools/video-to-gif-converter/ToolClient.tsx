@@ -67,6 +67,10 @@ export default function VideoToGifClient() {
   const process = async () => {
     if (!file || busyRef.current) return;
     const startS = Math.max(0, Number(start) || 0);
+    if (videoDuration && startS >= videoDuration) {
+      setError(`The video is only ${videoDuration.toFixed(1)}s long — pick a start time inside it.`);
+      return;
+    }
     let durS = Math.min(MAX_GIF_SECONDS, Math.max(1, Number(duration) || 3));
     if (videoDuration && startS + durS > videoDuration) {
       durS = Math.max(1, Math.min(MAX_GIF_SECONDS, videoDuration - startS));
