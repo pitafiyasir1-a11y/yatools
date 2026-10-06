@@ -145,9 +145,10 @@ export default function ImageUpscalerClient() {
 
   /** Download (or reuse from cache) the AI model, with honest progress.
    *
-   *  The model lives in /public and is loaded by TensorFlow.js from its plain
-   *  URL — tfjs always resolves weight files relative to the model.json URL,
-   *  so no blob-URL tricks. The prefetch below warms the browser HTTP cache,
+   *  The model loads from the jsDelivr CDN (version-pinned to the installed
+   *  @upscalerjs/esrgan-slim in package.json) — TensorFlow.js always resolves
+   *  weight files relative to the model.json URL, so both files must come from
+   *  the same directory. The prefetch below warms the browser HTTP cache,
    *  making the actual tfjs load instant; IndexedDB remembers that the model
    *  was already downloaded so repeat visits skip the progress bar entirely.
    */

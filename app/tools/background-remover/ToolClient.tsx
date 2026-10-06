@@ -87,7 +87,7 @@ export default function BackgroundRemoverClient() {
             setProgressDetail("");
           }
         },
-        // Full-quality default model ("isnet", ~84MB): best edge quality.
+        // Default model is "medium" = isnet_fp16 (~84MB): full quality, best edges.
         // (The smaller "isnet_quint8" cut ragged edges — reverted on user feedback.)
         output: { format: "image/png", quality: 1 },
       });

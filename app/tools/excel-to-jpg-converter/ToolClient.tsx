@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import type { WorkSheet } from "xlsx";
 import { DropZone, HonestLabel, downloadBlob } from "../doc-convert-parts";
 
@@ -53,6 +54,8 @@ export default function ExcelToJpgClient() {
       setRows(trimmed);
       setTruncated(data.length > MAX_ROWS || (data[0]?.length ?? 0) > MAX_COLS);
       setActive(idx);
+    }).catch(() => {
+      setError("That sheet couldn't be rendered. Try a different sheet or file.");
     });
   };
 
@@ -105,10 +108,13 @@ export default function ExcelToJpgClient() {
     while (trimmed.length && trimmed[trimmed.length - 1].every((c) => c === "")) {
       trimmed.pop();
     }
-    setRows(trimmed);
-    setActive(idx);
-    // Let React paint the table before capturing.
-    await new Promise((r) => setTimeout(r, 60));
+    // Flush synchronously so the staging table is painted before html2canvas
+    // reads it — a setTimeout guess can capture the previous sheet on slow
+    // devices.
+    flushSync(() => {
+      setRows(trimmed);
+      setActive(idx);
+    });
     const node = tableWrapRef.current;
     if (!node) throw new Error("staging missing");
     const canvas = await html2canvas(node, {

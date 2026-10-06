@@ -14,6 +14,11 @@ function formatBytes(bytes: number): string {
   return `${v >= 100 ? v.toFixed(0) : v.toFixed(1)} ${units[i]}`;
 }
 
+type OcrWorker = {
+  recognize: (image: string) => Promise<{ data?: { text?: string } }>;
+  terminate: () => Promise<unknown>;
+};
+
 type LogMsg = { status?: string; progress?: number };
 
 function friendlyStatus(m: LogMsg): string {
@@ -77,10 +82,11 @@ export default function ImageToTextClient() {
     setResult("");
     setProgress(0);
     setStatus("Loading the OCR engine…");
+    let worker: OcrWorker | null = null;
     try {
       const Tesseract = await import("tesseract.js");
       if (runId !== runIdRef.current) return;
-      const worker = await Tesseract.createWorker("eng", undefined, {
+      worker = await Tesseract.createWorker("eng", undefined, {
         logger: (m: LogMsg) => {
           if (runId !== runIdRef.current) return;
           setStatus(friendlyStatus(m));
@@ -104,6 +110,7 @@ export default function ImageToTextClient() {
     } catch (e) {
       if (runId !== runIdRef.current) return;
       workerRef.current = null;
+      worker?.terminate().catch(() => undefined);
       setPhase("idle");
       setError(
         e instanceof Error

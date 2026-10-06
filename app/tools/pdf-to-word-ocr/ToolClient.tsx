@@ -16,6 +16,11 @@ function formatBytes(bytes: number): string {
   return `${v >= 100 ? v.toFixed(0) : v.toFixed(1)} ${units[i]}`;
 }
 
+type OcrWorker = {
+  recognize: (image: string) => Promise<{ data?: { text?: string } }>;
+  terminate: () => Promise<unknown>;
+};
+
 type LogMsg = { status?: string; progress?: number };
 
 function friendlyEngineStatus(m: LogMsg): string {
@@ -143,11 +148,12 @@ export default function PdfToWordOcrClient() {
     setPhase("loading");
     setProgress(0);
     setStatus("Downloading the OCR engine…");
+    let worker: OcrWorker | null = null;
     try {
       // OCR engine (tesseract.js) loads once and is cached by the browser afterwards.
       const Tesseract = await import("tesseract.js");
       if (runId !== runIdRef.current) return;
-      const worker = await Tesseract.createWorker("eng", undefined, {
+      worker = await Tesseract.createWorker("eng", undefined, {
         logger: (m: LogMsg) => {
           if (runId !== runIdRef.current) return;
           const s = (m.status || "").toLowerCase();
@@ -254,6 +260,7 @@ export default function PdfToWordOcrClient() {
     } catch (e) {
       if (runId !== runIdRef.current) return;
       workerRef.current = null;
+      worker?.terminate().catch(() => undefined);
       setPhase("idle");
       setError(
         e instanceof Error

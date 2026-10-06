@@ -191,8 +191,12 @@ export async function decodeSvg(file: File): Promise<SvgDecoded> {
     const img = await loadImage(url);
     let width = intrinsic?.width ?? img.naturalWidth ?? 0;
     let height = intrinsic?.height ?? img.naturalHeight ?? 0;
-    // Browser default for dimension-less SVG is 300x150 — fall back to a square.
-    if ((!intrinsic && width === 300 && height === 150) || !width || !height) {
+    // Browser default for dimension-less SVG is 300x150 — use a square instead.
+    if (!intrinsic && width === 300 && height === 150) {
+      width = 1024;
+      height = 1024;
+    }
+    if (!width || !height) {
       width = width || 1024;
       height = height || width;
     }

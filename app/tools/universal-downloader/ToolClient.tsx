@@ -56,13 +56,16 @@ function safeFilename(title: string | null, ext: string): string {
  * Download that really works: fetch the file, save it as a blob with a
  * sensible filename. Some hosts block cross-origin fetch — then fall back to
  * opening the file in a new tab so the user can save it from there.
+ * Returns true when the direct save worked, false when the caller should show
+ * the manual "open in new tab" fallback (window.open from an async context is
+ * often popup-blocked, so we never pretend it succeeded).
  */
 async function saveFile(
   fileUrl: string,
   filename: string,
   setBusy: (b: string | null) => void,
   setNote: (n: string | null) => void
-): Promise<void> {
+): Promise<boolean> {
   setBusy(filename);
   setNote(null);
   try {
@@ -77,11 +80,15 @@ async function saveFile(
     a.click();
     a.remove();
     window.setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+    return true;
   } catch {
-    window.open(fileUrl, "_blank", "noopener");
+    const popup = window.open(fileUrl, "_blank", "noopener");
     setNote(
-      "Your browser blocked the direct save — the file opened in a new tab. Use Save from there."
+      popup
+        ? "Your browser blocked the direct save — the file opened in a new tab. Use Save from there."
+        : "Your browser blocked the direct save (and the popup). Use the “Open file in new tab” button below, then save it from there."
     );
+    return false;
   } finally {
     setBusy(null);
   }
@@ -97,6 +104,7 @@ export default function UniversalDownloaderClient() {
   const [selectedQuality, setSelectedQuality] = useState(0);
   const [busyFile, setBusyFile] = useState<string | null>(null);
   const [downloadNote, setDownloadNote] = useState<string | null>(null);
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
 
   const fetchMedia = async () => {
     const target = url.trim();
@@ -109,6 +117,7 @@ export default function UniversalDownloaderClient() {
     setMessage(null);
     setMedia(null);
     setDownloadNote(null);
+    setFallbackUrl(null);
     setSelectedQuality(0);
     try {
       const res = await fetch(`/api/v1/alldl?url=${encodeURIComponent(target)}`);
@@ -319,11 +328,27 @@ export default function UniversalDownloaderClient() {
                       type="button"
                       className="btn btn-primary"
                       disabled={busyFile !== null}
-                      onClick={() => saveFile(b.fileUrl, b.filename, setBusyFile, setDownloadNote)}
+                      onClick={() =>
+                        saveFile(b.fileUrl, b.filename, setBusyFile, setDownloadNote).then(
+                          (ok) => {
+                            if (!ok) setFallbackUrl(b.fileUrl);
+                          }
+                        )
+                      }
                     >
                       {busyFile === b.filename ? "Preparing download…" : `${b.label} ↓`}
                     </button>
                   ))}
+                  {fallbackUrl && (
+                    <a
+                      href={fallbackUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                    >
+                      Open file in new tab ↗
+                    </a>
+                  )}
                 </div>
               ) : (
                 <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: 0 }}>
