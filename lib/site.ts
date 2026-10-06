@@ -8,7 +8,7 @@ export const SITE = {
   description:
     "Free online tools for screenshots, audio, documents, Urdu content, and developers — with simple APIs for integration.",
   tagline: "Free tools for screenshots, audio, documents, and everyday work.",
-  email: "contact@ahm7xmakki.com", // TODO(owner): set a dedicated YATools address when available
+  email: "yasirabbas@relianceengineering.com.pk",
   owner: "Yasir Abbas",
   locale: "en",
 } as const;
