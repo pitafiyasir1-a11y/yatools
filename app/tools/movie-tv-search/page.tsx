@@ -116,7 +116,7 @@ for (const r of data.results) {
 }
 // provider "tvmaze" → data.tvOnly is true: TV shows only (fallback mode)`;
 
-const CURL_EXAMPLE = `curl "https://yatools.vercel.app/api/v1/msearch?q=Breaking%20Bad"`;
+const CURL_EXAMPLE = `curl "https://yatools-tan.vercel.app/api/v1/msearch?q=Breaking%20Bad"`;
 
 const USE_CASES = [
   {

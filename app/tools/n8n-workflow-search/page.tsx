@@ -148,7 +148,7 @@ console.log(data.templates, data.pagination);
 // provider is "yatools" (live) or "cache" (weekly snapshot fallback)`;
 
 const CURL_EXAMPLE = `# List every workflow category with its template count
-curl "https://yatools.vercel.app/api/v1/n8n?endpoint=categories" | head -c 600`;
+curl "https://yatools-tan.vercel.app/api/v1/n8n?endpoint=categories" | head -c 600`;
 
 const USE_CASES = [
   {

@@ -133,7 +133,7 @@ const { data, provider, fallbackUsed } = await res.json();
 // provider: "yatools" (primary) or "pollinations" (fallback)
 document.getElementById("art").src = data.imageUrl;`;
 
-const CURL_EXAMPLE = `curl -X POST https://yatools.vercel.app/api/v1/tti \\
+const CURL_EXAMPLE = `curl -X POST https://yatools-tan.vercel.app/api/v1/tti \\
   -H "Content-Type: application/json" \\
   -d '{"prompt":"a lighthouse on a cliff at sunset","ratio":"16:9"}'`;
 

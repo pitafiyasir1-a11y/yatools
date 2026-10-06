@@ -123,7 +123,7 @@ if (ct.includes("application/pdf")) {
 
 const CURL_EXAMPLE = `# The response is a PDF file, not JSON — save it straight to disk
 curl -o wikster.pdf \\
-  "https://yatools.vercel.app/api/v1/wikipdf?query=Albert%20Einstein"`;
+  "https://yatools-tan.vercel.app/api/v1/wikipdf?query=Albert%20Einstein"`;
 
 const USE_CASES = [
   {

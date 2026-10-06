@@ -69,7 +69,7 @@ const PNG_SIZES = [512, 1024, 2048];
 export default function QrToolClient() {
   /* ---- content ---- */
   const [type, setType] = useState<ContentType>("text");
-  const [text, setText] = useState("https://yatools.vercel.app");
+  const [text, setText] = useState("https://yatools-tan.vercel.app");
   const [ssid, setSsid] = useState("");
   const [wifiPass, setWifiPass] = useState("");
   const [wifiAuth, setWifiAuth] = useState("WPA");
