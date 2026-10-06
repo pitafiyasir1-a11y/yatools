@@ -13,27 +13,27 @@ const LINKS = [
 function Logo() {
   const [logoOk, setLogoOk] = useState(true);
   return (
-    <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="YATools home">
+    <Link href="/" className="flex items-center gap-3.5 no-underline" aria-label="YATools home">
       {logoOk ? (
         <img
           src="/logo-mark.png"
           alt="YATools logo"
-          width={36}
-          height={36}
-          className="rounded-xl"
+          width={56}
+          height={56}
+          className="rounded-2xl"
           style={{ display: "block" }}
           onError={() => setLogoOk(false)}
         />
       ) : (
         <span
           aria-hidden="true"
-          className="font-display inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-xl text-white"
+          className="font-display inline-flex h-14 w-14 items-center justify-center rounded-2xl text-3xl text-white"
           style={{ background: "var(--red)", lineHeight: 1 }}
         >
           Y
         </span>
       )}
-      <span className="font-display text-[1.35rem]" style={{ color: "var(--text)", lineHeight: 1 }}>
+      <span className="font-display text-[2rem]" style={{ color: "var(--text)", lineHeight: 1 }}>
         YATools
       </span>
     </Link>
@@ -61,7 +61,7 @@ export default function Nav() {
         borderBottom: "1px solid var(--line)",
       }}
     >
-      <nav className="wrap flex h-16 items-center justify-between gap-4" aria-label="Primary">
+      <nav className="wrap flex h-20 items-center justify-between gap-4" aria-label="Primary">
         <Logo />
 
         <div className="hidden items-center gap-7 md:flex">
