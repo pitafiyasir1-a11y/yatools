@@ -5,6 +5,7 @@
     "@imgly/background-removal": "^1.7.0",
     "@upscalerjs/esrgan-slim": "^1.0.0",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "docx": "^9.8.1",
     "docx-preview": "^0.4.1",
     "heic2any": "^0.0.4",
