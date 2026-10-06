@@ -163,7 +163,7 @@ export default function WebsiteScreenshotPage() {
       >
         <Link href="/" className="hover:underline">Home</Link>
         <span>/</span>
-        <Link href="/tools" className="hover:underline">Tools</Link>
+        <Link href="/#tools" className="hover:underline">Tools</Link>
         <span>/</span>
         <span style={{ color: "var(--text)" }}>{tool.name}</span>
       </nav>

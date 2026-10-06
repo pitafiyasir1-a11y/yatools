@@ -286,7 +286,7 @@ export default function N8nWorkflowSearchPage() {
           Home
         </Link>
         <span>/</span>
-        <Link href="/tools" className="hover:underline">
+        <Link href="/#tools" className="hover:underline">
           Tools
         </Link>
         <span>/</span>
