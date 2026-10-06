@@ -10,7 +10,7 @@ import {
   breadcrumbJsonLd,
 } from "@/lib/site";
 import SectionHead from "@/components/SectionHead";
-import ToolGrid from "@/components/ToolGrid";
+import ToolsExplorer from "@/components/ToolsExplorer";
 import Faq from "@/components/Faq";
 
 const meta = pageMeta({
@@ -245,9 +245,9 @@ export default function HomePage() {
               All <em>74 tools</em>, one tab.
             </>
           }
-          sub="Filter by category — or just scroll. API tools run on a free daily allowance; in-browser tools have no limits at all."
+          sub="Search by name or keyword — “insta downloader”, “pdf to word” — or filter by category. API tools run on a free daily allowance; in-browser tools have no limits at all."
         />
-        <ToolGrid tools={TOOLS} />
+        <ToolsExplorer tools={TOOLS} />
 
         {/* Browse by category — SEO hub pages */}
         <div
