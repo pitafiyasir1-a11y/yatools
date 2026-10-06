@@ -124,7 +124,7 @@ const PARAMS = [
     name: "provider",
     type: "string",
     required: "\u2014",
-    desc: "Returned in the envelope: \u201cahm7\u201d (live directory) or \u201ccache\u201d (weekly snapshot). fallbackUsed flags the snapshot.",
+    desc: "Returned in the envelope: \u201cyatools\u201d (live directory) or \u201ccache\u201d (weekly snapshot). fallbackUsed flags the snapshot.",
   },
   {
     name: "rate limit",
@@ -145,7 +145,7 @@ const params = new URLSearchParams({
 const res = await fetch(\`/api/v1/n8n?\${params}\`);
 const { data, provider, fallbackUsed } = await res.json();
 console.log(data.templates, data.pagination);
-// provider is "ahm7" (live) or "cache" (weekly snapshot fallback)`;
+// provider is "yatools" (live) or "cache" (weekly snapshot fallback)`;
 
 const CURL_EXAMPLE = `# List every workflow category with its template count
 curl "https://yatools.vercel.app/api/v1/n8n?endpoint=categories" | head -c 600`;

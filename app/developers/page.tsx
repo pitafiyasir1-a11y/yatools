@@ -155,7 +155,7 @@ with open("screenshot.png", "wb") as f:
 
 const ENVELOPE_OK = `{
   "ok": true,
-  "provider": "ahm7",
+  "provider": "yatools",
   "fallbackUsed": false,
   "data": { /* endpoint-specific payload */ }
 }`;
@@ -284,7 +284,7 @@ export default function Page() {
             Every JSON endpoint returns the same envelope.{" "}
             <span className="font-mono2 text-sm">provider</span> names the
             backend that served the request (usually{" "}
-            <span className="font-mono2 text-sm">ahm7</span>);{" "}
+            <span className="font-mono2 text-sm">yatools</span>);{" "}
             <span className="font-mono2 text-sm">fallbackUsed</span> is{" "}
             <span className="font-mono2 text-sm">true</span> when a fallback
             cascade kicked in after the primary failed.

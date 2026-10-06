@@ -5,7 +5,7 @@ import BrandImage from "@/components/BrandImage";
 export const metadata = pageMeta({
   title: "About YATools",
   description:
-    "YATools by Yasir Abbas — free online tools for everyone, with API tools powered by the AHM7xMakki platform. Genuinely useful tools with honest limits.",
+    "YATools by Yasir Abbas — free online tools for everyone, with API-powered tools for heavier work. Genuinely useful tools with honest limits.",
   path: "/about",
   keywords: ["about yatools", "yasir abbas", "free online tools"],
 });
@@ -92,16 +92,8 @@ export default function Page() {
             YATools is a collection of free online tools for everyday work:
             website screenshots, audio transcription, text to speech, Urdu
             handwriting, Wikipedia to PDF, and more — 74 tools in total. 62
-            run entirely in your browser; 12 are powered through our API
-            proxy by the{" "}
-            <a
-              href="https://ahm7xmakki.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              AHM7xMakki platform
-            </a>
-            .
+            run entirely in your browser; 12 are powered through our own
+            secure API infrastructure.
           </p>
 
           <h2>Why it exists</h2>

@@ -103,7 +103,7 @@ const PARAMS = [
     name: "provider",
     type: "string",
     required: "\u2014",
-    desc: "\u201cahm7\u201d (PixelSter) or \u201cpollinations\u201d (Pollinations.ai fallback). fallbackUsed flags the fallback.",
+    desc: "\u201cyatools\u201d (primary) or \u201cpollinations\u201d (Pollinations.ai fallback). fallbackUsed flags the fallback.",
   },
   {
     name: "generation",
@@ -130,7 +130,7 @@ const res = await fetch("/api/v1/tti", {
 });
 const { data, provider, fallbackUsed } = await res.json();
 // data.imageUrl → direct image URL
-// provider: "ahm7" (PixelSter) or "pollinations" (fallback)
+// provider: "yatools" (primary) or "pollinations" (fallback)
 document.getElementById("art").src = data.imageUrl;`;
 
 const CURL_EXAMPLE = `curl -X POST https://yatools.vercel.app/api/v1/tti \\

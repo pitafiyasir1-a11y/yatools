@@ -90,7 +90,7 @@ const PARAMS = [
     name: "provider",
     type: "string",
     required: "\u2014",
-    desc: "\u201cahm7\u201d (movies + TV) or \u201ctvmaze\u201d (TV-only fallback). tvOnly:true marks fallback results.",
+    desc: "\u201cyatools\u201d (movies + TV) or \u201ctvmaze\u201d (TV-only fallback). tvOnly:true marks fallback results.",
   },
   {
     name: "data credit",
