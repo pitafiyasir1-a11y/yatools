@@ -11,6 +11,7 @@ import { rateLimit, clientIp, rateLimitedResponse } from "@/lib/rate-limit";
 const DEST = "yasirpitafi77556@gmail.com";
 const GMAIL_USER = process.env.GMAIL_USER || DEST;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Requires GMAIL_APP_PASSWORD (Gmail App Password) set as a Vercel env var.
 
 export async function POST(req: Request) {
   // 5 submissions per 10 minutes per IP.
