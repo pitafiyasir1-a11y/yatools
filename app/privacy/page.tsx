@@ -86,8 +86,8 @@ export default function Page() {
           <h2>Uploads and processing</h2>
           <p>
             Tools like Audio to Text or Website Screenshot need to process your
-            input on a server. When you use them, your upload is proxied to the
-            AHM7xMakki platform (<strong>ahm7xmakki.com</strong>) for{" "}
+            input on a server. When you use them, your upload is proxied to our
+            own secure processing infrastructure for{" "}
             <strong>real-time processing only</strong> and is{" "}
             <strong>not stored by us</strong> afterwards. We don&apos;t keep
             copies of your audio, URLs, or generated files on our servers.

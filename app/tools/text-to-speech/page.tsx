@@ -199,8 +199,8 @@ export default function TextToSpeechPage() {
         className="font-mono2 text-xs mt-3 text-center"
         style={{ color: "var(--muted)" }}
       >
-        Audio is generated in real time by the ahm7xmakki.com API and never
-        stored.
+        Audio is generated in real time by YATools&apos; secure processing
+        engine and never stored.
       </p>
 
             <section className="mt-14">

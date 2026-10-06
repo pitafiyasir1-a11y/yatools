@@ -68,8 +68,8 @@ function saveHistory(items: string[]) {
 /** Human-readable names for the render services behind /api/v1/websnap. */
 function providerLabel(provider: string): string {
   switch (provider) {
-    case "ahm7":
-      return "ahm7xmakki.com";
+    case "yatools":
+      return "YATools engine";
     case "microlink":
       return "Microlink";
     case "mshots":
@@ -286,7 +286,7 @@ export default function ToolClient() {
         className="font-mono2 text-xs mt-3"
         style={{ color: "var(--muted)" }}
       >
-        Primary renderer: ahm7xmakki.com · automatic fallbacks: Microlink →
+        Primary renderer: YATools engine · automatic fallbacks: Microlink →
         mShots → thum.io. Your URL is sent to whichever service renders the
         capture.
       </p>
