@@ -13,6 +13,7 @@ const GMAIL_USER = process.env.GMAIL_USER || DEST;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // Requires GMAIL_APP_PASSWORD (Gmail App Password) set as a Vercel env var.
 // Env: GMAIL_APP_PASSWORD (sensitive) + GMAIL_USER (plain), both production.
+// GMAIL_USER must match the account that created the app password.
 
 export async function POST(req: Request) {
   // 5 submissions per 10 minutes per IP.
