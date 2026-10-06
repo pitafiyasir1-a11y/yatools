@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE, TOOLS, USE_CASES } from "@/lib/site";
 import { POSTS } from "@/app/blog/posts";
+import { getAdminPosts } from "@/lib/admin-posts";
 
 type Freq = "weekly";
 
@@ -27,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/audio-tools", priority: 0.8 },
     { path: "/developer-tools", priority: 0.8 },
     ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
+    ...getAdminPosts(true).map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
   ];
 
   return routes.map((r) => ({

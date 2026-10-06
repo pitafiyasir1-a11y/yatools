@@ -2,7 +2,8 @@ import Link from "next/link";
 import { SITE, pageMeta, breadcrumbJsonLd } from "@/lib/site";
 import { JsonLd } from "../tools/tool-parts";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { POSTS, blogJsonLd } from "./posts";
+import { POSTS, blogJsonLd, type BlogPostMeta } from "./posts";
+import { getAdminPosts, adminPostDateLabel, adminPostReadTime } from "@/lib/admin-posts";
 
 export const metadata = pageMeta({
   title: "YATools Blog — Free Tool Guides & How-Tos",
@@ -17,6 +18,22 @@ export const metadata = pageMeta({
     "qr code tutorial",
   ],
 });
+
+/** All posts: static guides + admin/automation posts, newest first. */
+function allPosts(): BlogPostMeta[] {
+  const admin: BlogPostMeta[] = getAdminPosts(true).map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    date: p.date,
+    dateLabel: adminPostDateLabel(p.date),
+    readTime: adminPostReadTime(p.contentMarkdown),
+    tags: p.tags,
+  }));
+  const merged = [...POSTS, ...admin];
+  merged.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return merged;
+}
 
 export default function BlogIndex() {
   return (
@@ -50,7 +67,7 @@ export default function BlogIndex() {
         </p>
 
         <div className="tool-grid" style={{ marginTop: 32 }}>
-          {POSTS.map((post) => (
+          {allPosts().map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}

@@ -284,6 +284,16 @@ a { color: inherit; }
 .prose-neu li::marker { color: var(--red); }
 .prose-neu a { color: var(--red-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .prose-neu strong { color: var(--text); }
+.prose-neu code { font-family: var(--font-mono); font-size: 0.88em; background: color-mix(in srgb, var(--text) 7%, transparent); padding: 0.15em 0.4em; border-radius: 6px; }
+.prose-neu pre { background: var(--code-bg, #141210); color: #f6f1e5; padding: 18px 20px; border-radius: 12px; overflow-x: auto; margin: 0 0 1.4em; }
+.prose-neu pre code { background: none; padding: 0; color: inherit; font-size: 0.85rem; }
+.prose-neu blockquote { border-left: 3px solid var(--red); padding: 4px 0 4px 18px; margin: 0 0 1.2em; color: var(--text); font-style: italic; }
+.prose-neu table { width: 100%; border-collapse: collapse; margin: 0 0 1.4em; font-size: 0.92rem; }
+.prose-neu th, .prose-neu td { border: 1px solid var(--line); padding: 10px 14px; text-align: left; }
+.prose-neu th { background: color-mix(in srgb, var(--text) 5%, transparent); font-weight: 700; color: var(--text); }
+.prose-neu img { max-width: 100%; height: auto; border-radius: 12px; margin: 0.6em 0 1.2em; }
+.prose-neu hr { border: none; border-top: 1px solid var(--line); margin: 2em 0; }
+.prose-neu h4 { font-weight: 700; font-size: 1rem; color: var(--text); margin: 1.6em 0 0.5em; }
 
 /* RTL support */
 [dir="rtl"] .font-display { letter-spacing: 0; }

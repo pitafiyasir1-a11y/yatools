@@ -1,0 +1,50 @@
+{
+  "contentMarkdown": "Everyone hits this sooner or later: a lecture recording you want as a podcast, a music video whose song you want on your phone, a voice memo trapped inside a video file. You don't need the picture \u2014 you need the sound. Converting MP4 to MP3 takes under a minute, and here's the free way to do it.\n\n## The fastest method: free online MP4 to MP3 converter\n\nNo software to install, no account to create \u2014 your browser does the whole job, and the file never leaves your device.\n\n1. Open the [free MP4 to MP3 converter](/tools/mp4-to-mp3-converter).\n2. Drop in your MP4 video (or click to browse your files).\n3. Wait a few seconds while the audio track is extracted.\n4. Download your MP3.\n\nThat's it. Because the conversion happens locally with the video engine in your browser, even large videos convert fast and nothing is uploaded to any server \u2014 a genuine privacy win over upload-based converters.\n\n## Method 2: Extract audio with VLC (desktop, offline)\n\nIf you already have VLC media player installed, it can do the job offline:\n\n1. Open VLC and choose **Media \u2192 Convert / Save**.\n2. Add your MP4 file and click **Convert / Save**.\n3. In the Profile dropdown, choose **Audio \u2013 MP3**.\n4. Pick a destination file name ending in `.mp3` and click **Start**.\n\nVLC is free and open-source, and this works without an internet connection \u2014 handy on planes or slow networks.\n\n## Method 3: On iPhone and Android\n\n**iPhone:** the online converter above works directly in Safari \u2014 pick the video from Photos or Files and download the MP3. If you prefer an app workflow, Apple's free Shortcuts app can encode audio, but the browser route is fewer steps.\n\n**Android:** same story in Chrome. Open the converter, choose the video from your gallery, and save the MP3 to your Downloads folder.\n\n## What quality should you pick?\n\nFor speech \u2014 lectures, interviews, voice memos \u2014 a standard MP3 bitrate is plenty and keeps files tiny. For music you actually listen to, choose the highest quality setting the converter offers. Either way, keep the original MP4 somewhere safe: you can always re-convert from the original, but you can't restore quality lost in a low-bitrate MP3.\n\n## When MP3 isn't the right format\n\n- **Need the smallest file for a voice note?** MP3 is still the most compatible choice \u2014 it plays literally everywhere.\n- **Editing the audio later?** Most editors import MP3 directly. If yours insists on WAV, export from the editor in WAV and only convert to MP3 with the [WAV to MP3 converter](/tools/wav-to-mp3-converter) at the very end.\n- **Just need a clip, not the whole thing?** Trim the video first with the [free video trimmer](/tools/video-trimmer), then extract the audio.\n\n## The honest limits\n\nOnline extraction handles everyday videos effortlessly, but two caveats: extremely long videos (multi-hour recordings) take longer because your device does the work, and DRM-protected files from streaming services won't convert \u2014 that's by design, not a bug.",
+  "date": "2026-10-06",
+  "excerpt": "Pull the audio out of any MP4 video and save it as an MP3 \u2014 lectures, music, voice memos. Free, in your browser, no sign-up.",
+  "faqs": [
+    {
+      "a": "Yes. The browser-based converter on this page is completely free with no account, no watermark, and no file-size games. Your video is processed locally on your device, so nothing is uploaded anywhere.",
+      "q": "Is converting MP4 to MP3 free?"
+    },
+    {
+      "a": "MP3 is a compressed format, so technically yes \u2014 but at the converter's default high-quality setting the difference is inaudible for speech, lectures, and most music. If you need archival quality, keep the original MP4 too.",
+      "q": "Will I lose audio quality converting MP4 to MP3?"
+    },
+    {
+      "a": "Yes. The converter runs entirely in your mobile browser \u2014 open the tool, pick the video from your camera roll or files, and download the MP3. No app to install.",
+      "q": "Can I convert MP4 to MP3 on my phone?"
+    },
+    {
+      "a": "Converting videos you own or created \u2014 your recordings, lectures you attended, royalty-free clips \u2014 is fine. Ripping audio from copyrighted music videos or movies you don't own can infringe copyright, so stick to content you have the rights to.",
+      "q": "Is it legal to convert MP4 to MP3?"
+    },
+    {
+      "a": "MP4 is a video container (picture + sound). MP3 is audio-only. Converting strips the video track and re-encodes just the sound, which is why a 50 MB video can become a 5 MB audio file.",
+      "q": "What's the difference between MP4 and MP3?"
+    }
+  ],
+  "keywords": [
+    "convert mp4 to mp3",
+    "mp4 to mp3 converter free",
+    "extract audio from mp4",
+    "video to mp3 online",
+    "mp4 to mp3 no sign up"
+  ],
+  "metaDescription": "Convert MP4 to MP3 free in seconds: extract audio from any video right in your browser. No sign-up, no watermark, your file never leaves your device.",
+  "metaTitle": "Convert MP4 to MP3 Free \u2014 Extract Audio From Video Online",
+  "relatedTools": [
+    "mp4-to-mp3-converter",
+    "video-trimmer",
+    "audio-to-mp3",
+    "wav-to-mp3-converter"
+  ],
+  "slug": "how-to-convert-mp4-to-mp3-free",
+  "status": "published",
+  "tags": [
+    "Audio",
+    "Video",
+    "How-to"
+  ],
+  "title": "How to Convert MP4 to MP3 Free (Extract Audio From Any Video)"
+}
