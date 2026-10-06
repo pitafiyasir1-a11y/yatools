@@ -273,7 +273,7 @@ export default function AiImageGeneratorPage() {
           Home
         </Link>
         <span>/</span>
-        <Link href="/tools" className="hover:underline">
+        <Link href="/#tools" className="hover:underline">
           Tools
         </Link>
         <span>/</span>
