@@ -126,7 +126,7 @@ export default function RemovebgVsFreeAlternativesPage() {
             Our <Link href="/tools/background-remover">Background Remover</Link>{" "}
             takes a different architectural approach: instead of sending your
             photo to a server farm, it downloads an AI segmentation model
-            (~40MB, once) and runs it on your device. The result: free
+            (~85MB, once) and runs it on your device. The result: free
             forever, no account, no watermark, no upload — your photo never
             leaves your machine.
           </p>

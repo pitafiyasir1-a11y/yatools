@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 function childrenMd(el: Element, depth: number): string {
   return Array.from(el.childNodes)
@@ -111,18 +112,20 @@ const SAMPLE = `<h2>Pasta Recipe</h2>
 export default function HtmlToMdClient() {
   const [html, setHtml] = useState(SAMPLE);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const md =
     typeof window === "undefined" ? "" : html.trim() ? htmlToMarkdown(html) : "";
 
   const copy = async () => {
     if (!md) return;
-    try {
-      await navigator.clipboard.writeText(md);
+    setCopyError(false);
+    const ok = await copyText(md);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -155,6 +158,11 @@ export default function HtmlToMdClient() {
               {copied ? "Copied!" : "Copy Markdown"}
             </button>
           </div>
+          {copyError && (
+            <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginTop: 6 }}>
+              Copy didn&apos;t work in this browser — select the Markdown below and copy it manually.
+            </p>
+          )}
           <textarea
             className="textarea input-mono"
             rows={14}

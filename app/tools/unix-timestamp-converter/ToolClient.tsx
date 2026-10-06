@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { copyText } from "../copy-text";
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -42,6 +43,7 @@ export default function TimestampClient() {
   const [now, setNow] = useState(() => Date.now());
   const [tsInput, setTsInput] = useState("");
   const [dateInput, setDateInput] = useState("");
+  const [copiedNow, setCopiedNow] = useState<"idle" | "ok" | "fail">("idle");
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
@@ -75,12 +77,12 @@ export default function TimestampClient() {
 
   const nowDate = new Date(now);
 
-  const copy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      /* clipboard unavailable */
-    }
+  const copyNow = async () => {
+    const ts = String(Math.floor(Date.now() / 1000));
+    setTsInput(ts);
+    const ok = await copyText(ts);
+    setCopiedNow(ok ? "ok" : "fail");
+    setTimeout(() => setCopiedNow("idle"), 2000);
   };
 
   return (
@@ -115,13 +117,15 @@ export default function TimestampClient() {
             <button
               className="btn"
               style={{ marginTop: 6 }}
-              onClick={() => {
-                setTsInput(String(Math.floor(now / 1000)));
-                copy(String(Math.floor(now / 1000)));
-              }}
+              onClick={copyNow}
             >
-              Copy current timestamp
+              {copiedNow === "ok" ? "Copied!" : "Copy current timestamp"}
             </button>
+            {copiedNow === "fail" && (
+              <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.78rem", marginTop: 6 }}>
+                Copy didn&apos;t work in this browser — the timestamp is also in the field below.
+              </p>
+            )}
           </div>
         </div>
       </div>

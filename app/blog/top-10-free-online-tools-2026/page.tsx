@@ -59,7 +59,7 @@ const picks: { slug: string; name: string; verdict: string; detail: string }[] =
     verdict:
       "AI cutouts that run on your device, not a server. Product photos and profile pics without the upload.",
     detail:
-      "Online sellers use it to put products on clean white backgrounds; everyone else uses it for profile pictures and presentation graphics. The AI downloads once (~40MB) and then works offline-fast.",
+      "Online sellers use it to put products on clean white backgrounds; everyone else uses it for profile pictures and presentation graphics. The AI downloads once (~85MB) and then works offline-fast.",
   },
   {
     slug: "heic-to-jpg-converter",

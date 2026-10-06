@@ -1,9 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 function escapeHtml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/**
+ * Block dangerous URL schemes in links/images. The URL arrives HTML-escaped
+ * (escapeHtml runs first), so entity-based tricks (&#58;, &colon;) are already
+ * neutralized — we only need to normalize whitespace/control chars (browsers
+ * strip them before parsing, which defeats a naive protocol check) and then
+ * allow only safe schemes plus relative URLs.
+ */
+function safeUrl(u: string): string | null {
+  const t = u.replace(/[\t\n\r\f\v\0 ]/g, "").trim();
+  if (!t) return null;
+  const m = /^([a-zA-Z][a-zA-Z0-9+.-]*):/.exec(t);
+  if (!m) return t; // relative URL — safe
+  const scheme = m[1].toLowerCase();
+  return scheme === "http" || scheme === "https" || scheme === "mailto" || scheme === "tel"
+    ? t
+    : null;
 }
 
 function inlineMd(s: string): string {
@@ -13,12 +32,18 @@ function inlineMd(s: string): string {
   // Images before links: ![alt](src)
   t = t.replace(
     /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
-    (_, alt: string, src: string) => `<img src="${src}" alt="${alt}">`
+    (_, alt: string, src: string) => {
+      const ok = safeUrl(src);
+      return ok ? `<img src="${ok}" alt="${alt}">` : alt;
+    }
   );
   // Links: [text](url)
   t = t.replace(
     /\[([^\]]+)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g,
-    (_, text: string, url: string) => `<a href="${url}">${text}</a>`
+    (_, text: string, url: string) => {
+      const ok = safeUrl(url);
+      return ok ? `<a href="${ok}">${text}</a>` : text;
+    }
   );
   // Bold **text** and __text__
   t = t.replace(/(\*\*|__)([^*_]+?)\1/g, "<strong>$2</strong>");
@@ -149,18 +174,20 @@ function hello() {
 export default function MarkdownClient() {
   const [md, setMd] = useState(SAMPLE);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
   const [showHtml, setShowHtml] = useState(false);
 
   const html = mdToHtml(md);
 
   const copy = async () => {
     if (!html) return;
-    try {
-      await navigator.clipboard.writeText(html);
+    setCopyError(false);
+    const ok = await copyText(html);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -178,6 +205,11 @@ export default function MarkdownClient() {
           {copied ? "Copied!" : "Copy HTML"}
         </button>
       </div>
+      {copyError && (
+        <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 12 }}>
+          Copy didn&apos;t work in this browser — open the HTML source tab, select all, and copy manually.
+        </p>
+      )}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
         <div>

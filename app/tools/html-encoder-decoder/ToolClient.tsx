@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 const ENTITY_MAP: Record<string, string> = {
   amp: "&",
@@ -55,17 +56,19 @@ export default function HtmlClient() {
   const [action, setAction] = useState<"encode" | "decode">("encode");
   const [input, setInput] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const output = input ? (action === "encode" ? encodeHtml(input) : decodeHtml(input)) : "";
 
   const copy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
+    setCopyError(false);
+    const ok = await copyText(output);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -129,6 +132,11 @@ export default function HtmlClient() {
             <button className="btn btn-primary" onClick={copy} disabled={!output}>
               {copied ? "Copied!" : "Copy result"}
             </button>
+            {copyError && (
+              <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginTop: 8 }}>
+                Copy didn&apos;t work in this browser — select the result above and copy it manually.
+              </p>
+            )}
           </div>
         </div>
       </div>

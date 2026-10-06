@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 type Mode = "encode" | "decode" | "file";
 
@@ -70,11 +71,11 @@ export default function Base64Client() {
 
   const copy = async (text: string) => {
     if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
+    const ok = await copyText(text);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
+    } else {
       setError("Copy failed — select the text manually.");
     }
   };

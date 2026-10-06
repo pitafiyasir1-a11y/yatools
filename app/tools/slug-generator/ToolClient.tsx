@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 type Separator = "-" | "_";
 
@@ -23,17 +24,19 @@ export default function SlugClient() {
   const [sep, setSep] = useState<Separator>("-");
   const [maxLen, setMaxLen] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const slug = title ? slugify(title, sep, maxLen) : "";
 
   const copy = async () => {
     if (!slug) return;
-    try {
-      await navigator.clipboard.writeText(slug);
+    setCopyError(false);
+    const ok = await copyText(slug);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -107,6 +110,11 @@ export default function SlugClient() {
           {copied ? "Copied!" : "Copy slug"}
         </button>
       </div>
+      {copyError && (
+        <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginTop: 8 }}>
+          Copy didn&apos;t work in this browser — click the field above to select the slug, then copy it manually.
+        </p>
+      )}
       {slug && (
         <p style={{ color: "var(--muted)", fontSize: "0.82rem", marginTop: 8 }}>
           example.com/blog/<span className="font-mono2">{slug}</span>

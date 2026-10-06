@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 const PARAGRAPHS = [
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -26,6 +27,7 @@ export default function LoremClient() {
   const [count, setCount] = useState(3);
   const [startLorem, setStartLorem] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
   const [text, setText] = useState("");
 
   const sentences = PARAGRAPHS.flatMap((p) =>
@@ -60,12 +62,13 @@ export default function LoremClient() {
 
   const copy = async () => {
     if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
+    setCopyError(false);
+    const ok = await copyText(text);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -109,7 +112,10 @@ export default function LoremClient() {
             className="input"
             style={{ width: 110 }}
             value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
+            onChange={(e) => {
+              const n = Number(e.target.value);
+              setCount(Number.isFinite(n) ? Math.max(1, Math.min(100, Math.round(n))) : 1);
+            }}
           />
         </div>
         <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: "0.9rem" }}>
@@ -144,6 +150,11 @@ export default function LoremClient() {
               {copied ? "Copied!" : "Copy text"}
             </button>
           </div>
+          {copyError && (
+            <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginTop: 8 }}>
+              Copy didn&apos;t work in this browser — select the text above and copy it manually.
+            </p>
+          )}
           <div
             className="card"
             style={{

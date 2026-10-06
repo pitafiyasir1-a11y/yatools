@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: "Why is the first removal slow?",
-    a: "The first run downloads the AI model (around 40MB). After that it's cached in your browser, so later removals start much faster. If you're on a slow connection, start it once and let it finish in the background.",
+    a: "The first run downloads the AI model (around 85MB). After that it's cached in your browser, so later removals start much faster. If you're on a slow connection, start it once and let it finish in the background.",
   },
   {
     q: "What images work best?",
@@ -107,7 +107,7 @@ export default function RemoveBackgroundPost() {
             </li>
             <li>
               Click <strong>Remove background</strong>. On your first ever run, the
-              tool downloads the AI model (around 40MB) — this is a one-time wait,
+              tool downloads the AI model (around 85MB) — this is a one-time wait,
               and it's cached in your browser afterwards.
             </li>
             <li>
@@ -168,7 +168,7 @@ export default function RemoveBackgroundPost() {
               manual touch-ups in an editor.
             </li>
             <li>
-              <strong>First run needs patience.</strong> That ~40MB model download
+              <strong>First run needs patience.</strong> That ~85MB model download
               on a slow connection takes a while. It's once-only, but plan for it.
             </li>
             <li>

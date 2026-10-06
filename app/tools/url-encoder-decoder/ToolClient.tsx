@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 type Action = "encode" | "decode";
 type Mode = "component" | "full";
@@ -10,6 +11,7 @@ export default function UrlClient() {
   const [mode, setMode] = useState<Mode>("component");
   const [input, setInput] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const output = (() => {
     if (!input) return "";
@@ -25,12 +27,13 @@ export default function UrlClient() {
 
   const copy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
+    setCopyError(false);
+    const ok = await copyText(output);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -114,6 +117,11 @@ export default function UrlClient() {
             <button className="btn btn-primary" onClick={copy} disabled={!output}>
               {copied ? "Copied!" : "Copy result"}
             </button>
+            {copyError && (
+              <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginTop: 8 }}>
+                Copy didn&apos;t work in this browser — select the result above and copy it manually.
+              </p>
+            )}
           </div>
         </div>
       </div>
