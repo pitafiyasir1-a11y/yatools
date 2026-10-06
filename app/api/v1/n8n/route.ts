@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/n8n?endpoint=categories|templates[&category&complexity&triggerType&page&limit&q]
- * Primary: ahm7 /api/n8n. On failure: read the lib/n8n-cache-N.json part
+ * Primary: yatools /api/n8n. On failure: read the lib/n8n-cache-N.json part
  * files (written by scripts/snapshot-n8n.mjs via prebuild) and filter
  * in-memory. If still nothing: 502 N8N_UNAVAILABLE.
  *
@@ -132,7 +132,7 @@ export async function GET(req: Request): Promise<Response> {
         "N8N_UNAVAILABLE",
         "Keyword search is unavailable right now — the local snapshot hasn't loaded. Try the category filters instead.",
         502,
-        "ahm7",
+        "yatools",
         true,
       );
     }
@@ -150,7 +150,7 @@ export async function GET(req: Request): Promise<Response> {
     if (v) forward.set(key, v.slice(0, 100));
   }
 
-  // 1) Primary: ahm7.
+  // 1) Primary: yatools.
   try {
     const res = await fetch(`${UPSTREAM}/api/n8n?${forward.toString()}`, {
       headers: { accept: "application/json" },
@@ -158,7 +158,7 @@ export async function GET(req: Request): Promise<Response> {
     });
     if (!res.ok) throw new Error(`upstream ${res.status}`);
     const json = (await res.json()) as unknown;
-    return okJson(json, "ahm7");
+    return okJson(json, "yatools");
   } catch {
     // 2) Fallback: local snapshot.
     const templates = loadCache();
@@ -185,7 +185,7 @@ export async function GET(req: Request): Promise<Response> {
     "N8N_UNAVAILABLE",
     "The workflow directory is offline right now. Browse workflows at n8n.io/workflows instead.",
     502,
-    "ahm7",
+    "yatools",
     true,
   );
 }

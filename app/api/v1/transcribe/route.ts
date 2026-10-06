@@ -3,7 +3,7 @@
  * Body (upload mode): { audio: <data URL>, filename?, mime?, language?, model?, translate?, timestamps? }
  * Body (YouTube mode): { youtube: "https://youtube.com/watch?v=..." | "https://youtu.be/...", translate? }
  * Upload mode ONLY for files (no direct download mode besides YouTube, which
- * the upstream fetches itself). Synchronous forward to ahm7.
+ * the upstream fetches itself). Synchronous forward to yatools.
  *
  * Upstream docs (https://ahm7xmakki.com/transcribe): translate and timestamps
  * are the STRING "1". Models: turbo | accurate | english.
@@ -177,6 +177,6 @@ export async function POST(req: Request): Promise<Response> {
       model: typeof json.model === "string" ? json.model : undefined,
       srt: typeof json.srt === "string" ? json.srt : undefined,
     },
-    "ahm7",
+    "yatools",
   );
 }

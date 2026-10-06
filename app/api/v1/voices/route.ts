@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/voices
- * Lists available TTS voices. Primary: ahm7 /api/voices.
+ * Lists available TTS voices. Primary: yatools /api/voices.
  * Cache layers: in-memory (1h TTL) -> persistent lib/voices-cache.json snapshot.
  * A stale voice list beats none, so the file snapshot is served on cold
  * starts when the primary is unreachable.
@@ -85,7 +85,7 @@ export async function GET(req: Request): Promise<Response> {
     const json = (await res.json()) as unknown;
     cache = { at: now, data: json };
     writeFileCache(cache);
-    return okJson(json, "ahm7");
+    return okJson(json, "yatools");
   } catch {
     // Serve a stale entry if we have one — a stale voice list beats none.
     const stale = cache ?? readFileCache();

@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/wikipdf?query=
- * Wikipedia article → PDF bytes. Primary: ahm7 /api/wikipdf.
+ * Wikipedia article → PDF bytes. Primary: yatools /api/wikipdf.
  * On failure: 502 JSON code WIKIPDF_DOWN — the CLIENT falls back to the
  * Wikipedia REST API client-side (browser print-to-PDF).
  */
@@ -42,7 +42,7 @@ export async function GET(req: Request): Promise<Response> {
         "ARTICLE_NOT_FOUND",
         "We couldn't find that Wikipedia article. Check the title and try again.",
         400,
-        "ahm7",
+        "yatools",
       );
     }
     if (!res.ok) throw new Error(`upstream ${res.status}`);
@@ -52,7 +52,7 @@ export async function GET(req: Request): Promise<Response> {
     const bytes = await res.arrayBuffer();
     if (bytes.byteLength < 512 || !isPdf(bytes)) throw new Error("empty/invalid pdf");
     return new Response(bytes, {
-      headers: binaryHeaders("ahm7", false, "application/pdf"),
+      headers: binaryHeaders("yatools", false, "application/pdf"),
     });
   } catch {
     return errJson(

@@ -1,7 +1,7 @@
 /**
  * POST /api/v1/tti
  * Body: { prompt: string (1–500 chars), ratio?: one of the supported ratios }
- * Primary: ahm7 POST /api/tti → { ok:true, data:{ imageUrl }, provider:"ahm7" }.
+ * Primary: yatools POST /api/tti → { ok:true, data:{ imageUrl }, provider:"yatools" }.
  * Fallback: Pollinations (free, no key) → { ok:true, data:{ imageUrl }, provider:"pollinations", fallbackUsed:true }.
  * The fallback imageUrl is directly usable as an <img> src.
  */
@@ -50,7 +50,7 @@ export async function POST(req: Request): Promise<Response> {
     return errJson("BAD_RATIO", `Ratio must be one of: ${RATIOS.join(", ")}.`, 400);
   }
 
-  // 1) Primary: ahm7 (PixelSter). Shape: { success, imageUrl, code, prompt, ratio, model }.
+  // 1) Primary: yatools (PixelSter). Shape: { success, imageUrl, code, prompt, ratio, model }.
   try {
     const res = await fetch(`${UPSTREAM}/api/tti`, {
       method: "POST",
@@ -62,7 +62,7 @@ export async function POST(req: Request): Promise<Response> {
     if (!res.ok || json.success !== true || typeof json.imageUrl !== "string") {
       throw new Error("upstream tti failed");
     }
-    return okJson({ imageUrl: json.imageUrl }, "ahm7");
+    return okJson({ imageUrl: json.imageUrl }, "yatools");
   } catch {
     // 2) Fallback: Pollinations.ai (free, no key). URL is directly renderable.
     const seed = Math.floor(Math.random() * 1_000_000);

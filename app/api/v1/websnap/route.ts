@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/websnap?url=[&info=1]
- * Screenshot a public URL. Primary: ahm7 /api/websnap.
+ * Screenshot a public URL. Primary: yatools /api/websnap.
  * Fallback chain: Microlink -> mShots -> thum.io (all third-party).
  * Binary route: PNG/JPEG bytes with X-Provider / X-Fallback-Used headers.
  *
@@ -90,10 +90,10 @@ export async function GET(req: Request): Promise<Response> {
   const rawUrl = searchParams.get("url")?.trim();
 
   if (!rawUrl) {
-    return errJson("MISSING_URL", "Please enter a website URL to screenshot.", 400, "ahm7");
+    return errJson("MISSING_URL", "Please enter a website URL to screenshot.", 400, "yatools");
   }
   if (rawUrl.length > 2048) {
-    return errJson("URL_TOO_LONG", "That URL is too long to process.", 400, "ahm7");
+    return errJson("URL_TOO_LONG", "That URL is too long to process.", 400, "yatools");
   }
 
   const { allowed, retryAfterSec } = checkRateLimit("websnap", RATE_LIMIT, req);
@@ -104,7 +104,7 @@ export async function GET(req: Request): Promise<Response> {
     safeUrl = await assertSafeUrl(rawUrl);
   } catch (e) {
     const msg = e instanceof Error ? e.message : "That URL isn't allowed.";
-    return errJson("UNSAFE_URL", msg, 400, "ahm7");
+    return errJson("UNSAFE_URL", msg, 400, "yatools");
   }
 
   // Metadata check: upstream action=info returns JSON without the binary —
@@ -130,19 +130,19 @@ export async function GET(req: Request): Promise<Response> {
           sizeBytes:
             typeof json.sizeBytes === "number" ? json.sizeBytes : null,
         },
-        "ahm7",
+        "yatools",
       );
     } catch {
       return errJson(
         "INFO_FAILED",
         "Couldn't check that URL right now — try the capture anyway, or try again later.",
         502,
-        "ahm7",
+        "yatools",
       );
     }
   }
 
-  // 1) Primary: ahm7 screenshot.
+  // 1) Primary: yatools screenshot.
   try {
     const res = await fetchUpstream(
       `${UPSTREAM}/api/websnap?action=screenshot&url=${encodeURIComponent(safeUrl.toString())}`,
@@ -155,7 +155,7 @@ export async function GET(req: Request): Promise<Response> {
         // Pass through the upstream content type (it may serve JPEG, not PNG).
         const ct = (res.headers.get("content-type") || "image/png").split(";")[0].trim();
         return new Response(bytes, {
-          headers: binaryHeaders("ahm7", false, ct),
+          headers: binaryHeaders("yatools", false, ct),
         });
       }
     }
@@ -184,7 +184,7 @@ export async function GET(req: Request): Promise<Response> {
     "SCREENSHOT_FAILED",
     "We couldn't capture that page right now — it may be blocking screenshots. Please try again later.",
     502,
-    "ahm7",
+    "yatools",
     true,
   );
 }

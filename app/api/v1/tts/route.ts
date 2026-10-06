@@ -1,7 +1,7 @@
 /**
  * POST /api/v1/tts
  * Body: { voiceIndex: number, text: string (1–1950 chars), pitch?: -100..100, rate?: -100..100 }
- * Primary: ahm7 /api/tts → audio/mpeg bytes.
+ * Primary: yatools /api/tts → audio/mpeg bytes.
  *
  * NOTE: there is no server-side TTS fallback. On upstream failure this route
  * returns 502 JSON and the CLIENT implements the browser speechSynthesis
@@ -83,7 +83,7 @@ export async function POST(req: Request): Promise<Response> {
     // Upstream documents X-Pitch, X-Rate, X-Voice-Name, X-Char-Count on
     // successful responses — pass the informational ones through so the
     // client can show which voice actually rendered the chunk.
-    const headers = binaryHeaders("ahm7", false, "audio/mpeg");
+    const headers = binaryHeaders("yatools", false, "audio/mpeg");
     for (const h of ["X-Voice-Name", "X-Char-Count"] as const) {
       const v = res.headers.get(h);
       if (v) headers[h] = v;
