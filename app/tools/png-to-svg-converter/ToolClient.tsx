@@ -34,6 +34,12 @@ export default function PngToSvgClient() {
   const previewRef = useRef<string | null>(null);
   previewRef.current = previewUrl;
 
+  /** Drop the current trace result, releasing its object URL. */
+  const clearResult = () => {
+    if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
+    setResult(null);
+  };
+
   useEffect(() => {
     return () => {
       if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
@@ -179,7 +185,10 @@ export default function PngToSvgClient() {
         type="file"
         accept=".png,image/png"
         style={{ display: "none" }}
-        onChange={(e) => pickFile(e.target.files?.[0] ?? null)}
+        onChange={(e) => {
+          pickFile(e.target.files?.[0] ?? null);
+          e.target.value = "";
+        }}
       />
 
       <div
@@ -260,7 +269,7 @@ export default function PngToSvgClient() {
                     disabled={busy}
                     onClick={() => {
                       setThresholdAuto(true);
-                      setResult(null);
+                      clearResult();
                     }}
                   >
                     Auto (recommended)
@@ -272,7 +281,7 @@ export default function PngToSvgClient() {
                     disabled={busy}
                     onClick={() => {
                       setThresholdAuto(false);
-                      setResult(null);
+                      clearResult();
                     }}
                   >
                     Manual
@@ -288,7 +297,7 @@ export default function PngToSvgClient() {
                       disabled={busy}
                       onChange={(e) => {
                         setThreshold(Number(e.target.value));
-                        setResult(null);
+                        clearResult();
                       }}
                       style={{ width: "100%", accentColor: "var(--red)" }}
                       aria-label={`Threshold ${threshold}`}
@@ -319,7 +328,7 @@ export default function PngToSvgClient() {
                   disabled={busy}
                   onChange={(e) => {
                     setTurdSize(Number(e.target.value));
-                    setResult(null);
+                    clearResult();
                   }}
                   style={{ width: "100%", accentColor: "var(--red)" }}
                 />
@@ -341,7 +350,7 @@ export default function PngToSvgClient() {
                     disabled={busy}
                     onChange={(e) => {
                       setFgColor(e.target.value);
-                      setResult(null);
+                      clearResult();
                     }}
                     style={{ width: 44, height: 36, padding: 2, border: "1px solid var(--line)", borderRadius: 8, background: "var(--surface)", cursor: "pointer" }}
                   />
@@ -358,7 +367,7 @@ export default function PngToSvgClient() {
                         disabled={busy}
                         onClick={() => {
                           setBgMode(b);
-                          setResult(null);
+                          clearResult();
                         }}
                       >
                         {b === "transparent" ? "Transparent" : "White"}

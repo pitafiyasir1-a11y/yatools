@@ -68,6 +68,7 @@ export default function TiffToJpgClient() {
     if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
     setError(null);
     setResult(null);
+    setPreviewUrl(null);
     setPages([]);
     setPageIdx(0);
     setStage("reading");
@@ -242,6 +243,7 @@ export default function TiffToJpgClient() {
                 disabled={busy}
                 onChange={(e) => {
                   setPageIdx(Number(e.target.value));
+                  if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
                   setResult(null);
                   setPreviewUrl(null);
                 }}
@@ -271,7 +273,9 @@ export default function TiffToJpgClient() {
               disabled={busy}
               onChange={(e) => {
                 setQuality(Number(e.target.value));
+                if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
                 setResult(null);
+                setPreviewUrl(null);
               }}
               style={{ width: "100%", accentColor: "var(--red)" }}
             />
