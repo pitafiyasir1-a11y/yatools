@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 import { rateLimit, clientIp, rateLimitedResponse } from "@/lib/rate-limit";
 
 /* Public contact form -> Yasir's inbox.
-   Server-side forward via FormSubmit's free AJAX endpoint (no API key needed):
+   Server-side forward via Gmail SMTP (App Password in GMAIL_APP_PASSWORD):
    the message lands in yasirpitafi77556@gmail.com with the visitor's address
-   as reply-to. First-ever submission triggers a one-time activation email
-   that the inbox owner must confirm; afterwards delivery is automatic.
-   Provider is isolated here — swap this fetch for Resend/SMTP later if needed. */
+   as reply-to. No third-party form service, no activation dance, no IP
+   blocking — Gmail SMTP works reliably from Vercel's servers. */
 
 const DEST = "yasirpitafi77556@gmail.com";
+const GMAIL_USER = process.env.GMAIL_USER || DEST;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export async function POST(req: Request) {
@@ -45,43 +46,27 @@ export async function POST(req: Request) {
       { status: 400 }
     );
 
+  const appPassword = process.env.GMAIL_APP_PASSWORD;
+  if (!appPassword) {
+    return NextResponse.json(
+      { error: "Email service is being set up. Please email us directly for now." },
+      { status: 503 }
+    );
+  }
+
   try {
-    const res = await fetch(`https://formsubmit.co/ajax/${DEST}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        // FormSubmit's AJAX endpoint requires the request to look like it
-        // comes from a real web page; without this it rejects the send.
-        Referer: "https://yatools-tan.vercel.app/contact",
-        Origin: "https://yatools-tan.vercel.app",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        _replyto: email,
-        _subject: `YATools contact — ${name}`,
-        _template: "table",
-        _captcha: "false",
-        message,
-      }),
-      signal: AbortSignal.timeout(15000),
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user: GMAIL_USER, pass: appPassword },
     });
-    const data = (await res.json().catch(() => null)) as {
-      success?: string;
-      message?: string;
-    } | null;
-    if (!res.ok || !data) throw new Error("forward failed");
-    if (data.success === "true") return NextResponse.json({ ok: true });
-    // One-time state: the inbox owner hasn't clicked FormSubmit's activation
-    // link yet. Surface it distinctly so we know, not the visitor.
-    if (data.message?.toLowerCase().includes("activation")) {
-      return NextResponse.json(
-        { error: "CONTACT_NOT_ACTIVATED" },
-        { status: 502 }
-      );
-    }
-    throw new Error("forward failed");
+    await transporter.sendMail({
+      from: `"YATools Contact Form" <${GMAIL_USER}>`,
+      to: DEST,
+      replyTo: email,
+      subject: `YATools contact — ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    });
+    return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(
       {
