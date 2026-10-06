@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/msearch?q=
- * Movie/TV search. Primary: ahm7 /api/msearch?q=, adapted defensively to
+ * Movie/TV search. Primary: yatools /api/msearch?q=, adapted defensively to
  *   { results: [{ title, type, year, rating, image, url }] }.
  * Fallback: TVMaze search/shows (TV-only) with an in-memory ~1req/2s throttle.
  */
@@ -35,7 +35,7 @@ type MsearchItem = {
 };
 
 /**
- * Defensive best-effort mapping of the ahm7 msearch payload.
+ * Defensive best-effort mapping of the yatools msearch payload.
  * Observed live shape: { success, query, total_results, raw_count,
  * filtered_nm, results: [{ id, title, type, year, yearEnd, rank, cast,
  * poster, posterWidth, posterHeight, watchUrl, imdbUrl }] }.
@@ -143,7 +143,7 @@ export async function GET(req: Request): Promise<Response> {
     return errJson("QUERY_TOO_LONG", "Please keep your search under 100 characters.", 400);
   }
 
-  // 1) Primary: ahm7.
+  // 1) Primary: yatools.
   try {
     const res = await fetch(`${UPSTREAM}/api/msearch?q=${encodeURIComponent(q)}`, {
       headers: { accept: "application/json" },
@@ -152,7 +152,7 @@ export async function GET(req: Request): Promise<Response> {
     if (!res.ok) throw new Error(`upstream ${res.status}`);
     const json = (await res.json()) as unknown;
     const results = adaptMsearch(json);
-    return okJson({ results }, "ahm7");
+    return okJson({ results }, "yatools");
   } catch {
     // 2) Fallback: TVMaze (TV shows only).
     const tv = await viaTvmaze(q);
@@ -165,7 +165,7 @@ export async function GET(req: Request): Promise<Response> {
     "MSEARCH_DOWN",
     "Search is unavailable right now. Please try again in a moment.",
     502,
-    "ahm7",
+    "yatools",
     true,
   );
 }

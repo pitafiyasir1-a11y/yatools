@@ -1,7 +1,7 @@
 /**
  * POST /api/v1/imgchat
  * Body: { image: data URL (png|jpeg|webp|gif), base64-decoded ≤ 5MB, userPrompt: 1–500 chars }
- * Primary: ahm7 POST /api/imgchat with { userPrompt, image } →
+ * Primary: yatools POST /api/imgchat with { userPrompt, image } →
  *   { success:true, response:string }.
  * No free fallback exists for image chat → 502 IMGCHAT_DOWN on upstream failure.
  * Privacy: the image is never written to disk and never logged; nothing leaves
@@ -68,7 +68,7 @@ export async function POST(req: Request): Promise<Response> {
     if (!res.ok || json.success !== true || typeof json.response !== "string") {
       throw new Error("upstream imgchat failed");
     }
-    return okJson({ response: json.response }, "ahm7");
+    return okJson({ response: json.response }, "yatools");
   } catch {
     // No free fallback for image chat — honest failure.
     return errJson(

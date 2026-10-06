@@ -7,7 +7,7 @@
  *   details:     string, 1–500 chars (required)
  *   templateId:  integer 1–8 (required)
  *   format:      "pdf" | "jpg" | "png" (default "pdf")
- * Primary: ahm7 POST /api/certificate → { success:true, renderUrl, template, format, fields }.
+ * Primary: yatools POST /api/certificate → { success:true, renderUrl, template, format, fields }.
  * No free fallback exists for certificates → 502 CERT_UNAVAILABLE on upstream failure.
  * No SSRF surface: the body contains no URLs and is never fetched.
  */
@@ -97,7 +97,7 @@ export async function POST(req: Request): Promise<Response> {
     }
     return okJson(
       { renderUrl: json.renderUrl, template: json.template, format: json.format, fields: json.fields },
-      "ahm7",
+      "yatools",
     );
   } catch {
     // No free fallback for certificate generation — honest failure.

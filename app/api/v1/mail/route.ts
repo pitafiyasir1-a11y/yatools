@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/mail?action=create|inbox|read|delete&...
- * Temporary email. Primary: ahm7 /api/mail (GET only), adapted defensively.
+ * Temporary email. Primary: yatools /api/mail (GET only), adapted defensively.
  *
  * Upstream action shapes (from the live /api/mail index):
  *   create: ?action=create            (optional &name=yourname)
@@ -184,7 +184,7 @@ export async function GET(req: Request): Promise<Response> {
       "MAIL_DOWN",
       "The mail service is slow or unavailable right now. Please try again in a moment.",
       502,
-      "ahm7"
+      "yatools"
     );
   }
 
@@ -196,7 +196,7 @@ export async function GET(req: Request): Promise<Response> {
       "MAIL_DOWN",
       "The mail service is slow or unavailable right now. Please try again in a moment.",
       502,
-      "ahm7"
+      "yatools"
     );
   }
 
@@ -208,14 +208,14 @@ export async function GET(req: Request): Promise<Response> {
       "MAIL_DOWN",
       "The mail service returned an unreadable response. Please try again.",
       502,
-      "ahm7"
+      "yatools"
     );
   }
 
   const data = adapt(act, json);
   if (!data) {
     const msg = str(asRecord(json).error) || "The mail service reported an error.";
-    return errJson("MAIL_ERROR", msg, 502, "ahm7");
+    return errJson("MAIL_ERROR", msg, 502, "yatools");
   }
-  return okJson(data, "ahm7");
+  return okJson(data, "yatools");
 }

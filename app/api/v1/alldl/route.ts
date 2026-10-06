@@ -1,6 +1,6 @@
 /**
  * GET /api/v1/alldl?url=
- * Universal downloader. Primary: ahm7 /api/alldl?url=.
+ * Universal downloader. Primary: yatools /api/alldl?url=.
  *
  * The live upstream answers:
  *   { success, links: string[], note, mediaInfo: {...}, message?, supportedPlatforms? }
@@ -62,7 +62,7 @@ const nonEmptyHttpUrl = (v: unknown): string | null => {
 };
 
 /**
- * Defensive mapping of the ahm7 alldl payload.
+ * Defensive mapping of the yatools alldl payload.
  * The promo `links` array is deliberately dropped — it is not media.
  */
 function adaptAlldl(payload: unknown): DownloadResult {
@@ -162,13 +162,13 @@ export async function GET(req: Request): Promise<Response> {
     } catch {
       throw new Error("upstream returned non-JSON");
     }
-    return okJson(adaptAlldl(json), "ahm7");
+    return okJson(adaptAlldl(json), "yatools");
   } catch {
     return errJson(
       "ALLDL_DOWN",
       "The download service is unavailable right now. Please try again in a moment.",
       502,
-      "ahm7"
+      "yatools"
     );
   }
 }

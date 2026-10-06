@@ -1,7 +1,7 @@
 /**
  * /api/v1/hand — GET (query params) or POST (JSON body) passthrough of
  * text/font/color/size/paper/style/lang/rtl/page/format/brand/download
- * to ahm7 /api/hand → image bytes.
+ * to yatools /api/hand → image bytes.
  *
  * Secondary path only: the primary handwriting renderer is client-side
  * canvas; this route exists as a backup when the client needs it.
@@ -66,7 +66,7 @@ async function proxy(params: URLSearchParams): Promise<Response> {
     if (!ct.startsWith("image/")) throw new Error("not an image");
     const bytes = await res.arrayBuffer();
     if (bytes.byteLength < 512) throw new Error("empty image");
-    return new Response(bytes, { headers: binaryHeaders("ahm7", false, ct) });
+    return new Response(bytes, { headers: binaryHeaders("yatools", false, ct) });
   } catch {
     return errJson(
       "HAND_DOWN",
