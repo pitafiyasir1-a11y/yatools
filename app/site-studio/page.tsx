@@ -77,20 +77,20 @@ export default function AdminPage() {
   const [notice, setNotice] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
 
   const refreshMe = useCallback(async () => {
-    const r = await fetch("/api/admin/me", { cache: "no-store" });
+    const r = await fetch("/api/site-studio/me", { cache: "no-store" });
     setMe(await r.json());
   }, []);
 
   useEffect(() => {
     refreshMe();
-    fetch("/api/admin/tools")
+    fetch("/api/site-studio/tools")
       .then((r) => r.json())
       .then((d) => setTools(d.tools || []))
       .catch(() => {});
   }, [refreshMe]);
 
   const refreshPosts = useCallback(async () => {
-    const r = await fetch("/api/admin/posts", { cache: "no-store" });
+    const r = await fetch("/api/site-studio/posts", { cache: "no-store" });
     if (r.status === 401) {
       setMe({ authenticated: false, configured: true });
       return;
@@ -108,7 +108,7 @@ export default function AdminPage() {
     e.preventDefault();
     setLoggingIn(true);
     setLoginError("");
-    const r = await fetch("/api/admin/login", {
+    const r = await fetch("/api/site-studio/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password }),
@@ -124,7 +124,7 @@ export default function AdminPage() {
   }
 
   async function doLogout() {
-    await fetch("/api/admin/logout", { method: "POST" });
+    await fetch("/api/site-studio/logout", { method: "POST" });
     setMe({ authenticated: false, configured: true });
     setView("list");
   }
@@ -137,7 +137,7 @@ export default function AdminPage() {
   }
 
   async function editPost(slug: string) {
-    const r = await fetch(`/api/admin/posts/${slug}`, { cache: "no-store" });
+    const r = await fetch(`/api/site-studio/posts/${slug}`, { cache: "no-store" });
     if (!r.ok) {
       setNotice({ kind: "err", text: "Could not load the post." });
       return;
@@ -165,7 +165,7 @@ export default function AdminPage() {
 
   async function deletePost(slug: string) {
     if (!window.confirm(`Delete "${slug}" permanently? This cannot be undone.`)) return;
-    const r = await fetch(`/api/admin/posts/${slug}`, { method: "DELETE" });
+    const r = await fetch(`/api/site-studio/posts/${slug}`, { method: "DELETE" });
     if (r.ok) {
       setNotice({ kind: "ok", text: `Deleted ${slug}.` });
       refreshPosts();
@@ -212,7 +212,7 @@ export default function AdminPage() {
       relatedTools: draft.relatedTools,
       status,
     };
-    const r = await fetch("/api/admin/posts", {
+    const r = await fetch("/api/site-studio/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
