@@ -46,9 +46,6 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: ["https://yatools-tan.vercel.app/og-image.jpg"],
   },
-  verification: {
-    google: "7vL78_nRkP8dJeqWXBX9uPU2Q94PHc2x8X-UFgRj2BU",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
