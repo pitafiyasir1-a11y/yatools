@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -60,6 +61,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <style>{`.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--red);color:#fff;font-weight:700;padding:10px 18px;border-radius:0 0 10px 0}.skip-link:focus{left:0}`}</style>
+        {/* Google Analytics (GA4) — G-4NNFF8QWQ4. Lives in the root layout so it
+            fires on every page: all tools, all current posts, and every future
+            blog post automatically. No per-page setup needed. */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-4NNFF8QWQ4"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4NNFF8QWQ4');
+          `}
+        </Script>
       </head>
       <body className={`${body.variable} ${mono.variable}`}>
         <a href="#main-content" className="skip-link">
