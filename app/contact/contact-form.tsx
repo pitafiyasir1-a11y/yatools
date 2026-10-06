@@ -24,7 +24,13 @@ export default function ContactForm() {
         body: JSON.stringify({ name, email, message, website }),
       });
       const data = (await r.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-      if (!r.ok || !data.ok) throw new Error(data.error || "Couldn't send your message.");
+      if (!r.ok || !data.ok) {
+        throw new Error(
+          data.error === "CONTACT_NOT_ACTIVATED"
+            ? "Our inbox is being connected right now — please email us directly and try the form again in a little while."
+            : data.error || "Couldn't send your message."
+        );
+      }
       setStatus("sent");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Couldn't send your message.");

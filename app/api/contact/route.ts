@@ -48,7 +48,14 @@ export async function POST(req: Request) {
   try {
     const res = await fetch(`https://formsubmit.co/ajax/${DEST}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        // FormSubmit's AJAX endpoint requires the request to look like it
+        // comes from a real web page; without this it rejects the send.
+        Referer: "https://yatools-xyv3.vercel.app/contact",
+        Origin: "https://yatools-xyv3.vercel.app",
+      },
       body: JSON.stringify({
         name,
         email,
@@ -60,9 +67,21 @@ export async function POST(req: Request) {
       }),
       signal: AbortSignal.timeout(15000),
     });
-    const data = (await res.json().catch(() => null)) as { success?: string } | null;
-    if (!res.ok || !data || data.success !== "true") throw new Error("forward failed");
-    return NextResponse.json({ ok: true });
+    const data = (await res.json().catch(() => null)) as {
+      success?: string;
+      message?: string;
+    } | null;
+    if (!res.ok || !data) throw new Error("forward failed");
+    if (data.success === "true") return NextResponse.json({ ok: true });
+    // One-time state: the inbox owner hasn't clicked FormSubmit's activation
+    // link yet. Surface it distinctly so we know, not the visitor.
+    if (data.message?.toLowerCase().includes("activation")) {
+      return NextResponse.json(
+        { error: "CONTACT_NOT_ACTIVATED" },
+        { status: 502 }
+      );
+    }
+    throw new Error("forward failed");
   } catch {
     return NextResponse.json(
       {
