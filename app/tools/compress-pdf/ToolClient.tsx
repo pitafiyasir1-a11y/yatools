@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -16,6 +16,14 @@ export default function CompressPdfClient() {
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const downloadUrlRef = useRef<string | null>(null);
+  downloadUrlRef.current = downloadUrl;
+
+  useEffect(() => {
+    return () => {
+      if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+    };
+  }, []);
 
   const pickFile = (f: File) => {
     const isPdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name);
@@ -57,7 +65,12 @@ export default function CompressPdfClient() {
       src.setModificationDate(new Date(0));
 
       const bytes = await src.save({ useObjectStreams: true });
-      const blob = new Blob([bytes.buffer as ArrayBuffer], { type: "application/pdf" });
+      // Slice the exact byte range: a Uint8Array's .buffer may be a larger
+      // pooled ArrayBuffer, which would corrupt the download with stray bytes.
+      const blob = new Blob(
+        [bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer],
+        { type: "application/pdf" }
+      );
       setNewSize(blob.size);
       setDownloadUrl((prev) => {
         if (prev) URL.revokeObjectURL(prev);

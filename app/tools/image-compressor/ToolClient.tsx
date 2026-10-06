@@ -41,6 +41,13 @@ export default function ImageCompressorClient() {
   // Ref mirror of `file` so runCompression can compare byte sizes
   // without re-creating the callback on every file change.
   const fileRef = useRef<File | null>(null);
+  // Ref mirrors for unmount cleanup: the effect below must revoke the URLs
+  // that are live at unmount time — reading state in a [url, url] dep effect
+  // would revoke the *current* original as soon as a new compressed URL lands.
+  const originalUrlRef = useRef<string | null>(null);
+  const compressedUrlRef = useRef<string | null>(null);
+  originalUrlRef.current = originalUrl;
+  compressedUrlRef.current = compressedUrl;
 
   // Resolve what we'll actually encode to. Canvas can only emit
   // PNG/JPEG/WebP, so exotic inputs (GIF, AVIF…) fall back to PNG.
@@ -95,10 +102,10 @@ export default function ImageCompressorClient() {
 
   useEffect(() => {
     return () => {
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
-      if (compressedUrl) URL.revokeObjectURL(compressedUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
+      if (compressedUrlRef.current) URL.revokeObjectURL(compressedUrlRef.current);
     };
-  }, [originalUrl, compressedUrl]);
+  }, []);
 
   const pickFile = (f: File | null) => {
     if (!f) return;
@@ -107,6 +114,14 @@ export default function ImageCompressorClient() {
       return;
     }
     setError(null);
+    // Drop the previous file's output so the UI never shows stale numbers
+    // while the new image compresses.
+    setCompressedUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    setCompressedSize(null);
+    setKeptOriginal(false);
     const url = URL.createObjectURL(f);
     const img = new Image();
     img.onload = () => {

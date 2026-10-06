@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type PdfItem = { id: number; name: string; size: number; file: File };
 
@@ -19,6 +19,14 @@ export default function MergePdfClient() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dragIdx = useRef<number | null>(null);
+  const resultRef = useRef<{ url: string } | null>(null);
+  resultRef.current = result;
+
+  useEffect(() => {
+    return () => {
+      if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
+    };
+  }, []);
 
   const addFiles = (files: FileList | File[]) => {
     const valid: PdfItem[] = [];
@@ -88,7 +96,12 @@ export default function MergePdfClient() {
         totalPages += pages.length;
       }
       const out = await merged.save();
-      const blob = new Blob([out.buffer as ArrayBuffer], { type: "application/pdf" });
+      // Slice the exact byte range: a Uint8Array's .buffer may be a larger
+      // pooled ArrayBuffer, which would corrupt the download with stray bytes.
+      const blob = new Blob(
+        [out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength) as ArrayBuffer],
+        { type: "application/pdf" }
+      );
       setResult((prev) => {
         if (prev) URL.revokeObjectURL(prev.url);
         return { url: URL.createObjectURL(blob), name: "merged.pdf", pages: totalPages };

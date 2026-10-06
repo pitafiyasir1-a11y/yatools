@@ -108,10 +108,16 @@ export default function ImageResizerClient() {
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const previewUrlRef = useRef<string | null>(null);
+  const imgUrlRef = useRef<string | null>(null);
+  imgUrlRef.current = imgUrl;
+  // Bump on every settings change so a slow render from older settings can
+  // never overwrite (or clear) a newer preview.
+  const previewGenRef = useRef(0);
 
   useEffect(() => {
     return () => {
       if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+      if (imgUrlRef.current) URL.revokeObjectURL(imgUrlRef.current);
     };
   }, []);
 
@@ -154,23 +160,29 @@ export default function ImageResizerClient() {
   /* ---- Live preview: debounced re-render whenever settings change ---- */
   useEffect(() => {
     if (!imgUrl || !validDims || overCap) {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+        previewUrlRef.current = null;
+      }
       setPreview(null);
       setRendering(false);
       return;
     }
     setRendering(true);
+    const gen = ++previewGenRef.current;
     const timer = setTimeout(async () => {
       try {
         const img = await loadImage(imgUrl);
         const blob = await renderToBlob(img, wNum, hNum, format, quality);
+        if (gen !== previewGenRef.current) return; // superseded by newer settings
         if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
         const url = URL.createObjectURL(blob);
         previewUrlRef.current = url;
         setPreview({ url, size: blob.size, w: wNum, h: hNum });
       } catch {
-        setPreview(null);
+        if (gen === previewGenRef.current) setPreview(null);
       } finally {
-        setRendering(false);
+        if (gen === previewGenRef.current) setRendering(false);
       }
     }, PREVIEW_DEBOUNCE_MS);
     return () => clearTimeout(timer);

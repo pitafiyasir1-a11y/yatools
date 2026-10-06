@@ -38,13 +38,20 @@ export default function ImageConverterClient() {
   const [result, setResult] = useState<{ url: string; size: number; name: string } | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Ref mirrors for unmount cleanup: revoking state values inside a
+  // [imgUrl, result] dep effect would kill the *live* original preview URL
+  // as soon as a conversion result lands.
+  const imgUrlRef = useRef<string | null>(null);
+  const resultRef = useRef<{ url: string } | null>(null);
+  imgUrlRef.current = imgUrl;
+  resultRef.current = result;
 
   useEffect(() => {
     return () => {
-      if (imgUrl) URL.revokeObjectURL(imgUrl);
-      if (result) URL.revokeObjectURL(result.url);
+      if (imgUrlRef.current) URL.revokeObjectURL(imgUrlRef.current);
+      if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
     };
-  }, [imgUrl, result]);
+  }, []);
 
   const pickFile = (f: File | null) => {
     setError(null);

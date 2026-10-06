@@ -75,9 +75,15 @@ export default function ImgConvClient({ config }: { config: ImgConvConfig }) {
     setError(null);
   };
 
+  /** Drop the current result, releasing its object URL (prevents blob-URL leaks). */
+  const clearResult = () => {
+    if (resultRef.current) URL.revokeObjectURL(resultRef.current.url);
+    setResult(null);
+  };
+
   const pickFile = async (f: File | null) => {
     setError(null);
-    setResult(null);
+    clearResult();
     if (!f) return;
     const bad = validateImageFile(f, config.sourceExts, config.sourceTypes, config.sourceLabel);
     if (bad) {
@@ -270,7 +276,7 @@ export default function ImgConvClient({ config }: { config: ImgConvConfig }) {
                     value={Math.round(quality * 100)}
                     onChange={(e) => {
                       setQuality(Number(e.target.value) / 100);
-                      setResult(null);
+                      clearResult();
                     }}
                     style={{ width: "100%", accentColor: "var(--red)" }}
                   />
@@ -293,7 +299,7 @@ export default function ImgConvClient({ config }: { config: ImgConvConfig }) {
                       value={background}
                       onChange={(e) => {
                         setBackground(e.target.value);
-                        setResult(null);
+                        clearResult();
                       }}
                       style={{
                         width: 44,
@@ -328,7 +334,7 @@ export default function ImgConvClient({ config }: { config: ImgConvConfig }) {
                         aria-pressed={outWidth === s.width}
                         onClick={() => {
                           setOutWidth(s.width);
-                          setResult(null);
+                          clearResult();
                         }}
                       >
                         {s.label}

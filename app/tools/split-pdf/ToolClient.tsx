@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type SplitMode = "ranges" | "every" | "pages";
 type Result = { name: string; url: string; pages: number };
@@ -38,6 +38,14 @@ export default function SplitPdfClient() {
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<Result[]>([]);
+  resultsRef.current = results;
+
+  useEffect(() => {
+    return () => {
+      resultsRef.current.forEach((r) => URL.revokeObjectURL(r.url));
+    };
+  }, []);
 
   const pickFile = async (f: File) => {
     const isPdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name);
@@ -73,13 +81,22 @@ export default function SplitPdfClient() {
     });
   };
 
-  const saveDoc = async (PDFDocument: any, pages: number[], name: string): Promise<Result> => {
-    const src = await PDFDocument.load(await file!.arrayBuffer(), { ignoreEncryption: true });
+  const saveDoc = async (
+    PDFDocument: any,
+    src: any,
+    pages: number[],
+    name: string
+  ): Promise<Result> => {
     const out = await PDFDocument.create();
     const copied = await out.copyPages(src, pages.map((p) => p - 1));
     copied.forEach((p: any) => out.addPage(p));
     const bytes = await out.save();
-    const blob = new Blob([bytes.buffer as ArrayBuffer], { type: "application/pdf" });
+    // Slice the exact byte range: a Uint8Array's .buffer may be a larger
+    // pooled ArrayBuffer, which would corrupt the download with stray bytes.
+    const blob = new Blob(
+      [bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer],
+      { type: "application/pdf" }
+    );
     return { name, url: URL.createObjectURL(blob), pages: pages.length };
   };
 
@@ -89,6 +106,12 @@ export default function SplitPdfClient() {
     setWorking(true);
     try {
       const { PDFDocument } = await import("pdf-lib");
+      // Load the source ONCE and reuse it for every output file. Re-loading
+      // per chunk (the old behavior) re-parsed the whole document N times and
+      // hung the browser on large PDFs in "every N pages" mode.
+      const src = await PDFDocument.load(await file.arrayBuffer(), {
+        ignoreEncryption: true,
+      });
       let built: Result[] = [];
       if (mode === "ranges") {
         const pages = parseRanges(ranges, pageCount);
@@ -97,19 +120,19 @@ export default function SplitPdfClient() {
             `Couldn't understand "${ranges}". Use page numbers and ranges like 1-3, 5, 8-10 (this PDF has ${pageCount} pages).`
           );
         }
-        built = [await saveDoc(PDFDocument, pages, `${file.name.replace(/\.pdf$/i, "")}-pages.pdf`)];
+        built = [await saveDoc(PDFDocument, src, pages, `${file.name.replace(/\.pdf$/i, "")}-pages.pdf`)];
       } else if (mode === "every") {
         if (everyN < 1 || everyN > pageCount) throw new Error(`"Every N pages" must be between 1 and ${pageCount}.`);
         const base = file.name.replace(/\.pdf$/i, "");
         for (let start = 1; start <= pageCount; start += everyN) {
           const chunk: number[] = [];
           for (let p = start; p < Math.min(start + everyN, pageCount + 1); p++) chunk.push(p);
-          built.push(await saveDoc(PDFDocument, chunk, `${base}-part-${Math.ceil(start / everyN)}.pdf`));
+          built.push(await saveDoc(PDFDocument, src, chunk, `${base}-part-${Math.ceil(start / everyN)}.pdf`));
         }
       } else {
         const pages = [...selected].sort((a, b) => a - b);
         if (pages.length === 0) throw new Error("Tick at least one page to extract.");
-        built = [await saveDoc(PDFDocument, pages, `${file.name.replace(/\.pdf$/i, "")}-extracted.pdf`)];
+        built = [await saveDoc(PDFDocument, src, pages, `${file.name.replace(/\.pdf$/i, "")}-extracted.pdf`)];
       }
       setResults((prev) => {
         prev.forEach((r) => URL.revokeObjectURL(r.url));
