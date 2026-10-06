@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { createHash, timingSafeEqual } from "node:crypto";
 
-/* Simple single-owner auth for /admin. Stateless: the cookie holds
-   sha256("yatools-admin-v1:" + ADMIN_PASSWORD), verifiable without a DB.
+/* Simple single-owner auth for the private blog studio. Stateless: the cookie
+   holds sha256("yatools-admin-v1:" + ADMIN_PASSWORD), verifiable without a DB.
    Server-only. */
 
 const COOKIE_NAME = "yatools_admin_auth";

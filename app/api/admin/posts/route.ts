@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated, adminConfigured } from "@/lib/admin-auth";
+import { rateLimit, clientIp, rateLimitedResponse } from "@/lib/rate-limit";
 import { getAdminPosts, getAdminPostAny, type AdminPost } from "@/lib/admin-posts";
 import { POSTS } from "@/app/blog/posts";
 import { TOOLS } from "@/lib/site";
@@ -76,7 +77,9 @@ function validatePost(p: Partial<AdminPost>): string | null {
   return null;
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const rl = rateLimit(`site-studio-posts:${clientIp(req)}`, 60, 10 * 60 * 1000);
+  if (!rl.ok) return rateLimitedResponse(rl.retryAfterSec);
   if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   const admin = getAdminPosts(false).map((p) => ({
     slug: p.slug,
@@ -100,6 +103,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const rl = rateLimit(`site-studio-posts:${clientIp(req)}`, 30, 10 * 60 * 1000);
+  if (!rl.ok) return rateLimitedResponse(rl.retryAfterSec);
   if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   const post = (await req.json().catch(() => null)) as Partial<AdminPost> | null;
   if (!post) return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });

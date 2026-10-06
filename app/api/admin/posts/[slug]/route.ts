@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { rateLimit, clientIp, rateLimitedResponse } from "@/lib/rate-limit";
 import { getAdminPostAny } from "@/lib/admin-posts";
 
 const OWNER = "pitafiyasir1-a11y";
@@ -7,7 +8,9 @@ const REPO = "yatools";
 const BRANCH = "main";
 const DIR = "data/admin-posts";
 
-export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
+export async function GET(req: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const rl = rateLimit(`site-studio-post:${clientIp(req)}`, 60, 10 * 60 * 1000);
+  if (!rl.ok) return rateLimitedResponse(rl.retryAfterSec);
   if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   const { slug } = await params;
   const post = getAdminPostAny(slug);
@@ -15,7 +18,9 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   return NextResponse.json({ post });
 }
 
-export async function DELETE(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const rl = rateLimit(`site-studio-post:${clientIp(req)}`, 30, 10 * 60 * 1000);
+  if (!rl.ok) return rateLimitedResponse(rl.retryAfterSec);
   if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   const { slug } = await params;
   const token = process.env.GITHUB_CONTENT_TOKEN;
