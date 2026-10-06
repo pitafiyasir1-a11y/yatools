@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
-const MAX_PROMPT = 600;
+const MAX_PROMPT = 500; // matches /api/v1/imgchat validation (1–500 chars)
 
 type Status = "idle" | "loading" | "error";
 

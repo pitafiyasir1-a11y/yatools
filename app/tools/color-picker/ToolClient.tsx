@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { copyText } from "../copy-text";
 
 interface Rgb {
   r: number;
@@ -70,6 +71,7 @@ export default function ColorPickerClient() {
   const [draft, setDraft] = useState("#e0263c");
   const [draftError, setDraftError] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [copyError, setCopyError] = useState(false);
 
   const rgb = useMemo(() => hexToRgb(hex), [hex]);
   const hsl = useMemo(() => rgbToHsl(rgb), [rgb]);
@@ -96,12 +98,13 @@ export default function ColorPickerClient() {
   };
 
   const copy = async (value: string, key: string) => {
-    try {
-      await navigator.clipboard.writeText(value);
+    setCopyError(false);
+    const ok = await copyText(value);
+    if (ok) {
       setCopied(key);
       setTimeout(() => setCopied(null), 1400);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -221,6 +224,11 @@ export default function ColorPickerClient() {
 
         <div>
           <p className="field-label">Copy color codes</p>
+          {copyError && (
+            <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 8 }}>
+              Copy didn&apos;t work in this browser — select the code and copy it manually.
+            </p>
+          )}
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
             {values.map((v) => (
               <div

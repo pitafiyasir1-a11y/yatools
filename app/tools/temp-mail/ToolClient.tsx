@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type MailOk = { ok: true; data: Record<string, unknown> };
 type MailErr = { ok: false; error: { code: string; message: string } };
@@ -88,32 +88,62 @@ export default function TempMailClient() {
     }
   };
 
-  const refreshInbox = async (addr: string, silent = false) => {
+  const refreshInbox = async (
+    addr: string,
+    silent = false
+  ): Promise<{ rateLimited: boolean }> => {
     if (!silent) setLoadingInbox(true);
     if (!silent) setError(null);
     try {
       const json = await callMail(
         new URLSearchParams({ action: "inbox", mail: addr }).toString()
       );
-      if (!json.ok) throw new Error(json.error.message);
+      if (!json.ok) {
+        // The 20/day quota is shared by every mail action — surface the
+        // limit honestly instead of swallowing it, so callers can stop polling.
+        if (json.error.code === "RATE_LIMITED") return { rateLimited: true };
+        throw new Error(json.error.message);
+      }
       const list = Array.isArray(json.data.messages)
         ? (json.data.messages as InboxMessage[])
         : [];
       setMessages(list);
       setLastChecked(new Date().toLocaleTimeString());
+      return { rateLimited: false };
     } catch (e) {
       if (!silent) fail(e);
+      return { rateLimited: false };
     } finally {
       if (!silent) setLoadingInbox(false);
     }
   };
 
-  // Auto-refresh the inbox while an address is active.
+  const autoTimer = useRef<number | null>(null);
+
+  // Auto-refresh the inbox while an address is active. Stops itself when
+  // the daily quota is reached so silent polling can't lock the user out.
   useEffect(() => {
     if (!address) return;
-    refreshInbox(address, true);
-    const t = setInterval(() => refreshInbox(address, true), AUTO_REFRESH_MS);
-    return () => clearInterval(t);
+    const tick = async () => {
+      const { rateLimited } = await refreshInbox(address, true);
+      if (rateLimited) {
+        if (autoTimer.current) {
+          clearInterval(autoTimer.current);
+          autoTimer.current = null;
+        }
+        setError(
+          "Daily mail-check limit reached (20 actions/day) — auto-refresh paused. Messages already loaded are still readable; come back tomorrow for more."
+        );
+      }
+    };
+    tick();
+    autoTimer.current = window.setInterval(tick, AUTO_REFRESH_MS);
+    return () => {
+      if (autoTimer.current) {
+        clearInterval(autoTimer.current);
+        autoTimer.current = null;
+      }
+    };
   }, [address]);
 
   const openMessage = async (id: string) => {
@@ -253,7 +283,13 @@ export default function TempMailClient() {
               <button
                 type="button"
                 className="btn btn-sm"
-                onClick={() => refreshInbox(address)}
+                onClick={async () => {
+                  const { rateLimited } = await refreshInbox(address);
+                  if (rateLimited)
+                    setError(
+                      "Daily mail-check limit reached (20 actions/day) — come back tomorrow."
+                    );
+                }}
                 disabled={loadingInbox}
               >
                 {loadingInbox ? "Checking…" : "↻ Check inbox"}

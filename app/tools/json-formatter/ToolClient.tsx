@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { copyText } from "../copy-text";
 
 const SAMPLE = `{
   "name": "YATools",
@@ -46,6 +47,7 @@ export default function JsonFormatterClient() {
   const [issue, setIssue] = useState<ParseIssue | null>(null);
   const [valid, setValid] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const run = (mode: "format" | "minify" | "validate") => {
     setIssue(null);
@@ -73,12 +75,13 @@ export default function JsonFormatterClient() {
 
   const copy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
+    setCopyError(false);
+    const ok = await copyText(output);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -175,6 +178,11 @@ export default function JsonFormatterClient() {
               {copied ? "Copied!" : "Copy result"}
             </button>
           </div>
+          {copyError && (
+            <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 8 }}>
+              Copy didn&apos;t work in this browser — select the result above and copy it manually.
+            </p>
+          )}
           <div className="code-window">
             <div className="code-bar">
               <span className="code-dot" style={{ background: "#ff5f57" }} />

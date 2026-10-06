@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { copyText } from "../copy-text";
 
 const SAMPLE =
   "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs!\n\nHow vexingly quick daft zebras jump. Sphinx of black quartz, judge my vow.";
@@ -29,15 +30,17 @@ function readingTime(minutes: number): string {
 export default function WordCounterClient() {
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
   const stats = useMemo(() => analyze(text), [text]);
 
   const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
+    setCopyError(false);
+    const ok = await copyText(text);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -72,6 +75,11 @@ export default function WordCounterClient() {
           {copied ? "Copied!" : "Copy text"}
         </button>
       </div>
+      {copyError && (
+        <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 10 }}>
+          Copy didn&apos;t work in this browser — select the text above and copy it manually.
+        </p>
+      )}
       <label className="field-label" htmlFor="wc-input">
         Your text
       </label>

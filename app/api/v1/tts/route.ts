@@ -45,7 +45,9 @@ export async function POST(req: Request): Promise<Response> {
     return errJson("BAD_JSON", "The request body must be valid JSON.", 400);
   }
 
-  const voiceIndex = asInt(body.voiceIndex, 0, 100_000);
+  // Upstream rejects voiceIndex < 1 with a 400 ("Must be 1–583"). The
+  // upper bound stays loose so future voices don't break validation.
+  const voiceIndex = asInt(body.voiceIndex, 1, 100_000);
   const text = typeof body.text === "string" ? body.text : "";
   const pitch = body.pitch === undefined ? undefined : asInt(body.pitch, -100, 100);
   const rate = body.rate === undefined ? undefined : asInt(body.rate, -100, 100);

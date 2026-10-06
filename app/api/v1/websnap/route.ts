@@ -152,8 +152,10 @@ export async function GET(req: Request): Promise<Response> {
     if (res.ok) {
       const bytes = await res.arrayBuffer();
       if (looksLikeImage(res, bytes)) {
+        // Pass through the upstream content type (it may serve JPEG, not PNG).
+        const ct = (res.headers.get("content-type") || "image/png").split(";")[0].trim();
         return new Response(bytes, {
-          headers: binaryHeaders("ahm7", false, "image/png"),
+          headers: binaryHeaders("ahm7", false, ct),
         });
       }
     }

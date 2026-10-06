@@ -17,13 +17,23 @@ function normalizeUrl(input: string): string | null {
   }
 }
 
-function fileNameFor(url: string): string {
+function fileNameFor(url: string, ext: string): string {
   try {
     const host = new URL(url).hostname.replace(/[^a-z0-9.-]/gi, "-");
-    return `screenshot-${host}.png`;
+    return `screenshot-${host}.${ext}`;
   } catch {
-    return "screenshot.png";
+    return `screenshot.${ext}`;
   }
+}
+
+/** Derive a file extension from a response content-type. */
+function extForContentType(ct: string): string {
+  const c = ct.toLowerCase();
+  if (c.includes("jpeg")) return "jpg";
+  if (c.includes("png")) return "png";
+  if (c.includes("webp")) return "webp";
+  if (c.includes("gif")) return "gif";
+  return "png";
 }
 
 function formatBytes(n: number): string {
@@ -81,6 +91,7 @@ export default function ToolClient() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+  const [imgExt, setImgExt] = useState("png");
   const [capturedUrl, setCapturedUrl] = useState("");
   const [providerInfo, setProviderInfo] = useState<{
     provider: string;
@@ -197,6 +208,7 @@ export default function ToolClient() {
       if (ct.startsWith("image/")) {
         const blob = await res.blob();
         setImgUrl(URL.createObjectURL(blob));
+        setImgExt(extForContentType(ct));
         setCapturedUrl(target);
         setProviderInfo({
           provider: res.headers.get("X-Provider") || "unknown",
@@ -224,7 +236,7 @@ export default function ToolClient() {
       <h2 className="font-display text-3xl mb-1">Capture a website</h2>
       <p className="text-sm mb-6" style={{ color: "var(--muted)" }}>
         Paste any public URL below. The page renders in a real browser and you
-        get a full-page PNG.
+        get a full-page screenshot image.
       </p>
 
       <label className="field-label" htmlFor="ws-url">
@@ -308,10 +320,10 @@ export default function ToolClient() {
           <div className="flex flex-wrap gap-3 mt-4">
             <a
               href={imgUrl}
-              download={fileNameFor(capturedUrl)}
+              download={fileNameFor(capturedUrl, imgExt)}
               className="btn btn-primary"
             >
-              Download PNG
+              Download {imgExt.toUpperCase()}
             </a>
             <a
               href={imgUrl}

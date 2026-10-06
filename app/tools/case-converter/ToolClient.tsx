@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { copyText } from "../copy-text";
 
 type CaseId =
   | "upper"
@@ -78,6 +79,7 @@ export default function CaseConverterClient() {
   const [text, setText] = useState("");
   const [active, setActive] = useState<CaseId>("title");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const output = useMemo(() => convert(text, active), [text, active]);
   const wordCount = useMemo(
@@ -87,12 +89,13 @@ export default function CaseConverterClient() {
 
   const copy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
+    setCopyError(false);
+    const ok = await copyText(output);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -154,6 +157,11 @@ export default function CaseConverterClient() {
           </button>
         </div>
       </div>
+      {copyError && (
+        <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 8 }}>
+          Copy didn&apos;t work in this browser — select the result below and copy it manually.
+        </p>
+      )}
       <div className="result-box" aria-live="polite" style={{ minHeight: 110 }}>
         {output ? (
           <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", fontSize: "1.02rem" }}>

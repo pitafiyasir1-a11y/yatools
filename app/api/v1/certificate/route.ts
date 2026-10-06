@@ -42,6 +42,7 @@ export async function POST(req: Request): Promise<Response> {
 
   const name = typeof body.name === "string" ? body.name.trim() : "";
   const date = typeof body.date === "string" ? body.date.trim() : "";
+  // Optional: the frontend labels the signature line optional, so default it.
   const signature = typeof body.signature === "string" ? body.signature.trim() : "";
   const details = typeof body.details === "string" ? body.details.trim() : "";
   const templateId =
@@ -50,10 +51,10 @@ export async function POST(req: Request): Promise<Response> {
       : NaN;
   const format = typeof body.format === "string" ? body.format.toLowerCase() : "pdf";
 
-  if (!body.name || !body.date || !body.signature || !body.details || body.templateId === undefined) {
+  if (!body.name || !body.date || !body.details || body.templateId === undefined) {
     return errJson(
       "MISSING_FIELDS",
-      "Required fields: name, date, signature, details, templateId.",
+      "Required fields: name, date, details, templateId.",
       400,
     );
   }
@@ -63,8 +64,9 @@ export async function POST(req: Request): Promise<Response> {
   if (date.length < 1) {
     return errJson("BAD_FIELD", "date must be a non-empty string.", 400);
   }
-  if (signature.length < 1 || signature.length > 100) {
-    return errJson("BAD_FIELD", "signature must be 1–100 characters.", 400);
+  // Signature is optional — validate length only when provided.
+  if (signature.length > 100) {
+    return errJson("BAD_FIELD", "signature must be at most 100 characters.", 400);
   }
   if (details.length < 1 || details.length > 500) {
     return errJson("BAD_FIELD", "details must be 1–500 characters.", 400);

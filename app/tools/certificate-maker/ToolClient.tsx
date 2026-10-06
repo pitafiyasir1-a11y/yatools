@@ -19,7 +19,9 @@ const FORMATS = [
   { value: "jpg", label: "JPG — small file size" },
 ];
 
-const MAX_LEN = 120;
+const MAX_NAME = 100; // matches /api/v1/certificate validation
+const MAX_DETAILS = 500;
+const MAX_SIGNATURE = 100;
 
 type Status = "idle" | "loading" | "ready" | "error";
 
@@ -134,7 +136,7 @@ export default function CertificateMakerClient() {
                 id="cert-name"
                 className="input"
                 value={name}
-                onChange={(e) => setName(e.target.value.slice(0, MAX_LEN))}
+                onChange={(e) => setName(e.target.value.slice(0, MAX_NAME))}
                 placeholder="e.g. Ahmed Khan"
               />
             </div>
@@ -158,14 +160,14 @@ export default function CertificateMakerClient() {
                 Achievement details
               </label>
               <span className="font-mono2 text-xs" style={{ color: "var(--muted)" }}>
-                {details.length}/{MAX_LEN}
+                {details.length}/{MAX_DETAILS}
               </span>
             </div>
             <textarea
               id="cert-details"
               className="textarea"
               value={details}
-              onChange={(e) => setDetails(e.target.value.slice(0, MAX_LEN))}
+              onChange={(e) => setDetails(e.target.value.slice(0, MAX_DETAILS))}
               placeholder="e.g. For winning the office cricket tournament 2026"
               rows={3}
             />
@@ -179,7 +181,7 @@ export default function CertificateMakerClient() {
               id="cert-signature"
               className="input"
               value={signature}
-              onChange={(e) => setSignature(e.target.value.slice(0, MAX_LEN))}
+              onChange={(e) => setSignature(e.target.value.slice(0, MAX_SIGNATURE))}
               placeholder="e.g. Chief Fun Officer"
             />
           </div>

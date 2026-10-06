@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { copyText } from "../copy-text";
 
 const SETS = {
   upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -45,6 +46,7 @@ export default function PasswordGeneratorClient() {
   const [noAmbiguous, setNoAmbiguous] = useState(false);
   const [password, setPassword] = useState("");
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
   const activeSets = (Object.keys(SETS) as OptKey[]).filter((k) => opts[k]);
 
@@ -87,12 +89,13 @@ export default function PasswordGeneratorClient() {
 
   const copy = async () => {
     if (!password) return;
-    try {
-      await navigator.clipboard.writeText(password);
+    setCopyError(false);
+    const ok = await copyText(password);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* clipboard unavailable */
+    } else {
+      setCopyError(true);
     }
   };
 
@@ -130,6 +133,11 @@ export default function PasswordGeneratorClient() {
           {copied ? "Copied!" : "Copy password"}
         </button>
       </div>
+      {copyError && (
+        <p role="alert" style={{ color: "var(--red-dark)", fontSize: "0.82rem", marginBottom: 16 }}>
+          Copy didn&apos;t work in this browser — select the password above and copy it manually.
+        </p>
+      )}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>
         <div>
