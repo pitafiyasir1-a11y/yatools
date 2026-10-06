@@ -1,1 +1,239 @@
-InVzZSBjbGllbnQiOwoKaW1wb3J0IHsgdXNlUmVmLCB1c2VTdGF0ZSB9IGZyb20gInJlYWN0IjsKCnR5cGUgUGFnZU91dCA9IHsgbnVtOiBudW1iZXI7IHVybDogc3RyaW5nOyBibG9iOiBCbG9iIH07CgpmdW5jdGlvbiBmb3JtYXRTaXplKGJ5dGVzOiBudW1iZXIpOiBzdHJpbmcgewogIGlmIChieXRlcyA8IDEwMjQpIHJldHVybiBgJHtieXRlc30gQmA7CiAgaWYgKGJ5dGVzIDwgMTAyNCAqIDEwMjQpIHJldHVybiBgJHsoYnl0ZXMgLyAxMDI0KS50b0ZpeGVkKDEpfSBLQmA7CiAgcmV0dXJuIGAkeyhieXRlcyAvIDEwMjQgLyAxMDI0KS50b0ZpeGVkKDIpfSBNQmA7Cn0KCmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFBkZlRvSnBnQ2xpZW50KCkgewogIGNvbnN0IFtmaWxlTmFtZSwgc2V0RmlsZU5hbWVdID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7CiAgY29uc3QgW3BhZ2VDb3VudCwgc2V0UGFnZUNvdW50XSA9IHVzZVN0YXRlPG51bWJlciB8IG51bGw+KG51bGwpOwogIGNvbnN0IFtzY2FsZSwgc2V0U2NhbGVdID0gdXNlU3RhdGUoMik7CiAgY29uc3QgW2xvYWRpbmcsIHNldExvYWRpbmddID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtyZW5kZXJlZCwgc2V0UmVuZGVyZWRdID0gdXNlU3RhdGU8UGFnZU91dFtdPihbXSk7CiAgY29uc3QgW3Byb2dyZXNzLCBzZXRQcm9ncmVzc10gPSB1c2VTdGF0ZSgwKTsKICBjb25zdCBbZXJyb3IsIHNldEVycm9yXSA9IHVzZVN0YXRlPHN0cmluZyB8IG51bGw+KG51bGwpOwogIGNvbnN0IGlucHV0UmVmID0gdXNlUmVmPEhUTUxJbnB1dEVsZW1lbnQ+KG51bGwpOwogIGNvbnN0IHBkZkJ5dGVzID0gdXNlUmVmPFVpbnQ4QXJyYXkgfCBudWxsPihudWxsKTsKCiAgY29uc3QgcGlja0ZpbGUgPSBhc3luYyAoZjogRmlsZSkgPT4gewogICAgY29uc3QgaXNQZGYgPSBmLnR5cGUgPT09ICJhcHBsaWNhdGlvbi9wZGYiIHx8IC9cLnBkZiQvaS50ZXN0KGYubmFtZSk7CiAgICBpZiAoIWlzUGRmKSB7CiAgICAgIHNldEVycm9yKCJUaGF0IGlzIG5vdCBhIFBERiBmaWxlIOKAlCBwbGVhc2UgY2hvb3NlIGEgLnBkZiBkb2N1bWVudC4iKTsKICAgICAgcmV0dXJuOwogICAgfQogICAgc2V0RXJyb3IobnVsbCk7CiAgICBzZXRSZW5kZXJlZCgocHJldikgPT4gewogICAgICBwcmV2LmZvckVhY2goKHIpID0+IFVSTC5yZXZva2VPYmplY3RVUkwoci51cmwpKTsKICAgICAgcmV0dXJuIFtdOwogICAgfSk7CiAgICBzZXRQcm9ncmVzcygwKTsKICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICAvLyBwZGYuanMgaXMgaGVhdnk6IGxvYWQgaXQgb25seSB3aGVuIGEgZmlsZSBpcyBjaG9zZW4uCiAgICAgIGNvbnN0IHsgZ2V0UGRmanMgfSA9IGF3YWl0IGltcG9ydCgiLi4vLi4vLi4vbGliL3BkZmpzIik7CiAgICAgIGNvbnN0IHBkZmpzID0gZ2V0UGRmanMoKTsKICAgICAgY29uc3QgYnl0ZXMgPSBuZXcgVWludDhBcnJheShhd2FpdCBmLmFycmF5QnVmZmVyKCkpOwogICAgICAvLyBnZXREb2N1bWVudCgpIHRyYW5zZmVycyAoZGV0YWNoZXMpIHRoZSBidWZmZXIgaXQgcmVjZWl2ZXMsIHNvIGtlZXAgYSBwcmlzdGluZSBjb3B5LgogICAgICBwZGZCeXRlcy5jdXJyZW50ID0gYnl0ZXMuc2xpY2UoKTsKICAgICAgY29uc3QgcGRmID0gYXdhaXQgcGRmanMuZ2V0RG9jdW1lbnQoeyBkYXRhOiBieXRlcyB9KS5wcm9taXNlOwogICAgICBzZXRGaWxlTmFtZShmLm5hbWUucmVwbGFjZSgvXC5wZGYkL2ksICIiKSk7CiAgICAgIHNldFBhZ2VDb3VudChwZGYubnVtUGFnZXMpOwogICAgfSBjYXRjaCB7CiAgICAgIHNldEVycm9yKCJDb3VsZCBub3QgcmVhZCB0aGF0IFBERi4gSXQgbWF5IGJlIHBhc3N3b3JkLXByb3RlY3RlZCBvciBjb3JydXB0ZWQuIik7CiAgICAgIHBkZkJ5dGVzLmN1cnJlbnQgPSBudWxsOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgICB9CiAgfTsKCiAgY29uc3QgcmVuZGVyQWxsID0gYXN5bmMgKCkgPT4gewogICAgaWYgKCFwZGZCeXRlcy5jdXJyZW50IHx8ICFwYWdlQ291bnQpIHJldHVybjsKICAgIHNldEVycm9yKG51bGwpOwogICAgc2V0TG9hZGluZyh0cnVlKTsKICAgIHNldFJlbmRlcmVkKChwcmV2KSA9PiB7CiAgICAgIHByZXYuZm9yRWFjaCgocikgPT4gVVJMLnJldm9rZU9iamVjdFVSTChyLnVybCkpOwogICAgICByZXR1cm4gW107CiAgICB9KTsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHsgZ2V0UGRmanMgfSA9IGF3YWl0IGltcG9ydCgiLi4vLi4vLi4vbGliL3BkZmpzIik7CiAgICAgIGNvbnN0IHBkZmpzID0gZ2V0UGRmanMoKTsKICAgICAgY29uc3QgcGRmID0gYXdhaXQgcGRmanMuZ2V0RG9jdW1lbnQoeyBkYXRhOiBwZGZCeXRlcy5jdXJyZW50LnNsaWNlKCkgfSkucHJvbWlzZTsKICAgICAgY29uc3Qgb3V0OiBQYWdlT3V0W10gPSBbXTsKICAgICAgZm9yIChsZXQgbiA9IDE7IG4gPD0gcGRmLm51bVBhZ2VzOyBuKyspIHsKICAgICAgICBjb25zdCBwYWdlID0gYXdhaXQgcGRmLmdldFBhZ2Uobik7CiAgICAgICAgY29uc3Qgdmlld3BvcnQgPSBwYWdlLmdldFZpZXdwb3J0KHsgc2NhbGUgfSk7CiAgICAgICAgY29uc3QgY2FudmFzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiY2FudmFzIik7CiAgICAgICAgY2FudmFzLndpZHRoID0gTWF0aC5jZWlsKHZpZXdwb3J0LndpZHRoKTsKICAgICAgICBjYW52YXMuaGVpZ2h0ID0gTWF0aC5jZWlsKHZpZXdwb3J0LmhlaWdodCk7CiAgICAgICAgY29uc3QgY3R4ID0gY2FudmFzLmdldENvbnRleHQoIjJkIik7CiAgICAgICAgaWYgKCFjdHgpIHRocm93IG5ldyBFcnJvcigibm8gMmQgY29udGV4dCIpOwogICAgICAgIGN0eC5maWxsU3R5bGUgPSAiI2ZmZmZmZiI7CiAgICAgICAgY3R4LmZpbGxSZWN0KDAsIDAsIGNhbnZhcy53aWR0aCwgY2FudmFzLmhlaWdodCk7CiAgICAgICAgYXdhaXQgcGFnZS5yZW5kZXIoeyBjYW52YXMsIHZpZXdwb3J0IH0pLnByb21pc2U7CiAgICAgICAgY29uc3QgYmxvYiA9IGF3YWl0IG5ldyBQcm9taXNlPEJsb2I+KChyZXMsIHJlaikgPT4KICAgICAgICAgIGNhbnZhcy50b0Jsb2IoKGIpID0+IChiID8gcmVzKGIpIDogcmVqKG5ldyBFcnJvcigiZW5jb2RlIGZhaWxlZCIpKSksICJpbWFnZS9qcGVnIiwgMC45MikKICAgICAgICApOwogICAgICAgIG91dC5wdXNoKHsgbnVtOiBuLCB1cmw6IFVSTC5jcmVhdGVPYmplY3RVUkwoYmxvYiksIGJsb2IgfSk7CiAgICAgICAgc2V0UHJvZ3Jlc3MoTWF0aC5yb3VuZCgobiAvIHBkZi5udW1QYWdlcykgKiAxMDApKTsKICAgICAgfQogICAgICBzZXRSZW5kZXJlZChvdXQpOwogICAgfSBjYXRjaCB7CiAgICAgIHNldEVycm9yKCJSZW5kZXJpbmcgZmFpbGVkIGluIHlvdXIgYnJvd3Nlci4gVHJ5IGEgc21hbGxlciBQREYgb3IgYSBDaHJvbWl1bS1iYXNlZCBicm93c2VyLiIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgICB9CiAgfTsKCiAgY29uc3QgZG93bmxvYWRBbGwgPSAoKSA9PiB7CiAgICAvLyBCcm93c2VycyBtYXkgYmxvY2sgbWFueSBkb3dubG9hZHMgYXQgb25jZTsgc3RhZ2dlciB0aGVtIHNsaWdodGx5LgogICAgcmVuZGVyZWQuZm9yRWFjaCgociwgaSkgPT4gewogICAgICBzZXRUaW1lb3V0KCgpID0+IHsKICAgICAgICBjb25zdCBhID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiYSIpOwogICAgICAgIGEuaHJlZiA9IHIudXJsOwogICAgICAgIGEuZG93bmxvYWQgPSBgJHtmaWxlTmFtZX0tcGFnZS0ke3IubnVtfS5qcGdgOwogICAgICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQoYSk7CiAgICAgICAgYS5jbGljaygpOwogICAgICAgIGEucmVtb3ZlKCk7CiAgICAgIH0sIGkgKiA0MDApOwogICAgfSk7CiAgfTsKCiAgcmV0dXJuICgKICAgIDxkaXYgY2xhc3NOYW1lPSJjYXJkIiBzdHlsZT17eyBwYWRkaW5nOiAiY2xhbXAoMTZweCwgM3Z3LCAyOHB4KSIgfX0+CiAgICAgIDxpbnB1dAogICAgICAgIHJlZj17aW5wdXRSZWZ9CiAgICAgICAgdHlwZT0iZmlsZSIKICAgICAgICBhY2NlcHQ9ImFwcGxpY2F0aW9uL3BkZiwucGRmIgogICAgICAgIGhpZGRlbgogICAgICAgIG9uQ2hhbmdlPXsoZSkgPT4gewogICAgICAgICAgaWYgKGUudGFyZ2V0LmZpbGVzPy5bMF0pIHBpY2tGaWxlKGUudGFyZ2V0LmZpbGVzWzBdKTsKICAgICAgICAgIGUudGFyZ2V0LnZhbHVlID0gIiI7CiAgICAgICAgfX0KICAgICAgLz4KICAgICAgPGJ1dHRvbgogICAgICAgIHR5cGU9ImJ1dHRvbiIKICAgICAgICBjbGFzc05hbWU9ImJ0biBidG4tcHJpbWFyeSIKICAgICAgICBvbkNsaWNrPXsoKSA9PiBpbnB1dFJlZi5jdXJyZW50Py5jbGljaygpfQogICAgICAgIHN0eWxlPXt7IHdpZHRoOiAiMTAwJSIgfX0KICAgICAgPgogICAgICAgIHtmaWxlTmFtZSA/ICJDaG9vc2UgYSBkaWZmZXJlbnQgUERGIiA6ICJDaG9vc2UgYSBQREYifQogICAgICA8L2J1dHRvbj4KICAgICAgPHAgY2xhc3NOYW1lPSJmb250LW1vbm8yIiBzdHlsZT17eyBmb250U2l6ZTogIjAuNzJyZW0iLCBjb2xvcjogInZhcigtLW11dGVkKSIsIG1hcmdpbjogIjEwcHggMCAwIiB9fT4KICAgICAgICBQYWdlcyBhcmUgcmVuZGVyZWQgb24geW91ciBkZXZpY2Ug4oCUIHRoZSBmaWxlIGlzIG5ldmVyIHVwbG9hZGVkIGFueXdoZXJlLgogICAgICA8L3A+CgogICAgICB7ZmlsZU5hbWUgJiYgcGFnZUNvdW50ICE9PSBudWxsICYmICgKICAgICAgICA8ZGl2IHN0eWxlPXt7IG1hcmdpblRvcDogMTggfX0+CiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGZvbnRXZWlnaHQ6IDgwMCwgbWFyZ2luQm90dG9tOiA0IH19PntmaWxlTmFtZX0ucGRmPC9kaXY+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0iZm9udC1tb25vMiIgc3R5bGU9e3sgZm9udFNpemU6ICIwLjc1cmVtIiwgY29sb3I6ICJ2YXIoLS10ZXh0MikiLCBtYXJnaW5Cb3R0b206IDE0IH19PgogICAgICAgICAgICB7cGFnZUNvdW50fSBwYWdle3BhZ2VDb3VudCA9PT0gMSA/ICIiIDogInMifSBmb3VuZAogICAgICAgICAgICB7cmVuZGVyZWQubGVuZ3RoID4gMCAmJiBgIMK3ICR7cmVuZGVyZWQubGVuZ3RofSByZW5kZXJlZCBhcyBKUEdgfQogICAgICAgICAgICB7bG9hZGluZyAmJiBgIMK3IHJlbmRlcmluZ+KApiAke3Byb2dyZXNzfSVgfQogICAgICAgICAgPC9kaXY+CgogICAgICAgICAge3JlbmRlcmVkLmxlbmd0aCA9PT0gMCAmJiAoCiAgICAgICAgICAgIDxkaXYKICAgICAgICAgICAgICBzdHlsZT17ewogICAgICAgICAgICAgICAgZGlzcGxheTogImdyaWQiLAogICAgICAgICAgICAgICAgZ3JpZFRlbXBsYXRlQ29sdW1uczogInJlcGVhdChhdXRvLWZpdCwgbWlubWF4KDE2MHB4LCAxZnIpKSIsCiAgICAgICAgICAgICAgICBnYXA6IDEyLAogICAgICAgICAgICAgICAgYWxpZ25JdGVtczogImVuZCIsCiAgICAgICAgICAgICAgICBtYXJnaW5Cb3R0b206IDQsCiAgICAgICAgICAgICAgfX0KICAgICAgICAgICAgPgogICAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPSJmaWVsZC1sYWJlbCIgaHRtbEZvcj0icGotcXVhbGl0eSI+SW1hZ2UgcXVhbGl0eTwvbGFiZWw+CiAgICAgICAgICAgICAgICA8c2VsZWN0CiAgICAgICAgICAgICAgICAgIGlkPSJwai1xdWFsaXR5IgogICAgICAgICAgICAgICAgICBjbGFzc05hbWU9InNlbGVjdCIKICAgICAgICAgICAgICAgICAgdmFsdWU9e3NjYWxlfQogICAgICAgICAgICAgICAgICBvbkNoYW5nZT17KGUpID0+IHNldFNjYWxlKE51bWJlcihlLnRhcmdldC52YWx1ZSkpfQogICAgICAgICAgICAgICAgICBkaXNhYmxlZD17bG9hZGluZ30KICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT17MX0+U3RhbmRhcmQgKDHDlyk8L29wdGlvbj4KICAgICAgICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT17Mn0+SGlnaCAoMsOXLCByZWNvbW1lbmRlZCk8L29wdGlvbj4KICAgICAgICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT17M30+RXh0cmEgKDPDlywgbGFyZ2UgZmlsZXMpPC9vcHRpb24+CiAgICAgICAgICAgICAgICA8L3NlbGVjdD4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICA8YnV0dG9uCiAgICAgICAgICAgICAgICB0eXBlPSJidXR0b24iCiAgICAgICAgICAgICAgICBjbGFzc05hbWU9ImJ0biBidG4tcHJpbWFyeSIKICAgICAgICAgICAgICAgIG9uQ2xpY2s9e3JlbmRlckFsbH0KICAgICAgICAgICAgICAgIGRpc2FibGVkPXtsb2FkaW5nfQogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIHtsb2FkaW5nID8gYFJlbmRlcmluZ+KApiAke3Byb2dyZXNzfSVgIDogYFJlbmRlciAke3BhZ2VDb3VudH0gcGFnZSR7cGFnZUNvdW50ID09PSAxID8gIiIgOiAicyJ9IGFzIEpQR2B9CiAgICAgICAgICAgICAgPC9idXR0b24+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgKX0KCiAgICAgICAgICB7cmVuZGVyZWQubGVuZ3RoID4gMCAmJiAoCiAgICAgICAgICAgIDw+CiAgICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAiZmxleCIsIGZsZXhXcmFwOiAid3JhcCIsIGdhcDogMTAsIG1hcmdpbkJvdHRvbTogMTQgfX0+CiAgICAgICAgICAgICAgICA8YnV0dG9uIHR5cGU9ImJ1dHRvbiIgY2xhc3NOYW1lPSJidG4iIG9uQ2xpY2s9e2Rvd25sb2FkQWxsfT4KICAgICAgICAgICAgICAgICAgRG93bmxvYWQgYWxsIHBhZ2VzCiAgICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgICAgIDxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzc05hbWU9ImJ0biBidG4tc20iIG9uQ2xpY2s9e3JlbmRlckFsbH0gZGlzYWJsZWQ9e2xvYWRpbmd9PgogICAgICAgICAgICAgICAgICBSZS1yZW5kZXIKICAgICAgICAgICAgICAgIDwvYnV0dG9uPgogICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSJmb250LW1vbm8yIiBzdHlsZT17eyBmb250U2l6ZTogIjAuNzJyZW0iLCBjb2xvcjogInZhcigtLW11dGVkKSIsIGFsaWduU2VsZjogImNlbnRlciIgfX0+CiAgICAgICAgICAgICAgICAgIOKAnERvd25sb2FkIGFsbOKAnSBzYXZlcyBlYWNoIHBhZ2Ugb25lIGF0IGEgdGltZSDigJQgeW91ciBicm93c2VyIG1heSBhc2sgZm9yIHBlcm1pc3Npb24uCiAgICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPGRpdgogICAgICAgICAgICAgICAgc3R5bGU9e3sKICAgICAgICAgICAgICAgICAgZGlzcGxheTogImdyaWQiLAogICAgICAgICAgICAgICAgICBncmlkVGVtcGxhdGVDb2x1bW5zOiAicmVwZWF0KGF1dG8tZmlsbCwgbWlubWF4KDE1MHB4LCAxZnIpKSIsCiAgICAgICAgICAgICAgICAgIGdhcDogMTIsCiAgICAgICAgICAgICAgICB9fQogICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgIHtyZW5kZXJlZC5tYXAoKHIpID0+ICgKICAgICAgICAgICAgICAgICAgPGRpdiBrZXk9e3IubnVtfSBjbGFzc05hbWU9ImNhcmQiIHN0eWxlPXt7IHBhZGRpbmc6IDgsIGJhY2tncm91bmQ6ICJ2YXIoLS1zdXJmYWNlKSIgfX0+CiAgICAgICAgICAgICAgICAgICAgPGltZwogICAgICAgICAgICAgICAgICAgICAgc3JjPXtyLnVybH0KICAgICAgICAgICAgICAgICAgICAgIGFsdD17YFBhZ2UgJHtyLm51bX1gfQogICAgICAgICAgICAgICAgICAgICAgc3R5bGU9e3sKICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGg6ICIxMDAlIiwKICAgICAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiAxNTAsCiAgICAgICAgICAgICAgICAgICAgICAgIG9iamVjdEZpdDogImNvbnRhaW4iLAogICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAiI2ZmZiIsCiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogNiwKICAgICAgICAgICAgICAgICAgICAgICAgYm9yZGVyOiAiMnB4IHNvbGlkIHZhcigtLWxpbmUpIiwKICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogImJsb2NrIiwKICAgICAgICAgICAgICAgICAgICAgIH19CiAgICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgICAgICA8ZGl2CiAgICAgICAgICAgICAgICAgICAgICBjbGFzc05hbWU9ImZvbnQtbW9ubzIiCiAgICAgICAgICAgICAgICAgICAgICBzdHlsZT17eyBmb250U2l6ZTogIjAuN3JlbSIsIGNvbG9yOiAidmFyKC0tdGV4dDIpIiwgbWFyZ2luOiAiNnB4IDAiIH19CiAgICAgICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICAgICAgUGFnZSB7ci5udW19IMK3IHtmb3JtYXRTaXplKHIuYmxvYi5zaXplKX0KICAgICAgICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICAgICAgICA8YQogICAgICAgICAgICAgICAgICAgICAgaHJlZj17ci51cmx9CiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZD17YCR7ZmlsZU5hbWV9LXBhZ2UtJHtyLm51bX0uanBnYH0KICAgICAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT0iYnRuIGJ0bi1zbSIKICAgICAgICAgICAgICAgICAgICAgIHN0eWxlPXt7IHdpZHRoOiAiMTAwJSIsIHRleHRBbGlnbjogImNlbnRlciIgfX0KICAgICAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgICAgICBEb3dubG9hZCBKUEcKICAgICAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICAgKSl9CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvPgogICAgICAgICAgKX0KICAgICAgICA8L2Rpdj4KICAgICAgKX0KCiAgICAgIHtlcnJvciAmJiAoCiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im5vdGljZSIgc3R5bGU9e3sgbWFyZ2luVG9wOiAxNCB9fT4KICAgICAgICAgIHtlcnJvcn0KICAgICAgICA8L2Rpdj4KICAgICAgKX0KICAgIDwvZGl2PgogICk7Cn0K
+"use client";
+
+import { useRef, useState } from "react";
+
+type PageOut = { num: number; url: string; blob: Blob };
+
+function formatSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+}
+
+export default function PdfToJpgClient() {
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [pageCount, setPageCount] = useState<number | null>(null);
+  const [scale, setScale] = useState(2);
+  const [loading, setLoading] = useState(false);
+  const [rendered, setRendered] = useState<PageOut[]>([]);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const pdfBytes = useRef<Uint8Array | null>(null);
+
+  const pickFile = async (f: File) => {
+    const isPdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name);
+    if (!isPdf) {
+      setError("That is not a PDF file — please choose a .pdf document.");
+      return;
+    }
+    setError(null);
+    setRendered((prev) => {
+      prev.forEach((r) => URL.revokeObjectURL(r.url));
+      return [];
+    });
+    setProgress(0);
+    setLoading(true);
+    try {
+      // pdf.js is heavy: load it only when a file is chosen.
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
+      const bytes = new Uint8Array(await f.arrayBuffer());
+      // getDocument() transfers (detaches) the buffer it receives, so keep a pristine copy.
+      pdfBytes.current = bytes.slice();
+      const pdf = await pdfjs.getDocument({ data: bytes }).promise;
+      setFileName(f.name.replace(/\.pdf$/i, ""));
+      setPageCount(pdf.numPages);
+    } catch {
+      setError("Could not read that PDF. It may be password-protected or corrupted.");
+      pdfBytes.current = null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderAll = async () => {
+    if (!pdfBytes.current || !pageCount) return;
+    setError(null);
+    setLoading(true);
+    setRendered((prev) => {
+      prev.forEach((r) => URL.revokeObjectURL(r.url));
+      return [];
+    });
+    try {
+      const { getPdfjs } = await import("../../../lib/pdfjs");
+      const pdfjs = getPdfjs();
+      const pdf = await pdfjs.getDocument({ data: pdfBytes.current.slice() }).promise;
+      const out: PageOut[] = [];
+      for (let n = 1; n <= pdf.numPages; n++) {
+        const page = await pdf.getPage(n);
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+        const ctx = canvas.getContext("2d");
+        if (!ctx) throw new Error("no 2d context");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({ canvas, viewport }).promise;
+        const blob = await new Promise<Blob>((res, rej) =>
+          canvas.toBlob((b) => (b ? res(b) : rej(new Error("encode failed"))), "image/jpeg", 0.92)
+        );
+        out.push({ num: n, url: URL.createObjectURL(blob), blob });
+        setProgress(Math.round((n / pdf.numPages) * 100));
+      }
+      setRendered(out);
+    } catch {
+      setError("Rendering failed in your browser. Try a smaller PDF or a Chromium-based browser.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const downloadAll = () => {
+    // Browsers may block many downloads at once; stagger them slightly.
+    rendered.forEach((r, i) => {
+      setTimeout(() => {
+        const a = document.createElement("a");
+        a.href = r.url;
+        a.download = `${fileName}-page-${r.num}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, i * 400);
+    });
+  };
+
+  return (
+    <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="application/pdf,.pdf"
+        hidden
+        onChange={(e) => {
+          if (e.target.files?.[0]) pickFile(e.target.files[0]);
+          e.target.value = "";
+        }}
+      />
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => inputRef.current?.click()}
+        style={{ width: "100%" }}
+      >
+        {fileName ? "Choose a different PDF" : "Choose a PDF"}
+      </button>
+      <p className="font-mono2" style={{ fontSize: "0.72rem", color: "var(--muted)", margin: "10px 0 0" }}>
+        Pages are rendered on your device — the file is never uploaded anywhere.
+      </p>
+
+      {fileName && pageCount !== null && (
+        <div style={{ marginTop: 18 }}>
+          <div style={{ fontWeight: 800, marginBottom: 4 }}>{fileName}.pdf</div>
+          <div className="font-mono2" style={{ fontSize: "0.75rem", color: "var(--text2)", marginBottom: 14 }}>
+            {pageCount} page{pageCount === 1 ? "" : "s"} found
+            {rendered.length > 0 && ` · ${rendered.length} rendered as JPG`}
+            {loading && ` · rendering… ${progress}%`}
+          </div>
+
+          {rendered.length === 0 && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: 12,
+                alignItems: "end",
+                marginBottom: 4,
+              }}
+            >
+              <div>
+                <label className="field-label" htmlFor="pj-quality">Image quality</label>
+                <select
+                  id="pj-quality"
+                  className="select"
+                  value={scale}
+                  onChange={(e) => setScale(Number(e.target.value))}
+                  disabled={loading}
+                >
+                  <option value={1}>Standard (1×)</option>
+                  <option value={2}>High (2×, recommended)</option>
+                  <option value={3}>Extra (3×, large files)</option>
+                </select>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={renderAll}
+                disabled={loading}
+              >
+                {loading ? `Rendering… ${progress}%` : `Render ${pageCount} page${pageCount === 1 ? "" : "s"} as JPG`}
+              </button>
+            </div>
+          )}
+
+          {rendered.length > 0 && (
+            <>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
+                <button type="button" className="btn" onClick={downloadAll}>
+                  Download all pages
+                </button>
+                <button type="button" className="btn btn-sm" onClick={renderAll} disabled={loading}>
+                  Re-render
+                </button>
+                <span className="font-mono2" style={{ fontSize: "0.72rem", color: "var(--muted)", alignSelf: "center" }}>
+                  “Download all” saves each page one at a time — your browser may ask for permission.
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+                  gap: 12,
+                }}
+              >
+                {rendered.map((r) => (
+                  <div key={r.num} className="card" style={{ padding: 8, background: "var(--surface)" }}>
+                    <img
+                      src={r.url}
+                      alt={`Page ${r.num}`}
+                      style={{
+                        width: "100%",
+                        height: 150,
+                        objectFit: "contain",
+                        background: "#fff",
+                        borderRadius: 6,
+                        border: "2px solid var(--line)",
+                        display: "block",
+                      }}
+                    />
+                    <div
+                      className="font-mono2"
+                      style={{ fontSize: "0.7rem", color: "var(--text2)", margin: "6px 0" }}
+                    >
+                      Page {r.num} · {formatSize(r.blob.size)}
+                    </div>
+                    <a
+                      href={r.url}
+                      download={`${fileName}-page-${r.num}.jpg`}
+                      className="btn btn-sm"
+                      style={{ width: "100%", textAlign: "center" }}
+                    >
+                      Download JPG
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {error && (
+        <div className="notice" style={{ marginTop: 14 }}>
+          {error}
+        </div>
+      )}
+    </div>
+  );
+}
