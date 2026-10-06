@@ -236,7 +236,7 @@ without typing the password.`}</pre>
               <span className="code-dot" style={{ background: "#28c840" }} />
               <span style={{ marginLeft: 8, color: "#8a887f", fontSize: "0.72rem" }}>link-payload.txt</span>
             </div>
-            <pre>{`https://yatools.vercel.app/tools/qr-code
+            <pre>{`https://yatools-tan.vercel.app/tools/qr-code
 
 Print on a flyer, menu, or business
 card → scanners land on your page.`}</pre>

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const SITE = {
   name: "YATools",
-  url: "https://yatools-xyv3.vercel.app",
+  url: "https://yatools-tan.vercel.app",
   description:
     "Free online tools for screenshots, audio, documents, Urdu content, and developers — with simple APIs for integration.",
   tagline: "Free tools for screenshots, audio, documents, and everyday work.",
@@ -1069,7 +1069,7 @@ export function orgJsonLd() {
     name: SITE.name,
     url: SITE.url,
     description: SITE.description,
-    logo: "https://yatools-xyv3.vercel.app/og-image.jpg",
+    logo: "https://yatools-tan.vercel.app/og-image.jpg",
   };
 }
 

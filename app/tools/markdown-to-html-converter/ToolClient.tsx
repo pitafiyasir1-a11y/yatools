@@ -156,7 +156,7 @@ Type on the left — the **HTML preview** renders live on the right.
 ## Features
 
 - **Bold**, *italic*, and \`inline code\`
-- [Links](https://yatools-xyv3.vercel.app/)
+- [Links](https://yatools-tan.vercel.app/)
 - Blockquotes:
 
 > Simple English beats jargon, every time.

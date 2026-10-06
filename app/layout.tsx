@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://yatools-xyv3.vercel.app/og-image.jpg",
+        url: "https://yatools-tan.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: `${SITE.name} — Free Online Tools`,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE.name} — Free Online Tools`,
     description: SITE.description,
-    images: ["https://yatools-xyv3.vercel.app/og-image.jpg"],
+    images: ["https://yatools-tan.vercel.app/og-image.jpg"],
   },
   verification: {
     google: "7vL78_nRkP8dJeqWXBX9uPU2Q94PHc2x8X-UFgRj2BU",

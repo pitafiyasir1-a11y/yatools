@@ -124,7 +124,7 @@ const API_BULLETS = [
 ];
 
 const JS_SNIPPET = `// Screenshot any public URL — no API key needed
-const res = await fetch("https://yatools.vercel.app/api/v1/websnap", {
+const res = await fetch("https://yatools-tan.vercel.app/api/v1/websnap", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ url: "https://example.com" }),
@@ -138,14 +138,14 @@ const PY_SNIPPET = `# Same endpoint, Python
 import requests
 
 r = requests.post(
-    "https://yatools.vercel.app/api/v1/websnap",
+    "https://yatools-tan.vercel.app/api/v1/websnap",
     json={"url": "https://example.com"},
 )
 # See /developers for the exact response shape
 print(r.json())`;
 
 const CURL_SNIPPET = `# Or straight from the terminal
-curl -X POST https://yatools.vercel.app/api/v1/websnap \\
+curl -X POST https://yatools-tan.vercel.app/api/v1/websnap \\
   -H "Content-Type: application/json" \\
   -d '{"url":"https://example.com"}'`;
 

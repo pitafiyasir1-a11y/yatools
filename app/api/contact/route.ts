@@ -53,8 +53,8 @@ export async function POST(req: Request) {
         Accept: "application/json",
         // FormSubmit's AJAX endpoint requires the request to look like it
         // comes from a real web page; without this it rejects the send.
-        Referer: "https://yatools-xyv3.vercel.app/contact",
-        Origin: "https://yatools-xyv3.vercel.app",
+        Referer: "https://yatools-tan.vercel.app/contact",
+        Origin: "https://yatools-tan.vercel.app",
       },
       body: JSON.stringify({
         name,
