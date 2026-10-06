@@ -3,7 +3,7 @@ import { isAdminAuthenticated, adminConfigured } from "@/lib/admin-auth";
 
 export async function GET() {
   return NextResponse.json({
-    authenticated: isAdminAuthenticated(),
+    authenticated: await isAdminAuthenticated(),
     configured: adminConfigured(),
   });
 }
