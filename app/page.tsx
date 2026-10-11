@@ -67,7 +67,7 @@ const FAQS = [
   },
   {
     q: "Is there an API I can build on?",
-    a: "Yes. Eight tools expose simple HTTP endpoints under /api/v1/ — no API key required, with a free daily allowance per endpoint. The developer docs walk through every parameter with examples.",
+    a: "Yes. Twelve tools expose simple HTTP endpoints under /api/v1/ — no API key required, with a free daily allowance per endpoint. The developer docs walk through every parameter with examples.",
   },
   {
     q: "Can I use the results commercially?",
@@ -382,7 +382,7 @@ export default function HomePage() {
               Every API tool, <em>one HTTP call</em> away.
             </>
           }
-          sub="Eight tools expose free endpoints under /api/v1/. No API key, no signup — just fetch."
+          sub="Twelve tools expose free endpoints under /api/v1/. No API key, no signup — just fetch."
         />
         <div className="grid gap-4 lg:grid-cols-3">
           <CodeWindow code={JS_SNIPPET} title="javascript" />

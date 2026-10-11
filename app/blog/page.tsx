@@ -143,7 +143,7 @@ export default function BlogIndex() {
               Want to skip the <em>reading?</em>
             </h2>
             <p className="sec-sub">
-              {SITE.name} has 36 free tools — screenshots, PDFs, audio, images, QR codes
+              {SITE.name} has 74 free tools — screenshots, PDFs, audio, images, QR codes
               and more. No sign-up, no watermarks.
             </p>
           </div>

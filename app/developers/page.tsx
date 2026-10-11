@@ -326,7 +326,7 @@ export default function Page() {
         <div className="prose-neu max-w-3xl mt-10">
           <h2>Endpoint reference</h2>
           <p>
-            Eight proxy routes, one per API-backed tool. Query parameters go in
+            Twelve proxy routes, one per API-backed tool. Query parameters go in
             the URL for GET routes; POST routes take a JSON body.
           </p>
         </div>
