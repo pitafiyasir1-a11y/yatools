@@ -14,7 +14,7 @@ import ToolsExplorer from "@/components/ToolsExplorer";
 import Faq from "@/components/Faq";
 
 const meta = pageMeta({
-  title: "Free Online Tools for Screenshots, Audio & Documents",
+  title: "74 Free Online Tools: PDF, Image, Audio & More — No Sign-Up",
   description: SITE.description,
   path: "/",
   keywords: [
