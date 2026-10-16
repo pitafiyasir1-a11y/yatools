@@ -997,6 +997,58 @@ export const TOOLS: ToolDef[] = [
     api: null,
     related: ["mkv-to-mp4-converter", "gif-to-mp4-converter", "video-converter"],
   },
+  {
+    slug: "fancy-text-generator",
+    name: "Fancy Text Generator",
+    tagline: "Stylish Unicode fonts for bios, captions, and names.",
+    description:
+      "Fancy text generator free: type once, get 12 stylish Unicode fonts — bold, italic, script, monospace, fraktur and more. Copy-paste ready for Instagram bios, TikTok names, and WhatsApp. 100% in-browser.",
+    category: "Everyday Utilities",
+    keyword: "fancy text generator",
+    badge: "Free",
+    badgeColor: "green",
+    api: null,
+    related: ["word-counter", "case-converter", "qr-code-generator"],
+  },
+  {
+    slug: "age-calculator",
+    name: "Age Calculator",
+    tagline: "Your exact age in years, months, and days.",
+    description:
+      "Age calculator free online: enter your birthdate for your exact age in years, months, and days — plus total days lived, next birthday countdown, and day of week born. 100% in-browser, private.",
+    category: "Everyday Utilities",
+    keyword: "age calculator",
+    badge: "Free",
+    badgeColor: "green",
+    api: null,
+    related: ["bmi-calculator", "percentage-calculator", "unit-converter"],
+  },
+  {
+    slug: "bmi-calculator",
+    name: "BMI Calculator",
+    tagline: "Check your Body Mass Index instantly.",
+    description:
+      "BMI calculator free online: enter height and weight (metric or imperial) for your Body Mass Index with color-coded WHO category — underweight, normal, overweight, or obese. 100% in-browser, private.",
+    category: "Everyday Utilities",
+    keyword: "bmi calculator",
+    badge: "Free",
+    badgeColor: "green",
+    api: null,
+    related: ["age-calculator", "percentage-calculator", "unit-converter"],
+  },
+  {
+    slug: "percentage-calculator",
+    name: "Percentage Calculator",
+    tagline: "X% of Y, percent change, and more — instantly.",
+    description:
+      "Percentage calculator free online: find X% of Y, what percent one number is of another, and percent increase or decrease between two values. Instant answers, 100% in-browser.",
+    category: "Everyday Utilities",
+    keyword: "percentage calculator",
+    badge: "Free",
+    badgeColor: "green",
+    api: null,
+    related: ["unit-converter", "age-calculator", "bmi-calculator"],
+  },
 ];
 
 export const toolBySlug = (slug: string): ToolDef | undefined =>
