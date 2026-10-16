@@ -145,24 +145,38 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   try {
-    const res = await fetch(
-      `${UPSTREAM}/api/alldl?url=${encodeURIComponent(target.toString())}`,
-      {
-        headers: { accept: "application/json" },
-        signal: AbortSignal.timeout(TIMEOUTS.alldl),
+    // Retry the upstream up to 3 times with backoff — the service is
+    // intermittently flaky and a second attempt often succeeds.
+    let lastErr: unknown = null;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const res = await fetch(
+          `${UPSTREAM}/api/alldl?url=${encodeURIComponent(target.toString())}`,
+          {
+            headers: { accept: "application/json" },
+            signal: AbortSignal.timeout(TIMEOUTS.alldl),
+          }
+        );
+        // The upstream answers 200 AND 4xx/5xx with the same JSON shape
+        // ({ success, message, mediaInfo, links, supportedPlatforms }) — only a
+        // non-JSON body means the service itself is down.
+        const text = await res.text();
+        let json: unknown;
+        try {
+          json = JSON.parse(text);
+        } catch {
+          throw new Error("upstream returned non-JSON");
+        }
+        return okJson(adaptAlldl(json), "yatools");
+      } catch (e) {
+        lastErr = e;
+        if (attempt < 3) {
+          // Backoff: 1s, then 2s before the next try.
+          await new Promise((r) => setTimeout(r, attempt * 1000));
+        }
       }
-    );
-    // The upstream answers 200 AND 4xx/5xx with the same JSON shape
-    // ({ success, message, mediaInfo, links, supportedPlatforms }) — only a
-    // non-JSON body means the service itself is down.
-    const text = await res.text();
-    let json: unknown;
-    try {
-      json = JSON.parse(text);
-    } catch {
-      throw new Error("upstream returned non-JSON");
     }
-    return okJson(adaptAlldl(json), "yatools");
+    throw lastErr ?? new Error("upstream failed after 3 attempts");
   } catch {
     return errJson(
       "ALLDL_DOWN",

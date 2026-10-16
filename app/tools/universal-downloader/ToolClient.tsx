@@ -105,40 +105,59 @@ export default function UniversalDownloaderClient() {
   const [busyFile, setBusyFile] = useState<string | null>(null);
   const [downloadNote, setDownloadNote] = useState<string | null>(null);
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
+  const [retrying, setRetrying] = useState(false);
 
-  const fetchMedia = async () => {
+  const fetchMedia = async (isRetry = false) => {
     const target = url.trim();
     if (!target) {
       setError("Please paste a video or audio page URL first.");
       return;
     }
     setWorking(true);
+    if (!isRetry) setRetrying(false);
     setError(null);
     setMessage(null);
     setMedia(null);
     setDownloadNote(null);
     setFallbackUrl(null);
     setSelectedQuality(0);
-    try {
-      const res = await fetch(`/api/v1/alldl?url=${encodeURIComponent(target)}`);
-      const json = (await res.json()) as ApiOk | ApiErr;
-      if (!json.ok) throw new Error(json.error.message);
-      const data = json.data;
-      setMedia(data.media);
-      setMessage(data.message);
-      if (data.supportedPlatforms?.length) {
-        setPlatforms(data.supportedPlatforms);
+    // Client-side retry: the API already retries upstream 3x, but if our own
+    // request fails (network blip), try once more automatically.
+    const maxAttempts = 2;
+    let lastErr: Error | null = null;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        if (attempt > 1) {
+          setRetrying(true);
+          setMessage(`Retrying… (attempt ${attempt} of ${maxAttempts})`);
+        }
+        const res = await fetch(`/api/v1/alldl?url=${encodeURIComponent(target)}`);
+        const json = (await res.json()) as ApiOk | ApiErr;
+        if (!json.ok) throw new Error(json.error.message);
+        const data = json.data;
+        setMedia(data.media);
+        setMessage(data.message);
+        if (data.supportedPlatforms?.length) {
+          setPlatforms(data.supportedPlatforms);
+        }
+        if (!data.success && !data.message) {
+          setMessage("No downloadable files were found for that URL.");
+        }
+        setRetrying(false);
+        setWorking(false);
+        return;
+      } catch (e) {
+        lastErr = e instanceof Error ? e : new Error("Something went wrong.");
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 1500));
+        }
       }
-      if (!data.success && !data.message) {
-        setMessage("No downloadable files were found for that URL.");
-      }
-    } catch (e) {
-      setError(
-        e instanceof Error ? e.message : "Something went wrong. Please try again."
-      );
-    } finally {
-      setWorking(false);
     }
+    setRetrying(false);
+    setWorking(false);
+    setError(
+      lastErr ? `${lastErr.message} — tap "Try again" to retry.` : "Something went wrong. Please try again."
+    );
   };
 
   const hasQualities = (media?.qualities?.length ?? 0) > 0;
@@ -220,10 +239,10 @@ export default function UniversalDownloaderClient() {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={fetchMedia}
+          onClick={() => fetchMedia()}
           disabled={working}
         >
-          {working ? "Fetching…" : "Get download links"}
+          {working ? (retrying ? "Retrying…" : "Fetching…") : "Get download links"}
         </button>
       </div>
       <p style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: 4 }}>
@@ -234,6 +253,16 @@ export default function UniversalDownloaderClient() {
       {error && (
         <div className="notice" style={{ borderColor: "var(--red)", marginTop: 16 }}>
           <strong>Heads up:</strong> {error}
+          <div style={{ marginTop: 10 }}>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => fetchMedia(true)}
+              disabled={working}
+            >
+              {working ? "Retrying…" : "Try again ↻"}
+            </button>
+          </div>
         </div>
       )}
 
