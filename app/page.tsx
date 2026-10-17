@@ -14,10 +14,12 @@ import ToolsExplorer from "@/components/ToolsExplorer";
 import Faq from "@/components/Faq";
 
 const meta = pageMeta({
-  title: "78 Free Online Tools: PDF, Image, Audio & More — No Sign-Up",
+  title: "YATools — 78 Free Online Tools: PDF, Image, Audio & More",
   description: SITE.description,
   path: "/",
   keywords: [
+    "yatools",
+    "yatools free tools",
     "free online tools",
     "website screenshot online",
     "text to speech online",
