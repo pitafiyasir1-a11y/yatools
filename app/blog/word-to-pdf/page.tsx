@@ -4,12 +4,12 @@ import { JsonLd, FaqList, RelatedTools, SectionHead } from "../../tools/tool-par
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { postBySlug, articleJsonLd, POSTS } from "../posts";
 
-const post = postBySlug("word-to-pdf-converter")!;
+const post = postBySlug("word-to-pdf")!;
 
 export const metadata = pageMeta({
   title: "Word to PDF: Free Ways to Convert DOCX to PDF",
   description:
-    "Convert Word to PDF for free with the built-in Export in Word, Google Docs, and your phone — no shady converter sites, no watermark, no sign-up.",
+    "Convert Word to PDF free in 2026: our in-browser converter, Word's built-in Export, Google Docs, or your phone — no sign-up, no watermark, no shady sites.",
   path: `/blog/${post.slug}`,
   keywords: [
     "word to pdf free",
@@ -37,8 +37,8 @@ const faqs = [
     a: "Hyperlinks survive Word's built-in PDF export and Google Docs' download. Bookmarks created from heading styles survive too, as long as you export with 'Create bookmarks using headings' enabled (it's under Options in the Save As dialog on desktop Word).",
   },
   {
-    q: "Why doesn't YATools offer a Word-to-PDF converter?",
-    a: "Because the free options built into Word, Google Docs, and every phone are already better than anything we could ship. Rendering DOCX files faithfully requires a full document engine — there is no genuine free in-browser one. A site like ours could only offer you a worse copy of what your apps already do.",
+    q: "Does YATools offer a Word-to-PDF converter?",
+    a: "Yes — our free Word to PDF Converter renders your .docx right in your browser and saves it as a PDF through your browser's print dialog. Nothing is uploaded, so it's safe for resumes and contracts. Typical documents come out matching Word's own export; for documents with exotic fonts or complex floating objects, desktop Word's built-in Export still gives the highest fidelity.",
   },
 ];
 
@@ -50,7 +50,7 @@ export default function WordToPdfPage() {
       <JsonLd
         data={articleJsonLd(
           post,
-          "Convert Word to PDF for free with the built-in Export in Word, Google Docs, and your phone — no shady converter sites, no watermark, no sign-up."
+          "Convert Word to PDF free in 2026: our in-browser converter, Word's built-in Export, Google Docs, or your phone — no sign-up, no watermark, no shady sites."
         )}
       />
       <JsonLd data={faqJsonLd(faqs)} />
@@ -95,16 +95,36 @@ export default function WordToPdfPage() {
 
         <article className="prose-neu" style={{ maxWidth: 760, marginTop: 32 }}>
           <p>
-            Here&apos;s the good news: unlike the tricky reverse trip (PDF to
-            Word, which we cover in{" "}
-            <Link href="/blog/pdf-to-word">our PDF→Word guide</Link>),
-            converting a Word document <em>to</em> PDF is something your
-            software already does perfectly — for free. You don&apos;t need a
-            converter site. You almost certainly don&apos;t need to install
-            anything.
+            You finished a resume, a report, or an assignment in Word — and now
+            you need it as a PDF that looks the same everywhere. Converting
+            Word to PDF is free and takes under a minute. Here are the four
+            reliable methods, ranked by convenience — including our own
+            in-browser converter that never uploads your file. (Need the tricky
+            reverse trip instead? That&apos;s covered in{" "}
+            <Link href="/blog/pdf-to-word">our PDF→Word guide</Link>.)
           </p>
 
-          <h2>Method 1: Word&apos;s built-in export (desktop)</h2>
+          <h2>Method 1: Our free in-browser converter (no Office needed)</h2>
+          <p>
+            Open our <Link href="/tools/word-to-pdf-converter">Word to PDF
+            Converter</Link>, drop in your .docx file, review the rendered
+            preview, and hit <strong>Print / Save as PDF</strong>. The document
+            renders entirely on your device and your browser&apos;s own print
+            engine produces the PDF — no Microsoft Word install, no account, no
+            upload. Because your file never leaves your machine, it&apos;s the
+            right choice for resumes, contracts, and anything confidential.
+          </p>
+          <p>
+            Two honest caveats: it handles modern <strong>.docx</strong> files
+            (Word 2007 and later, including Google Docs and LibreOffice
+            exports) — old .doc files and password-protected documents need a
+            re-save first. And for typical documents the output matches
+            Word&apos;s own export, but if your document has exotic fonts or
+            intricate floating objects, give the finished PDF a 30-second
+            visual check before sending it somewhere important.
+          </p>
+
+          <h2>Method 2: Word&apos;s built-in export (desktop)</h2>
           <p>
             If you have Microsoft Word installed, this is the gold standard —
             and it takes ten seconds:
@@ -133,7 +153,7 @@ export default function WordToPdfPage() {
             Heading bookmarks survive. Nothing is uploaded anywhere.
           </p>
 
-          <h2>Method 2: Google Docs (no Word installed)</h2>
+          <h2>Method 3: Google Docs (no Word installed)</h2>
           <p>
             No Microsoft Office? No problem. Upload your .docx file to Google
             Drive (drag it into drive.google.com), open it with Google Docs,
@@ -146,7 +166,7 @@ export default function WordToPdfPage() {
             exotic fonts and complex tables can shift slightly.
           </p>
 
-          <h2>Method 3: LibreOffice (free and offline)</h2>
+          <h2>Method 4: LibreOffice (free and offline)</h2>
           <p>
             LibreOffice Writer is free, open-source, and opens DOCX files
             natively. Hit the <strong>Export Directly as PDF</strong> button in
@@ -155,7 +175,7 @@ export default function WordToPdfPage() {
             leaves your machine — and costs nothing, ever.
           </p>
 
-          <h2>Method 4: Your phone</h2>
+          <h2>Method 5: Your phone</h2>
           <ul>
             <li>
               <strong>Word mobile app:</strong> open the document, tap the
@@ -183,11 +203,15 @@ export default function WordToPdfPage() {
             privately.
           </p>
           <p>
-            We&apos;re honest about this because we don&apos;t offer a
-            Word-to-PDF tool — and we won&apos;t fake one. There is no genuine
-            free in-browser DOCX rendering engine that matches what Word and
-            Docs already do. A button on our site would just be a worse copy
-            of the Export menu you already have.
+            That&apos;s exactly why our own{" "}
+            <Link href="/tools/word-to-pdf-converter">Word to PDF Converter</Link>{" "}
+            runs entirely in your browser: your .docx is rendered on your
+            device and saved through your browser&apos;s print engine — no
+            upload, no server holding a copy, no account. For the highest
+            fidelity on complex documents with unusual fonts or floating
+            objects, Word&apos;s own Export still wins; for everyday resumes,
+            reports, and assignments, the in-browser route is instant and
+            private.
           </p>
 
           <h2>Building PDFs from scratch instead</h2>
@@ -249,7 +273,7 @@ export default function WordToPdfPage() {
 
         <div style={{ marginTop: 44 }}>
           <SectionHead label="Keep exploring" title={<>Related <em>tools</em></>} />
-          <RelatedTools slugs={["text-to-pdf", "image-to-pdf", "merge-pdf", "compress-pdf"]} />
+          <RelatedTools slugs={["word-to-pdf-converter", "text-to-pdf", "image-to-pdf", "merge-pdf"]} />
         </div>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />

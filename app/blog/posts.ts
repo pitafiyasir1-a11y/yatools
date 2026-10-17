@@ -64,7 +64,7 @@ export const POSTS: BlogPostMeta[] = [
     tags: ["PDF", "How-to"],
   },
   {
-    slug: "pdf-to-word-converter",
+    slug: "pdf-to-word",
     title: "PDF to Word: How to Convert PDF to Editable Word Documents Free",
     excerpt:
       "Convert PDF to editable Word documents for free with Google Docs, Word, or LibreOffice — plus why true PDF→Word is harder than it looks.",
@@ -74,17 +74,17 @@ export const POSTS: BlogPostMeta[] = [
     tags: ["PDF", "Office", "How-to"],
   },
   {
-    slug: "word-to-pdf-converter",
+    slug: "word-to-pdf",
     title: "Word to PDF: Free Ways to Convert DOCX to PDF",
     excerpt:
-      "Your apps already convert Word to PDF perfectly: built-in Export in Word, Google Docs download, and your phone — no converter sites needed.",
-    date: "2026-10-06",
-    dateLabel: "Oct 6, 2026",
+      "Convert Word to PDF free in 2026: our in-browser converter, Word's built-in Export, Google Docs, and your phone — no sign-up, no watermark.",
+    date: "2026-10-17",
+    dateLabel: "Oct 17, 2026",
     readTime: "6 min read",
     tags: ["PDF", "Office", "How-to"],
   },
   {
-    slug: "excel-to-pdf-converter",
+    slug: "excel-to-pdf",
     title: "Excel to PDF: Convert Spreadsheets Without Losing Formatting",
     excerpt:
       "Stop cut-off columns and tiny text: the print-to-PDF page setup that makes Excel and Google Sheets export clean, readable PDFs.",

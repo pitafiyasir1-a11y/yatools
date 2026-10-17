@@ -4,7 +4,7 @@ import { JsonLd, FaqList, RelatedTools, SectionHead } from "../../tools/tool-par
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { postBySlug, articleJsonLd, POSTS } from "../posts";
 
-const post = postBySlug("pdf-to-word-converter")!;
+const post = postBySlug("pdf-to-word")!;
 
 export const metadata = pageMeta({
   title: "PDF to Word: Convert PDF to Editable Word Documents Free",

@@ -4,7 +4,7 @@ import { JsonLd, FaqList, RelatedTools, SectionHead } from "../../tools/tool-par
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { postBySlug, articleJsonLd, POSTS } from "../posts";
 
-const post = postBySlug("excel-to-pdf-converter")!;
+const post = postBySlug("excel-to-pdf")!;
 
 export const metadata = pageMeta({
   title: "Excel to PDF: Convert Spreadsheets, Keep Formatting",
