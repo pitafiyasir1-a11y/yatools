@@ -92,7 +92,7 @@ export default function ToolsExplorer({ tools }: { tools: ToolDef[] }) {
                 setActive(null);
               }}
             >
-              Show all 74 tools
+              Show all 78 tools
             </button>
           )}
         </div>

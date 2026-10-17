@@ -63,7 +63,7 @@ export default function ToolSearchBar({
           type="search"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="Search 74 tools — try “insta downloader”, “pdf to word”, “qr”…"
+          placeholder="Search 78 tools — try “insta downloader”, “pdf to word”, “qr”…"
           aria-label="Search tools"
           autoComplete="off"
           spellCheck={false}
