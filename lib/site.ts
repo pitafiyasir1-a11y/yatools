@@ -6,7 +6,7 @@ export const SITE = {
   name: "YATools",
   url: "https://yatools-tan.vercel.app",
   description:
-    "74 free online tools: PDF, image, audio, QR, converters and more. No sign-up, no watermarks — most tools run in your browser.",
+    "78 free online tools: PDF, image, audio, QR, converters and more. No sign-up, no watermarks — most tools run in your browser.",
   tagline: "Free tools for screenshots, audio, documents, and everyday work.",
   email: "yasirabbas@relianceengineering.com.pk",
   owner: "Yasir Abbas",
