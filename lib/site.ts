@@ -1095,7 +1095,8 @@ export function pageMeta(opts: {
   const url = `${SITE.url}${opts.path}`;
   // Brand SEO: every page carries YATools brand keywords so Google associates
   // the brand name with all site content. Dedupe to avoid repeats.
-  const brandKeywords = ["yatools", "yatools free tools"];
+  // Include case variations (yatools, YATools, YAtools) for broader matching.
+  const brandKeywords = ["yatools", "YATools", "YAtools", "yatools free tools"];
   const keywords = [...brandKeywords, ...(opts.keywords ?? [])];
   const uniqueKeywords = [...new Set(keywords)];
   return {
