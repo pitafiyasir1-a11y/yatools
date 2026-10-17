@@ -1093,10 +1093,15 @@ export function pageMeta(opts: {
   keywords?: string[];
 }): Metadata {
   const url = `${SITE.url}${opts.path}`;
+  // Brand SEO: every page carries YATools brand keywords so Google associates
+  // the brand name with all site content. Dedupe to avoid repeats.
+  const brandKeywords = ["yatools", "yatools free tools"];
+  const keywords = [...brandKeywords, ...(opts.keywords ?? [])];
+  const uniqueKeywords = [...new Set(keywords)];
   return {
     title: opts.title,
     description: opts.description,
-    keywords: opts.keywords,
+    keywords: uniqueKeywords,
     alternates: { canonical: url },
     openGraph: {
       title: opts.title,
