@@ -24,7 +24,7 @@ const tool: ToolDef = {
   name: "Text to Image",
   tagline: "Turn words into shareable typography posters.",
   description:
-    "Free text to image generator. Design typography posters with custom fonts, colors, and gradients — square, landscape, or portrait — and download as PNG.",
+    "Free text to image generator. Design typography posters with 8 pro templates, neon glow, 3D depth, custom fonts, colors, gradients and textures — 6 canvas sizes — and download as PNG.",
   category: "Everyday Utilities",
   keyword: "text to image generator",
   badge: "Free",
@@ -49,7 +49,7 @@ function softwareAppJsonLd() {
 export const metadata = pageMeta({
   title: "Text to Image Generator - Create Typography Posters Free",
   description:
-    "Turn words into images free online — design typography posters with custom fonts, colors, and gradients. Square, portrait, or landscape PNG. Try it now!",
+    "Turn words into images free online — design typography posters with 8 pro templates, neon glow and 3D text effects, custom fonts, colors, gradients and textures. 6 canvas sizes, full-resolution PNG. Try it now!",
   path: "/tools/text-to-image",
   keywords: [
     "text to image generator",
@@ -57,6 +57,8 @@ export const metadata = pageMeta({
     "typography poster maker",
     "quote image maker",
     "text poster generator",
+    "neon text generator",
+    "quote card maker",
   ],
 });
 
@@ -71,11 +73,19 @@ const faqs = [
   },
   {
     q: "Which image sizes can I export?",
-    a: "Three presets: Square 1080 × 1080 (Instagram posts, profile art), Landscape 1200 × 630 (link previews, banners), and Portrait 1080 × 1350 (stories, posters). Every export is a full-resolution PNG.",
+    a: "Six presets: Square 1080 × 1080 (Instagram posts), Portrait 1080 × 1350, Story 1080 × 1920 (stories/reels covers), Landscape 1200 × 630 (link previews), YouTube 1280 × 720 (thumbnails), and Wide banner 1920 × 640. Every export is a full-resolution PNG.",
   },
   {
     q: "How do I make long text fit?",
     a: "Long lines wrap automatically inside your padding, and pressing Enter adds manual line breaks. If text still overflows, lower the text size or increase the padding with the sliders.",
+  },
+  {
+    q: "What are design templates?",
+    a: "One-click starting points: Neon Nights, Golden Luxury, Bold Impact, Minimal Clean, Ocean Drive, Sunset Pop, Retro Cream, and Midnight Purple. Pick one, edit the text, and every font, color, effect, and background updates instantly. Hit Shuffle for a random style.",
+  },
+  {
+    q: "What text effects are available?",
+    a: "Five effects: none, soft shadow, neon glow, outline, and 3D depth (extruded). Each effect has its own color picker, so a glow can be cyan on dark or gold on black — your call.",
   },
   {
     q: "Is my text uploaded anywhere?",
@@ -128,7 +138,7 @@ export default function TextToImagePage() {
         <SectionHead label="About this tool" title={<>About the <em>Text to Image Generator</em></>} />
         <div style={{ maxWidth: 780 }}>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
-            This text to image generator turns your words into designed typography posters — quotes, announcements, and headlines rendered as shareable images. Type your text into this free online tool, choose fonts, colors, and gradient backgrounds, pick square, portrait, or landscape sizing, and download a crisp PNG. Creators make quote cards for social feeds, businesses design simple sale announcements, and friends turn inside jokes into shareable graphics — no design software needed.
+            This text to image generator turns your words into designed typography posters — quotes, announcements, and headlines rendered as shareable images. Start from 8 pro design templates (neon, luxury, retro and more), or build custom: two text layers, 10 fonts, neon glow, outline and 3D text effects, gradients, texture patterns, and 6 canvas sizes. Download a crisp PNG. Creators make quote cards for social feeds, businesses design simple sale announcements, and friends turn inside jokes into shareable graphics — no design software needed.
           </p>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
             To be clear about what this is: a typography designer, not an AI art generator. You control the lettering, layout, and style directly, which means the output always says exactly what you typed — no AI surprises, no misspelled words. Long text reflows across lines automatically, and the live preview shows the final poster before you download. Everything renders in your browser, so your words stay private.
@@ -146,11 +156,11 @@ export default function TextToImagePage() {
             },
             {
               title: "Style it",
-              text: "Pick from six fonts, tune the size, alignment, and padding, then set a solid color or a two-tone gradient background.",
+              text: "Pick a design template or go custom: 10 fonts, headline + subtext layers, neon glow, outline, 3D depth, letter spacing, gradients, and texture patterns.",
             },
             {
               title: "Download the PNG",
-              text: "Export at full resolution in square, landscape, or portrait — ready for social posts, banners, or print.",
+              text: "Export at full resolution in 6 sizes — square, portrait, story, landscape, YouTube thumbnail, or wide banner — ready for social posts, banners, or print.",
             },
           ]}
         />
