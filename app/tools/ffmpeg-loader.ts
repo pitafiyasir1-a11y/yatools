@@ -6,15 +6,20 @@
  * build doesn't use SharedArrayBuffer. We fetch the files ourselves (with an
  * honest progress readout) and hand blob URLs to ffmpeg.
  *
- * IMPORTANT: we must use the `dist/esm` build, NOT `dist/umd`. The ffmpeg
- * worker loads the core via `await import(coreURL)` and reads
- * `.default` off the module namespace — the UMD build has no ES default
- * export, so `load()` would reject with ERROR_IMPORT_FAILURE and every video
- * tool would die at the "Loading video engine…" stage. The ESM build ends
- * with `export default createFFmpegCore`.
+ * IMPORTANT: we must use the `dist/umd` build, NOT `dist/esm`. The ffmpeg
+ * class worker loads the core in two steps: first `importScripts(coreURL)`,
+ * and only if that throws, a dynamic `import(coreURL)` fallback. Inside the
+ * Next.js/webpack production bundle, that dynamic import is replaced by a
+ * webpack stub that always throws "Cannot find module" — so the fallback
+ * can NEVER succeed in production. The ESM core always fails importScripts
+ * (its `export` statement is a syntax error in a classic script), which made
+ * every ffmpeg tool fail at load time in production (verified 2026-10-20 by
+ * running the production worker chunk against both builds: ESM -> "Cannot
+ * find module 'blob:...'", UMD -> loads and converts fine). The UMD build is
+ * a classic script, so `importScripts` succeeds on the first path.
  *
- * The blob URLs also need explicit MIME types: dynamic `import()` of a
- * blob: URL fails the module-script MIME check when the blob has no type.
+ * The blob URLs also need explicit MIME types: the core JS blob is typed
+ * "text/javascript" so the worker can importScripts it.
  *
  * The ~32MB engine downloads once, then the instance is cached in memory
  * for the rest of the page session.
@@ -23,9 +28,9 @@
 
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
 
-export const FFMPEG_BASE = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.9/dist/esm";
-export const FFMPEG_JS_BYTES = 111804; // dist/esm/ffmpeg-core.js
-export const FFMPEG_WASM_BYTES = 32232419; // dist/esm/ffmpeg-core.wasm (honest size for the progress readout)
+export const FFMPEG_BASE = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.9/dist/umd";
+export const FFMPEG_JS_BYTES = 112059; // dist/umd/ffmpeg-core.js
+export const FFMPEG_WASM_BYTES = 32232419; // dist/umd/ffmpeg-core.wasm (honest size for the progress readout)
 export const FFMPEG_FIRST_RUN_NOTE =
   "First run loads the video engine (~30 MB), then it's instant for the rest of your visit.";
 
