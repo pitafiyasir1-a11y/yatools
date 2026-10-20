@@ -22,9 +22,9 @@ import { softwareAppJsonLd } from "../_conv-shared/seo";
 const tool: ToolDef = {
   slug: "word-to-pdf-converter",
   name: "Word to PDF Converter",
-  tagline: "A free Word to PDF converter: turn any .docx into a clean PDF with your browser's print engine — no sign-up.",
+  tagline: "A free Word to PDF converter: turn any .docx into a clean, downloadable PDF right in your browser — no sign-up.",
   description:
-    "Convert Word to PDF online for free: render your .docx in the browser and save it as PDF via print. Private, fast, no sign-up.",
+    "Convert Word to PDF online for free: render your .docx in the browser and download it as a PDF. Private, fast, no sign-up.",
   category: "Screenshots & PDF",
   keyword: "word to pdf converter online",
   badge: "Free",
@@ -40,7 +40,7 @@ const tool: ToolDef = {
 export const metadata = pageMeta({
   title: "Word to PDF Converter - Convert DOCX to PDF Free Online",
   description:
-    "Word to PDF converter, free online: turn any .docx into a clean, printable PDF with your browser's print engine. No sign-up, no watermark. Try it now!",
+    "Word to PDF converter, free online: turn any .docx into a clean, printable PDF right in your browser. No sign-up, no watermark. Try it now!",
   path: "/tools/word-to-pdf-converter",
   keywords: [
     "Word to PDF",
@@ -54,7 +54,7 @@ export const metadata = pageMeta({
 const faqs = [
   {
     q: "How does the conversion work?",
-    a: "Your .docx is rendered right in your browser, and the conversion uses your browser's built-in print engine — you choose “Save as PDF” in the print dialog. No servers, no uploads, no waiting in a queue.",
+    a: "Your .docx is rendered right in your browser and turned into a PDF on the spot — click “Download PDF” and the file saves to your device. A “Print / Save as PDF” option is also there if you prefer the print dialog. No servers, no uploads, no waiting in a queue.",
   },
   {
     q: "Will the PDF look like my Word document?",
@@ -79,7 +79,7 @@ const howTo = {
   "@type": "HowTo",
   name: "How to convert Word to PDF online",
   description:
-    "Render a .docx in your browser and save it as a PDF using the built-in print engine.",
+    "Render a .docx in your browser and download it as a PDF.",
   step: [
     {
       "@type": "HowToStep",
@@ -96,8 +96,8 @@ const howTo = {
     {
       "@type": "HowToStep",
       position: 3,
-      name: "Save as PDF",
-      text: "Click “Print / Save as PDF” and choose “Save as PDF” in the print dialog.",
+      name: "Download your PDF",
+      text: "Click “Download PDF” and the PDF saves straight to your device.",
     },
   ],
 };
@@ -127,13 +127,13 @@ export default function WordToPdfPage() {
               Free Word to <em>PDF Converter</em> Online
             </>
           }
-          tagline="A free Word to PDF converter: turn any .docx into a clean PDF with your browser's print engine — no sign-up."
+          tagline="A free Word to PDF converter: turn any .docx into a clean, downloadable PDF right in your browser — no sign-up."
         />
 
         <WordToPdfClient />
         <PrivacyNote>
-          Your Word document is rendered 100% in your browser with docx-preview and converted by
-          your browser's print engine. Nothing is ever uploaded.
+          Your Word document is rendered 100% in your browser with docx-preview and converted into a PDF
+          on your device. Nothing is ever uploaded.
         </PrivacyNote>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
@@ -155,8 +155,8 @@ export default function WordToPdfPage() {
               d: "Modern Word files from Word, Google Docs, or LibreOffice. Old .doc and password-protected files aren't supported.",
             },
             {
-              t: "Output: PDF via print",
-              d: "Your browser's own “Save as PDF” produces the file — the same engine used for printing any web page, sharp and reliable.",
+              t: "Output: downloadable PDF",
+              d: "Click “Download PDF” and a real .pdf file saves to your device — pages rendered exactly like the preview. No print dialog needed (that option exists too).",
             },
             {
               t: "Faithful for normal documents",
@@ -187,8 +187,8 @@ export default function WordToPdfPage() {
               text: "Scroll through the rendered document below to confirm headings, tables, and images look right.",
             },
             {
-              title: "Save as PDF",
-              text: "Hit “Print / Save as PDF” and pick “Save as PDF” in the dialog. Choose your folder and done.",
+              title: "Download the PDF",
+              text: "Hit “Download PDF” and the file saves straight to your device. Done.",
             },
           ]}
         />

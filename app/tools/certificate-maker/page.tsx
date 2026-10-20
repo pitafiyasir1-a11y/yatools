@@ -30,14 +30,14 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. 10 free per day. Try now!",
+    description: "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. Unlimited and instant. Try now!",
   };
 }
 
 export const metadata = pageMeta({
   title: "Novelty Certificate Maker - Create Fun Awards Free Online",
   description:
-    "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. 10 free per day. Try now!",
+    "Create fun novelty certificates free online — add a name, achievement, and date, pick from 8 styles, download as PDF, PNG, or JPG. Unlimited and instant. Try now!",
   path: "/tools/certificate-maker",
   keywords: [
     "certificate maker",
@@ -63,7 +63,7 @@ const faqs = [
   },
   {
     q: "How many certificates can I make?",
-    a: "10 free certificates per day per IP address. The counter resets daily, and you don't need an account.",
+    a: "As many as you like — certificates are drawn instantly in your browser, so there is no daily limit and you don't need an account.",
   },
   {
     q: "What can I put on the certificate?",
@@ -124,7 +124,7 @@ export default function CertificateMakerPage() {
             A novelty certificate maker turns any achievement — real or gloriously silly — into a handsome certificate in seconds. Add the recipient's name, what they achieved, the date, and a signature line, then choose from 8 styles ranging from Modern to Golden Elegant in this free online tool. Download the result as a PDF for printing, a PNG for crisp quality, or a JPG for easy sharing in chat apps. Offices run joke award nights, parents reward reading challenges, and friends commemorate everything from World's Best Coffee Maker to Surviving Monday.
           </p>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
-            Let us be completely clear, because it matters: every certificate made here is a novelty item. It is not an official credential and has no academic, legal, or professional value — never present one as a real qualification, and avoid using the names or logos of real institutions. Within those honest bounds, it is pure fun: you get 10 free certificates per day with no account, and nothing you type is stored anywhere.
+            Let us be completely clear, because it matters: every certificate made here is a novelty item. It is not an official credential and has no academic, legal, or professional value — never present one as a real qualification, and avoid using the names or logos of real institutions. Within those honest bounds, it is pure fun: you get unlimited free certificates with no account, and nothing you type ever leaves your device.
           </p>
         </div>
 
@@ -143,7 +143,7 @@ export default function CertificateMakerPage() {
             },
             {
               title: "Generate and download",
-              text: "Hit the button, wait a few seconds, and your certificate is ready to download, open full-size, or print. 10 free certificates per day, no account needed.",
+              text: "Hit the button and your certificate is ready instantly to download, open full-size, or print. Unlimited certificates, no account needed.",
             },
           ]}
         />
@@ -171,8 +171,8 @@ export default function CertificateMakerPage() {
               d: "Modern, Dark Background, Green, Classic, Red and Yellow, Golden Elegant, Blue Simple, and Golden and Green — each with its own look for a different kind of joke or celebration.",
             },
             {
-              t: "10 per day, free",
-              d: "Everyone gets 10 free certificates per day per IP address — plenty for a party, an office awards night, or a family game night. No sign-up, no payment.",
+              t: "Unlimited, free",
+              d: "Make as many certificates as you like — plenty for a party, an office awards night, or a family game night. No sign-up, no payment, no daily cap.",
             },
             {
               t: "Made for sharing",

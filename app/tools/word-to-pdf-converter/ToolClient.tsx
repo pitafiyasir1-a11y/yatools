@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DropZone, HonestLabel, PrintStyles } from "../doc-convert-parts";
+import {
+  DropZone,
+  HonestLabel,
+  PrintStyles,
+  canvasesToPdfBlob,
+  downloadBlob,
+} from "../doc-convert-parts";
 
 const PRINT_ROOT = "word-to-pdf-print-root";
 
 export default function WordToPdfClient() {
   const [loading, setLoading] = useState(false);
+  const [converting, setConverting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [baseName, setBaseName] = useState("");
   const [rendered, setRendered] = useState(false);
@@ -62,6 +69,33 @@ export default function WordToPdfClient() {
 
   const print = () => window.print();
 
+  const downloadPdf = async () => {
+    if (!docRef.current) return;
+    setConverting(true);
+    setError(null);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const sections = Array.from(
+        docRef.current.querySelectorAll<HTMLElement>(".docx-wrapper > section.docx")
+      );
+      if (sections.length === 0) throw new Error("no pages");
+      const canvases: HTMLCanvasElement[] = [];
+      for (const s of sections) {
+        canvases.push(
+          await html2canvas(s, { backgroundColor: "#ffffff", scale: 2, logging: false })
+        );
+      }
+      const blob = await canvasesToPdfBlob(canvases);
+      downloadBlob(blob, `${baseName || "document"}.pdf`);
+    } catch {
+      setError(
+        "Building the PDF failed in your browser. The Print / Save as PDF option still works."
+      );
+    } finally {
+      setConverting(false);
+    }
+  };
+
   // Safety: nothing to clean up for print; the CSS is scoped to print media.
   useEffect(() => () => clearDoc(), []);
 
@@ -69,9 +103,11 @@ export default function WordToPdfClient() {
     <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <PrintStyles rootId={PRINT_ROOT} />
       <HonestLabel>
-        Converted with your browser's built-in print engine — click “Print / Save as PDF” and
-        choose <strong>“Save as PDF”</strong> in the print dialog. Layout follows what the
-        preview shows below; extremely complex Word layouts may render slightly differently.
+        Click <strong>“Download PDF”</strong> to get a real PDF file right away — every page
+        looks exactly like the preview below (pages are rendered as images inside the PDF, so
+        the text inside isn't selectable). Prefer selectable text? Use “Print / Save as PDF”
+        and choose <strong>“Save as PDF”</strong> in the print dialog. Extremely complex Word
+        layouts may render slightly differently.
       </HonestLabel>
 
       {!rendered && (
@@ -113,7 +149,15 @@ export default function WordToPdfClient() {
 
       {rendered && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 16 }}>
-          <button type="button" className="btn btn-primary" onClick={print}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={downloadPdf}
+            disabled={converting}
+          >
+            {converting ? "Building PDF…" : "Download PDF"}
+          </button>
+          <button type="button" className="btn" onClick={print}>
             Print / Save as PDF
           </button>
           <button type="button" className="btn" onClick={reset}>

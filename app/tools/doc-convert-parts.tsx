@@ -136,3 +136,41 @@ export function downloadBlob(blob: Blob, filename: string) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 5000);
 }
+
+/**
+ * Build a real, downloadable PDF from rendered canvases (one canvas = one
+ * document page or one sheet render). Each canvas is fitted to A4 width and
+ * sliced vertically into A4 pages when taller than one page. Returns a Blob.
+ * Used by Word to PDF / Excel to PDF so users get a direct .pdf download
+ * instead of only the browser print dialog.
+ */
+export async function canvasesToPdfBlob(canvases: HTMLCanvasElement[]): Promise<Blob> {
+  if (!canvases.length) throw new Error("nothing to convert");
+  const { jsPDF } = await import("jspdf");
+  const PAGE_W = 595.28; // A4 width, pt
+  const PAGE_H = 841.89; // A4 height, pt
+  const pdf = new jsPDF({ unit: "pt", format: "a4", orientation: "portrait" });
+  let firstPage = true;
+  for (const canvas of canvases) {
+    if (!canvas.width || !canvas.height) continue;
+    const slicePx = Math.max(1, Math.floor(canvas.width * (PAGE_H / PAGE_W)));
+    for (let y = 0; y < canvas.height; y += slicePx) {
+      const h = Math.min(slicePx, canvas.height - y);
+      const slice = document.createElement("canvas");
+      slice.width = canvas.width;
+      slice.height = h;
+      const ctx = slice.getContext("2d");
+      if (!ctx) continue;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, slice.width, slice.height);
+      ctx.drawImage(canvas, 0, -y);
+      const img = slice.toDataURL("image/jpeg", 0.92);
+      if (!firstPage) pdf.addPage("a4", "portrait");
+      firstPage = false;
+      const imgH = (h / canvas.width) * PAGE_W;
+      pdf.addImage(img, "JPEG", 0, 0, PAGE_W, imgH);
+    }
+  }
+  if (firstPage) throw new Error("nothing to convert");
+  return pdf.output("blob");
+}

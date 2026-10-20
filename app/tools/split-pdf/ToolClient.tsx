@@ -32,6 +32,7 @@ export default function SplitPdfClient() {
   const [pageCount, setPageCount] = useState<number | null>(null);
   const [mode, setMode] = useState<SplitMode>("ranges");
   const [ranges, setRanges] = useState("1-3");
+  const [rangesTouched, setRangesTouched] = useState(false);
   const [everyN, setEveryN] = useState(2);
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [results, setResults] = useState<Result[]>([]);
@@ -65,7 +66,11 @@ export default function SplitPdfClient() {
         setFile(null);
         return;
       }
-      setPageCount(src.getPageCount());
+      const count = src.getPageCount();
+      setPageCount(count);
+      // Keep the prefilled range valid for THIS document: the old static
+      // "1-3" default was rejected on any PDF with fewer than 3 pages.
+      if (!rangesTouched) setRanges(`1-${Math.min(3, count)}`);
     } catch {
       setError("Could not read that PDF. It may be corrupted.");
       setFile(null);
@@ -230,7 +235,10 @@ export default function SplitPdfClient() {
                 id="sp-ranges"
                 className="input input-mono"
                 value={ranges}
-                onChange={(e) => setRanges(e.target.value)}
+                onChange={(e) => {
+                  setRanges(e.target.value);
+                  setRangesTouched(true);
+                }}
                 placeholder="1-3, 5, 8-10"
               />
               <p className="font-mono2" style={{ fontSize: "0.72rem", color: "var(--muted)", margin: "8px 0 0" }}>

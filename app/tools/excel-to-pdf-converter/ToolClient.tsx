@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import type { WorkSheet } from "xlsx";
-import { DropZone, HonestLabel, PrintStyles } from "../doc-convert-parts";
+import {
+  DropZone,
+  HonestLabel,
+  PrintStyles,
+  canvasesToPdfBlob,
+  downloadBlob,
+} from "../doc-convert-parts";
 
 const PRINT_ROOT = "excel-to-pdf-print-root";
 const MAX_ROWS = 400;
@@ -12,6 +18,7 @@ type Wb = { Sheets: Record<string, WorkSheet>; SheetNames: string[] };
 
 export default function ExcelToPdfClient() {
   const [loading, setLoading] = useState(false);
+  const [converting, setConverting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
   const [sheets, setSheets] = useState<string[]>([]);
@@ -88,13 +95,66 @@ export default function ExcelToPdfClient() {
 
   const print = () => window.print();
 
+  const downloadPdf = async () => {
+    if (!workbook) return;
+    setConverting(true);
+    setError(null);
+    try {
+      const XLSX = await import("xlsx");
+      const html2canvas = (await import("html2canvas")).default;
+      const canvases: HTMLCanvasElement[] = [];
+      // Render every sheet off-screen at its natural size (the on-screen
+      // preview is a clipped scroll box, so it can't be captured directly),
+      // then let canvasesToPdfBlob slice tall sheets into A4 pages.
+      const host = document.createElement("div");
+      host.style.cssText =
+        "position:absolute;left:-100000px;top:0;background:#ffffff;padding:24px;";
+      document.body.appendChild(host);
+      try {
+        for (const sheetName of workbook.SheetNames) {
+          const ws = workbook.Sheets[sheetName];
+          const data: unknown[][] = XLSX.utils.sheet_to_json(ws, {
+            header: 1,
+            defval: "",
+            raw: false,
+          });
+          const trimmed = data
+            .slice(0, MAX_ROWS)
+            .map((r) => r.slice(0, MAX_COLS).map((c) => String(c)));
+          while (trimmed.length && trimmed[trimmed.length - 1].every((c) => c === "")) {
+            trimmed.pop();
+          }
+          if (!trimmed.length) continue;
+          host.innerHTML = sheetTableHtml(sheetName, trimmed);
+          const canvas = await html2canvas(host, {
+            backgroundColor: "#ffffff",
+            scale: 2,
+            logging: false,
+          });
+          canvases.push(canvas);
+        }
+      } finally {
+        host.remove();
+      }
+      if (!canvases.length) throw new Error("empty workbook");
+      const blob = await canvasesToPdfBlob(canvases);
+      downloadBlob(blob, `${fileName || "spreadsheet"}.pdf`);
+    } catch {
+      setError(
+        "Building the PDF failed in your browser. The Print / Save as PDF option still works."
+      );
+    } finally {
+      setConverting(false);
+    }
+  };
+
   return (
     <div className="card" style={{ padding: "clamp(16px, 3vw, 28px)" }}>
       <PrintStyles rootId={PRINT_ROOT} />
       <HonestLabel>
-        Converted with your browser's built-in print engine — click “Print / Save as PDF” and
-        choose <strong>“Save as PDF”</strong> in the print dialog. Sheets print as clean tables;
-        charts, images, and complex cell formatting won't carry over.
+        Click <strong>“Download PDF”</strong> to get a real PDF file right away — every sheet
+        is included as a clean table. Charts, images, and complex cell formatting won't carry
+        over. The “Print / Save as PDF” option is also still there if you prefer it.
       </HonestLabel>
 
       {sheets.length === 0 && (
@@ -155,7 +215,15 @@ export default function ExcelToPdfClient() {
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            <button type="button" className="btn btn-primary" onClick={print}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={downloadPdf}
+              disabled={converting}
+            >
+              {converting ? "Building PDF…" : "Download PDF"}
+            </button>
+            <button type="button" className="btn" onClick={print}>
               Print / Save as PDF
             </button>
             <button type="button" className="btn" onClick={reset}>
@@ -167,6 +235,47 @@ export default function ExcelToPdfClient() {
 
       {error && <div className="notice" style={{ marginTop: 14 }}>{error}</div>}
     </div>
+  );
+}
+
+/** HTML-escape a cell value for the off-screen capture table. */
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * The SheetTable markup as a standalone HTML string, for the off-screen
+ * full-size render that gets captured into the downloadable PDF.
+ */
+export function sheetTableHtml(sheetName: string, rows: string[][]): string {
+  const head = `<div style="font-family:Arial,sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:#141210;">${esc(
+    sheetName
+  )}</div>`;
+  if (!rows.length) {
+    return (
+      head +
+      `<p style="font-family:Arial,sans-serif;color:#666;font-size:14px;">This sheet is empty.</p>`
+    );
+  }
+  const body = rows
+    .map((r, ri) => {
+      const cells = r
+        .map((c) =>
+          ri === 0
+            ? `<th style="border:1px solid #ccc;padding:8px 10px;text-align:left;background:#f2f2f2;font-weight:700;white-space:nowrap;">${esc(c)}</th>`
+            : `<td style="border:1px solid #ccc;padding:7px 10px;vertical-align:top;word-break:break-word;">${esc(c)}</td>`
+        )
+        .join("");
+      return `<tr>${cells}</tr>`;
+    })
+    .join("");
+  return (
+    head +
+    `<table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;"><tbody>${body}</tbody></table>`
   );
 }
 

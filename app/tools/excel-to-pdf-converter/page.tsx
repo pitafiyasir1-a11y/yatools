@@ -24,7 +24,7 @@ const tool: ToolDef = {
   name: "Excel to PDF Converter",
   tagline: "A free Excel to PDF converter: turn spreadsheet sheets into clean, printable PDFs — right in your browser.",
   description:
-    "Convert Excel to PDF online for free: read .xlsx/.xls/.csv in your browser and save sheets as PDF via print. Private, fast, no sign-up.",
+    "Convert Excel to PDF online for free: read .xlsx/.xls/.csv in your browser and download the sheets as a PDF. Private, fast, no sign-up.",
   category: "Screenshots & PDF",
   keyword: "excel to pdf converter online",
   badge: "Free",
@@ -54,7 +54,7 @@ export const metadata = pageMeta({
 const faqs = [
   {
     q: "How does the conversion work?",
-    a: "Your spreadsheet is read in your browser with the SheetJS library, each sheet is shown as a clean table, and the conversion uses your browser's built-in print engine — you choose “Save as PDF” in the print dialog. Nothing is uploaded.",
+    a: "Your spreadsheet is read in your browser with the SheetJS library, each sheet is shown as a clean table, and one click on “Download PDF” builds a real PDF of every sheet on your device. Nothing is uploaded.",
   },
   {
     q: "Which file types are supported?",
@@ -70,7 +70,7 @@ const faqs = [
   },
   {
     q: "Is my spreadsheet uploaded anywhere?",
-    a: "Never. Reading and printing happen entirely on your device. Close the tab and nothing remains on any server.",
+    a: "Never. Reading and converting happen entirely on your device. Close the tab and nothing remains on any server.",
   },
 ];
 
@@ -79,7 +79,7 @@ const howTo = {
   "@type": "HowTo",
   name: "How to convert Excel to PDF online",
   description:
-    "Read a spreadsheet in your browser and save its sheets as clean PDFs using the print engine.",
+    "Read a spreadsheet in your browser and download its sheets as one clean PDF.",
   step: [
     {
       "@type": "HowToStep",
@@ -96,8 +96,8 @@ const howTo = {
     {
       "@type": "HowToStep",
       position: 3,
-      name: "Save as PDF",
-      text: "Click “Print / Save as PDF” and choose “Save as PDF” in the print dialog.",
+      name: "Download your PDF",
+      text: "Click “Download PDF” and the PDF saves straight to your device.",
     },
   ],
 };
@@ -132,8 +132,8 @@ export default function ExcelToPdfPage() {
 
         <ExcelToPdfClient />
         <PrivacyNote>
-          Your spreadsheet is read 100% in your browser with SheetJS and converted by your
-          browser's print engine. Nothing is ever uploaded.
+          Your spreadsheet is read 100% in your browser with SheetJS and converted into a PDF
+          on your device. Nothing is ever uploaded.
         </PrivacyNote>
 
         <hr className="sec-rule" style={{ margin: "44px 0" }} />
