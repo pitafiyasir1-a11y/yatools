@@ -68,7 +68,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Type or paste text and generate lifelike speech in multiple voices and languages. Ideal for video narration, Urdu voiceovers, and accessibility.",
     category: "Audio & Speech",
-    keyword: "text to speech online",
+    keyword: "text to speech online free",
     badge: "AI",
     badgeColor: "purple",
     api: "/api/v1/tts",
@@ -144,9 +144,9 @@ export const TOOLS: ToolDef[] = [
     name: "QR Code Generator",
     tagline: "Create QR codes for links, text, and Wi-Fi.",
     description:
-      "Generate crisp QR codes instantly in your browser — for URLs, plain text, or Wi-Fi credentials. Nothing is uploaded; everything stays on your device.",
+      "Generate crisp QR codes instantly in your browser — for URLs, plain text, or Wi-Fi credentials. Static QR codes that never expire. Nothing is uploaded; everything stays on your device.",
     category: "Everyday Utilities",
-    keyword: "free qr code generator",
+    keyword: "qr code generator free no expiration",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -248,7 +248,7 @@ export const TOOLS: ToolDef[] = [
     name: "Text to PDF",
     tagline: "Turn styled text into a downloadable PDF.",
     description:
-      "Write or paste text, style it with headings, font sizes, and alignment, then download a clean PDF. Everything happens in your browser — nothing is uploaded.",
+      "Write, paste or import text, style it with headings, lists, quotes and checklists, then fine-tune fonts, margins, headers, page numbers and watermarks — and download a clean PDF. Everything happens in your browser.",
     category: "Screenshots & PDF",
     keyword: "text to pdf converter free",
     badge: "Free",
@@ -326,7 +326,7 @@ export const TOOLS: ToolDef[] = [
     name: "Merge PDF",
     tagline: "Combine multiple PDFs into one, in your chosen order.",
     description:
-      "Merge multiple PDF files into a single PDF document, in the order you choose. Files are combined right in your browser — nothing is uploaded.",
+      "Merge PDF online free: combine multiple PDF files into a single PDF document, in the order you choose. Files are combined right in your browser — nothing is uploaded.",
     category: "Screenshots & PDF",
     keyword: "merge pdf online free",
     badge: "Free",
@@ -341,7 +341,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Split a PDF into separate files: extract page ranges, split every N pages, or pick individual pages — all in your browser, free.",
     category: "Screenshots & PDF",
-    keyword: "split pdf online",
+    keyword: "split pdf online free",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -352,7 +352,7 @@ export const TOOLS: ToolDef[] = [
     name: "Compress PDF",
     tagline: "Shrink PDF file size by cleaning up its structure.",
     description:
-      "Reduce PDF file size with honest structural compression: removes unused objects and strips metadata. Runs in your browser, free.",
+      "Compress PDF online free: reduce PDF file size with honest structural compression — removes unused objects and strips metadata. Runs in your browser, no sign-up.",
     category: "Screenshots & PDF",
     keyword: "compress pdf online free",
     badge: "Free",
@@ -380,7 +380,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Convert PDF pages to JPG images in your browser. Preview every page, download individually or all at once — free, no uploads.",
     category: "Screenshots & PDF",
-    keyword: "pdf to jpg online",
+    keyword: "pdf to jpg converter free",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -471,7 +471,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Free image to text OCR online. Upload a photo, screenshot, or scan and extract editable English text — right in your browser, no sign-up.",
     category: "Everyday Utilities",
-    keyword: "image to text ocr online",
+    keyword: "image to text converter free",
     badge: "AI",
     badgeColor: "purple",
     api: null,
@@ -508,9 +508,9 @@ export const TOOLS: ToolDef[] = [
     name: "HEIC to JPG Converter",
     tagline: "Turn iPhone HEIC photos into JPGs that open anywhere.",
     description:
-      "Free HEIC to JPG converter: turn iPhone and iPad HEIC photos into JPGs that open on any device. Runs entirely in your browser — no uploads, no sign-up.",
+      "Free HEIC to JPG converter: convert HEIC to JPG on iPhone, iPad or desktop photos — JPGs that open on any device. Runs entirely in your browser — no uploads, no sign-up.",
     category: "Everyday Utilities",
-    keyword: "heic to jpg converter",
+    keyword: "heic to jpg converter free",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -796,7 +796,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Convert PDF to Word online for free: extract editable text into a genuine .docx document right in your browser. Private, fast, no sign-up.",
     category: "Screenshots & PDF",
-    keyword: "pdf to word converter online",
+    keyword: "pdf to word converter free",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -1110,11 +1110,13 @@ export function pageMeta(opts: {
       url,
       siteName: SITE.name,
       type: "website",
+      images: [{ url: `${SITE.url}/logo-full.png`, width: 1200, height: 1200, alt: "YATools — 78 free online tools" }],
     },
     twitter: {
       card: "summary_large_image",
       title: opts.title,
       description: opts.description,
+      images: [`${SITE.url}/logo-full.png`],
     },
   };
 }
