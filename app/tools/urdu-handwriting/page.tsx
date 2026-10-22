@@ -32,16 +32,19 @@ function softwareAppJsonLd(t: ToolDef) {
 }
 
 export const metadata = pageMeta({
-  title: "Urdu Handwriting Generator - Convert Text Free Online",
+  title: "Urdu Text to Handwriting Converter — Free Online, No Sign-Up",
   description:
-    "Convert Urdu text to realistic handwriting free online. Type in Urdu, pick paper and ink styles, and download handwritten notes as an image or PDF. Try now!",
+    "Urdu text to handwriting converter online free: type Urdu or English, pick from 14 handwriting styles, ink and paper, and download realistic handwritten pages for assignments, notes and study material. No sign-up — try it now!",
   path: "/tools/urdu-handwriting",
   keywords: [
+    "urdu text to handwriting converter",
+    "urdu text to handwriting converter online free",
+    "text to handwriting converter",
+    "text to handwriting generator",
+    "text to handwriting assignment",
     "Urdu handwriting",
-    "Urdu text to handwriting",
-    "handwritten Urdu",
-    "Urdu notes generator",
-    "Urdu writing tool",
+    "handwritten Urdu notes",
+    "Urdu handwriting generator",
   ],
 });
 

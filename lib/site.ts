@@ -76,12 +76,12 @@ export const TOOLS: ToolDef[] = [
   },
   {
     slug: "urdu-handwriting",
-    name: "Urdu Handwriting",
-    tagline: "Turn typed notes into realistic handwriting.",
+    name: "Urdu Text to Handwriting Converter",
+    tagline: "Convert Urdu text to realistic handwriting — free, online.",
     description:
-      "Convert typed English or Urdu text into realistic handwriting on ruled paper. Download as PNG — perfect for notes, assignments, and study material.",
+      "Free Urdu text to handwriting converter online: type or paste Urdu or English text and turn it into realistic handwritten pages. Choose from 14 handwriting styles (including Nastaliq), ink colors and ruled or plain paper, then download as PNG. Perfect for assignments, notes and study material — no sign-up, runs in your browser.",
     category: "Urdu Tools",
-    keyword: "urdu handwriting generator",
+    keyword: "urdu text to handwriting converter online free",
     badge: "Urdu",
     badgeColor: "green",
     api: "/api/v1/hand",
