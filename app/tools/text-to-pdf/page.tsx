@@ -30,7 +30,7 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Convert text to PDF free online — write or paste text, style it with a formatting toolbar, set page layout, and download a clean PDF. No watermark. Try now!",
+    description: "Convert text to PDF free online — write, paste or import a TXT file, then style it with headings, lists, quotes and checklists. Advanced settings: fonts, margins, orientation, headers, page numbers, watermarks and status stamps. No sign-up. Try now!",
   };
 }
 
@@ -51,7 +51,7 @@ export const metadata = pageMeta({
 const faqs = [
   {
     q: "How do I turn text into a PDF here?",
-    a: "Type or paste your text into the editor — each chunk is a block you can style with the toolbar: H1/H2/H3 headings, bold, italic, alignment, font size, and bullet lists. The live preview shows exactly how it will look. Set a filename and page size (A4 or Letter), then press Download PDF.",
+    a: "Type or paste your text into the editor — or import a .txt/.md file — then style each block with the toolbar: H1/H2/H3 headings, bold, italic, alignment, font size, bullet and numbered lists, quotes, checklists, dividers, and page breaks. Open Advanced PDF settings for fonts, margins, headers, watermarks and more, check the live preview, then press Download PDF.",
   },
   {
     q: "How do headings and formatting work?",
@@ -59,7 +59,7 @@ const faqs = [
   },
   {
     q: "Can I control the page layout?",
-    a: "Yes. Choose A4 or Letter page size, set the document title and filename, and style each block with its own font size (10–16pt) and alignment — left, center, or justified. Documents use 1-inch margins and paginate automatically across multiple pages.",
+    a: "Yes — properly. Page sizes A4, Letter, Legal and A5, portrait or landscape, narrow/normal/wide or custom margins, three fonts (Helvetica, Times, Courier), line spacing, paragraph spacing and first-line indent, page background and text colours, header and footer text, and page numbers in three formats (1 · Page 1 of 3 · – 1 –). Everything paginates automatically.",
   },
   {
     q: "Is the PDF watermarked or limited?",
@@ -67,7 +67,7 @@ const faqs = [
   },
   {
     q: "Does the preview match the downloaded PDF?",
-    a: "Very closely. Both are generated from the same block model — headings, bold/italic, alignment, bullet lists, and font sizes carry over. Minor differences can appear because the PDF uses the Helvetica font while the preview uses your system font stack.",
+    a: "Very closely. Both are generated from the same block model and the same settings — headings, bold/italic, alignment, lists, fonts, spacing, watermarks and page numbers carry over. Small rendering differences can still appear because a PDF page and a browser preview are different engines.",
   },
   {
     q: "Is my text private?",
@@ -127,7 +127,7 @@ export default function TextToPdfPage() {
               Free Text to <em>PDF</em> Online
             </>
           }
-          tagline="A free text to PDF converter: write or paste text, style it with a real formatting toolbar, and download a clean, watermark-free PDF."
+          tagline="A free text to PDF converter: write, paste or import text, style it with a real formatting toolbar, fine-tune it with advanced PDF settings — fonts, margins, headers, watermarks — and download a clean PDF."
         />
 
         <TextToPdfClient />
@@ -161,7 +161,7 @@ export default function TextToPdfPage() {
             },
             {
               title: "Download",
-              text: "Set a filename, pick A4 or Letter, and hit Download PDF — 1-inch margins, automatic pagination, no watermark, no sign-up.",
+              text: "Set a filename, open Advanced PDF settings if you want fonts, margins, a header, page numbers or a watermark, and hit Download PDF — automatic pagination, no sign-up.",
             },
           ]}
         />
