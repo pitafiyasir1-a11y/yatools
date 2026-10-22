@@ -7,10 +7,14 @@ type Freq = "weekly";
 
 const DEVELOPER_SUBPAGES = ["rate-limits", "errors", "changelog"];
 
+// NOTE (2026-10-22 indexing fix): previously EVERY route used
+// `lastModified: new Date()` — the build time. That made all 122 <lastmod>
+// values identical and reset them on every deploy, which teaches Google to
+// ignore our lastmod entirely. Now only pages with a real content date
+// (blog posts) carry a lastmod; static routes omit it, which is valid and
+// honest. Do not reintroduce a blanket `now`.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const routes: { path: string; priority: number }[] = [
+  const routes: { path: string; priority: number; lastModified?: Date }[] = [
     { path: "/", priority: 1.0 },
     ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, priority: 0.9 })),
     ...USE_CASES.map((u) => ({ path: `/use-cases/${u.slug}`, priority: 0.7 })),
@@ -27,13 +31,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/video-tools", priority: 0.8 },
     { path: "/audio-tools", priority: 0.8 },
     { path: "/developer-tools", priority: 0.8 },
-    ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
-    ...getAdminPosts(true).map((p) => ({ path: `/blog/${p.slug}`, priority: 0.7 })),
+    ...POSTS.map((p) => ({
+      path: `/blog/${p.slug}`,
+      priority: 0.7,
+      lastModified: new Date(p.date),
+    })),
+    ...getAdminPosts(true).map((p) => ({
+      path: `/blog/${p.slug}`,
+      priority: 0.7,
+      lastModified: new Date(p.updatedAt ?? p.date),
+    })),
   ];
 
   return routes.map((r) => ({
     url: `${SITE.url}${r.path}`,
-    lastModified: now,
+    ...(r.lastModified ? { lastModified: r.lastModified } : {}),
     changeFrequency: "weekly" as Freq,
     priority: r.priority,
   }));

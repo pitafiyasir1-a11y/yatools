@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
       // The Urdu version of the site was removed (2026-10-06); keep no dead ends.
       { source: "/ur", destination: "/", permanent: true },
       { source: "/ur/:path*", destination: "/", permanent: true },
+      // Phantom blog slugs sitting in Google's discovered queue (found
+      // 2026-10-22): these URLs 404 but match our tool-slug pattern, so
+      // send them to the real posts instead of wasting the discovery.
+      { source: "/blog/pdf-to-word-converter", destination: "/blog/pdf-to-word", permanent: true },
+      { source: "/blog/word-to-pdf-converter", destination: "/blog/word-to-pdf", permanent: true },
+      { source: "/blog/excel-to-pdf-converter", destination: "/blog/excel-to-pdf", permanent: true },
     ];
   },
   async headers() {
