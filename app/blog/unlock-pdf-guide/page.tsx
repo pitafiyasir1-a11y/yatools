@@ -7,19 +7,24 @@ import { postBySlug, articleJsonLd, POSTS } from "../posts";
 const post = postBySlug("unlock-pdf-guide")!;
 
 export const metadata = pageMeta({
-  title: "How to Unlock a PDF You Own: Legitimate Options Explained",
+  title: "How to Unlock a PDF You Own (Without Shady Unlocker Sites)",
   description:
-    "Locked out of your own PDF? Learn what PDF passwords actually do, the legitimate ways to regain access, and why random “unlocker” sites are risky.",
+    "How to unlock a PDF you own: tell user vs owner passwords apart, regain access legitimately, and why random unlocker sites aren't worth the risk.",
   path: `/blog/${post.slug}`,
   keywords: [
     "how to unlock a pdf",
-    "locked pdf legitimate options",
+    "unlock pdf",
+    "remove pdf password",
     "pdf password explained",
     "open password protected pdf",
   ],
 });
 
 const faqs = [
+  {
+    q: "My PDF opens but won't let me print or copy text. How do I unlock it?",
+    a: "That's an owner (permissions) password, not a locked file — and for a document you own, the fix is simple: open it in Chrome or Edge, press Ctrl/Cmd+P, and choose 'Save as PDF'. The new copy won't carry the print/copy restrictions. This only works for permissions passwords; a true open password can't be bypassed this way.",
+  },
   {
     q: "I set a PDF password and forgot it. What should I do first?",
     a: "Check your browser's saved passwords and any password manager — many people save PDF passwords without realizing it. Then try the password variations you'd normally use. If you exported the PDF yourself, re-exporting from the source document is usually faster than any recovery attempt.",
@@ -95,35 +100,44 @@ export default function UnlockPdfGuidePage() {
 
         <article className="prose-neu" style={{ maxWidth: 760, marginTop: 32 }}>
           <p>
-            It happens to everyone: you password-protected a PDF months ago and
-            now can&apos;t remember the password, or someone emailed you a
-            locked file with no password attached. Before you Google
-            &ldquo;free PDF unlocker,&rdquo; it&apos;s worth understanding what
-            you&apos;re dealing with — and which paths are legitimate.
+            You password-protected a PDF months ago and now can&apos;t
+            remember the password — or someone emailed you a locked file with
+            no password attached. If you&apos;re wondering how to unlock a
+            PDF you actually own, start by identifying which kind of password
+            you&apos;re dealing with. The legitimate solutions are completely
+            different for each — and for one of them, there is no honest
+            shortcut at all. That&apos;s the point of encryption.
           </p>
 
-          <h2>What PDF passwords actually do</h2>
-          <p>PDFs support two different kinds of password, and they lock different things:</p>
+          <h2>How to tell which kind of password you have</h2>
+          <p>
+            PDFs support two different kinds of password, and they lock
+            different things. Figure out which one is blocking you before you
+            do anything else:
+          </p>
           <ul>
             <li>
               <strong>User password (open password).</strong> This locks the
               entire file. Without it, the document won&apos;t open at all —
               the content is encrypted. This is the password people usually
-              mean when they say a PDF is &ldquo;locked.&rdquo;
+              mean when they say a PDF is &ldquo;locked.&rdquo; If your PDF
+              reader shows a password prompt before showing a single page,
+              this is what you&apos;re facing.
             </li>
             <li>
               <strong>Owner password (permissions password).</strong> This
               restricts what you can <em>do</em> with the document: printing,
-              copying text, or editing. You can still open and read the file,
-              but those actions are blocked. Many frustrating &ldquo;locked
-              PDFs&rdquo; only have this kind of restriction.
+              copying text, or editing. You can still open and read the file
+              normally. Many frustrating &ldquo;locked PDFs&rdquo; only have
+              this kind of restriction — the fix for these is easy and
+              completely legitimate (see below).
             </li>
           </ul>
           <p>
-            Knowing which one you&apos;re facing matters, because the
-            legitimate solutions are different — and for a true open password
-            with strong encryption, there is no honest shortcut. That&apos;s
-            the point of encryption.
+            Quick test: open the file in Chrome or Edge. If it opens and you
+            can read everything but can&apos;t print or select text, it&apos;s
+            an owner password. If nothing opens without a password prompt,
+            it&apos;s a user password.
           </p>
 
           <h2>Legitimate ways to regain access</h2>
@@ -163,7 +177,27 @@ export default function UnlockPdfGuidePage() {
               exist unlocked in your email attachments, cloud drive version
               history, or the sent folder of whoever shared it.
             </li>
+            <li>
+              <strong>Print to PDF for owner-password restrictions.</strong>{" "}
+              If the file opens fine but won&apos;t let you print or copy
+              text, you&apos;re dealing with an owner password. For a document
+              you own, open it in Chrome or Edge, press Ctrl/Cmd+P, and choose
+              &ldquo;Save as PDF.&rdquo; The fresh copy won&apos;t carry the
+              restrictions. (This only drops permissions — it does nothing for
+              a true open password, which is exactly how it should be.)
+            </li>
           </ul>
+
+          <h2>Next time, set a password you&apos;ll actually remember</h2>
+          <p>
+            Most lockouts start with a password that was too clever to
+            remember. A long, random password stored in a password manager
+            beats a &ldquo;memorable&rdquo; one you forget in a month — use{" "}
+            <Link href="/tools/password-generator">our free password
+            generator</Link> to create one and save it in your browser or
+            password manager the moment you set it. Future you will be
+            grateful.
+          </p>
 
           <h2>Why random &ldquo;unlocker&rdquo; sites are risky</h2>
           <p>

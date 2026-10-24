@@ -55,12 +55,12 @@ export const POSTS: BlogPostMeta[] = [
   },
   {
     slug: "unlock-pdf-guide",
-    title: "How to Unlock a PDF You Own: Legitimate Options Explained",
+    title: "How to Unlock a PDF You Own (Without Shady Unlocker Sites)",
     excerpt:
-      "Locked out of your own PDF? What PDF passwords actually do, the legitimate ways to regain access, and why random unlocker sites are risky.",
-    date: "2026-10-06",
-    dateLabel: "Oct 6, 2026",
-    readTime: "5 min read",
+      "Locked out of your own PDF? Tell user vs owner passwords apart, regain access legitimately, and see why random unlocker sites aren't worth the risk.",
+    date: "2026-10-24",
+    dateLabel: "Oct 24, 2026",
+    readTime: "7 min read",
     tags: ["PDF", "How-to"],
   },
   {
