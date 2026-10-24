@@ -55,7 +55,7 @@ export default function UnlockPdfGuidePage() {
       <JsonLd
         data={articleJsonLd(
           post,
-          "Locked out of your own PDF? What PDF passwords actually do, the legitimate ways to regain access, and why random unlocker sites are risky."
+          "Locked out of your own PDF? Tell user vs owner passwords apart, regain access legitimately, and see why random unlocker sites aren't worth the risk."
         )}
       />
       <JsonLd data={faqJsonLd(faqs)} />
