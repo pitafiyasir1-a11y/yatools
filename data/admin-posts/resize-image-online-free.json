@@ -1,0 +1,49 @@
+{
+  "contentMarkdown": "A photo that is too big gets rejected by a job portal. A photo that is the wrong shape gets awkwardly cropped by Instagram. A photo straight from a phone camera slows a blog page to a crawl. All three problems have the same fix: resize the image to the exact pixels you actually need — nothing more, nothing less.\n\nResizing is free, takes under a minute, and needs no software — here is how to do it properly.\n\n## Resize an image in 4 steps\n\n1. Open the [free Image Resizer tool](/tools/image-resizer).\n2. Drop in your image, or click to browse your files.\n3. Type the width and height you need, or pick a preset. Keep the aspect-ratio lock on (more on why below).\n4. Check the live preview, then download the resized image.\n\nThat is the whole workflow. The preview is the actual resized image rendered in your browser, so what you see — including the output-size estimate shown under the preview — is exactly what you download.\n\n## The sizes people actually need\n\nMost resizing jobs fall into a handful of standard sizes, and the tool has them as one-tap presets:\n\n- **1080 × 1080 — Instagram square.** The standard square post size for Instagram and Facebook. With the lock on, a square photo resizes cleanly to this.\n- **1920 × 1080 — Full HD.** The classic 16:9 size for YouTube thumbnails, slides, and desktop wallpapers — sharp enough for most screens without bloating the file.\n- **1200 × 630 — link previews.** The Open Graph size used by Facebook, X, and LinkedIn link cards. Set this as your og:image for crisp social shares.\n- **800 × 600 — web-friendly.** A sensible size for in-article images and thumbnails: big enough to look good, small enough to load fast on mobile data.\n- **3840 × 2160 — 4K.** For large displays and print-style work where the full resolution matters.\n\nFor anything else — a form, a portal, or an application that asks for exact pixels — ignore the presets and type those exact numbers into the width and height fields. If a form lists a size in centimetres rather than pixels, look for its pixel requirement — resizing tools work in pixels.\n\n## The setting that matters: the aspect-ratio lock\n\nAspect ratio is simply the relationship between width and height. A square photo is 1:1; a widescreen photo is 16:9. Stretching happens when you change one side without the other — a face gets wider, text gets fatter, circles become ovals.\n\nWith the aspect-ratio lock on, you only need to change one number. Type a width of 1080 for a square photo and the height follows at 1080 automatically. Type a new width for a widescreen photo and the height adjusts to keep the same proportions. Leave the lock on for any photo of people, products, or text. Only turn it off if you deliberately want a different ratio and you accept that the image will be stretched to fit it.\n\n## Resizing is not the same as compressing\n\nResizing changes the pixel dimensions of an image. Compressing changes how much data is used to store those pixels, which changes the file size. The two are often confused because resizing down usually shrinks the file too — fewer pixels generally means a smaller file, especially with JPG or WebP output.\n\nBut they solve different problems. If your only problem is dimensions (\"must be 1080 × 1080\"), resizing alone is enough. If your problem is an exact file-size limit (\"must be under 200 KB\"), resize first to the right dimensions, then run the result through the [free Image Compressor tool](/tools/image-compressor) to dial in the file size. Doing it in that order — dimensions first, file size second — gives you the cleanest result.\n\n## The honest limits: quality, upscaling, and originals\n\nResizing down is safe: a 4000-pixel phone photo resized to 1080 pixels still looks sharp at 1080 pixels. What you cannot do is go back — those removed pixels are gone, so enlarging the resized copy later will not restore them.\n\nUpscaling adds no new detail — it just stretches existing pixels, so the result can look softer. The tool shows an honest note whenever you upscale, and small increases on clean graphics fare better than large ones on detailed photos. Practical rule: always start from the original, highest-resolution copy, keep it saved, and resize a fresh copy each time — never resize an already-resized image.\n\n## Resizing on your phone\n\nThe resizer runs entirely in your mobile browser, so it works on iPhone and Android without installing an app. Open the tool in Safari or Chrome, pick the photo from your gallery or files, set the size, and save the resized image to your downloads. That fixes the most common phone case on the spot: a form that rejects a full-resolution camera photo.\n\n## A quick word on privacy\n\nBecause the whole resize happens in your browser with the canvas API, your photos are never sent to a server, stored, or tracked. That matters for passport-style photos, ID documents, or family pictures — files you would rather not upload to a random converter site.",
+  "date": "2026-10-26",
+  "excerpt": "Resize any image to exact pixels — Instagram square, Full HD, 4K, or a custom size — with an aspect-ratio lock that stops stretching. Free, in your browser, no sign-up.",
+  "faqs": [
+    {
+      "a": "Yes. The Image Resizer is free with no account and no sign-up. You open the tool, resize your image in the browser, and download the result.",
+      "q": "Is resizing an image online free?"
+    },
+    {
+      "a": "Usually, yes — fewer pixels generally means a smaller file, especially with JPG or WebP output. The tool shows a live output-size estimate under the resized preview before you download, so there are no surprises. If you need to hit an exact file-size limit, pair resizing with the Image Compressor afterwards.",
+      "q": "Does resizing reduce file size?"
+    },
+    {
+      "a": "Resizing down keeps the image looking sharp at its new size, but the pixels you remove are gone for good — enlarging it again will not restore them. Always keep your original file, and resize a fresh copy from it each time you need a different size. Upscaling beyond the original dimensions adds no detail and can look softer, and the tool warns you when you do it.",
+      "q": "Will resizing make my photo lose quality?"
+    },
+    {
+      "a": "Yes. The resizer runs entirely in your mobile browser — open the tool in Safari or Chrome, pick the photo from your gallery or files, set the size, and save the resized image. No app to install.",
+      "q": "Can I resize an image on my phone?"
+    },
+    {
+      "a": "Never. The whole resize happens in your browser with the canvas API — your images are never sent to a server, stored, or tracked. That makes it a safe choice for personal photos and ID-style images.",
+      "q": "Are my photos uploaded anywhere?"
+    }
+  ],
+  "keywords": [
+    "resize image online free",
+    "resize image to exact size",
+    "resize image without losing quality",
+    "resize image in pixels",
+    "resize image for instagram",
+    "image resizer no sign up"
+  ],
+  "metaDescription": "Resize an image online free to exact pixels — Instagram square, Full HD, 4K, or any custom size — with an aspect-ratio lock and live preview. No sign-up, no upload.",
+  "relatedTools": [
+    "image-resizer",
+    "image-compressor",
+    "image-converter",
+    "background-remover"
+  ],
+  "slug": "resize-image-online-free",
+  "status": "published",
+  "tags": [
+    "Images",
+    "How-to"
+  ],
+  "title": "Resize Image Online Free: Exact Size in Seconds"
+}
