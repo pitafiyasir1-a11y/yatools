@@ -9,17 +9,27 @@ const post = postBySlug("removebg-vs-free-alternatives")!;
 export const metadata = pageMeta({
   title: "Remove.bg vs Free Alternatives: Which Is Better?",
   description:
-    "Remove.bg vs free alternatives compared honestly: features, limits, and privacy. See where our free in-browser background remover fits — no sign-up needed.",
+    "Update: Remove.bg's standalone site and self-serve API close December 1, 2026 — background removal moves to Canva, API access to Leonardo.ai. Compare the free alternatives that replace it, honestly.",
   path: `/blog/${post.slug}`,
   keywords: [
     "remove.bg vs free alternatives",
     "remove.bg alternative free",
+    "remove.bg shutting down",
+    "remove.bg alternative december 2026",
     "free background remover comparison",
     "remove image background free no sign up",
   ],
 });
 
 const faqs = [
+  {
+    q: "Is Remove.bg shutting down?",
+    a: "Its standalone website and self-serve API close on December 1, 2026, at 9:00 a.m. CET. Background removal itself is not disappearing — it moves into Canva, and API access moves to Leonardo.ai (also owned by Canva). If you only ever used remove.bg's website, this is the moment to switch to a free alternative.",
+  },
+  {
+    q: "What happens to my Remove.bg credits?",
+    a: "Unused pay-as-you-go credits expire on December 1, 2026, and do not transfer to Canva or Leonardo.ai. Annual subscriptions run until December 1 and then end, with unused time refunded pro-rata. Download any invoices or credit-usage reports from your account page before the cutoff — you cannot get them afterward. Existing enterprise API contracts are unaffected.",
+  },
   {
     q: "Is there a truly free alternative to Remove.bg?",
     a: "Yes. YATools' Background Remover runs an AI segmentation model in your browser — free, no sign-up, no watermark, and your photo is never uploaded. The tradeoff vs Remove.bg: edge quality on difficult images (wispy hair, complex backgrounds) and no batch API.",
@@ -38,7 +48,7 @@ const faqs = [
   },
   {
     q: "Can free tools match Remove.bg quality?",
-    a: "On straightforward subjects — a person against a normal background, a product on a table — modern free AI models are very close. On hard cases like flyaway hair, transparent objects, or busy backgrounds, Remove.bg's tuned models still have an edge. For most everyday use, you won't notice a difference.",
+    a: "On straightforward subjects — a person against a normal background, a product on a table — modern free AI models are very close. On hard cases like flyaway hair, transparent objects, or busy backgrounds, Remove.bg's tuned models (now inside Canva) still have an edge. For most everyday use, you won't notice a difference.",
   },
 ];
 
@@ -50,7 +60,7 @@ export default function RemovebgVsFreeAlternativesPage() {
       <JsonLd
         data={articleJsonLd(
           post,
-          "Remove.bg vs free alternatives compared honestly: features, limits, and privacy. See where our free in-browser background remover fits — no sign-up."
+          "Update: Remove.bg's standalone site and self-serve API close December 1, 2026 — background removal moves to Canva, API access to Leonardo.ai. Compare the free alternatives that replace it, honestly."
         )}
       />
       <JsonLd data={faqJsonLd(faqs)} />
@@ -95,6 +105,17 @@ export default function RemovebgVsFreeAlternativesPage() {
 
         <article className="prose-neu" style={{ maxWidth: 760, marginTop: 32 }}>
           <p>
+            <strong>Update — October 31, 2026:</strong> Remove.bg&apos;s
+            standalone website and self-serve API close on{" "}
+            <strong>December 1, 2026, at 9:00 a.m. CET</strong>. Background
+            removal moves into Canva, and API access moves to Leonardo.ai
+            (also owned by Canva). Unused pay-as-you-go credits expire on
+            that date and do not transfer. So this comparison has a new
+            urgency: if you relied on Remove.bg, you need a replacement
+            within weeks — and the good news is the free alternatives below
+            already cover nearly everything it did.
+          </p>
+          <p>
             Remove.bg made AI background removal famous — and then put the
             good stuff behind an account wall and credit system. If
             you&apos;re wondering whether a free alternative is actually good
@@ -103,22 +124,64 @@ export default function RemovebgVsFreeAlternativesPage() {
             which user. No fake claims — including about our own tool.
           </p>
 
-          <h2>What Remove.bg does well</h2>
+          <h2>What Remove.bg did well — and what ends December 1</h2>
           <p>
-            Credit where it&apos;s due: Remove.bg&apos;s models are excellent.
-            Years of tuning on millions of images means it handles hard
-            cases — flyaway hair, fur, semi-transparent objects, busy
-            backgrounds — better than most alternatives. It offers high-
-            resolution downloads, batch processing, an API, and integrations
-            with design tools. If you remove backgrounds professionally, all
-            day, every day, it&apos;s a legitimate business expense.
+            Credit where it&apos;s due: Remove.bg&apos;s models were
+            excellent. Years of tuning on millions of images meant it handled
+            hard cases — flyaway hair, fur, semi-transparent objects, busy
+            backgrounds — better than most alternatives. It offered
+            high-resolution downloads, batch processing, an API, and
+            integrations with design tools. If you removed backgrounds
+            professionally, all day, every day, it was a legitimate business
+            expense.
           </p>
           <p>
-            The catch for casual users: the free tier requires an account,
-            caps resolution on free downloads, and rations credits. Remove
-            three product photos and you&apos;re shopping for a plan. For
-            someone who needs one clean cutout for a presentation, that&apos;s
-            a lot of friction.
+            The catch for casual users was always the same: the free tier
+            required an account, capped resolution on free downloads, and
+            rationed credits. Remove three product photos and you were
+            shopping for a plan. For someone who needed one clean cutout for
+            a presentation, that was a lot of friction — and now the
+            calculation changes completely.
+          </p>
+
+          <h2>What actually happens on December 1, 2026</h2>
+          <p>
+            This is a planned transition, not a sudden outage, and the
+            details matter if you still have an account:
+          </p>
+          <ul>
+            <li>
+              <strong>Standalone website closes</strong> — remove.bg stops
+              being a site you can visit, at 9:00 a.m. CET on December 1.
+              Its Photoshop plugin and other integrations are discontinued
+              the same day.
+            </li>
+            <li>
+              <strong>Self-serve API stops</strong> — api.remove.bg stops
+              accepting requests. API users are directed to Leonardo.ai,
+              which needs a new account, a new API key, and a different
+              request format.
+            </li>
+            <li>
+              <strong>Browser users go to Canva</strong> — background
+              removal continues inside Canva&apos;s editor, where it may
+              require a paid plan for the full feature set.
+            </li>
+            <li>
+              <strong>Credits expire</strong> — unused pay-as-you-go
+              credits are gone on December 1, so use them (or write them
+              off) before then. Do not buy new credits now.
+            </li>
+            <li>
+              <strong>Enterprise contracts are unaffected</strong> — if
+              your company has an enterprise API deal, its terms continue
+              separately.
+            </li>
+          </ul>
+          <p>
+            Bottom line for buyers: do not start a new Remove.bg workflow,
+            subscription, or integration in November 2026. Anything you
+            build on it needs rebuilding within weeks.
           </p>
 
           <h2>Free alternative 1: YATools Background Remover</h2>
@@ -217,11 +280,15 @@ export default function RemovebgVsFreeAlternativesPage() {
             </li>
             <li>
               <strong>Tricky edges (hair, fur) for client work</strong> →
-              Remove.bg&apos;s paid tier earns its money here.
+              Canva&apos;s background remover, where Remove.bg&apos;s
+              technology now lives — or a free in-browser remover first,
+              and only pay when a specific image defeats it.
             </li>
             <li>
-              <strong>Bulk/API automation</strong> → Remove.bg API or a
-              self-hosted open-source model, depending on volume and budget.
+              <strong>Bulk/API automation</strong> → Leonardo.ai (the
+              official API successor, with a new request format) or a
+              drop-in remove.bg-compatible API, depending on volume and
+              budget. Do not build on api.remove.bg — it stops December 1.
             </li>
             <li>
               <strong>Quick phone edit</strong> → your phone&apos;s built-in
@@ -238,13 +305,20 @@ export default function RemovebgVsFreeAlternativesPage() {
 
           <h2>The bottom line</h2>
           <p>
-            Remove.bg is the best tool in the category — and priced like it.
-            But &ldquo;best&rdquo; and &ldquo;necessary&rdquo; aren&apos;t the
-            same thing. For the vast majority of background removals —
-            profile pics, product shots, presentation graphics — a free
-            alternative gets you 95% of the quality at 0% of the cost and
-            100% of the privacy. Pay when the edge cases are your day job,
-            not before.
+            Remove.bg was the best tool in the category — and priced like
+            it. But on December 1, 2026, the standalone service closes, its
+            credits expire, and its technology moves into Canva and
+            Leonardo.ai. &ldquo;Best&rdquo; no longer matters if the
+            service itself is ending: anyone still building workflows on
+            Remove.bg needs a replacement now, not when the site goes dark.
+          </p>
+          <p>
+            For the vast majority of background removals — profile pics,
+            product shots, presentation graphics — a free alternative gets
+            you 95% of the quality at 0% of the cost and 100% of the
+            privacy, with no shutdown deadline hanging over it. Pay when
+            the edge cases are your day job, not before — and pay a
+            service that will still exist next month.
           </p>
         </article>
 

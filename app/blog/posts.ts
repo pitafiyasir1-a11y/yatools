@@ -167,10 +167,10 @@ export const POSTS: BlogPostMeta[] = [
     slug: "removebg-vs-free-alternatives",
     title: "Remove.bg vs Free Alternatives: Which Is Better?",
     excerpt:
-      "Remove.bg vs free alternatives compared honestly — features, limits, privacy — including our free in-browser background remover. No fake claims.",
-    date: "2026-10-06",
-    dateLabel: "Oct 6, 2026",
-    readTime: "6 min read",
+      "Update: Remove.bg's standalone site and API close December 1, 2026 — credits expire, the tech moves to Canva and Leonardo.ai. The free alternatives that replace it, compared honestly.",
+    date: "2026-10-31",
+    dateLabel: "Oct 31, 2026",
+    readTime: "7 min read",
     tags: ["Images", "AI", "Comparison"],
   },
   {
