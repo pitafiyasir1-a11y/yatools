@@ -19,7 +19,7 @@
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
 import { assertSafeUrl } from "@/lib/proxy/ssrf";
-import { UPSTREAM, TIMEOUTS, okJson, errJson, rateLimited } from "@/lib/proxy/upstream";
+import { UPSTREAM, FALLBACK_UPSTREAM, TIMEOUTS, okJson, errJson, rateLimited } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -146,12 +146,16 @@ export async function GET(req: Request): Promise<Response> {
 
   try {
     // Retry the upstream up to 3 times with backoff — the service is
-    // intermittently flaky and a second attempt often succeeds.
+    // intermittently flaky and a second attempt often succeeds. Attempts 1–2
+    // hit the primary upstream; attempt 3 hits freeapi.pro (same API shape;
+    // verified live 2026-11-14 — returns real download links while ahm7
+    // returns 502).
     let lastErr: unknown = null;
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
+        const base = attempt <= 2 ? UPSTREAM : FALLBACK_UPSTREAM;
         const res = await fetch(
-          `${UPSTREAM}/api/alldl?url=${encodeURIComponent(target.toString())}`,
+          `${base}/api/alldl?url=${encodeURIComponent(target.toString())}`,
           {
             headers: { accept: "application/json" },
             signal: AbortSignal.timeout(TIMEOUTS.alldl),
@@ -167,7 +171,7 @@ export async function GET(req: Request): Promise<Response> {
         } catch {
           throw new Error("upstream returned non-JSON");
         }
-        return okJson(adaptAlldl(json), "yatools");
+        return okJson(adaptAlldl(json), "yatools", base === FALLBACK_UPSTREAM);
       } catch (e) {
         lastErr = e;
         if (attempt < 3) {

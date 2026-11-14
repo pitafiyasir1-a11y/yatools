@@ -14,7 +14,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
-import { UPSTREAM, TIMEOUTS, okJson, errJson, rateLimited } from "@/lib/proxy/upstream";
+import { TIMEOUTS, okJson, errJson, rateLimited, fetchUpstream } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -150,15 +150,15 @@ export async function GET(req: Request): Promise<Response> {
     if (v) forward.set(key, v.slice(0, 100));
   }
 
-  // 1) Primary: yatools.
+  // 1) Primary: yatools (ahm7 first, freeapi.pro fallback — same API shape;
+  // verified live 2026-11-14, returns real templates while ahm7 returns 502).
   try {
-    const res = await fetch(`${UPSTREAM}/api/n8n?${forward.toString()}`, {
+    const { res, fallbackUsed } = await fetchUpstream(`/api/n8n?${forward.toString()}`, {
       headers: { accept: "application/json" },
-      signal: AbortSignal.timeout(TIMEOUTS.n8n),
+      timeoutMs: TIMEOUTS.n8n,
     });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
     const json = (await res.json()) as unknown;
-    return okJson(json, "yatools");
+    return okJson(json, "yatools", fallbackUsed);
   } catch {
     // 2) Fallback: local snapshot.
     const templates = loadCache();

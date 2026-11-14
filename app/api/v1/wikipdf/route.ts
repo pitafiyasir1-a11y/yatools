@@ -6,7 +6,7 @@
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
-import { UPSTREAM, TIMEOUTS, errJson, rateLimited, binaryHeaders } from "@/lib/proxy/upstream";
+import { UPSTREAM, FALLBACK_UPSTREAM, TIMEOUTS, errJson, rateLimited, binaryHeaders } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -26,33 +26,45 @@ export async function GET(req: Request): Promise<Response> {
     return errJson("QUERY_TOO_LONG", "Please keep the article title under 200 characters.", 400);
   }
 
+  // Primary upstream first, freeapi.pro fallback (same API shapes; verified
+  // live 2026-11-14 — returns a real PDF while ahm7 returns 502). A 404 from
+  // either base means the article itself is missing, so it is surfaced
+  // immediately instead of trying the other base.
   try {
-    const res = await fetch(
-      `${UPSTREAM}/api/wikipdf?query=${encodeURIComponent(query)}`,
-      {
-        headers: { accept: "application/pdf, application/json" },
-        signal: AbortSignal.timeout(TIMEOUTS.wikipdf),
-      },
-    );
-
-    // Upstream returns 404 JSON {success:false,status:404,error} when the
-    // article is missing — surface that as a friendly validation-style error.
-    if (res.status === 404) {
-      return errJson(
-        "ARTICLE_NOT_FOUND",
-        "We couldn't find that Wikipedia article. Check the title and try again.",
-        400,
-        "yatools",
+    let res: Response | null = null;
+    let fallbackUsed = false;
+    for (const base of [UPSTREAM, FALLBACK_UPSTREAM]) {
+      const attempt = await fetch(
+        `${base}/api/wikipdf?query=${encodeURIComponent(query)}`,
+        {
+          headers: { accept: "application/pdf, application/json" },
+          signal: AbortSignal.timeout(TIMEOUTS.wikipdf),
+        },
       );
+      // Upstream returns 404 JSON {success:false,status:404,error} when the
+      // article is missing — surface that as a friendly validation-style error.
+      if (attempt.status === 404) {
+        return errJson(
+          "ARTICLE_NOT_FOUND",
+          "We couldn't find that Wikipedia article. Check the title and try again.",
+          400,
+          "yatools",
+        );
+      }
+      if (attempt.ok) {
+        res = attempt;
+        fallbackUsed = base === FALLBACK_UPSTREAM;
+        break;
+      }
     }
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
+    if (!res) throw new Error("both upstreams failed");
 
     const ct = (res.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
     if (!ct.includes("pdf")) throw new Error("not a pdf");
     const bytes = await res.arrayBuffer();
     if (bytes.byteLength < 512 || !isPdf(bytes)) throw new Error("empty/invalid pdf");
     return new Response(bytes, {
-      headers: binaryHeaders("yatools", false, "application/pdf"),
+      headers: binaryHeaders("yatools", fallbackUsed, "application/pdf"),
     });
   } catch {
     return errJson(

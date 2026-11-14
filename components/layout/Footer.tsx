@@ -17,6 +17,26 @@ const LEGAL = [
   { label: "Terms", href: "/terms" },
 ];
 
+// Popular searches: real links with the exact phrases people search for.
+// Kept as genuine navigation (one link per tool, natural anchor text) —
+// Google's spam policies penalise bare keyword dumps, so this stays a link
+// list, not a comma-separated keyword block. Also helps Google discover and
+// crawl the linked tool pages.
+const POPULAR_SEARCHES = [
+  { label: "pdf to word converter free", href: "/tools/pdf-to-word-converter" },
+  { label: "heic to jpg converter", href: "/tools/heic-to-jpg-converter" },
+  { label: "word to pdf converter free", href: "/tools/word-to-pdf-converter" },
+  { label: "merge pdf online free", href: "/tools/merge-pdf" },
+  { label: "compress pdf online free", href: "/tools/compress-pdf" },
+  { label: "image to text online", href: "/tools/image-to-text" },
+  { label: "remove background from image online free", href: "/tools/background-remover" },
+  { label: "qr code generator free", href: "/tools/qr-code-generator" },
+  { label: "video to gif converter online free", href: "/tools/video-to-gif-converter" },
+  { label: "text to speech online free", href: "/tools/text-to-speech" },
+  { label: "fancy text generator copy and paste", href: "/tools/fancy-text-generator" },
+  { label: "age calculator by date of birth", href: "/tools/age-calculator" },
+];
+
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
     <h3
@@ -88,6 +108,24 @@ export default function Footer() {
             ))}
           </ul>
         </nav>
+      </div>
+
+      <div style={{ borderTop: "1px solid var(--line)" }}>
+        <div className="wrap py-6">
+          <p className="m-0 mb-3 text-xs font-medium uppercase" style={{ color: "var(--muted)", letterSpacing: "0.08em" }}>
+            Popular searches
+          </p>
+          <p className="m-0 text-sm leading-loose" style={{ color: "var(--text2)" }}>
+            {POPULAR_SEARCHES.map((s, i) => (
+              <span key={s.href}>
+                {i > 0 && <span style={{ color: "var(--muted)" }}> &middot; </span>}
+                <Link href={s.href} className="no-underline hover:underline" style={{ color: "var(--text2)" }}>
+                  {s.label}
+                </Link>
+              </span>
+            ))}
+          </p>
+        </div>
       </div>
 
       <div style={{ borderTop: "1px solid var(--line)" }}>

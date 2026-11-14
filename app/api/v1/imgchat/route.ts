@@ -3,13 +3,15 @@
  * Body: { image: data URL (png|jpeg|webp|gif), base64-decoded ≤ 5MB, userPrompt: 1–500 chars }
  * Primary: yatools POST /api/imgchat with { userPrompt, image } →
  *   { success:true, response:string }.
- * No free fallback exists for image chat → 502 IMGCHAT_DOWN on upstream failure.
+ * Fallback: freeapi.pro (same API shapes; verified live 2026-11-14 — returns a
+ * real image description while ahm7 returns 502). 502 IMGCHAT_DOWN only when
+ * both upstreams fail.
  * Privacy: the image is never written to disk and never logged; nothing leaves
  * the machine except the single upstream POST.
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
-import { UPSTREAM, TIMEOUTS, okJson, errJson, rateLimited } from "@/lib/proxy/upstream";
+import { TIMEOUTS, okJson, errJson, rateLimited, fetchUpstream } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -58,19 +60,19 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   try {
-    const res = await fetch(`${UPSTREAM}/api/imgchat`, {
+    const { res, fallbackUsed } = await fetchUpstream(`/api/imgchat`, {
       method: "POST",
       headers: { "content-type": "application/json", accept: "application/json" },
       body: JSON.stringify({ userPrompt, image }),
-      signal: AbortSignal.timeout(TIMEOUTS.imgchat),
+      timeoutMs: TIMEOUTS.imgchat,
     });
     const json = (await res.json()) as { success?: unknown; response?: unknown };
-    if (!res.ok || json.success !== true || typeof json.response !== "string") {
+    if (json.success !== true || typeof json.response !== "string") {
       throw new Error("upstream imgchat failed");
     }
-    return okJson({ response: json.response }, "yatools");
+    return okJson({ response: json.response }, "yatools", fallbackUsed);
   } catch {
-    // No free fallback for image chat — honest failure.
+    // Both upstreams failed — honest failure.
     return errJson(
       "IMGCHAT_DOWN",
       "Image chat is temporarily unavailable. Please try again later.",

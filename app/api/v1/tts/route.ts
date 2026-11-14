@@ -14,7 +14,7 @@
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
-import { UPSTREAM, TIMEOUTS, errJson, rateLimited, binaryHeaders } from "@/lib/proxy/upstream";
+import { TIMEOUTS, errJson, rateLimited, binaryHeaders, fetchUpstream } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -70,20 +70,21 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // Do not log the text content (it may be private user writing).
+  // Primary upstream first, freeapi.pro fallback (same API shapes; verified
+  // live 2026-11-14 — ahm7 POSTs return 405, freeapi.pro returns real MP3).
   try {
-    const res = await fetch(`${UPSTREAM}/api/tts`, {
+    const { res, fallbackUsed } = await fetchUpstream(`/api/tts`, {
       method: "POST",
       headers: { "content-type": "application/json", accept: "audio/mpeg" },
       body: JSON.stringify({ voiceIndex, text, pitch, rate }),
-      signal: AbortSignal.timeout(TIMEOUTS.tts),
+      timeoutMs: TIMEOUTS.tts,
     });
-    if (!res.ok) throw new Error(`upstream ${res.status}`);
     const bytes = await res.arrayBuffer();
     if (bytes.byteLength < 512) throw new Error("empty audio");
     // Upstream documents X-Pitch, X-Rate, X-Voice-Name, X-Char-Count on
     // successful responses — pass the informational ones through so the
     // client can show which voice actually rendered the chunk.
-    const headers = binaryHeaders("yatools", false, "audio/mpeg");
+    const headers = binaryHeaders("yatools", fallbackUsed, "audio/mpeg");
     for (const h of ["X-Voice-Name", "X-Char-Count"] as const) {
       const v = res.headers.get(h);
       if (v) headers[h] = v;
