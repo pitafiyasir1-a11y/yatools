@@ -37,7 +37,16 @@ export async function GET(req: Request): Promise<Response> {
       const attempt = await fetch(
         `${base}/api/wikipdf?query=${encodeURIComponent(query)}`,
         {
-          headers: { accept: "application/pdf, application/json" },
+          headers: {
+            accept: "application/pdf, application/json",
+            // FIX 2026-11-14: this fetch sent NO User-Agent, so Cloudflare
+            // 403'd the freeapi.pro attempt (bare script UA gets error 1010
+            // — see lib/proxy/upstream.ts). Live check 2026-11-14 20:59 PKT
+            // still returned WIKIPDF_DOWN after commit 5f7ba94 for this
+            // reason. Same browser UA fetchUpstream() already sends.
+            "user-agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          },
           signal: AbortSignal.timeout(TIMEOUTS.wikipdf),
         },
       );
@@ -52,9 +61,19 @@ export async function GET(req: Request): Promise<Response> {
         );
       }
       if (attempt.ok) {
-        res = attempt;
-        fallbackUsed = base === FALLBACK_UPSTREAM;
-        break;
+        // FIX 2026-11-14: ahm7 answers GET /api/wikipdf with HTTP 200 + an
+        // HTML page (not a PDF, not an error) — accepting any 200 broke the
+        // whole cascade: the loop stopped here, the content-type check below
+        // threw, and freeapi.pro + Wikipedia REST never ran. Only accept a
+        // response that actually claims to be a PDF.
+        const ct = (attempt.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+        if (ct.includes("pdf")) {
+          res = attempt;
+          fallbackUsed = base === FALLBACK_UPSTREAM;
+          break;
+        }
+        // Not a PDF — fall through to the next base.
+        continue;
       }
     }
     // Last resort: Wikipedia's own PDF renderer (official REST API, no key).
@@ -67,7 +86,15 @@ export async function GET(req: Request): Promise<Response> {
         const wiki = await fetch(
           `https://en.wikipedia.org/api/rest_v1/page/pdf/${title}`,
           {
-            headers: { accept: "application/pdf" },
+            headers: {
+              accept: "application/pdf",
+              // Wikimedia's UA policy: identify the app + contact. A missing
+              // or generic UA gets rate-limited/blocked from datacenter IPs
+              // (found live 2026-11-14 — the no-UA fetch failed on Vercel
+              // while a browser-UA curl worked).
+              "user-agent":
+                "YATools/1.0 (https://yatools-tan.vercel.app; contact yasirabbas@relianceengineering.com.pk)",
+            },
             signal: AbortSignal.timeout(TIMEOUTS.wikipdf),
           },
         );
