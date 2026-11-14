@@ -57,6 +57,36 @@ export async function GET(req: Request): Promise<Response> {
         break;
       }
     }
+    // Last resort: Wikipedia's own PDF renderer (official REST API, no key).
+    // Verified live 2026-11-14 — returns the same PDF freeapi.pro serves.
+    // Needed because both upstreams fail from Vercel's egress IPs even
+    // though they answer fine elsewhere.
+    if (!res) {
+      try {
+        const title = encodeURIComponent(query.replace(/ /g, "_"));
+        const wiki = await fetch(
+          `https://en.wikipedia.org/api/rest_v1/page/pdf/${title}`,
+          {
+            headers: { accept: "application/pdf" },
+            signal: AbortSignal.timeout(TIMEOUTS.wikipdf),
+          },
+        );
+        if (wiki.status === 404) {
+          return errJson(
+            "ARTICLE_NOT_FOUND",
+            "We couldn't find that Wikipedia article. Check the title and try again.",
+            400,
+            "yatools",
+          );
+        }
+        if (wiki.ok) {
+          res = wiki;
+          fallbackUsed = true;
+        }
+      } catch {
+        // fall through to the 502 below
+      }
+    }
     if (!res) throw new Error("both upstreams failed");
 
     const ct = (res.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();

@@ -11,16 +11,20 @@
  * provider:"cache", fallbackUsed:true so the UI stays honest about it.
  */
 
-import fs from "node:fs";
-import path from "node:path";
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
 import { TIMEOUTS, okJson, errJson, rateLimited, fetchUpstream } from "@/lib/proxy/upstream";
+// Static JSON imports (not fs reads): Vercel's file tracing does not bundle
+// dynamically-read files, so fs.readFileSync("lib/n8n-cache-N.json") returned
+// nothing in production even though the files are in the repo — the snapshot
+// fallback was dead until this change (found live 2026-11-14).
+import cache1 from "@/lib/n8n-cache-1.json";
+import cache2 from "@/lib/n8n-cache-2.json";
+import cache3 from "@/lib/n8n-cache-3.json";
+import cache4 from "@/lib/n8n-cache-4.json";
 
 export const runtime = "nodejs";
 
 const RATE_LIMIT = 100;
-const CACHE_FILE = path.join(process.cwd(), "lib", "n8n-cache.json");
-const CACHE_PARTS = 4; // lib/n8n-cache-1.json … -4.json (split: deploy uploads cap single-arg size)
 
 type Template = {
   id?: unknown;
@@ -43,27 +47,10 @@ function countersEntries(counts: Map<string, number>): Array<[string, number]> {
 
 function loadCache(): Template[] {
   const parts: Template[] = [];
-  for (let i = 1; i <= CACHE_PARTS; i++) {
-    try {
-      const raw = fs.readFileSync(
-        path.join(process.cwd(), "lib", `n8n-cache-${i}.json`),
-        "utf8",
-      );
-      const parsed = JSON.parse(raw) as Cache;
-      if (Array.isArray(parsed.templates)) parts.push(...parsed.templates);
-    } catch {
-      // part missing — fall through to legacy single-file attempt below
-    }
+  for (const part of [cache1, cache2, cache3, cache4] as Cache[]) {
+    if (Array.isArray(part.templates)) parts.push(...part.templates);
   }
-  if (parts.length > 0) return parts;
-  try {
-    const raw = fs.readFileSync(CACHE_FILE, "utf8");
-    const parsed = JSON.parse(raw) as Cache;
-    return Array.isArray(parsed.templates) ? parsed.templates : [];
-  } catch {
-    // ENOENT or corrupt — snapshot hasn't run or failed; non-fatal here.
-    return [];
-  }
+  return parts;
 }
 
 function matches(t: Template, filters: { category?: string; complexity?: string; triggerType?: string }): boolean {

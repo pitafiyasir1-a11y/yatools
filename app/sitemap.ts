@@ -13,10 +13,31 @@ const DEVELOPER_SUBPAGES = ["rate-limits", "errors", "changelog"];
 // ignore our lastmod entirely. Now only pages with a real content date
 // (blog posts) carry a lastmod; static routes omit it, which is valid and
 // honest. Do not reintroduce a blanket `now`.
+// Real content-edit dates: ONLY pages whose content actually changed get a
+// lastmod, dated the day of the edit. Never add a page here without editing it.
+// Standing rule (Yasir, 2026-11-14): ALWAYS update this file when a new page
+// or tool is added, verify the live sitemap lists it, and IndexNow-ping it.
+const TOOL_EDIT_DATES: Record<string, string> = {
+  "heic-to-jpg-converter": "2026-10-24",
+  "image-to-text": "2026-10-24",
+  "image-to-pdf": "2026-10-24",
+  "text-to-speech": "2026-10-25",
+  "rotate-pdf": "2026-10-27",
+  "video-trimmer": "2026-10-28",
+  "pdf-to-jpg": "2026-10-29",
+  "word-counter": "2026-10-30",
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes: { path: string; priority: number; lastModified?: Date }[] = [
     { path: "/", priority: 1.0 },
-    ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, priority: 0.9 })),
+    ...TOOLS.map((t) => ({
+      path: `/tools/${t.slug}`,
+      priority: 0.9,
+      ...(TOOL_EDIT_DATES[t.slug]
+        ? { lastModified: new Date(TOOL_EDIT_DATES[t.slug]) }
+        : {}),
+    })),
     ...USE_CASES.map((u) => ({ path: `/use-cases/${u.slug}`, priority: 0.7 })),
     { path: "/use-cases", priority: 0.7 },
     { path: "/developers", priority: 0.7 },
