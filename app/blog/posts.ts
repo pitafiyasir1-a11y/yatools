@@ -197,10 +197,10 @@ export const POSTS: BlogPostMeta[] = [
     slug: "how-to-convert-word-to-pdf-free",
     title: "How to Convert Word to PDF for Free (2026 Guide)",
     excerpt:
-      "Convert Word to PDF free: our in-browser converter, Word's built-in export, and Google Docs — with formatting tips that keep your document intact.",
-    date: "2026-10-06",
-    dateLabel: "Oct 6, 2026",
-    readTime: "6 min read",
+      "Convert Word to PDF free: 5 methods compared — in-browser converter, Word's built-in export, Google Docs, LibreOffice, and phone apps — plus formatting and troubleshooting fixes.",
+    date: "2026-11-07",
+    dateLabel: "Nov 7, 2026",
+    readTime: "8 min read",
     tags: ["Documents", "How-to"],
   },
 ];
