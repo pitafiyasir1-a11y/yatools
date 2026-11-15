@@ -22,11 +22,12 @@ import {
 const tool = toolBySlug("age-calculator")!;
 
 export const metadata = pageMeta({
-  title: "Age Calculator - Calculate Exact Age in Years, Months & Days Free",
+  title: "Age Calculator by Date of Birth - Exact Age in Years, Months & Days",
   description:
-    "Free age calculator: enter your birthdate for your exact age in years, months and days — plus total days lived, next birthday countdown & day of week born. No sign-up.",
+    "Age calculator by date of birth: enter your birthdate for your exact age in years, months and days — plus total days lived, next birthday countdown & day of week born. No sign-up.",
   path: "/tools/age-calculator",
   keywords: [
+    "age calculator by date of birth",
     "age calculator",
     "calculate age",
     "how old am i",

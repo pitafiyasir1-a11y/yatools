@@ -1015,9 +1015,9 @@ export const TOOLS: ToolDef[] = [
     name: "Age Calculator",
     tagline: "Your exact age in years, months, and days.",
     description:
-      "Age calculator free online: enter your birthdate for your exact age in years, months, and days — plus total days lived, next birthday countdown, and day of week born. 100% in-browser, private.",
+      "Age calculator by date of birth — enter your birthdate for your exact age in years, months, and days, plus total days lived, next birthday countdown, and day of week born. 100% in-browser, private.",
     category: "Everyday Utilities",
-    keyword: "age calculator",
+    keyword: "age calculator by date of birth",
     badge: "Free",
     badgeColor: "green",
     api: null,
