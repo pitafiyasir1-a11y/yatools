@@ -29,6 +29,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "m4a-to-mp3-converter": "2026-11-02",
   "mkv-to-mp4-converter": "2026-11-03",
   "bmi-calculator": "2026-11-05",
+  "json-formatter": "2026-11-06",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -30,16 +30,17 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Format, validate, and minify JSON free online — paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private. Try now!",
+    description: "JSON formatter online — format, validate, and minify JSON free. Paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private.",
   };
 }
 
 export const metadata = pageMeta({
-  title: "JSON Formatter - Validate & Beautify JSON Free Online",
+  title: "JSON Formatter Online - Validate & Beautify JSON Free",
   description:
-    "Format, validate, and minify JSON free online — paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private. Try now!",
+    "JSON formatter online — format, validate, and minify JSON free. Paste messy JSON, get clean indented output with precise error messages. No sign-up, fully private.",
   path: "/tools/json-formatter",
   keywords: [
+    "json formatter online",
     "JSON formatter",
     "JSON beautifier",
     "format JSON",

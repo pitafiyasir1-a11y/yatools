@@ -170,7 +170,7 @@ export const TOOLS: ToolDef[] = [
     name: "JSON Formatter",
     tagline: "Format, validate, and minify JSON.",
     description:
-      "Paste raw JSON to pretty-print it, validate it, or minify it for production. Errors are highlighted with clear messages for developers.",
+      "JSON formatter online — paste raw JSON to pretty-print it, validate it, or minify it for production. Errors are highlighted with clear messages for developers.",
     category: "Developer Tools",
     keyword: "json formatter online",
     badge: "Dev",
