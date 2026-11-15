@@ -976,9 +976,9 @@ export const TOOLS: ToolDef[] = [
     name: "MKV to MP4 Converter",
     tagline: "Turn MKV video into universal MP4 — in your browser.",
     description:
-      "MKV to MP4 converter online free: remux MKV to MP4 instantly when possible, re-encode to H.264 + AAC when needed. Runs 100% in your browser — no uploads.",
+      "Convert MKV to MP4 free: remux MKV to MP4 instantly when possible, re-encode to H.264 + AAC when needed. Runs 100% in your browser — no uploads.",
     category: "Everyday Utilities",
-    keyword: "mkv to mp4 converter online",
+    keyword: "convert mkv to mp4 free",
     badge: "Free",
     badgeColor: "green",
     api: null,

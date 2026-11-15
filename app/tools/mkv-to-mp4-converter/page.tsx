@@ -37,11 +37,12 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "MKV to MP4 Converter - Change MKV Videos Free Online",
+  title: "Convert MKV to MP4 Free - MKV to MP4 Converter Online",
   description:
-    "MKV to MP4 converter, free online: remux or re-encode MKV video into universal MP4 in your browser. No uploads, no sign-up. No watermarks, ever. Try it now!",
+    "Convert MKV to MP4 free: remux or re-encode MKV video into universal MP4 in your browser. No uploads, no sign-up. No watermarks, ever. Try it now!",
   path: "/tools/mkv-to-mp4-converter",
   keywords: [
+    "convert mkv to mp4 free",
     "MKV to MP4",
     "MKV to MP4 converter",
     "convert MKV to MP4",
