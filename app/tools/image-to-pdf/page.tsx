@@ -24,7 +24,7 @@ const tool: ToolDef = {
   name: "Image to PDF",
   tagline: "Turn JPG, PNG, and WebP images into a single PDF.",
   description:
-    "Combine multiple images into one PDF document. Choose page size, orientation, and margins — all in your browser, free.",
+    "Scan multiple pages into one PDF: photograph pages with your phone, upload the scans, and combine them into a single PDF. Page size, orientation, and margins included — free, in your browser.",
   category: "Screenshots & PDF",
   keyword: "jpg to pdf online",
   badge: "Free",
@@ -42,22 +42,23 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Convert JPG, PNG, and WebP images to PDF free online — combine multiple photos into one PDF with custom page size, orientation, and margins. Try it now!",
+    description: "Scan multiple pages into one PDF free online — photograph pages with your phone and combine JPG, PNG, and WebP images into one PDF with custom page size, orientation, and margins.",
   };
 }
 
 export const metadata = pageMeta({
   title: "JPG to PDF Converter - Combine Images to PDF Free Online",
   description:
-    "Convert JPG, PNG, and WebP images to PDF free online — combine multiple photos into one PDF with custom page size, orientation, and margins. Try it now!",
+    "Scan multiple pages into one PDF free online — photograph pages with your phone, upload the images, and combine them into a single PDF with custom page size, orientation, and margins. No sign-up.",
   path: "/tools/image-to-pdf",
   keywords: [
     "jpg to pdf online",
+    "scan multiple pages into one pdf",
+    "scan to pdf",
     "image to PDF",
     "convert images to PDF",
     "photos to PDF",
     "PNG to PDF",
-    "scan multiple pages into one pdf",
   ],
 });
 
@@ -85,6 +86,10 @@ const faqs = [
   {
     q: "Can I convert WebP images to PDF?",
     a: "Yes. WebP files are accepted alongside JPG and PNG. They're converted to PNG internally before being placed in the PDF, so transparency and quality are preserved.",
+  },
+  {
+    q: "Can I scan multiple pages into one PDF?",
+    a: "Yes. Scan each page with your phone camera — on iPhone use the Notes app, tap the camera icon and choose Scan Documents; on Android use Google Drive's Scan option or your camera app's scan mode — save the scans as images, upload them here in order, and download one combined PDF. No app install or sign-up needed.",
   },
   {
     q: "How do I combine multiple JPGs into one PDF?",
@@ -132,7 +137,7 @@ export default function ImageToPdfPage() {
         <SectionHead label="About this tool" title={<>About the <em>Image to PDF</em></>} />
         <div style={{ maxWidth: 780 }}>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
-            An image to PDF converter bundles your photos into a single, properly paginated document. Upload JPG, PNG, or WebP images to this free online tool, arrange them in the order you want, choose the page size, orientation, and margins, and download one clean PDF. Students compile scanned assignment pages, professionals assemble photo documentation, travelers merge boarding passes and bookings, and artists build simple portfolios — all without desktop software.
+            An image to PDF converter bundles your photos into a single, properly paginated document. Upload JPG, PNG, or WebP images to this free online tool, arrange them in the order you want, choose the page size, orientation, and margins, and download one clean PDF. Students compile scanned assignment pages, professionals assemble photo documentation, travelers merge boarding passes and bookings, and artists build simple portfolios — all without desktop software. It is also the simplest way to scan multiple pages into one PDF: photograph each page with your phone, upload the scans, and download a single document — handy for receipts, forms, notes, and job or visa applications.
           </p>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
             Each image gets its own page by default, scaled to fit without distortion, and you can reorder pages by dragging before converting. The preview shows exactly how the final PDF will look, so margins and orientation are never a surprise. Because the PDF is assembled entirely in your browser, your photos are never uploaded to a server — handy for IDs, receipts, and anything personal. The output is a standard PDF that opens everywhere.

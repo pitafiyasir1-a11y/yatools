@@ -18,7 +18,7 @@ const DEVELOPER_SUBPAGES = ["rate-limits", "errors", "changelog"];
 const TOOL_EDIT_DATES: Record<string, string> = {
   "heic-to-jpg-converter": "2026-10-24",
   "image-to-text": "2026-10-24",
-  "image-to-pdf": "2026-10-24",
+  "image-to-pdf": "2026-11-08",
   "text-to-speech": "2026-10-25",
   "rotate-pdf": "2026-10-27",
   "video-trimmer": "2026-10-28",

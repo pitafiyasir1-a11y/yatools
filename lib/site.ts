@@ -365,7 +365,7 @@ export const TOOLS: ToolDef[] = [
     name: "Image to PDF",
     tagline: "Turn JPG, PNG, and WebP images into a single PDF.",
     description:
-      "Combine multiple images into one PDF document. Choose page size, orientation, and margins — all in your browser, free.",
+      "Scan multiple pages into one PDF: photograph pages with your phone, upload the scans, and combine them into a single PDF. Page size, orientation, and margins included — free, in your browser.",
     category: "Screenshots & PDF",
     keyword: "jpg to pdf online",
     badge: "Free",
