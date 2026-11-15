@@ -25,7 +25,7 @@ const tool: ToolDef = {
   description:
     "M4A to MP3 converter online free: convert M4A to MP3 with the LAME encoder at 128–320 kbps. Runs 100% in your browser — no uploads, no sign-up.",
   category: "Audio & Speech",
-  keyword: "m4a to mp3 converter online",
+  keyword: "convert m4a to mp3 free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -37,11 +37,12 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "M4A to MP3 Converter - Convert M4A Audio Free Online",
+  title: "Convert M4A to MP3 Free - M4A to MP3 Converter Online",
   description:
-    "M4A to MP3 converter, free online: turn iPhone M4A audio into universal MP3 with the LAME encoder. No uploads, no sign-up. No watermarks, ever. Try it now!",
+    "Convert M4A to MP3 free: turn iPhone M4A audio into universal MP3 with the LAME encoder. No uploads, no sign-up. No watermarks, ever. Try it now!",
   path: "/tools/m4a-to-mp3-converter",
   keywords: [
+    "convert m4a to mp3 free",
     "M4A to MP3",
     "M4A to MP3 converter",
     "convert M4A to MP3",

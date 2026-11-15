@@ -952,7 +952,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "M4A to MP3 converter online free: convert M4A to MP3 with the LAME encoder at 128–320 kbps. Runs 100% in your browser — no uploads, no sign-up.",
     category: "Audio & Speech",
-    keyword: "m4a to mp3 converter online",
+    keyword: "convert m4a to mp3 free",
     badge: "Free",
     badgeColor: "green",
     api: null,
