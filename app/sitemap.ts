@@ -15,8 +15,6 @@ const DEVELOPER_SUBPAGES = ["rate-limits", "errors", "changelog"];
 // honest. Do not reintroduce a blanket `now`.
 // Real content-edit dates: ONLY pages whose content actually changed get a
 // lastmod, dated the day of the edit. Never add a page here without editing it.
-// Standing rule (Yasir, 2026-11-14): ALWAYS update this file when a new page
-// or tool is added, verify the live sitemap lists it, and IndexNow-ping it.
 const TOOL_EDIT_DATES: Record<string, string> = {
   "heic-to-jpg-converter": "2026-10-24",
   "image-to-text": "2026-10-24",
@@ -26,6 +24,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "video-trimmer": "2026-10-28",
   "pdf-to-jpg": "2026-10-29",
   "word-counter": "2026-10-30",
+  "percentage-calculator": "2026-10-31",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

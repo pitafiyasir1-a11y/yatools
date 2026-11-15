@@ -22,11 +22,12 @@ import {
 const tool = toolBySlug("percentage-calculator")!;
 
 export const metadata = pageMeta({
-  title: "Percentage Calculator - X% of Y, Percent Change Free Online",
+  title: "Percentage Calculator Online - X% of Y, Percent Change Free",
   description:
-    "Free percentage calculator: find X% of Y, what percent one number is of another, and percent increase or decrease. Instant answers, no sign-up, works in your browser.",
+    "Percentage calculator online: find X% of Y, what percent one number is of another, and percent increase or decrease. Free, instant answers, no sign-up, works in your browser.",
   path: "/tools/percentage-calculator",
   keywords: [
+    "percentage calculator online",
     "percentage calculator",
     "percent of",
     "percent increase calculator",

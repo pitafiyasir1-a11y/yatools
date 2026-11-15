@@ -1041,9 +1041,9 @@ export const TOOLS: ToolDef[] = [
     name: "Percentage Calculator",
     tagline: "X% of Y, percent change, and more — instantly.",
     description:
-      "Percentage calculator free online: find X% of Y, what percent one number is of another, and percent increase or decrease between two values. Instant answers, 100% in-browser.",
+      "Percentage calculator online: find X% of Y, what percent one number is of another, and percent increase or decrease between two values. Free, instant answers, 100% in-browser.",
     category: "Everyday Utilities",
-    keyword: "percentage calculator",
+    keyword: "percentage calculator online",
     badge: "Free",
     badgeColor: "green",
     api: null,
