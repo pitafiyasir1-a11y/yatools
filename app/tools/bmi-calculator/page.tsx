@@ -22,11 +22,12 @@ import {
 const tool = toolBySlug("bmi-calculator")!;
 
 export const metadata = pageMeta({
-  title: "BMI Calculator - Check Your Body Mass Index Free Online",
+  title: "BMI Calculator Online - Check Your Body Mass Index Free",
   description:
-    "Free BMI calculator: enter height and weight (metric or imperial) for your Body Mass Index instantly, with color-coded category — underweight, normal, overweight or obese. No sign-up.",
+    "BMI calculator online: enter height and weight (metric or imperial) for your Body Mass Index instantly, with color-coded category — underweight, normal, overweight or obese. No sign-up.",
   path: "/tools/bmi-calculator",
   keywords: [
+    "bmi calculator online",
     "bmi calculator",
     "body mass index",
     "bmi chart",

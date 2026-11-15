@@ -1028,9 +1028,9 @@ export const TOOLS: ToolDef[] = [
     name: "BMI Calculator",
     tagline: "Check your Body Mass Index instantly.",
     description:
-      "BMI calculator free online: enter height and weight (metric or imperial) for your Body Mass Index with color-coded WHO category — underweight, normal, overweight, or obese. 100% in-browser, private.",
+      "BMI calculator online — free: enter height and weight (metric or imperial) for your Body Mass Index with color-coded WHO category — underweight, normal, overweight, or obese. 100% in-browser, private.",
     category: "Everyday Utilities",
-    keyword: "bmi calculator",
+    keyword: "bmi calculator online",
     badge: "Free",
     badgeColor: "green",
     api: null,
