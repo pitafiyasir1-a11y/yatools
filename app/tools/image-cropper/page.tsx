@@ -22,11 +22,11 @@ import {
 const tool: ToolDef = {
   slug: "image-cropper",
   name: "Image Cropper",
-  tagline: "Crop photos to any size with drag-to-select.",
+  tagline: "Crop image online free — drag to select any size.",
   description:
-    "Crop images online for free. Drag to select the exact area, lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop.",
+    "Crop image online free: drag to select the exact area, lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop. No sign-up, no upload.",
   category: "Everyday Utilities",
-  keyword: "crop image online",
+  keyword: "crop image online free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -42,21 +42,23 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Crop images free online with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. Try it now!",
+    description: "Crop image online free with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. No sign-up. Try it now!",
   };
 }
 
 export const metadata = pageMeta({
-  title: "Image Cropper - Crop Photos to Any Size Free Online",
+  title: "Crop Image Online Free — Crop Photos to Any Size",
   description:
-    "Crop images free online with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. Try it now!",
+    "Crop image online free with drag-to-select — lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop free. No sign-up, no upload. Try it now!",
   path: "/tools/image-cropper",
   keywords: [
+    "crop image online free",
     "crop image online",
     "image cropper",
     "crop photo",
     "free image crop",
     "crop picture",
+    "crop image online free no sign up",
   ],
 });
 
@@ -68,6 +70,10 @@ const faqs = [
   {
     q: "Can I crop to a specific aspect ratio?",
     a: "Yes. Pick Free for any shape, or lock to 1:1 (square, great for profile pictures), 4:3 (classic photo), or 16:9 (widescreen). Locked ratios reshape the selection as you drag.",
+  },
+  {
+    q: "Can I crop an image online free with no sign-up?",
+    a: "Yes. This cropper is free with no account, no sign-up and no upload — open the page, drop in your image, drag your selection and download. There are no watermarks and no limits on how many images you crop.",
   },
   {
     q: "Will the cropped image lose quality?",
@@ -128,7 +134,7 @@ export default function ImageCropperPage() {
         <SectionHead label="About this tool" title={<>About the <em>Image Cropper</em></>} />
         <div style={{ maxWidth: 780 }}>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
-            An image cropper lets you cut away everything you do not want and keep exactly the frame you do. Upload a photo to this free online tool and drag a selection box over the area to keep — lock the aspect ratio to 1:1 for Instagram, 16:9 for video thumbnails, or 4:3 for classic prints, then download the crop at full resolution. Photographers reframe shots, sellers isolate products from messy backgrounds, and social creators fit one photo to every platform's dimensions.
+            An image cropper lets you cut away everything you do not want and keep exactly the frame you do. To crop image online free, upload a photo to this tool and drag a selection box over the area to keep — lock the aspect ratio to 1:1 for Instagram, 16:9 for video thumbnails, or 4:3 for classic prints, then download the crop at full resolution. Photographers reframe shots, sellers isolate products from messy backgrounds, and social creators fit one photo to every platform's dimensions.
           </p>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
             The live preview shows precisely what the download will contain, so there is no guesswork about edges. Because cropping here simply selects pixels from your original, the kept area loses no quality — the output is as sharp as the source. It works smoothly on phones and tablets too, with touch-friendly handles for the selection box. Your images never leave your device: the entire crop happens in the browser.

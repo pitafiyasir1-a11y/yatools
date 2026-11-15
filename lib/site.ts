@@ -441,11 +441,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "image-cropper",
     name: "Image Cropper",
-    tagline: "Crop photos to any size with drag-to-select.",
+    tagline: "Crop image online free — drag to select any size.",
     description:
-      "Crop images online for free. Drag to select the exact area, lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop.",
+      "Crop image online free: drag to select the exact area, lock aspect ratios like 1:1 or 16:9, preview live, and download the full-resolution crop. No sign-up, no upload.",
     category: "Everyday Utilities",
-    keyword: "crop image online",
+    keyword: "crop image online free",
     badge: "Free",
     badgeColor: "green",
     api: null,
