@@ -37,6 +37,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "image-upscaler": "2026-11-12",
   "video-to-gif-converter": "2026-11-13",
   "fancy-text-generator": "2026-11-14",
+  "background-remover": "2026-11-15",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

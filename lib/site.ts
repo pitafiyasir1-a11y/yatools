@@ -259,11 +259,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "background-remover",
     name: "Background Remover",
-    tagline: "Remove image backgrounds right in your browser.",
+    tagline: "Remove background from image free — right in your browser.",
     description:
-      "Upload a photo and erase its background with an on-device AI model. Your image never leaves your device — processing is 100% local and private.",
+      "Remove background from image free: upload a photo and erase its background with an on-device AI model. Your image never leaves your device — processing is 100% local and private.",
     category: "AI Tools",
-    keyword: "remove image background free",
+    keyword: "remove background from image free",
     badge: "AI",
     badgeColor: "purple",
     api: null,

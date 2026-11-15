@@ -35,11 +35,13 @@ function softwareAppJsonLd() {
 }
 
 export const metadata = pageMeta({
-  title: "Background Remover - Erase Image Backgrounds Free Online",
+  title: "Remove Background from Image Free — Background Remover",
   description:
-    "Remove image backgrounds free online with on-device AI — upload a photo, erase the background in seconds, download a transparent PNG. Private. Try now!",
+    "Remove background from image free: upload a photo, erase the background with on-device AI in seconds, download a transparent PNG. Private — nothing uploaded.",
   path: "/tools/background-remover",
   keywords: [
+    "remove background from image free",
+    "remove background online free",
     "background remover",
     "remove background",
     "background eraser",
@@ -49,6 +51,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "Can I remove the background from an image for free?",
+    a: "Yes — upload any photo, the on-device AI erases the background in seconds, and you download a transparent PNG. It is free with no sign-up, no watermark, and nothing is ever uploaded: the AI runs entirely in your browser.",
+  },
   {
     q: "How does this remove backgrounds without uploading?",
     a: "It runs a real neural network (an image-segmentation AI model) directly inside your browser using WebAssembly/WebGPU. The model detects the foreground subject and erases everything else — all on your device.",
@@ -120,10 +126,10 @@ export default function BackgroundRemoverPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Free Background <em>Remover</em> Online
+              Remove Background from Image <em>Free</em>
             </>
           }
-          tagline="A free AI background remover: erase photo backgrounds with on-device AI — your image never leaves your browser."
+          tagline="Remove background from image free — erase photo backgrounds with on-device AI, your image never leaves your browser."
         />
 
         <BackgroundRemoverClient />
@@ -135,7 +141,7 @@ export default function BackgroundRemoverPage() {
         <SectionHead label="About this tool" title={<>About the <em>Background Remover</em></>} />
         <div style={{ maxWidth: 780 }}>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: 14 }}>
-            A background remover uses AI to separate your subject from its background and erase everything behind it. Upload any photo to this free online tool and get a clean cutout with a transparent background in seconds — perfect for product listings, profile pictures, thumbnails, and design mockups. The AI runs entirely on your device using a neural network that loads in your browser, which means your images are never uploaded to any server; even sensitive photos stay completely private.
+            Remove background from image free with this AI tool: upload any photo and get a clean cutout with a transparent background in seconds — perfect for product listings, profile pictures, thumbnails, and design mockups. The AI separates your subject from its background and erases everything behind it. The AI runs entirely on your device using a neural network that loads in your browser, which means your images are never uploaded to any server; even sensitive photos stay completely private.
           </p>
           <p style={{ color: "var(--text2)", fontSize: "0.95rem", lineHeight: 1.75 }}>
             The first run downloads the AI model once, which takes a little while depending on your connection, and then it is cached — every removal after that starts instantly. Results are best with clear subjects: portraits, products, pets, and vehicles against reasonably distinct backgrounds. Fine hair strands and semi-transparent objects are the hardest cases for any automatic tool. Download the cutout as a PNG with full transparency, ready to drop onto any new background in your editor of choice.
