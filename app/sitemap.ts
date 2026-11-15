@@ -25,6 +25,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "pdf-to-jpg": "2026-10-29",
   "word-counter": "2026-10-30",
   "percentage-calculator": "2026-10-31",
+  "audio-to-mp3": "2026-11-01",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

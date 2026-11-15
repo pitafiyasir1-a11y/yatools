@@ -25,9 +25,9 @@ const tool: ToolDef = {
   name: "Audio to MP3",
   tagline: "A free online audio to MP3 converter: turn WAV, FLAC, M4A, and OGG into MP3 — in your browser.",
   description:
-    "Audio to MP3 converter online free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
+    "Convert audio to MP3 free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
   category: "Audio & Speech",
-  keyword: "audio to mp3 converter online",
+  keyword: "convert audio to mp3 free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -41,9 +41,10 @@ const tool: ToolDef = {
 export const metadata = pageMeta({
   title: "Audio to MP3 Converter - Any Audio to MP3 Free Online",
   description:
-    "Audio to MP3 converter, free online: turn WAV, FLAC, M4A, and OGG into universal MP3 in your browser. No uploads, no sign-up. No watermarks, ever. Try it now!",
+    "Convert audio to MP3 free: turn WAV, FLAC, M4A, and OGG into universal MP3 in your browser. No uploads, no sign-up. No watermarks, ever. Try it now!",
   path: "/tools/audio-to-mp3",
   keywords: [
+    "convert audio to mp3 free",
     "audio to mp3 converter online",
     "convert audio to mp3",
     "wav to mp3 online",

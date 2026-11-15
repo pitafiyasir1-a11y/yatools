@@ -677,9 +677,9 @@ export const TOOLS: ToolDef[] = [
     name: "Audio to MP3 Converter",
     tagline: "Turn WAV, FLAC, M4A, and OGG into MP3 — in your browser.",
     description:
-      "Audio to MP3 converter online free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
+      "Convert audio to MP3 free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
     category: "Audio & Speech",
-    keyword: "audio to mp3 converter online",
+    keyword: "convert audio to mp3 free",
     badge: "Free",
     badgeColor: "green",
     api: null,
