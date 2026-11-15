@@ -52,6 +52,7 @@ export const metadata = pageMeta({
     "Extract text from images free online with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
   path: "/tools/image-to-text",
   keywords: [
+    "extract text from image free",
     "image to text ocr online",
     "image to text",
     "photo to text",

@@ -30,16 +30,17 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Count words, characters, sentences, and paragraphs free online as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
+    description: "Word counter online free: count words, characters, sentences, and paragraphs as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
   };
 }
 
 export const metadata = pageMeta({
-  title: "Word Counter - Count Words & Characters Free Online",
+  title: "Word Counter Online Free - Count Words & Characters",
   description:
-    "Count words, characters, sentences, and paragraphs free online as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
+    "Word counter online free: count words, characters, sentences, and paragraphs as you type, with live reading-time estimates. Private, in-browser, no sign-up. Try now!",
   path: "/tools/word-counter",
   keywords: [
+    "word counter online free",
     "word counter",
     "word count tool",
     "character counter",

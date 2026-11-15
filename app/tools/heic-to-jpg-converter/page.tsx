@@ -11,7 +11,7 @@ const spec: ConvPageSpec = {
     description:
       "Free HEIC to JPG converter: turn iPhone and iPad HEIC photos into JPGs that open on any device. Runs entirely in your browser — no uploads, no sign-up.",
     category: "Everyday Utilities",
-    keyword: "heic to jpg converter",
+    keyword: "heic to jpg converter free",
     badge: "Free",
     badgeColor: "green",
     api: null,
@@ -24,9 +24,9 @@ const spec: ConvPageSpec = {
   ),
   tagline:
     "A free HEIC to JPG converter: turn iPhone HEIC photos into JPGs that open anywhere — no upload, no sign-up.",
-  metaTitle: "HEIC to JPG Converter - Convert iPhone HEIC Free Online",
+  metaTitle: "HEIC to JPG Converter Free - Convert iPhone HEIC Online",
   metaDescription:
-    "HEIC to JPG converter, free online: turn iPhone HEIC photos into JPGs that open on any device. Runs 100% in your browser, nothing uploaded. Try it now — free!",
+    "HEIC to JPG converter free: convert HEIC to JPG on iPhone in your browser - no app, no upload, no sign-up. Photos become JPGs that open anywhere.",
   keywords: [
     "HEIC to JPG",
     "HEIC to JPG converter",
@@ -109,6 +109,10 @@ const spec: ConvPageSpec = {
     {
       q: "Are my photos uploaded anywhere?",
       a: "No. The heic2any decoding engine runs entirely on your device. Your photos never leave your browser, are never stored on a server, and can't be seen by anyone else.",
+    },
+    {
+      q: "How do I convert HEIC to JPG on iPhone?",
+      a: "Open this converter in Safari on your iPhone, pick the HEIC photo, and download the JPG - no app to install, nothing uploaded, and the conversion runs entirely in your browser.",
     },
     {
       q: "Can I convert HEIC to PNG instead?",

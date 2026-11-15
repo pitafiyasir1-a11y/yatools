@@ -26,7 +26,7 @@ const tool: ToolDef = {
   description:
     "Convert PDF pages to JPG images in your browser. Preview every page, download individually or all at once — free, no uploads.",
   category: "Screenshots & PDF",
-  keyword: "pdf to jpg online",
+  keyword: "pdf to jpg converter",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -42,7 +42,7 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Convert PDF pages to JPG free online — preview every page, download individually or all at once. High quality, private, no sign-up needed. Try it free now!",
+    description: "PDF to JPG converter — convert PDF pages to JPG free online. Preview every page, download individually or all at once. High quality, private, no sign-up needed.",
   };
 }
 
@@ -52,6 +52,7 @@ export const metadata = pageMeta({
     "Convert PDF pages to JPG free online — preview every page, download individually or all at once. High quality, private, no sign-up needed. Try it free now!",
   path: "/tools/pdf-to-jpg",
   keywords: [
+    "pdf to jpg converter",
     "pdf to jpg online",
     "PDF to JPG",
     "convert PDF to JPG",
