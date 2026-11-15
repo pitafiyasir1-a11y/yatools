@@ -22,11 +22,12 @@ import {
 const tool = toolBySlug("fancy-text-generator")!;
 
 export const metadata = pageMeta({
-  title: "Fancy Text Generator - Stylish Fonts for Instagram & TikTok Free",
+  title: "Fancy Text Generator Copy and Paste — Stylish Fonts",
   description:
-    "Generate fancy text in 12 stylish Unicode fonts — bold, italic, script, monospace and more. Copy-paste ready for Instagram bios, TikTok names & WhatsApp. Free, no sign-up.",
+    "Fancy text generator copy and paste: 12 stylish Unicode fonts — bold, italic, script and more. Copy-paste ready for Instagram bios, TikTok & WhatsApp. Free.",
   path: "/tools/fancy-text-generator",
   keywords: [
+    "fancy text generator copy and paste",
     "fancy text generator",
     "stylish text",
     "cool fonts",
@@ -37,6 +38,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "Can I copy and paste fancy text for free?",
+    a: "Yes — type your text, tap Copy on any of the 12 styles, and paste it anywhere: Instagram bios, TikTok names, WhatsApp status, or captions. It is free with no sign-up and no app — the styles are real Unicode characters, so they paste exactly as shown.",
+  },
   {
     q: "How do I use fancy text on Instagram?",
     a: "Type your text in the generator, tap Copy on any style you like, then paste it into your Instagram bio, name field, caption, or story text. The styles are real Unicode characters, so they work everywhere — no app needed.",
@@ -78,10 +83,10 @@ export default function FancyTextGeneratorPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Fancy <em>Text</em> Generator
+              Fancy Text Generator <em>Copy and Paste</em>
             </>
           }
-          tagline="Type once, get your text in 12 stylish Unicode fonts — bold, italic, script, monospace. Copy-paste ready for bios and captions."
+          tagline="Fancy text generator copy and paste — type once, get your text in 12 stylish Unicode fonts. Copy-paste ready for bios and captions."
         />
 
         <FancyTextGeneratorClient />

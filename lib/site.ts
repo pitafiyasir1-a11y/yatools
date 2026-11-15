@@ -1000,11 +1000,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "fancy-text-generator",
     name: "Fancy Text Generator",
-    tagline: "Stylish Unicode fonts for bios, captions, and names.",
+    tagline: "Fancy text generator copy and paste: stylish Unicode fonts for bios, captions, and names.",
     description:
-      "Fancy text generator free: type once, get 12 stylish Unicode fonts — bold, italic, script, monospace, fraktur and more. Copy-paste ready for Instagram bios, TikTok names, and WhatsApp. 100% in-browser.",
+      "Fancy text generator copy and paste — type once, get 12 stylish Unicode fonts — bold, italic, script, monospace, fraktur and more. Copy-paste ready for Instagram bios, TikTok names, and WhatsApp. 100% in-browser.",
     category: "Everyday Utilities",
-    keyword: "fancy text generator",
+    keyword: "fancy text generator copy and paste",
     badge: "Free",
     badgeColor: "green",
     api: null,
