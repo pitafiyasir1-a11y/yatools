@@ -51,11 +51,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "audio-to-text",
     name: "Audio to Text",
-    tagline: "Transcribe MP3, WAV, M4A, YouTube links and more into editable text.",
+    tagline: "Voice note to text free — WhatsApp voice notes, MP3, WAV and YouTube links into text.",
     description:
-      "Upload an audio file or paste a YouTube link and get an accurate transcript with optional SRT timestamps. Great for lecture notes, interviews, voice messages, and podcasts.",
+      "Voice note to text free: turn WhatsApp voice notes into readable, searchable text — upload an MP3, WAV or M4A file, or paste a YouTube link, and get an accurate transcript with optional SRT timestamps. Free, no sign-up, no app needed. Great for lecture notes, interviews, voice messages, and podcasts.",
     category: "Audio & Speech",
-    keyword: "audio to text online",
+    keyword: "voice note to text free",
     badge: "AI",
     badgeColor: "purple",
     api: "/api/v1/transcribe",
