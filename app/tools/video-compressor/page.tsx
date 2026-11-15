@@ -24,9 +24,9 @@ const tool: ToolDef = {
   name: "Video Compressor",
   tagline: "A free video compressor: shrink MP4, WebM, and MOV files in your browser — large videos take a few minutes.",
   description:
-    "Free online video compressor: shrink MP4, WebM and MOV files with adjustable quality, right in your browser. No upload, no sign-up, no watermark.",
+    "Compress video online free: shrink MP4, WebM and MOV files with adjustable quality, right in your browser. No upload, no sign-up, no watermark.",
   category: "Everyday Utilities",
-  keyword: "video compressor online",
+  keyword: "compress video online free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -40,9 +40,10 @@ const tool: ToolDef = {
 export const metadata = pageMeta({
   title: "Video Compressor - Compress MP4 Videos Free Online",
   description:
-    "Video compressor, free online: shrink MP4, WebM, and MOV files in your browser with no watermark. Large videos take a few minutes. Try it now — it’s free!",
+    "Compress video online free: shrink MP4, WebM, and MOV files in your browser with no watermark. Large videos take a few minutes. Try it now — it’s free!",
   path: "/tools/video-compressor",
   keywords: [
+    "compress video online free",
     "video compressor",
     "compress video",
     "video size reducer",

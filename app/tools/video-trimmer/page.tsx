@@ -27,7 +27,7 @@ const tool: ToolDef = {
   description:
     "Trim video online free: cut MP4, WebM, or MOV clips in your browser with frame-accurate precision. Export as MP4 (H.264 + AAC). No uploads, fully private.",
   category: "Everyday Utilities",
-  keyword: "video trimmer online",
+  keyword: "trim video online free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -41,10 +41,10 @@ const tool: ToolDef = {
 export const metadata = pageMeta({
   title: "Video Trimmer Online - Cut Video Clips Free Online",
   description:
-    "Video trimmer online, free: cut out exactly the part you want with frame-accurate MP4 export. Runs in your browser, no uploads. Try it now — it’s free!",
+    "Trim video online free: cut out exactly the part you want with frame-accurate MP4 export. Runs in your browser, no uploads. Try it now — it’s free!",
   path: "/tools/video-trimmer",
   keywords: [
-    "video trimmer online",
+    "trim video online free",
     "trim video online",
     "cut video online",
     "mp4 trimmer",

@@ -37,6 +37,7 @@ export const metadata = pageMeta({
     "Convert text to speech free online — paste up to 12,000 characters, pick a natural voice, and download the MP3. Offline browser fallback included. Try now!",
   path: "/tools/text-to-speech",
   keywords: [
+    "text to speech free online",
     "text to speech",
     "TTS tool",
     "text to audio",

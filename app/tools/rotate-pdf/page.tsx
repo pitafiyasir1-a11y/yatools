@@ -24,9 +24,9 @@ const tool: ToolDef = {
   name: "Rotate PDF",
   tagline: "Rotate all or selected PDF pages 90°, 180°, or 270°.",
   description:
-    "Fix sideways or upside-down PDF pages: rotate every page or just the ones you pick — in your browser, free.",
+    "Rotate PDF online free: fix sideways or upside-down pages — rotate every page or just the ones you pick, in your browser.",
   category: "Screenshots & PDF",
-  keyword: "rotate pdf online",
+  keyword: "rotate pdf online free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -42,17 +42,17 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Rotate PDF pages free online — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
+    description: "Rotate PDF online free — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
   };
 }
 
 export const metadata = pageMeta({
   title: "Rotate PDF Online Free - Fix Sideways Pages Instantly",
   description:
-    "Rotate PDF pages free online — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
+    "Rotate PDF online free — fix sideways or upside-down pages by 90, 180, or 270 degrees. Rotate all pages or just selected ones. Try it free right now!",
   path: "/tools/rotate-pdf",
   keywords: [
-    "rotate pdf online",
+    "rotate pdf online free",
     "rotate PDF",
     "fix sideways PDF",
     "rotate PDF pages",

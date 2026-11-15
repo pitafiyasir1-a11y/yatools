@@ -30,7 +30,7 @@ const tool: ToolDef = {
   badge: "Free",
   badgeColor: "green",
   api: null,
-  related: ["text-to-pdf", "pdf-to-jpg", "merge-pdf"],
+  related: ["text-to-pdf", "pdf-to-jpg", "merge-pdf", "image-to-text", "image-compressor"],
 };
 
 function softwareAppJsonLd() {
@@ -57,6 +57,7 @@ export const metadata = pageMeta({
     "convert images to PDF",
     "photos to PDF",
     "PNG to PDF",
+    "scan multiple pages into one pdf",
   ],
 });
 
@@ -88,6 +89,10 @@ const faqs = [
   {
     q: "How do I combine multiple JPGs into one PDF?",
     a: "Upload all your images, drag them into order, pick page size and orientation, and convert — they merge into a single PDF document.",
+  },
+  {
+    q: "How do I scan multiple pages into one PDF?",
+    a: "Photograph or scan each page with your phone, upload all the images here in page order, and convert — every photo becomes one page of a single PDF. It's a free multi-page scanner alternative with no app to install and no sign-up; fit-to-image page size keeps scans at their exact dimensions, and your images never leave your device.",
   },
 
 ];
