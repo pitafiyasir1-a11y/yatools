@@ -636,11 +636,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "video-to-gif-converter",
     name: "Video to GIF Converter",
-    tagline: "Turn any video clip into a looping GIF — pick the moment, set the quality.",
+    tagline: "Video to GIF converter online free: turn any video clip into a looping GIF — pick the moment, set the quality.",
     description:
       "Video to GIF converter online free: make GIFs from MP4, WebM, or MOV in your browser. Choose start time, length, fps, and size. No uploads, fully private.",
     category: "Everyday Utilities",
-    keyword: "video to gif converter online",
+    keyword: "video to gif converter online free",
     badge: "Free",
     badgeColor: "green",
     api: null,

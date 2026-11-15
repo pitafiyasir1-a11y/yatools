@@ -23,11 +23,11 @@ import VideoToGifClient from "./ToolClient";
 const tool: ToolDef = {
   slug: "video-to-gif-converter",
   name: "Video to GIF",
-  tagline: "A free video to GIF converter: turn any clip into a looping GIF — set frame rate, size, and trim.",
+  tagline: "Video to GIF converter online free: turn any clip into a looping GIF — set frame rate, size, and trim.",
   description:
     "Video to GIF converter online free: make GIFs from MP4, WebM, or MOV in your browser. Choose start time, length, fps, and size. No uploads, fully private.",
   category: "Everyday Utilities",
-  keyword: "video to gif converter online",
+  keyword: "video to gif converter online free",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -39,11 +39,14 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "Video to GIF Converter - Turn Clips into GIFs Free Online",
+  title: "Video to GIF Converter Online Free — Turn Clips into GIFs",
   description:
-    "Video to GIF converter, free online: turn any clip into a looping GIF with frame-rate, size, and trim controls. No watermark. No account needed. Try it now!",
+    "Video to GIF converter online free: turn any clip into a looping GIF with frame-rate, size, and trim controls. No watermark, no account needed.",
   path: "/tools/video-to-gif-converter",
   keywords: [
+    "video to gif converter online free",
+    "video to gif maker online free",
+    "video to whatsapp gif converter",
     "video to GIF",
     "video to GIF converter",
     "MP4 to GIF",
@@ -53,6 +56,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "Can I convert a video to GIF online for free?",
+    a: "Yes — upload any MP4, WebM, or MOV clip, pick your moment, and download the GIF. It is free with no sign-up, no watermark, and no upload: the conversion runs in your browser, so your GIF is ready to share on WhatsApp, Discord, and social media in seconds.",
+  },
   {
     q: "How do I make a GIF from a video?",
     a: "Upload your video, scrub the preview to find the moment, set the start time and length (up to 10 seconds), choose smoothness and width, and press “Make GIF”. The GIF is rendered in your browser with a two-pass palette for clean colors.",
@@ -100,10 +107,10 @@ export default function VideoToGifPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Free Video to <em>GIF Converter</em> Online
+              Video to GIF Converter <em>Online Free</em>
             </>
           }
-          tagline="A free video to GIF converter: turn any clip into a looping GIF — set frame rate, size, and trim."
+          tagline="Video to GIF converter online free: turn any clip into a looping GIF — set frame rate, size, and trim."
         />
 
         <VideoToGifClient />

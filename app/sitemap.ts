@@ -35,6 +35,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "qr-scanner": "2026-11-10",
   "audio-to-text": "2026-11-11",
   "image-upscaler": "2026-11-12",
+  "video-to-gif-converter": "2026-11-13",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
