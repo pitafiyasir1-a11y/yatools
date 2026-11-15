@@ -610,11 +610,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "image-upscaler",
     name: "AI Image Upscaler",
-    tagline: "Enlarge photos 2x with AI — sharper, cleaner, right in your browser.",
+    tagline: "Upscale image online free — enlarge photos 2x with AI, sharper and cleaner, right in your browser.",
     description:
-      "AI image upscaler online: enlarge photos 2x with the ESRGAN neural network. Free, private, runs entirely in your browser — no uploads.",
+      "Upscale image online free: enlarge photos 2x with the ESRGAN neural network. Free, private, runs entirely in your browser — no uploads, no sign-up, no watermark.",
     category: "AI Tools",
-    keyword: "ai image upscaler online",
+    keyword: "upscale image online free",
     badge: "AI",
     badgeColor: "purple",
     api: null,

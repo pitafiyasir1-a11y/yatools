@@ -23,11 +23,11 @@ import ImageUpscalerClient from "./ToolClient";
 const tool: ToolDef = {
   slug: "image-upscaler",
   name: "AI Image Upscaler",
-  tagline: "A free AI image upscaler: enlarge photos 2x — sharper and cleaner. First run downloads the AI model once, then it is cached.",
+  tagline: "Upscale image online free — enlarge photos 2x with AI, sharper and cleaner, right in your browser. First run downloads the AI model once, then it is cached.",
   description:
-    "AI image upscaler online: enlarge photos 2x with the ESRGAN neural network. Free, private, runs entirely in your browser — no uploads.",
+    "Upscale image online free: enlarge photos 2x with the ESRGAN neural network. Free, private, runs entirely in your browser — no uploads, no sign-up, no watermark.",
   category: "AI Tools",
-  keyword: "ai image upscaler online",
+  keyword: "upscale image online free",
   badge: "AI",
   badgeColor: "purple",
   api: null,
@@ -39,11 +39,14 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "Image Upscaler - AI Photo Enhancement Tool Free Online",
+  title: "Upscale Image Online Free — AI Photo Upscaler 2x",
   description:
-    "Image upscaler, free online: enlarge photos 2x with AI — sharper and cleaner, right in your browser. The AI model loads once, then caches. Try it now!",
+    "Upscale image online free: enlarge photos 2x with AI — sharper and cleaner, right in your browser. No sign-up, no uploads, no watermark. Try it now!",
   path: "/tools/image-upscaler",
   keywords: [
+    "upscale image online free",
+    "upscale image free",
+    "upscale photo online free",
     "image upscaler",
     "AI image upscaler",
     "upscale image AI",
@@ -53,6 +56,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "Can I upscale an image online for free?",
+    a: "Yes — upload a JPG, PNG or WebP and get a 2x AI enlargement free, with no sign-up, no uploads and no watermark. The ESRGAN model runs entirely in your browser, so there is no per-image cost; the ~0.9 MB model downloads once and is then cached.",
+  },
   {
     q: "How does the AI image upscaler work?",
     a: "It runs the ESRGAN-Slim neural network (trained on millions of photos) directly in your browser with TensorFlow.js. The model studies your image's textures and edges, then reconstructs it at double resolution — much sharper than simple stretching.",
@@ -100,10 +107,10 @@ export default function ImageUpscalerPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Free AI Image <em>Upscaler</em> Online
+              Upscale Image Online <em>Free</em>
             </>
           }
-          tagline="A free AI image upscaler: enlarge photos 2x — sharper and cleaner. First run downloads the AI model once, then it is cached."
+          tagline="Upscale image online free — enlarge photos 2x with AI, sharper and cleaner, right in your browser. First run downloads the AI model once, then it is cached."
         />
 
         <ImageUpscalerClient />
