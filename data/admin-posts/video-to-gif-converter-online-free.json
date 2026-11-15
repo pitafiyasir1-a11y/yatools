@@ -1,0 +1,52 @@
+{
+  "contentMarkdown": "A three-second reaction from a video beats any emoji pack — and when you make the GIF yourself, it is yours, not a stock clip everyone has already seen. Turning a video into a GIF takes under a minute, and the free way to do it runs entirely in your browser.\n\n## The free method: video to GIF converter\n\nNo software to install, no account to create, and nothing uploaded to a server — your browser does the whole conversion on your own device.\n\n1. Open the [free video to GIF converter](/tools/video-to-gif-converter).\n2. Drop in your video — MP4, WebM, or MOV up to about 100 MB.\n3. Scrub the preview to find the exact moment you want.\n4. Set the start time and the clip length (up to 10 seconds).\n5. Pick the smoothness (fps) and width, press “Make GIF”, preview the loop, and download it.\n\nThe first run loads the video engine (about 30 MB) once; after that, conversions are instant. Because everything happens locally, even a personal or work video never touches a server — a genuine privacy win over upload-based GIF makers.\n\n## Picking settings that keep the GIF small and sharp\n\nGIF is an old, inefficient format — every frame is a full image — so a few choices make the difference between a crisp 2 MB loop and a bloated file nobody wants to download.\n\n- **Length: keep it short.** Two to four seconds is the sweet spot for reactions and highlights. The tool caps clips at 10 seconds, and for good reason: a 10-second GIF at decent quality is already several megabytes.\n- **Smoothness: 15 fps for motion, 10 fps for size.** Fast action looks better at 15 fps; a mostly still reaction looks fine at 10 fps and stays much smaller.\n- **Width: 480px for quality, 320px for chats.** Use 480px when the GIF will sit in a post or document, and 320px when it is heading to a chat where file size matters more than sharpness.\n- **Color: leave it to the tool.** It converts with a two-pass palette, which looks far cleaner than the dithering mush naive converters produce.\n\nIf your GIF still comes out too big, shorten the clip first — cutting two seconds beats dropping the quality every time.\n\n## Where your GIF works: WhatsApp, Discord, and social\n\nGIFs loop automatically wherever they are displayed, which is why they work so well in places video does not. Send the reaction as a GIF in WhatsApp or Discord, drop a short looping demo into a bug report or tutorial instead of a video file nobody opens, or post a highlight clip that catches the eye in a feed far better than a static thumbnail. Keep social GIFs under five seconds for punch.\n\nOne honest limit: GIFs have no sound. If the audio is the point — a quote, a song, a voice line — keep it as a video clip, or extract the audio instead with the [free MP4 to MP3 converter](/tools/mp4-to-mp3-converter).\n\n## On your phone\n\nThe converter runs in your mobile browser, so there is no app to install. On iPhone, open it in Safari, pick the video from Photos or Files, and save the GIF to your downloads. On Android, the same flow works in Chrome — choose the video from your gallery and download the result. If your clip is longer than 10 seconds, trim it first with the [free video trimmer](/tools/video-trimmer), then convert the trimmed clip.\n\n## The honest limits\n\nThree things this tool does not do, stated plainly. Clips are capped at 10 seconds — longer moments become enormous files, so trim the video itself instead. You cannot add text or captions inside the tool; if you need captioned GIFs, add the captions in a free video editor first, then convert the captioned clip. And the first run downloads the roughly 30 MB video engine, so the very first conversion takes a little longer than the ones after it. Everything else — no account, no watermark, no upload — is exactly as advertised.",
+  "date": "2026-11-05",
+  "excerpt": "Turn any video clip into a looping GIF free in your browser — pick the moment, set the length and quality, and share it in chats and social. No upload, no sign-up.",
+  "faqs": [
+    {
+      "a": "Yes. The converter on this page is completely free with no account, no watermark, and no file-size games beyond the stated limits. Your video is processed locally in your browser, so nothing is uploaded anywhere.",
+      "q": "Is converting video to GIF free?"
+    },
+    {
+      "a": "GIFs are capped at 10 seconds because the format stores every frame as a full image — longer clips become enormous files that are painful to share. Pick the best moment, not the whole video. If you need a longer moment, trim the video itself with a video trimmer instead.",
+      "q": "Why are GIFs limited to 10 seconds?"
+    },
+    {
+      "a": "Keep the clip short (2–4 seconds), use 15 fps for smooth motion, and pick 480px width for sharpness or 320px when file size matters more. The tool uses a two-pass palette conversion, which keeps colors clean instead of dithered.",
+      "q": "How do I make a high-quality GIF that stays small?"
+    },
+    {
+      "a": "Yes. The converter runs entirely in your mobile browser — open it in Safari on iPhone or Chrome on Android, pick the video from your gallery or files, and download the GIF. No app to install.",
+      "q": "Can I convert video to GIF on my phone?"
+    },
+    {
+      "a": "No. GIFs carry no audio track, so sound is dropped during conversion. If the audio matters, keep the clip as a video, or extract the sound separately as an MP3.",
+      "q": "Do GIFs keep the video's sound?"
+    },
+    {
+      "a": "Not in this tool — it converts a clean clip. Add captions or text in any free video editor first, then convert the captioned clip here.",
+      "q": "Can I add text or captions to my GIF?"
+    }
+  ],
+  "keywords": [
+    "video to gif converter online free",
+    "video to gif maker online free",
+    "mp4 video to gif",
+    "video to whatsapp gif converter",
+    "convert video to gif no watermark"
+  ],
+  "metaDescription": "Turn any video clip into a looping GIF free in your browser: pick the moment, set start time, length, fps and size. No upload, no sign-up, no watermark.",
+  "relatedTools": [
+    "video-to-gif-converter",
+    "video-trimmer",
+    "mp4-to-mp3-converter",
+    "video-compressor"
+  ],
+  "slug": "video-to-gif-converter-online-free",
+  "status": "published",
+  "tags": [
+    "Video",
+    "How-to"
+  ],
+  "title": "Video to GIF Converter Online Free: Make Looping GIFs"
+}
