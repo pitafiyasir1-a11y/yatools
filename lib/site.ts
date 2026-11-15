@@ -402,11 +402,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "qr-scanner",
     name: "QR Code Scanner",
-    tagline: "Decode QR codes from photos or your live camera.",
+    tagline: "Scan QR code online from image — or your live camera.",
     description:
-      "Scan QR codes online: upload an image or use your live camera. Decodes instantly in your browser — free, private, no app needed.",
+      "Scan QR code online from image: upload a photo or screenshot and decode it instantly in your browser — free, private, no app needed. Live camera supported too.",
     category: "Everyday Utilities",
-    keyword: "qr code scanner online",
+    keyword: "scan qr code online from image",
     badge: "Free",
     badgeColor: "green",
     api: null,

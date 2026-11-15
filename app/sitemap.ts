@@ -32,6 +32,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "json-formatter": "2026-11-06",
   "age-calculator": "2026-11-07",
   "image-cropper": "2026-11-09",
+  "qr-scanner": "2026-11-10",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

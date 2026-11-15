@@ -22,11 +22,11 @@ import {
 const tool: ToolDef = {
   slug: "qr-scanner",
   name: "QR Code Scanner",
-  tagline: "Decode QR codes from photos or your live camera.",
+  tagline: "Scan QR code online from image — or your live camera.",
   description:
-    "Scan QR codes online: upload an image or use your live camera. Decodes instantly in your browser — free, private, no app needed.",
+    "Scan QR code online from image: upload a photo or screenshot and decode it instantly in your browser — free, private, no app needed. Live camera supported too.",
   category: "Everyday Utilities",
-  keyword: "qr code scanner online",
+  keyword: "scan qr code online from image",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -42,16 +42,18 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Scan QR codes free online — upload a photo or use your live camera. Instant decoding in your browser, private and secure, no app needed. Try it free now!",
+    description: "Scan QR code online from image — upload a photo or screenshot and decode it instantly in your browser, free and private, no app needed. Live camera supported too. Try it free now!",
   };
 }
 
 export const metadata = pageMeta({
-  title: "Free QR Code Scanner Online - Decode Any QR Code Fast",
+  title: "Scan QR Code Online from Image — Free QR Reader",
   description:
-    "Scan QR codes free online — upload a photo or use your live camera. Instant decoding in your browser, private and secure, no app needed. Try it free now!",
+    "Scan QR code online from image: upload a photo or screenshot and decode it instantly in your browser — free, private, no app needed. Try it free now!",
   path: "/tools/qr-scanner",
   keywords: [
+    "scan qr code online from image",
+    "scan qr code from image",
     "qr code scanner online",
     "QR scanner",
     "scan QR code",
@@ -64,6 +66,10 @@ const faqs = [
   {
     q: "How do I scan a QR code online?",
     a: "Two ways: upload a photo or screenshot that contains the code, or switch to the Live camera tab and scan a frame. The decoded text appears instantly with a copy button.",
+  },
+  {
+    q: "Can I scan a QR code from an image?",
+    a: "Yes — upload a JPG, PNG or WebP photo or screenshot containing the code and it decodes instantly in your browser. Nothing is uploaded: decoding runs on your device, so it is free and private, no app needed.",
   },
   {
     q: "Do I need to install an app?",
@@ -116,7 +122,7 @@ export default function QrScannerPage() {
               Free QR Code <em>Scanner</em> Online
             </>
           }
-          tagline="A free QR code scanner: decode QR codes from a photo or straight through your camera — instant, private, no app."
+          tagline="Scan QR code online from image: decode QR codes from a photo or screenshot — instant, private, no app."
         />
 
         <QrScannerClient />
