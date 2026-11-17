@@ -24,9 +24,9 @@ const tool: ToolDef = {
   name: "Image to Text OCR",
   tagline: "Extract editable text from any image.",
   description:
-    "Free image to text OCR online. Upload a photo, screenshot, or scan and extract editable English text — right in your browser, no sign-up.",
+    "Image to text converter online free: upload a photo, screenshot, or scan and extract editable English text — right in your browser, no sign-up.",
   category: "Everyday Utilities",
-  keyword: "image to text ocr online",
+  keyword: "image to text converter online free",
   badge: "AI",
   badgeColor: "purple",
   api: null,
@@ -49,9 +49,10 @@ function softwareAppJsonLd() {
 export const metadata = pageMeta({
   title: "Image to Text OCR - Extract Text from Images Free Online",
   description:
-    "Extract text from images free online with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
+    "Image to text converter online free: extract text from images with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
   path: "/tools/image-to-text",
   keywords: [
+    "image to text converter online free",
     "extract text from image free",
     "image to text ocr online",
     "image to text",

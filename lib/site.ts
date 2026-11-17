@@ -469,9 +469,9 @@ export const TOOLS: ToolDef[] = [
     name: "Image to Text OCR",
     tagline: "Extract editable text from any image.",
     description:
-      "Extract text from image free online. Upload a photo, screenshot, or scan and extract editable English text — right in your browser, no sign-up.",
+      "Image to text converter online free: upload a photo, screenshot, or scan and extract editable English text — right in your browser, no sign-up.",
     category: "Everyday Utilities",
-    keyword: "extract text from image free",
+    keyword: "image to text converter online free",
     badge: "AI",
     badgeColor: "purple",
     api: null,
