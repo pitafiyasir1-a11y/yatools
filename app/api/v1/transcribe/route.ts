@@ -14,7 +14,7 @@
  */
 
 import { checkRateLimit } from "@/lib/proxy/rate-limit";
-import { UPSTREAM, TIMEOUTS, okJson, errJson, rateLimited } from "@/lib/proxy/upstream";
+import { TIMEOUTS, okJson, errJson, rateLimited, fetchUpstream } from "@/lib/proxy/upstream";
 
 export const runtime = "nodejs";
 
@@ -126,14 +126,20 @@ export async function POST(req: Request): Promise<Response> {
     if (optTimestamps !== undefined) fwd.timestamps = optTimestamps;
   }
 
+  // freeapi.pro first, ahm7 fallback (fetchUpstream order flipped 2026-11-18:
+  // ahm7 moved to freeapi.pro; its transcribe endpoint returns empty/non-JSON.
+  // freeapi.pro YouTube mode VERIFIED working 2026-11-18, real transcript.)
   let upstreamRes: Response;
+  let fallbackUsed = false;
   try {
-    upstreamRes = await fetch(`${UPSTREAM}/api/transcribe`, {
+    const r = await fetchUpstream(`/api/transcribe`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(fwd),
-      signal: AbortSignal.timeout(TIMEOUTS.transcribe),
+      timeoutMs: TIMEOUTS.transcribe,
     });
+    upstreamRes = r.res;
+    fallbackUsed = r.fallbackUsed;
   } catch (e) {
     const timedOut = e instanceof Error && /timeout|aborted/i.test(e.name + e.message);
     // Deliberately do not log the request body (audio content).
@@ -178,5 +184,6 @@ export async function POST(req: Request): Promise<Response> {
       srt: typeof json.srt === "string" ? json.srt : undefined,
     },
     "yatools",
+    fallbackUsed,
   );
 }

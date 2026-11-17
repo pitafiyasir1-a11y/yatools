@@ -19,10 +19,14 @@ export const UPSTREAM =
  * Verified live 2026-11-14 (real requests, not page loads): TTS returns real
  * MP3 (twice), alldl returns real YouTube links, n8n returns real templates,
  * imgchat returns a real image description, wikipdf returns a real 8-page PDF.
- * transcribe and mail are ALSO down here (401 "All backup keys were
- * rejected" / 504 timeout), so those two routes keep their honest 502.
  * Cloudflare fronts freeapi.pro: POSTs need a browser-like User-Agent
  * (a bare script UA gets 403 error 1010), so fetchUpstream always sends one.
+ *
+ * ORDER FLIP (2026-11-18): ahm7xmakki.com now serves a "We have moved to
+ * FreeAPI — freeapi.pro" page and its API returns 405 / 502 / empty bodies /
+ * 200+HTML. freeapi.pro is now tried FIRST and ahm7 is the fallback.
+ * (Stale Nov 14 note removed: freeapi.pro transcribe YouTube mode VERIFIED
+ * working 2026-11-18 with a real "Me at the zoo" transcript.)
  */
 export const FALLBACK_UPSTREAM = "https://freeapi.pro";
 
@@ -30,10 +34,12 @@ const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 /**
- * Try the primary upstream, then the fallback upstream. Returns the first
- * successful (2xx) response plus whether the fallback served it. Throws the
- * last error when both fail. A fresh timeout signal is created per attempt
- * so the fallback is not starved by the first attempt's clock.
+ * Try freeapi.pro first, then ahm7 as fallback. (Order flipped 2026-11-18:
+ * ahm7 moved to freeapi.pro — see FALLBACK_UPSTREAM comment.) Returns the
+ * first successful (2xx) response plus whether the fallback (ahm7) served
+ * it. Throws the last error when both fail. A fresh timeout signal is
+ * created per attempt so the fallback is not starved by the first
+ * attempt's clock.
  */
 export async function fetchUpstream(
   path: string,
@@ -45,14 +51,14 @@ export async function fetchUpstream(
     ...(headers as Record<string, string> | undefined),
   };
   let lastErr: unknown = new Error("all upstreams failed");
-  for (const base of [UPSTREAM, FALLBACK_UPSTREAM]) {
+  for (const base of [FALLBACK_UPSTREAM, UPSTREAM]) {
     try {
       const res = await fetch(`${base}${path}`, {
         ...rest,
         headers: mergedHeaders,
         signal: AbortSignal.timeout(timeoutMs),
       });
-      if (res.ok) return { res, fallbackUsed: base === FALLBACK_UPSTREAM };
+      if (res.ok) return { res, fallbackUsed: base === UPSTREAM };
       lastErr = new Error(`upstream ${res.status} from ${base}`);
     } catch (e) {
       lastErr = e;
