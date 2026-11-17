@@ -1,0 +1,54 @@
+{
+  "slug": "rotate-pdf-free",
+  "title": "Rotate PDF Free: Fix Sideways Pages in Seconds",
+  "metaDescription": "Rotate PDF free in your browser: turn sideways or upside-down pages 90, 180 or 270 degrees. Lossless, no sign-up, no upload — your file never leaves your device.",
+  "keywords": [
+    "rotate pdf free",
+    "rotate pdf online",
+    "rotate pdf pages",
+    "how to rotate a pdf",
+    "rotate pdf 90 degrees",
+    "fix sideways pdf",
+    "rotate pdf free online"
+  ],
+  "excerpt": "Sideways scan? Rotate your PDF free in the browser — the whole document or just the pages you pick, with zero quality loss and nothing uploaded.",
+  "date": "2026-11-17",
+  "tags": [
+    "PDF",
+    "How-to"
+  ],
+  "contentMarkdown": "To rotate PDF free, you don't need to install software, create an account, or upload your file to a stranger's server. Open a free converter in your browser, drop in your PDF, pick the pages and the direction, and download a corrected copy in seconds — the text stays sharp, the file size barely changes, and the document never leaves your device. This guide walks through the fastest browser method, how to rotate only the pages that need it, why the fix is lossless, and the limits worth knowing before you start.\n\n![A printed document on a clipboard beside a laptop keyboard](https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80&auto=format&fit=crop)\n\n## Rotate PDF free in your browser: the 3-step method\n\nMost sideways PDFs need exactly three moves: upload, rotate, download. The [free Rotate PDF tool](/tools/rotate-pdf) does the whole job on your device, so there is no upload queue, no account wall, and no watermark on the result.\n\n1. Open the [free Rotate PDF tool](/tools/rotate-pdf) and choose your PDF. The tool reads it locally and shows the page count.\n2. Choose \"All pages\" or type the pages you want, then click 90° clockwise, 90° counter-clockwise, or 180°. Rotations stack — two 90° clicks equal 180°.\n3. Download the corrected file. Pages keep full quality because rotation never recompresses anything.\n\nThe whole fix usually takes less time than opening a desktop app, and because everything runs in your browser, it works the same on Windows, Mac, and Chromebook — and on your phone too, straight from Safari or Chrome, with no app to install.\n\n## Rotate only the pages that need it\n\nSideways pages rarely affect a whole document. Usually one scan went through the feeder the wrong way, or a few landscape charts landed inside a portrait report. Rotating the entire file would fix those pages and break the good ones, so pick your pages instead.\n\nIn the tool, choose \"Choose pages\" and type the pages you want, using commas and ranges the way you'd expect: `1, 3, 5-8` rotates pages 1 and 3 plus pages 5 through 8, and leaves everything else exactly as it was. Out-of-range or mistyped entries are rejected with a clear message, so a typo can't silently rotate the wrong page.\n\nThis is the right approach when:\n\n- **One scan is upside-down** in a 40-page file. Fix that page and leave the other 39 alone.\n- **Landscape charts sit inside a portrait report.** Rotate just the chart pages so the whole document reads in one flow.\n- **Phone photos became PDF pages.** Photos taken in landscape sometimes export as portrait pages. Rotate only those.\n- **Handout slides need to stay wide.** Rotate landscape slides back to landscape inside a handout PDF so they print at full size instead of shrunk.\n\nIf every page needs the same turn, \"All pages\" is one click — no need to type anything.\n\n## Why rotating a PDF stays lossless\n\nRotating a PDF is not like rotating a photo. A photo rotation re-encodes pixels; a PDF rotation changes each page's orientation flag and leaves the content untouched. The text, images, and layout are byte-for-byte identical — only turned.\n\nThat matters because the common workarounds are lossy. Screenshotting a sideways page and rotating the image softens the text. Printing and re-scanning degrades it further and bloats the file. A proper rotation avoids all of that: no recompression, no re-rendering, and the file size barely changes.\n\nSo if someone sends you a sideways contract or a scanned form, rotate it — don't re-scan it, and don't screenshot it. The corrected file is the same document, just the right way up.\n\n## Why PDFs come out sideways in the first place\n\nSideways pages are almost always a capture problem, not a file problem. Knowing the cause tells you whether rotation is the right fix.\n\n- **Scanner feeder orientation.** A page fed sideways, or a scanner with auto-rotate switched off, saves pages at 90 or 180 degrees. Rotate once and save a corrected copy that reads normally.\n- **Phone photos exported as PDF.** A photo's orientation lives in metadata that some PDF exporters ignore, so a landscape photo becomes a portrait page. Rotation fixes the page the photo landed on.\n- **Merged files from different authors.** Combine a portrait report with a landscape appendix and the result has mixed orientation. Rotate the odd pages out.\n- **Presentation handouts.** Wide slides saved into a portrait handout PDF read sideways unless rotated back to landscape.\n\nIn every one of these cases the content itself is fine — only the orientation flag is wrong, which is exactly what rotation corrects.\n\n## Other ways to rotate a PDF\n\nThe browser tool is the fastest cross-platform option, but two built-in routes exist if you prefer desktop software.\n\n**On a Mac, use Preview.** Open the PDF, select the pages in the sidebar, then choose Tools → Rotate Left or Rotate Right and save. It is free, built in, and the change is permanent once saved.\n\n**On Windows, there is no built-in tool that saves a rotation.** The PDF viewers in Edge and Chrome rotate the display while you read, but the file itself stays sideways when you close it — so for a permanent fix, use the browser tool above. Adobe Acrobat Reader's free version behaves the same way: it rotates the view, and saving the rotation needs the paid version.\n\n**On a phone, skip the app store.** The browser tool works directly in mobile Safari or Chrome — open it, pick the PDF from Files or your gallery, rotate, and download the fixed copy.\n\n## Limits to know before you rotate\n\nRotation is a small, honest tool, and it has a few edges worth knowing upfront.\n\n- **Password-protected PDFs are rejected.** The tool won't bypass document security, so open the file with its password and save an unlocked copy first. If you've lost the password to a file you own, see [how to unlock a PDF you own](/blog/unlock-pdf-guide) first.\n- **Rotation fixes orientation, not skew.** A page scanned at a slight tilt stays tilted — that is a deskew problem, not a rotation problem. If the whole page leans a few degrees, re-scan it straight rather than rotating.\n- **270 degrees is one click, not three.** A 270° clockwise turn is the same as 90° counter-clockwise, so use the counter-clockwise button instead of clicking 90° three times.\n- **Very large files take a moment.** Processing happens locally in your browser, so a huge file may take a few seconds and use some memory. If a single file is enormous, consider splitting it with the [free Split PDF tool](/tools/split-pdf) first, rotating the part you need, and merging it back with the [free Merge PDF tool](/tools/merge-pdf).\n\n## Straighten your PDF in seconds\n\nA sideways PDF is a ten-second problem once you know the fix: open the [free Rotate PDF tool](/tools/rotate-pdf), pick the pages, click the direction, and download a corrected copy that is byte-for-byte the same document — just the right way up. No install, no sign-up, no upload, and no quality lost.\n",
+  "faqs": [
+    {
+      "question": "How do I rotate a PDF for free?",
+      "answer": "Open the free Rotate PDF tool in your browser, choose your PDF, and click 90° clockwise, 90° counter-clockwise, or 180°. Then download the corrected file. There is no sign-up, no watermark, and the file never leaves your device because rotation runs locally in your browser."
+    },
+    {
+      "question": "Can I rotate only one page of a PDF?",
+      "answer": "Yes. Choose the page-selection option and type the page numbers you want, for example 1, 3, 5-8. Only those pages rotate; the rest of the document stays exactly as it was. This is the right choice when a single scan went through the feeder the wrong way."
+    },
+    {
+      "question": "Does rotating a PDF reduce quality?",
+      "answer": "No. Rotation changes each page's orientation flag only — the text, images, and layout are not re-rendered or recompressed, so they stay byte-for-byte identical. The file size barely changes, which is why rotating beats screenshotting or re-scanning a sideways page."
+    },
+    {
+      "question": "Why is my scanned PDF sideways?",
+      "answer": "Scanners often save pages in the wrong orientation when a page goes through the feeder sideways or auto-rotate is off. Phone photos exported as PDF pages have the same problem when orientation metadata is ignored. In both cases the content is fine and only the orientation flag is wrong, so a single rotation fixes it."
+    },
+    {
+      "question": "How do I rotate a PDF 270 degrees?",
+      "answer": "A 270° clockwise turn is the same as a 90° counter-clockwise turn, so click the 90° counter-clockwise button once. Rotations stack, so three 90° clockwise clicks would also work, but the single counter-clockwise click is faster."
+    },
+    {
+      "question": "Can I rotate a password-protected PDF?",
+      "answer": "No — the tool rejects password-protected files because it will not bypass document security. Open the file with its password and save an unlocked copy first, then rotate that copy."
+    }
+  ],
+  "relatedTools": [
+    "rotate-pdf",
+    "split-pdf",
+    "merge-pdf",
+    "compress-pdf"
+  ],
+  "status": "published"
+}
