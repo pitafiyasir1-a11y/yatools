@@ -38,6 +38,13 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "video-to-gif-converter": "2026-11-13",
   "fancy-text-generator": "2026-11-14",
   "background-remover": "2026-11-15",
+  "resume-builder": "2026-11-17",
+  "invoice-generator": "2026-11-17",
+  "audio-cutter": "2026-11-17",
+  "grammar-checker": "2026-11-17",
+  "regex-tester": "2026-11-17",
+  "jwt-decoder": "2026-11-17",
+  "emi-calculator": "2026-11-17",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
