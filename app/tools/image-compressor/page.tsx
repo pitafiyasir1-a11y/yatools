@@ -42,6 +42,8 @@ export const metadata = pageMeta({
   keywords: [
     "image compressor",
     "compress image",
+    "compress image to 100kb",
+    "reduce image size to 20kb",
     "image size reducer",
     "photo compressor",
     "shrink image",
@@ -56,6 +58,10 @@ const faqs = [
   {
     q: "Does the quality slider affect PNG files?",
     a: "No — and any tool that claims otherwise isn't being straight with you. PNG is a lossless format, so there's no quality dial to turn. If you want a much smaller file, switch the output to JPEG or WebP and use the slider; stay with PNG when you need pixel-perfect quality or transparency.",
+  },
+  {
+    q: "Can I compress an image to exactly 100KB (or 20KB)?",
+    a: "There is no exact-size mode — instead, use the quality slider and watch the live before/after size: lower the quality until the output sits near 100KB, or near 20KB for passport photos and job-portal uploads. For PNG files, switch the output to JPG or WebP first, since PNG is lossless and the slider cannot shrink it.",
   },
   {
     q: "What quality setting should I use?",
