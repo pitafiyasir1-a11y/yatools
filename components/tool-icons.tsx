@@ -877,6 +877,84 @@ const IconMovToMp4Converter: Icon = ({ className }) => (
   </Svg>
 );
 
+// 75. resume-builder
+const IconResumeBuilder: Icon = ({ className }) => (
+  <Svg className={className}>
+    <rect x="4" y="3" width="16" height="18" rx="2" />
+    <circle cx="9" cy="8" r="2" />
+    <line x1="13" y1="6.5" x2="17" y2="6.5" />
+    <line x1="13" y1="9.5" x2="17" y2="9.5" />
+    <line x1="6.5" y1="13.5" x2="17.5" y2="13.5" />
+    <line x1="6.5" y1="16.5" x2="17.5" y2="16.5" />
+  </Svg>
+);
+
+// 76. invoice-generator
+const IconInvoiceGenerator: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M6 3h12v18l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5L6 21V3z" />
+    <line x1="9" y1="7.5" x2="15" y2="7.5" />
+    <line x1="9" y1="11" x2="15" y2="11" />
+    <line x1="9" y1="14.5" x2="12.5" y2="14.5" />
+    <path d="M15.5 14.5l1.8 1.8 3.2-3.2" transform="translate(-2.5 0)" />
+  </Svg>
+);
+
+// 77. audio-cutter
+const IconAudioCutter: Icon = ({ className }) => (
+  <Svg className={className}>
+    <circle cx="6" cy="6" r="2.5" />
+    <circle cx="6" cy="18" r="2.5" />
+    <path d="M8.2 7.8 20 19" />
+    <path d="M8.2 16.2 20 5" />
+    <line x1="12" y1="9" x2="12" y2="15" />
+    <line x1="15" y1="7" x2="15" y2="17" />
+    <line x1="18" y1="10" x2="18" y2="14" />
+  </Svg>
+);
+
+// 78. grammar-checker
+const IconGrammarChecker: Icon = ({ className }) => (
+  <Svg className={className}>
+    <line x1="4" y1="7" x2="14" y2="7" />
+    <line x1="4" y1="11.5" x2="11" y2="11.5" />
+    <line x1="4" y1="16" x2="9" y2="16" />
+    <path d="M14.5 15.5l2 2 4-4.5" />
+  </Svg>
+);
+
+// 79. regex-tester
+const IconRegexTester: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4 5v14" />
+    <path d="M20 5v14" />
+    <path d="M8 9.5c0-1.4 1-2.5 2.3-2.5 1.4 0 2.2 1 2.2 2.2 0 2.6-4.3 3.4-4.3 5.8" />
+    <circle cx="8.2" cy="17.5" r="0.7" fill="currentColor" stroke="none" />
+    <path d="M15.5 9.5l2-2.5 2 2.5-2 2.5z" />
+  </Svg>
+);
+
+// 80. jwt-decoder
+const IconJwtDecoder: Icon = ({ className }) => (
+  <Svg className={className}>
+    <rect x="3" y="4" width="7" height="7" rx="1.5" />
+    <rect x="10.5" y="13" width="7" height="7" rx="1.5" />
+    <rect x="14" y="4" width="7" height="7" rx="1.5" />
+    <line x1="10" y1="7.5" x2="14" y2="7.5" />
+    <line x1="6.5" y1="11" x2="6.5" y2="13" />
+    <line x1="10.5" y1="16.5" x2="14" y2="16.5" />
+  </Svg>
+);
+
+// 81. emi-calculator
+const IconEmiCalculator: Icon = ({ className }) => (
+  <Svg className={className}>
+    <rect x="4" y="3" width="16" height="18" rx="2" />
+    <rect x="7" y="6" width="10" height="3.5" rx="1" />
+    <path d="M8 12.5h.01M12 12.5h.01M16 12.5h.01M8 16h.01M12 16h.01M16 16h.01" strokeWidth={2.4} />
+  </Svg>
+);
+
 const ICONS: Record<string, Icon> = {
   "website-screenshot": IconWebsiteScreenshot,
   "audio-to-text": IconAudioToText,
@@ -952,6 +1030,13 @@ const ICONS: Record<string, Icon> = {
   "flac-to-mp3-converter": IconFlacToMp3Converter,
   "mkv-to-mp4-converter": IconMkvToMp4Converter,
   "mov-to-mp4-converter": IconMovToMp4Converter,
+  "resume-builder": IconResumeBuilder,
+  "invoice-generator": IconInvoiceGenerator,
+  "audio-cutter": IconAudioCutter,
+  "grammar-checker": IconGrammarChecker,
+  "regex-tester": IconRegexTester,
+  "jwt-decoder": IconJwtDecoder,
+  "emi-calculator": IconEmiCalculator,
 };
 
 const IconGeneric: Icon = ({ className }) => (

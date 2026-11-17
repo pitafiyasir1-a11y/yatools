@@ -74,7 +74,7 @@ export default function UseCasesIndex() {
           Prefer to explore the tools directly?
         </h2>
         <p style={{ marginTop: "0.5rem" }}>
-          All 78 tools are free, with no signup. Start with the most popular
+          All 85 tools are free, with no signup. Start with the most popular
           ones and learn by doing.
         </p>
         <Link
