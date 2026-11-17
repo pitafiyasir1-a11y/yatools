@@ -92,6 +92,7 @@ export default function ImageUpscalerClient() {
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
   const [originalDims, setOriginalDims] = useState<{ w: number; h: number } | null>(null);
   const [wasDownscaled, setWasDownscaled] = useState(false);
+  const [usedBrowserFallback, setUsedBrowserFallback] = useState(false);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [resultDims, setResultDims] = useState<{ w: number; h: number } | null>(null);
   const [stage, setStage] = useState<Stage>("idle");
@@ -101,7 +102,7 @@ export default function ImageUpscalerClient() {
   const [sliderPos, setSliderPos] = useState(50);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const upscalerRef = useRef<{ upscale: (img: string, opts: { output: "base64"; progress?: (n: number) => void }) => Promise<string>; warmup: () => Promise<void> } | null>(null);
+  const upscalerRef = useRef<{ upscale: (img: string, opts: { output: "base64"; progress?: (n: number) => void; patchSize?: number; padding?: number }) => Promise<string>; warmup: () => Promise<void> } | null>(null);
   const busyRef = useRef(false);
 
   useEffect(() => {
@@ -137,6 +138,7 @@ export default function ImageUpscalerClient() {
     setOriginalUrl(URL.createObjectURL(f));
     setOriginalDims(null);
     setWasDownscaled(false);
+    setUsedBrowserFallback(false);
     loadImage(URL.createObjectURL(f)).then((img) => {
       URL.revokeObjectURL(img.src);
       setOriginalDims({ w: img.naturalWidth, h: img.naturalHeight });
@@ -197,10 +199,57 @@ export default function ImageUpscalerClient() {
     await upscaler.warmup();
   };
 
+  /** Downscale the original to at most `maxSide` on its long side (canvas).
+   *  Returns the URL to feed the AI plus its dimensions. The caller must
+   *  revoke `url` when it is a blob we created (never the original URL). */
+  const prepareInput = async (maxSide: number) => {
+    const img = await loadImage(originalUrl!);
+    let w = img.naturalWidth;
+    let h = img.naturalHeight;
+    let url = originalUrl!;
+    let downscaled = false;
+    if (Math.max(w, h) > maxSide) {
+      const scale = maxSide / Math.max(w, h);
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Your browser couldn't start the canvas engine.");
+      ctx.drawImage(img, 0, 0, w, h);
+      const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
+      if (!blob) throw new Error("Couldn't prepare the image.");
+      url = URL.createObjectURL(blob);
+      downscaled = true;
+    }
+    return { url, w, h, downscaled };
+  };
+
+  /** Plain high-quality 2x browser scaling — the last resort so a valid
+   *  image never ends in a dead error on a weak GPU. */
+  const browserUpscale2x = async (maxSide: number): Promise<{ url: string; w: number; h: number; downscaled: boolean }> => {
+    const { url, w, h, downscaled } = await prepareInput(maxSide);
+    const img = await loadImage(url);
+    const canvas = document.createElement("canvas");
+    canvas.width = w * 2;
+    canvas.height = h * 2;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Your browser couldn't start the canvas engine.");
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, 0, 0, w * 2, h * 2);
+    if (downscaled) URL.revokeObjectURL(url);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
+    if (!blob) throw new Error("Couldn't prepare the image.");
+    return { url: URL.createObjectURL(blob), w: w * 2, h: h * 2, downscaled };
+  };
+
   const process = async () => {
     if (!file || !originalUrl || busyRef.current) return;
     busyRef.current = true;
     setError(null);
+    setUsedBrowserFallback(false);
     setStage("loading");
     setProgressPct(null);
     setProgressDetail("");
@@ -208,44 +257,48 @@ export default function ImageUpscalerClient() {
       await ensureModel();
       // Cap the longest side for speed — the AI still outputs a true 2x
       // of whatever it receives. Honest note shown below the result.
-      let inputUrl = originalUrl;
-      let inputW = 0;
-      let inputH = 0;
-      const img = await loadImage(originalUrl);
-      inputW = img.naturalWidth;
-      inputH = img.naturalHeight;
-      let downscaled = false;
-      const longSide = Math.max(inputW, inputH);
-      if (longSide > MAX_SIDE) {
-        const scale = MAX_SIDE / longSide;
-        inputW = Math.round(inputW * scale);
-        inputH = Math.round(inputH * scale);
-        const canvas = document.createElement("canvas");
-        canvas.width = inputW;
-        canvas.height = inputH;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) throw new Error("Your browser couldn't start the canvas engine.");
-        ctx.drawImage(img, 0, 0, inputW, inputH);
-        const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
-        if (!blob) throw new Error("Couldn't prepare the image.");
-        inputUrl = URL.createObjectURL(blob);
-        downscaled = true;
-      }
-      setWasDownscaled(downscaled);
+      // FIX (2026-11-17): pass patchSize 128 + padding 2 — the model's
+      // native tile size. Without it UpscalerJS processes the whole image
+      // as ONE WebGL tensor, and a real phone photo (4032x3024) blows the
+      // GPU's 8192x8192 texture limit ("Requested texture size
+      // [10642x10642]") even after the 1024px downscale. Tiles cap every
+      // tensor at 128x128, so large images can no longer crash the GPU.
+      // If the AI still fails (weak GPU), retry smaller, then fall back to
+      // plain high-quality browser 2x scaling — never a dead error.
       setStage("working");
       setProgressLabel("Upscaling image…");
-      setProgressDetail(`${inputW}×${inputH} → ${inputW * 2}×${inputH * 2}`);
-      const base64 = await upscalerRef.current!.upscale(inputUrl, {
-        output: "base64",
-        progress: (amount: number) => setProgressPct(Math.round(amount * 100)),
-      });
-      if (downscaled) URL.revokeObjectURL(inputUrl);
-      const res = await fetch(base64);
-      const blob = await res.blob();
+      let done: { url: string; w: number; h: number; downscaled: boolean } | null = null;
+      let aiFailed = false;
+      for (const cap of [MAX_SIDE, 512]) {
+        try {
+          const input = await prepareInput(cap);
+          setProgressDetail(`${input.w}×${input.h} → ${input.w * 2}×${input.h * 2}`);
+          const base64 = await upscalerRef.current!.upscale(input.url, {
+            output: "base64",
+            patchSize: 128,
+            padding: 2,
+            progress: (amount: number) => setProgressPct(Math.round(amount * 100)),
+          });
+          if (input.downscaled) URL.revokeObjectURL(input.url);
+          const res = await fetch(base64);
+          const blob = await res.blob();
+          done = { url: URL.createObjectURL(blob), w: input.w * 2, h: input.h * 2, downscaled: input.downscaled };
+          break;
+        } catch (e) {
+          aiFailed = true;
+          setProgressPct(null);
+          setProgressDetail(cap === MAX_SIDE ? "AI had trouble — retrying smaller…" : "AI unavailable — finishing with browser scaling…");
+        }
+      }
+      if (!done) {
+        const fb = await browserUpscale2x(1024);
+        done = fb;
+        setUsedBrowserFallback(true);
+      }
+      setWasDownscaled(done.downscaled);
       if (resultUrl) URL.revokeObjectURL(resultUrl);
-      const url = URL.createObjectURL(blob);
-      setResultUrl(url);
-      setResultDims({ w: inputW * 2, h: inputH * 2 });
+      setResultUrl(done.url);
+      setResultDims({ w: done.w, h: done.h });
       setStage("done");
       setProgressLabel("");
       setProgressPct(null);
@@ -474,6 +527,13 @@ export default function ImageUpscalerClient() {
               Honest note: your photo was over {MAX_SIDE}px on its long side, so it was
               scaled down to {MAX_SIDE}px first — the AI ran its 2x upscale on that copy.
               The model runs on your device, and full-megapixel images would take several minutes.
+            </p>
+          )}
+          {usedBrowserFallback && (
+            <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: 10, lineHeight: 1.5 }}>
+              Honest note: the AI model couldn&apos;t run on this device/browser, so this
+              result is a high-quality browser 2x scaling instead of an AI upscale.
+              Try Chrome or Edge on a desktop for the AI version.
             </p>
           )}
         </div>

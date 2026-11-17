@@ -34,7 +34,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "image-cropper": "2026-11-09",
   "qr-scanner": "2026-11-10",
   "audio-to-text": "2026-11-11",
-  "image-upscaler": "2026-11-12",
+  "image-upscaler": "2026-11-17",
   "video-to-gif-converter": "2026-11-13",
   "fancy-text-generator": "2026-11-14",
   "background-remover": "2026-11-15",
