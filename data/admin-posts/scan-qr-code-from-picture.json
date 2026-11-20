@@ -1,0 +1,55 @@
+{
+  "slug": "scan-qr-code-from-picture",
+  "title": "Scan QR Code from Picture: Read QR Codes from Images",
+  "metaDescription": "Scan a QR code from a picture in your browser — upload a screenshot or photo and read the link, text, or Wi-Fi code inside. No app, no sign-up, nothing uploaded.",
+  "keywords": [
+    "scan qr code from picture",
+    "scan qr code from screenshot",
+    "scan qr code on screen",
+    "qr code reader from image",
+    "scan qr code online from image",
+    "how to scan qr code from image",
+    "scan qr code from photo",
+    "decode qr code from image"
+  ],
+  "excerpt": "A QR code trapped in a screenshot or photo? Read it in seconds — upload the picture, or use the scanner already built into your iPhone or Android phone.",
+  "date": "2026-11-20",
+  "tags": [
+    "QR Code",
+    "How-to"
+  ],
+  "contentMarkdown": "To scan a QR code from a picture, you don't need to point your phone at anything — the code is already sitting in an image on your device. Whether it's a screenshot a friend sent, a photo of a restaurant menu, or a QR code buried in a PDF, you can read it in seconds: upload the picture to a free online scanner, or use the tools already built into your iPhone or Android phone. This guide covers every method, plus what to do when a code refuses to scan.\n\n![A hand holding a smartphone displaying a QR code on its screen](https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=1200&q=80)\n\n## The fastest way: scan a QR code from a picture online\n\nThe quickest method works on any device — phone, tablet, or desktop — and needs no app at all:\n\n1. Open the [free QR Code Scanner](/tools/qr-scanner).\n2. Upload the picture containing the QR code — a JPG, PNG, or WebP photo, screenshot, or download.\n3. The code decodes automatically and the result appears instantly: the link, text, Wi-Fi credentials, or contact details hidden inside.\n4. Copy the result with one click, or paste a URL straight into your browser.\n\nDecoding runs entirely in your browser with the jsQR library, so the image is never uploaded to any server — scanning a code with personal or sensitive content stays private. Links are shown for you to open deliberately rather than auto-launched, which matters when the code came from someone you don't know. There is no sign-up and no limit on scans.\n\nOne honest limit: this decodes QR codes only. Other barcode types such as EAN, Code128, and Data Matrix are not supported, so upload only QR images.\n\n## How to scan a QR code from a picture on iPhone\n\nOn an iPhone XS or newer running iOS 15 or later, the Photos app can read a QR code straight out of a saved image — no extra app needed:\n\n1. Open the image in the **Photos** app.\n2. Press and hold your finger directly on the QR code.\n3. A preview of the link or content appears — tap it to open, or press and hold it to copy the link instead.\n\nIf nothing appears, tap the **Live Text** icon in the lower-right corner first, then hold the code again — that forces the phone to analyse the image. There is also a second route: open Control Center, tap **Scan Code**, then choose the photo icon to pick an image from your gallery.\n\n## How to scan a QR code from a screenshot on Android\n\nAndroid handles this through Google Lens, which is built into Google Photos on most devices:\n\n1. Open the screenshot or photo in **Google Photos**.\n2. Tap the **Lens** icon in the toolbar.\n3. Lens scans the image and highlights the code — tap it and the decoded link or text appears.\n\nYou can also open the standalone Google Lens app, choose the image from your gallery, and get the same result. Either way, the code is read from the saved image — no live camera, and no extra app to install.\n\n## How to scan a QR code on your computer screen\n\nThis is the case where a phone camera genuinely can't help: the code is on your own screen, and you can't photograph your own screen with the same device. Two fixes work:\n\n- **Screenshot it, then upload.** Take a screenshot of the code (or save the image), then decode it with the [free QR Code Scanner](/tools/qr-scanner) in your browser. Screenshots are just images, so this works for codes in PDFs, documents, emails, and web pages too.\n- **Use a second screen.** Open the image on a laptop, tablet, or another phone, zoom in so the code is large and sharp, then scan that screen with your phone's camera.\n\nThe first option is faster and gives you the exact text to copy — handy when the QR link is long and typo-prone.\n\n## When the code won't scan\n\nA code that refuses to decode is almost always one of these:\n\n- **Crop tighter.** The code should fill a good part of the frame. Crop the image so the QR code is the main subject, with a small quiet margin around it.\n- **Zoom in and screenshot it first.** A tiny code in a busy photo scans better after you zoom in and take a screenshot of just the code.\n- **Fix the lighting.** Glare, shadows, and blur all hurt. A clean screenshot beats a shaky photo of a screen every time.\n- **Check the code itself.** Damaged, crumpled, or extremely tiny codes defeat every scanner — no app or website can read data that isn't there anymore.\n- **Check it's a QR code.** If it's a traditional barcode (the thin vertical lines on packaging), a QR reader won't decode it — that's a different format entirely.\n\n## Is it safe to scan a QR code from a picture?\n\nThe QR code itself is harmless — it's just encoded text. The risk is where the link inside it points, because a code in an email or a random poster can hide a phishing page behind a trustworthy-looking square. So decode first and read the full URL before you tap through. That is exactly what the online scanner above does: it shows you the destination and lets you decide, instead of opening it automatically. If the URL looks wrong — a misspelled brand name, a URL shortener hiding the real address, a login page you didn't expect — don't open it.\n\n## The bottom line\n\nScanning a QR code from a picture takes seconds once you know the trick: upload the image to a [free QR Code Scanner](/tools/qr-scanner) for the fastest result on any device, long-press the code in Photos on iPhone, or tap Lens in Google Photos on Android. Keep the screenshot-first habit for codes on your own screen, crop tight when a code won't read, and always preview the link before opening it.",
+  "faqs": [
+    {
+      "q": "Can I scan a QR code from a screenshot?",
+      "a": "Yes. A screenshot is just an image, so upload it to the free QR Code Scanner and it decodes automatically — JPG, PNG, and WebP all work. The same steps apply on iPhone (long-press the code in Photos) and Android (tap the Lens icon in Google Photos)."
+    },
+    {
+      "q": "How do I scan a QR code from a picture on iPhone?",
+      "a": "Open the image in the Photos app and press and hold directly on the QR code — a link preview appears, which you can tap to open or hold to copy. This needs an iPhone XS or newer on iOS 15 or later. If nothing appears, tap the Live Text icon first, then hold the code again."
+    },
+    {
+      "q": "How do I scan a QR code from a photo on Android?",
+      "a": "Open the photo in Google Photos and tap the Lens icon in the toolbar. Lens scans the image, highlights the code, and shows the decoded link or text when you tap it. The standalone Google Lens app works the same way — pick the image from your gallery and it reads the code."
+    },
+    {
+      "q": "Is scanning a QR code from a picture free?",
+      "a": "Yes. The online scanner on this page is free with no sign-up and no limit on scans. Decoding runs entirely in your browser, so there is no server cost per scan. The iPhone Photos and Android Google Lens methods are free built-in features too."
+    },
+    {
+      "q": "Is my scanned data private?",
+      "a": "Yes, when you use the online scanner here. The image is decoded inside your browser with the jsQR library — your photos are never uploaded, recorded, or stored anywhere. Links are shown for you to open deliberately rather than launched automatically."
+    },
+    {
+      "q": "What should I do if the QR code won't scan?",
+      "a": "Crop the image tightly around the code, then zoom in and screenshot just the code and try again — a clean screenshot beats a shaky photo. Check the lighting and glare, and confirm it is a QR code rather than another barcode type. Damaged or extremely tiny codes defeat every scanner, so if the code itself is unreadable, ask the sender for a fresh copy."
+    }
+  ],
+  "relatedTools": [
+    "qr-scanner",
+    "qr-code-generator",
+    "image-converter",
+    "website-screenshot"
+  ],
+  "status": "published"
+}
