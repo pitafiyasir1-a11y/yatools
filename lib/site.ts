@@ -1093,9 +1093,9 @@ export const TOOLS: ToolDef[] = [
     name: "Grammar Checker",
     tagline: "Check grammar and spelling free — no sign-up.",
     description:
-      "Grammar checker free online: paste your text and get grammar and spelling suggestions with one-click fixes. Checking uses LanguageTool's free public API; your text is sent to LanguageTool for checking and not stored by YATools.",
+      "Grammar checker free, no sign-up: paste your text and get grammar and spelling suggestions with one-click fixes. Checking uses LanguageTool's free public API; your text is sent to LanguageTool for checking and not stored by YATools.",
     category: "Everyday Utilities",
-    keyword: "grammar checker free online",
+    keyword: "grammar checker free no sign up",
     badge: "Free",
     badgeColor: "green",
     api: null,

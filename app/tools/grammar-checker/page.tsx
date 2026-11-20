@@ -21,11 +21,12 @@ import {
 const tool = toolBySlug("grammar-checker")!;
 
 export const metadata = pageMeta({
-  title: "Grammar Checker Free Online - Check Grammar & Spelling Free",
+  title: "Grammar Checker Free, No Sign-Up - Check Grammar & Spelling Online",
   description:
-    "Grammar checker free online: paste your text and get grammar and spelling suggestions with one-click fixes. Free, no sign-up. Checking uses LanguageTool's free public API.",
+    "Grammar checker free, no sign-up: paste your text and get grammar and spelling suggestions with one-click fixes. Free, no account. Checking uses LanguageTool's free public API.",
   path: "/tools/grammar-checker",
   keywords: [
+    "grammar checker free no sign up",
     "grammar checker free online",
     "grammar checker free",
     "free grammar checker no sign up",

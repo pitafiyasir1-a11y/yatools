@@ -30,14 +30,14 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Create QR codes free online — links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. No sign-up, no expiry. Try now!",
+    description: "Free QR code generator with no sign-up and no expiration — create scannable codes for links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. Try now!",
   };
 }
 
 export const metadata = pageMeta({
-  title: "Free QR Code Generator - Create Scannable Codes Online",
+  title: "QR Code Generator Free — No Sign Up, No Expiration",
   description:
-    "Create QR codes free online — links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. No sign-up, no expiry. Try now!",
+    "Free QR code generator with no sign-up and no expiration — create scannable codes for links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. Try now!",
   path: "/tools/qr-code-generator",
   keywords: [
     "QR code generator",
@@ -45,6 +45,9 @@ export const metadata = pageMeta({
     "QR maker",
     "QR code maker",
     "generate QR",
+    "qr code generator free no expiration",
+    "qr code generator free no sign up",
+    "qr code generator with logo",
   ],
 });
 

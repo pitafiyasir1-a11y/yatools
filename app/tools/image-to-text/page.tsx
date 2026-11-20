@@ -42,12 +42,12 @@ function softwareAppJsonLd() {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description: "Extract text from images free online with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
+    description: "Image to text converter online free: extract text from images with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up.",
   };
 }
 
 export const metadata = pageMeta({
-  title: "Image to Text OCR - Extract Text from Images Free Online",
+  title: "Image to Text Converter Online Free — Extract Text from Images",
   description:
     "Image to text converter online free: extract text from images with in-browser OCR — upload photos, screenshots, or scans and get editable English text free. No sign-up. Try now!",
   path: "/tools/image-to-text",
