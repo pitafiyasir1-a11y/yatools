@@ -26,7 +26,7 @@ const tool: ToolDef = {
   description:
     "Convert Excel to PDF online for free: read .xlsx/.xls/.csv in your browser and download the sheets as a PDF. Private, fast, no sign-up.",
   category: "Screenshots & PDF",
-  keyword: "excel to pdf converter online",
+  keyword: "excel to pdf converter free online",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -38,13 +38,14 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "Excel to PDF Converter - XLSX Sheets to PDF Free Online",
+  title: "Excel to PDF Converter Free Online — Convert XLSX to PDF",
   description:
-    "Excel to PDF converter, free online: turn spreadsheet sheets into clean, printable PDFs right in your browser. No uploads, no sign-up needed. Try now!",
+    "Excel to PDF converter free online: turn spreadsheet sheets into clean, printable PDFs right in your browser. No uploads, no sign-up needed. Try now!",
   path: "/tools/excel-to-pdf-converter",
   keywords: [
     "Excel to PDF",
     "Excel to PDF converter",
+    "excel to pdf converter free online",
     "spreadsheet to PDF",
     "convert Excel to PDF",
     "XLSX to PDF",

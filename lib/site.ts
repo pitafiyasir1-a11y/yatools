@@ -833,9 +833,9 @@ export const TOOLS: ToolDef[] = [
     name: "Excel to PDF Converter",
     tagline: "Turn spreadsheet sheets into clean, printable PDFs.",
     description:
-      "Convert Excel to PDF online for free: read .xlsx/.xls/.csv in your browser and save sheets as PDF via print. Private, fast, no sign-up.",
+      "Excel to PDF converter free online: read .xlsx/.xls/.csv in your browser and save sheets as PDF via print. Private, fast, no sign-up.",
     category: "Screenshots & PDF",
-    keyword: "excel to pdf converter online",
+    keyword: "excel to pdf converter free online",
     badge: "Free",
     badgeColor: "green",
     api: null,
