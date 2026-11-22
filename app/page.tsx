@@ -14,7 +14,7 @@ import ToolsExplorer from "@/components/ToolsExplorer";
 import Faq from "@/components/Faq";
 
 const meta = pageMeta({
-  title: "YATools — 85 Free Online Tools: PDF, Image, Audio & More",
+  title: "YATools — 89 Free Online Tools: PDF, Image, Audio & More",
   description: SITE.description,
   path: "/",
   keywords: [
@@ -66,7 +66,7 @@ const websiteJsonLd = {
 const FAQS = [
   {
     q: "Are the tools really free?",
-    a: "Yes — all 85 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the 72 in-browser tools have no limits at all.",
+    a: "Yes — all 89 tools are free to use, with no trials, paywalls, or accounts. API-powered tools run on a fair daily allowance so the service stays free for everyone; the 77 in-browser tools have no limits at all.",
   },
   {
     q: "Do I need an account or signup?",
@@ -100,7 +100,7 @@ const TRUST = [
 const STEPS = [
   {
     title: "Pick a tool",
-    text: "Open any of the 85 tools below — nothing to install, nothing to sign up for.",
+    text: "Open any of the 89 tools below — nothing to install, nothing to sign up for.",
   },
   {
     title: "Paste your input",
@@ -214,7 +214,7 @@ export default function HomePage() {
             Free tools for <em>screenshots</em>, audio, documents &amp; everyday work.
           </h1>
           <p className="mb-8 max-w-xl text-lg leading-relaxed" style={{ color: "var(--text2)" }}>
-            85 genuinely free tools — capture pages, convert audio, generate images,
+            89 genuinely free tools — capture pages, convert audio, generate images,
             format JSON, and more. No signup, no card, and twelve of them come with a
             free API you can call from your own apps.
           </p>
@@ -227,9 +227,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <Stat value="85" label="Free tools" />
+            <Stat value="89" label="Free tools" />
             <Stat value="12" label="API-powered" />
-            <Stat value="72" label="In-browser" />
+            <Stat value="77" label="In-browser" />
             <Stat value="0" label="Signups" />
           </div>
         </div>
@@ -253,7 +253,7 @@ export default function HomePage() {
           eyebrow="The toolbox"
           title={
             <>
-              All <em>85 tools</em>, one tab.
+              All <em>89 tools</em>, one tab.
             </>
           }
           sub="Search by name or keyword — “insta downloader”, “pdf to word” — or filter by category. API tools run on a free daily allowance; in-browser tools have no limits at all."

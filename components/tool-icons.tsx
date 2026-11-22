@@ -955,6 +955,43 @@ const IconEmiCalculator: Icon = ({ className }) => (
   </Svg>
 );
 
+// 82. ai-chatbot
+const IconAiChatbot: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v6a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5v-3.5H6.5A2.5 2.5 0 0 1 4 11.5v-6z" />
+    <path d="M8.5 8h.01M12 8h.01M15.5 8h.01" strokeWidth={2.6} />
+  </Svg>
+);
+
+// 83. ai-logo-generator
+const IconAiLogoGenerator: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M12 2.5l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 8.2l5.4-.8L12 2.5z" />
+    <circle cx="12" cy="12" r="2.2" fill="var(--red)" stroke="none" />
+  </Svg>
+);
+
+
+// 85. ai-writer
+const IconAiWriter: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M4 20l.8-3.2L14.5 7.1l2.4 2.4L7.2 19.2 4 20z" />
+    <line x1="13" y1="8.6" x2="15.4" y2="11" />
+    <line x1="17" y1="4.5" x2="20" y2="7.5" />
+    <path d="M16.5 12.5l3 3" />
+  </Svg>
+);
+
+// 86. ai-code-generator
+const IconAiCodeGenerator: Icon = ({ className }) => (
+  <Svg className={className}>
+    <path d="M8.5 7L3.5 12l5 5" />
+    <path d="M15.5 7l5 5-5 5" />
+    <line x1="13.5" y1="5" x2="10.5" y2="19" />
+  </Svg>
+);
+
+
 const ICONS: Record<string, Icon> = {
   "website-screenshot": IconWebsiteScreenshot,
   "audio-to-text": IconAudioToText,
@@ -1037,6 +1074,10 @@ const ICONS: Record<string, Icon> = {
   "regex-tester": IconRegexTester,
   "jwt-decoder": IconJwtDecoder,
   "emi-calculator": IconEmiCalculator,
+  "ai-chatbot": IconAiChatbot,
+  "ai-logo-generator": IconAiLogoGenerator,
+  "ai-writer": IconAiWriter,
+  "ai-code-generator": IconAiCodeGenerator,
 };
 
 const IconGeneric: Icon = ({ className }) => (
