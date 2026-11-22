@@ -34,7 +34,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "age-calculator": "2026-11-07",
   "image-cropper": "2026-11-09",
   "qr-scanner": "2026-11-10",
-  "audio-to-text": "2026-11-11",
+  "audio-to-text": "2026-11-22",
   "image-upscaler": "2026-11-17",
   "video-to-gif-converter": "2026-11-13",
   "fancy-text-generator": "2026-11-14",
@@ -47,6 +47,10 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "jwt-decoder": "2026-11-17",
   "qr-code-generator": "2026-11-19",
   "emi-calculator": "2026-11-17",
+  "ai-chatbot": "2026-11-22",
+  "ai-logo-generator": "2026-11-22",
+  "ai-writer": "2026-11-22",
+  "ai-code-generator": "2026-11-22",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

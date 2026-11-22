@@ -5,12 +5,16 @@ import { TOOLS, type ToolDef } from "./site";
    Universal Downloader, "dp" finds the profile-picture helpers, etc. */
 const SYNONYMS: Record<string, string[]> = {
   "website-screenshot": ["webpage capture", "site snapshot", "url to image", "page capture", "screenshot url"],
-  "audio-to-text": ["transcribe", "transcription", "speech to text", "voice to text", "dictation", "subtitles", "srt"],
+  "audio-to-text": ["transcribe", "transcription", "speech to text", "voice to text", "voice note", "voice notes", "dictation", "subtitles", "srt"],
   "text-to-speech": ["tts", "voice generator", "read aloud", "narrate", "voiceover"],
   "urdu-handwriting": ["urdu calligraphy", "urdu text style", "handwriting generator"],
   "wikipedia-to-pdf": ["wiki pdf", "wikipedia download", "article to pdf"],
   "n8n-workflow-search": ["automation", "workflows", "n8n templates", "zapier alternative"],
   "ai-image-generator": ["text to image ai", "ai art", "generate picture", "midjourney alternative", "dalle"],
+  "ai-chatbot": ["chat with ai", "ai chat", "talk to ai", "free chatbot", "ai assistant"],
+  "ai-logo-generator": ["make a logo", "logo maker", "create logo", "brand logo", "free logo"],
+  "ai-writer": ["write essay", "email writer", "story writer", "ai writing", "write caption"],
+  "ai-code-generator": ["write code", "generate code", "python code", "code ai", "programming help"],
   "movie-tv-search": ["film search", "series finder", "imdb", "what to watch"],
   "qr-code-generator": ["qr maker", "create qr", "barcode"],
   "qr-scanner": ["qr reader", "scan qr", "decode qr"],
