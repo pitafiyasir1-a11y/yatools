@@ -32,15 +32,16 @@ function softwareAppJsonLd(t: ToolDef) {
 }
 
 export const metadata = pageMeta({
-  title: "Voice Note to Text Free — Transcribe Voice Notes Online",
+  title: "Audio to Text Free Online — Transcribe Audio to Text Converter",
   description:
-    "Voice note to text free: turn WhatsApp voice notes into readable text — upload MP3, WAV or M4A, paste a YouTube link, or dictate with your mic. Fast, private, no sign-up. Try it now!",
+    "Transcribe audio to text free online — upload MP3, WAV, or M4A, paste a YouTube link, or dictate with your mic. Fast, private, no sign-up. Try it now!",
   path: "/tools/audio-to-text",
   keywords: [
-    "voice note to text free",
-    "voice note to text",
-    "whatsapp voice note to text",
     "audio to text",
+    "audio to text free online",
+    "audio to text converter free online",
+    "speech to text online free",
+    "voice note to text free",
     "transcribe audio",
     "speech to text",
     "MP3 to text",
@@ -104,10 +105,6 @@ const FAQS = [
   {
     q: "Is audio transcription free?",
     a: "Yes. Upload a file and get your transcript without signing up or paying anything.",
-  },
-  {
-    q: "Can I convert a WhatsApp voice note to text for free?",
-    a: "Yes — save the voice note as an audio file (MP3, WAV or M4A) and upload it here. You get a readable transcript you can copy or download as .txt, free with no sign-up. Long voice notes work too — split a very long recording into shorter clips if a file times out.",
   },
   {
     q: "Which languages are supported?",
@@ -198,7 +195,7 @@ export default function AudioToTextPage() {
         <h1 className="hero-title mt-4">
           Free Audio to <em>Text</em> Online
         </h1>
-        <p className="sec-sub mx-auto mt-4">Voice note to text free: upload a recording, paste a YouTube link, or dictate live — turn WhatsApp voice notes into readable text in minutes.</p>
+        <p className="sec-sub mx-auto mt-4">A free audio to text converter: upload a recording, paste a YouTube link, or dictate live — get accurate transcripts in minutes.</p>
       </header>
 
       <section className="card p-5 sm:p-8 md:p-10" aria-label="Transcription tool">
