@@ -1,0 +1,54 @@
+{
+  "slug": "emi-calculator-home-loan",
+  "title": "EMI Calculator for Home Loan: Work Out Your Monthly Payment",
+  "metaDescription": "Work out your home loan EMI before you sign: enter the loan amount, rate and tenure to see the monthly payment, total interest and yearly breakdown, free.",
+  "keywords": [
+    "emi calculator home loan",
+    "home loan emi calculator",
+    "calculate home loan emi",
+    "home loan monthly payment calculator",
+    "home loan emi formula",
+    "home loan interest calculator",
+    "how to calculate home loan emi",
+    "reduce home loan emi"
+  ],
+  "excerpt": "Work out your home loan EMI, total interest and yearly balance before you sign - free, in any currency, with a worked example.",
+  "date": "2026-11-23",
+  "tags": [
+    "Finance",
+    "How-to"
+  ],
+  "contentMarkdown": "A home loan EMI calculator answers the one question that matters before you sign anything: how much will you actually pay every month, and how much of it is interest? Enter the loan amount, the annual interest rate and the tenure, and you get your monthly EMI, the total interest over the life of the loan, and a year-by-year breakdown of what you still owe. This guide shows you how to use one, how the number is worked out, and what the result tells you about the loan you are about to take.\n\n![A small model house with house keys on a desk, symbolising buying a home with a home loan](https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80)\n\n## What is a home loan EMI?\n\nEMI stands for Equated Monthly Instalment: the fixed amount you pay your lender every month until the loan is fully repaid. It has two parts inside it — interest on the outstanding balance, and a slice of the principal itself. Early in the loan, most of each payment is interest; near the end, most of it is principal. The monthly amount stays the same (on a fixed-rate loan), but the mix inside it changes every month.\n\nHome loans are usually the biggest loan most people ever take, and they run for 15, 20 or even 30 years. A small difference in the interest rate or the tenure changes the total you repay by tens of thousands, so checking the numbers before you commit is worth ten minutes of your time.\n\n## How to calculate your home loan EMI\n\nYou can do it by hand with the standard reducing-balance formula banks use:\n\n**EMI = P x r x (1 + r)^n / ((1 + r)^n - 1)**\n\n- **P** is the loan amount (the principal you borrow)\n- **r** is the monthly interest rate (annual rate divided by 12)\n- **n** is the number of monthly payments (years x 12)\n\nOr skip the arithmetic and use the [free EMI calculator](/tools/emi-calculator):\n\n1. Pick your currency first — USD, PKR, INR, EUR, GBP and 35+ others are supported.\n2. Enter the loan amount, the annual interest rate, and the tenure in years or months.\n3. Read your monthly EMI, total interest, and total payable at a glance.\n4. Scroll to the year-by-year breakdown to see how your balance falls over time.\n\nEverything runs in your browser, so your loan figures are never uploaded or stored anywhere.\n\n## Worked example: a $500,000 home loan at 11%\n\nSame loan, same rate — only the tenure changes. Watch what happens to the total interest:\n\n| Tenure | Monthly EMI | Total interest | Total payable |\n|---|---|---|---|\n| 15 years | $5,682.98 | $522,937 | $1,022,937 |\n| 20 years | $5,160.94 | $738,626 | $1,238,626 |\n| 25 years | $4,900.57 | $970,170 | $1,470,170 |\n| 30 years | $4,761.62 | $1,214,182 | $1,714,182 |\n\nStretching from 15 to 30 years cuts the monthly payment by about $921 — but it more than doubles the interest, from roughly $523,000 to over $1.2 million. The cheapest monthly payment is almost never the cheapest loan. If you can afford the shorter tenure, it is usually the better deal by a wide margin.\n\nTry your own numbers in the [EMI calculator](/tools/emi-calculator) and compare two or three tenures side by side before you decide.\n\n## Why your first payments are mostly interest\n\nTake the 20-year example above: $5,160.94 a month, or $61,931 in the first year. Of that first year, about $54,640 is interest and only about $7,292 is principal — roughly 88% interest. After twelve payments your balance has fallen from $500,000 to just $492,708.\n\nThat feels unfair, but it is how reducing-balance loans work: interest is charged on whatever you still owe, and at the start you owe nearly everything. It also explains why extra payments early on are so powerful — every dollar of principal you repay in year one is a dollar that stops generating interest for the next nineteen years.\n\n## 5 things that change your EMI\n\n1. **Loan amount.** Borrow less, pay less every month. A bigger down payment is the simplest way to shrink your EMI.\n2. **Interest rate.** Even half a percentage point matters over 20 years. Compare offers from more than one lender, and compare the full cost — not just the headline rate.\n3. **Tenure.** Longer tenure, lower EMI, far more total interest (see the table above). Shorter tenure, higher EMI, far less interest.\n4. **Down payment.** A larger down payment cuts the principal, which cuts both the EMI and the interest. It also helps if the lender offers a better rate on a lower loan-to-value loan.\n5. **Prepayments.** Paying extra when you can — a bonus, a tax refund — reduces the outstanding principal. Ask your lender whether a prepayment lowers your EMI or shortens the tenure; shortening the tenure usually saves more interest.\n\n## Can you afford it? A quick check\n\nA common guideline lenders and advisers use is to keep total monthly debt payments — home loan plus any car loan, cards or personal loans — within roughly 30–40% of your monthly income, and to keep a few months of EMI saved as a buffer before you sign. It is a rule of thumb, not a law: your real costs, job stability and other commitments matter more than any single percentage.\n\nRun the numbers honestly. If the EMI for the tenure you want leaves no room for savings or surprises, either borrow less, save a bigger down payment, or wait. A home loan is a 20-year commitment, and the calculator is free — use it before the bank uses its own version.\n\n## Common mistakes before signing\n\n- **Looking only at the EMI.** The monthly number is the least informative figure on the page. Total interest and total payable are what the loan actually costs you.\n- **Ignoring fees.** Processing fees, insurance and legal charges sit outside the EMI. Ask for the full cost in writing.\n- **Choosing the longest tenure by default.** It feels safer month to month, but it can cost you more than the house itself in interest over 30 years.\n- **Not checking the breakdown.** The year-by-year schedule shows exactly when your balance starts falling fast — useful if you plan to sell or refinance in a few years.\n- **Treating the calculator figure as a bank quote.** It is an estimate. Banks add fees and use their own rounding, so confirm the final figures with your lender.\n\n## The bottom line\n\nA home loan EMI calculator turns a vague monthly figure into a clear picture: what you pay, what the bank earns, and how much a shorter tenure or a bigger down payment actually saves you. Work out your numbers with the [free EMI calculator](/tools/emi-calculator) before you sign — five minutes now can save you years of overpaying later.",
+  "faqs": [
+    {
+      "q": "How is a home loan EMI calculated?",
+      "a": "Banks use the reducing-balance formula: EMI = P x r x (1 + r)^n / ((1 + r)^n - 1), where P is the loan amount, r is the monthly interest rate (annual rate divided by 12), and n is the number of monthly payments. You can run the same calculation in seconds with the free EMI calculator on this site - enter the loan amount, rate and tenure and it shows the EMI, total interest and a year-by-year breakdown."
+    },
+    {
+      "q": "What is a good home loan interest rate?",
+      "a": "There is no single good rate - it depends on your country, the lender, your credit history and whether the rate is fixed or variable. The useful comparison is the full cost of the loan, including processing fees and insurance, not just the headline rate. Run each offer through the EMI calculator with the same loan amount and tenure, and compare the total payable, not just the monthly EMI."
+    },
+    {
+      "q": "Does a longer tenure always mean a lower EMI?",
+      "a": "Yes, the monthly EMI falls as the tenure gets longer - but the total interest rises sharply. On a $500,000 loan at 11%, a 15-year tenure costs about $5,683 a month and $522,937 in interest, while a 30-year tenure costs $4,762 a month but $1,214,182 in interest. A longer tenure buys a lower monthly payment at a much higher total cost."
+    },
+    {
+      "q": "Can I reduce my home loan EMI?",
+      "a": "Yes. The most effective ways are a bigger down payment (smaller loan), a lower interest rate (compare lenders or refinance), and prepayments that cut the outstanding principal. A shorter tenure raises the EMI but cuts total interest, so it is a trade-off. Ask your lender whether a prepayment lowers your EMI or shortens the tenure - shortening the tenure usually saves more interest overall."
+    },
+    {
+      "q": "Is the EMI from the calculator the same as my bank's figure?",
+      "a": "It should be very close, but treat it as an estimate, not a bank quote. Banks add processing fees, insurance and their own rounding, and the final offer depends on their assessment of you. Use the calculator to compare loans and tenures, then confirm the exact figures with your lender before signing."
+    },
+    {
+      "q": "Why is most of my early EMI interest, not principal?",
+      "a": "Interest is charged on the balance you still owe, and at the start of the loan that is nearly the full amount. On a $500,000 loan at 11% over 20 years, about $54,640 of your first year's $61,931 in payments is interest and only about $7,292 is principal. As the balance falls, the interest share shrinks and the principal share grows."
+    }
+  ],
+  "relatedTools": [
+    "emi-calculator",
+    "percentage-calculator",
+    "unit-converter"
+  ],
+  "status": "published"
+}
