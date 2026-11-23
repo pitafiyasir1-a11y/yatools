@@ -45,7 +45,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "grammar-checker": "2026-11-18",
   "regex-tester": "2026-11-17",
   "jwt-decoder": "2026-11-17",
-  "qr-code-generator": "2026-11-19",
+  "qr-code-generator": "2026-11-23",
   "emi-calculator": "2026-11-17",
   "ai-chatbot": "2026-11-22",
   "ai-logo-generator": "2026-11-22",

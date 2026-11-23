@@ -35,11 +35,12 @@ function softwareAppJsonLd() {
 }
 
 export const metadata = pageMeta({
-  title: "QR Code Generator Free — No Sign Up, No Expiration",
+  title: "Best Free QR Code Generator — No Sign Up, No Expiration",
   description:
     "Free QR code generator with no sign-up and no expiration — create scannable codes for links, text, Wi-Fi credentials, and more. Custom colors, styles, and high-res PNG download. Try now!",
   path: "/tools/qr-code-generator",
   keywords: [
+    "best free qr code generator",
     "QR code generator",
     "create QR code",
     "QR maker",

@@ -198,7 +198,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Generate crisp QR codes instantly in your browser — for URLs, plain text, or Wi-Fi credentials. Static QR codes that never expire. Nothing is uploaded; everything stays on your device.",
     category: "Everyday Utilities",
-    keyword: "qr code generator free no expiration",
+    keyword: "best free qr code generator",
     badge: "Free",
     badgeColor: "green",
     api: null,

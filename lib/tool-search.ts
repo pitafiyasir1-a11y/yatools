@@ -16,7 +16,7 @@ const SYNONYMS: Record<string, string[]> = {
   "ai-writer": ["write essay", "email writer", "story writer", "ai writing", "write caption"],
   "ai-code-generator": ["write code", "generate code", "python code", "code ai", "programming help"],
   "movie-tv-search": ["film search", "series finder", "imdb", "what to watch"],
-  "qr-code-generator": ["qr maker", "create qr", "barcode"],
+  "qr-code-generator": ["qr maker", "create qr", "barcode", "best qr code generator", "best free qr"],
   "qr-scanner": ["qr reader", "scan qr", "decode qr"],
   "word-counter": ["character count", "count words", "wordcount"],
   "json-formatter": ["json beautifier", "json validator", "pretty json", "json lint"],
