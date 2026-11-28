@@ -51,6 +51,7 @@ const TOOL_EDIT_DATES: Record<string, string> = {
   "ai-logo-generator": "2026-11-22",
   "ai-writer": "2026-11-22",
   "ai-code-generator": "2026-11-22",
+  "video-compressor": "2026-11-28",
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

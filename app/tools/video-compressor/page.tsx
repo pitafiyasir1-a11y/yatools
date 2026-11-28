@@ -22,11 +22,11 @@ import { softwareAppJsonLd } from "../_conv-shared/seo";
 const tool: ToolDef = {
   slug: "video-compressor",
   name: "Video Compressor",
-  tagline: "A free video compressor: shrink MP4, WebM, and MOV files in your browser — large videos take a few minutes.",
+  tagline: "A free video compressor for Discord: shrink MP4, WebM, and MOV clips to fit Discord's 10 MB upload limit — in your browser, no watermark.",
   description:
-    "Compress video online free: shrink MP4, WebM and MOV files with adjustable quality, right in your browser. No upload, no sign-up, no watermark.",
+    "Video compressor for Discord: shrink a video under Discord's 10 MB free upload limit — free online, in your browser. MP4, WebM, MOV in; smaller H.264 MP4 out. No sign-up, no watermark.",
   category: "Everyday Utilities",
-  keyword: "compress video online free",
+  keyword: "video compressor for discord",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -38,11 +38,14 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "Video Compressor - Compress MP4 Videos Free Online",
+  title: "Video Compressor for Discord — Free Online, No Sign-Up",
   description:
-    "Compress video online free: shrink MP4, WebM, and MOV files in your browser with no watermark. Large videos take a few minutes. Try it now — it’s free!",
+    "Video compressor for Discord: shrink clips under Discord's 10 MB free upload limit in your browser. MP4, WebM, MOV — no upload, no sign-up, no watermark.",
   path: "/tools/video-compressor",
   keywords: [
+    "video compressor for discord",
+    "video compressor to 10mb",
+    "compress video for discord",
     "compress video online free",
     "video compressor",
     "compress video",
@@ -53,6 +56,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "How do I compress a video for Discord?",
+    a: "Discord caps free uploads at 10 MB. Drop your clip in, pick a lower resolution (720p or 480p) and a higher CRF (30–34), then compress — the tool shows the exact before/after size, so re-run with stronger settings until it reads under 10 MB. Nitro members get 50–500 MB, so less squeezing is needed.",
+  },
   {
     q: "How much smaller can this video compressor make my file?",
     a: "It depends on the source. An already-tightly-compressed MP4 might shrink 10–30%, while an uncompressed screen recording can drop 70–90%. The tool shows you the exact before/after sizes, so you always know what you got.",
@@ -78,9 +85,9 @@ const faqs = [
 const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "How to compress a video online",
+  name: "How to compress a video for Discord",
   description:
-    "Shrink a video file in your browser with YATools' free video compressor.",
+    "Shrink a video under Discord's 10 MB upload limit in your browser with YATools' free video compressor.",
   step: [
     {
       "@type": "HowToStep",
@@ -90,7 +97,7 @@ const howToJsonLd = {
     {
       "@type": "HowToStep",
       name: "Choose your settings",
-      text: "Pick a compression level (CRF), a speed preset, and an output resolution. 720p with CRF 26 suits most sharing.",
+      text: "Pick a compression level (CRF), a speed preset, and an output resolution. For Discord's 10 MB limit, try 720p or 480p with CRF 30–34.",
     },
     {
       "@type": "HowToStep",
@@ -122,10 +129,10 @@ export default function VideoCompressorPage() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Free Video <em>Compressor</em> Online
+              Video <em>Compressor</em> for Discord
             </>
           }
-          tagline="A free video compressor: shrink MP4, WebM, and MOV files in your browser — large videos take a few minutes."
+          tagline="A free video compressor for Discord: shrink MP4, WebM, and MOV clips to fit Discord's 10 MB upload limit — in your browser, no watermark."
         />
 
         <VideoCompressorClient />
@@ -181,7 +188,7 @@ export default function VideoCompressorPage() {
             },
             {
               title: "Pick quality & resolution",
-              text: "Set the compression level (CRF 18–34), a speed preset, and optionally downscale to 1080p, 720p or 480p.",
+              text: "Set the compression level (CRF 18–34), a speed preset, and optionally downscale to 1080p, 720p or 480p. Aiming for Discord? Try 720p with CRF 30–34.",
             },
             {
               title: "Compress & download",
@@ -205,8 +212,8 @@ export default function VideoCompressorPage() {
         >
           {[
             {
-              t: "Messaging app limits",
-              d: "WhatsApp, Telegram and email choke on big videos. Compress a 200 MB screen recording down to something that actually sends.",
+              t: "Discord uploads",
+              d: "Discord caps free uploads at 10 MB. Compress a clip with a higher CRF and a 720p or 480p downscale until the before/after size reads under 10 MB — then it sends first time.",
             },
             {
               t: "Upload faster",

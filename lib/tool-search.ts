@@ -65,7 +65,7 @@ const SYNONYMS: Record<string, string[]> = {
   "video-to-gif-converter": ["mp4 to gif", "video to gif", "make gif", "animated gif"],
   "video-trimmer": ["cut video", "trim mp4", "shorten video", "crop video"],
   "video-converter": ["convert video format", "mp4 converter", "change video format"],
-  "video-compressor": ["reduce video size", "compress mp4", "shrink video", "make video smaller"],
+  "video-compressor": ["reduce video size", "compress mp4", "shrink video", "make video smaller", "video compressor for discord", "discord video compressor", "video compressor to 10mb", "compress video to 10mb"],
   "gif-to-mp4-converter": ["gif to video"],
   "mkv-to-mp4-converter": ["mkv to mp4"],
   "mov-to-mp4-converter": ["mov to mp4", "iphone video to mp4", "quicktime to mp4"],

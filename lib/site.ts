@@ -909,11 +909,11 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "video-compressor",
     name: "Video Compressor",
-    tagline: "Shrink MP4, WebM and MOV files online — free, in your browser.",
+    tagline: "Shrink MP4, WebM and MOV clips to fit Discord's 10 MB upload limit — free, in your browser.",
     description:
-      "Compress video online free: shrink MP4, WebM and MOV files with adjustable quality, right in your browser. No upload, no sign-up, no watermark.",
+      "Video compressor for Discord: shrink a video under Discord's 10 MB free upload limit — free online, in your browser. MP4, WebM, MOV in; smaller H.264 MP4 out. No sign-up, no watermark.",
     category: "Everyday Utilities",
-    keyword: "compress video online free",
+    keyword: "video compressor for discord",
     badge: "Free",
     badgeColor: "green",
     api: null,
