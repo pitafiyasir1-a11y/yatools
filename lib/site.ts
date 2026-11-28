@@ -731,7 +731,7 @@ export const TOOLS: ToolDef[] = [
     description:
       "Convert audio to MP3 free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
     category: "Audio & Speech",
-    keyword: "convert audio to mp3 free",
+    keyword: "ogg to mp3 converter",
     badge: "Free",
     badgeColor: "green",
     api: null,

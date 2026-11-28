@@ -69,7 +69,7 @@ const SYNONYMS: Record<string, string[]> = {
   "gif-to-mp4-converter": ["gif to video"],
   "mkv-to-mp4-converter": ["mkv to mp4"],
   "mov-to-mp4-converter": ["mov to mp4", "iphone video to mp4", "quicktime to mp4"],
-  "audio-to-mp3": ["convert audio", "audio converter", "sound to mp3"],
+  "audio-to-mp3": ["convert audio", "audio converter", "sound to mp3", "ogg to mp3", "ogg to mp3 converter"],
   "wav-to-mp3-converter": ["wav to mp3"],
   "m4a-to-mp3-converter": ["m4a to mp3", "apple audio to mp3"],
   "flac-to-mp3-converter": ["flac to mp3"],

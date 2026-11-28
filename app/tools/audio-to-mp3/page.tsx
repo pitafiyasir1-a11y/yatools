@@ -23,11 +23,11 @@ import AudioToMp3Client from "./ToolClient";
 const tool: ToolDef = {
   slug: "audio-to-mp3",
   name: "Audio to MP3",
-  tagline: "A free online audio to MP3 converter: turn WAV, FLAC, M4A, and OGG into MP3 — in your browser.",
+  tagline: "Free OGG to MP3 converter online: turn OGG (plus WAV, FLAC, M4A) into MP3 — in your browser.",
   description:
-    "Convert audio to MP3 free: convert WAV, FLAC, M4A, and OGG to MP3 with the LAME encoder. Choose 96–320 kbps. Runs in your browser, fully private.",
+    "OGG to MP3 converter free online: convert OGG to MP3 with the LAME encoder — WAV, FLAC, and M4A work too. Choose 96–320 kbps. Runs in your browser, fully private.",
   category: "Audio & Speech",
-  keyword: "convert audio to mp3 free",
+  keyword: "ogg to mp3 converter",
   badge: "Free",
   badgeColor: "green",
   api: null,
@@ -39,12 +39,13 @@ const tool: ToolDef = {
 };
 
 export const metadata = pageMeta({
-  title: "Audio to MP3 Converter - Any Audio to MP3 Free Online",
+  title: "OGG to MP3 Converter Free Online — No Sign-Up",
   description:
-    "Convert audio to MP3 free: turn WAV, FLAC, M4A, and OGG into universal MP3 in your browser. No uploads, no sign-up. No watermarks, ever. Try it now!",
+    "OGG to MP3 converter, free online: turn OGG into universal MP3 in your browser — WAV, FLAC, and M4A work too. No uploads, no sign-up. No watermarks, ever. Try it now!",
   path: "/tools/audio-to-mp3",
   keywords: [
-    "convert audio to mp3 free",
+    "ogg to mp3 converter",
+    "ogg to mp3",
     "audio to mp3 converter online",
     "convert audio to mp3",
     "wav to mp3 online",
@@ -54,6 +55,10 @@ export const metadata = pageMeta({
 });
 
 const faqs = [
+  {
+    q: "How do I convert an OGG file to MP3?",
+    a: "Drop your .ogg file onto the page, pick a bitrate (192 kbps is the everyday sweet spot), and press “Convert to MP3”. Your file is decoded and re-encoded in your browser with the LAME encoder — nothing is uploaded — then preview it and download the MP3.",
+  },
   {
     q: "Which audio formats can I convert to MP3?",
     a: "WAV, FLAC, M4A/AAC, OGG, and Opus — anything your browser can decode. The file is decoded with your browser's own audio engine, then re-encoded to MP3 with LAME, the gold-standard MP3 encoder.",
@@ -101,10 +106,10 @@ export default function AudioToMp3Page() {
           badgeColor={tool.badgeColor}
           title={
             <>
-              Free Audio to <em>MP3 Converter</em> Online
+              Free OGG to <em>MP3 Converter</em> Online
             </>
           }
-          tagline="A free online audio to MP3 converter: turn WAV, FLAC, M4A, and OGG into MP3 — in your browser."
+          tagline="Free OGG to MP3 converter online: turn OGG (plus WAV, FLAC, M4A) into MP3 — in your browser."
         />
 
         <AudioToMp3Client />
